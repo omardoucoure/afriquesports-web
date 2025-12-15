@@ -82,6 +82,9 @@ export interface WordPressCategory {
   parent: number;
 }
 
+// Type alias for client-side use
+export type WPPost = WordPressPost;
+
 // ============================================================================
 // CONSTANTS
 // ============================================================================

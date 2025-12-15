@@ -6,3 +6,4 @@ export { ArticleGrid, ArticleGridSkeleton } from "./article-grid";
 export { RankingSection, RankingSectionSkeleton } from "./ranking-section";
 export { ShareButtons } from "./share-buttons";
 export { ArticleContent } from "./article-content";
+export { LoadMoreArticles } from "./load-more-articles";

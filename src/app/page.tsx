@@ -4,10 +4,10 @@ import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
   HeroSectionSkeleton,
-  ArticleCardHorizontal,
   ArticleCardHorizontalSkeleton,
   RankingSection,
   RankingSectionSkeleton,
+  LoadMoreArticles,
 } from "@/components/articles";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
@@ -52,6 +52,7 @@ async function HeroArticlesSection() {
 }
 
 async function LatestArticlesSection() {
+  const t = await getTranslations("home");
   const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5" });
 
   if (!articles || articles.length === 0) {
@@ -65,15 +66,14 @@ async function LatestArticlesSection() {
   }
 
   return (
-    <div className="space-y-4">
-      {articles.map((article, index) => (
-        <ArticleCardHorizontal
-          key={article.id}
-          article={article}
-          priority={index < 3}
-        />
-      ))}
-    </div>
+    <LoadMoreArticles
+      initialArticles={articles}
+      initialOffset={5}
+      perPage={20}
+      loadMoreText={t("loadMore")}
+      loadingText={t("loading")}
+      noMoreText={t("noMoreArticles")}
+    />
   );
 }
 
@@ -158,16 +158,6 @@ export default async function Home() {
               >
                 <LatestArticlesSection />
               </Suspense>
-
-              {/* Load more button */}
-              <div className="mt-8 text-center">
-                <a
-                  href="/articles"
-                  className="inline-block px-8 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors rounded-lg"
-                >
-                  {t("seeMoreArticles")}
-                </a>
-              </div>
             </div>
 
             {/* Sidebar - hidden on mobile */}
