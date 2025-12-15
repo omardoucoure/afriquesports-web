@@ -10,6 +10,10 @@ export default createMiddleware({
 
   // Don't add locale prefix for default locale (French)
   localePrefix: "as-needed",
+
+  // Disable automatic locale detection from browser
+  // Users can manually switch using the language switcher
+  localeDetection: false,
 });
 
 export const config = {
