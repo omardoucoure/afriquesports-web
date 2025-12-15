@@ -180,11 +180,10 @@
   }
 
   /* YouTube and video embeds */
-  .article-content iframe,
   .article-content .wp-block-embed,
   .article-content .wp-block-video,
   .article-content [class*="youtube"],
-  .article-content [class*="video"] {
+  .article-content [class*="video"]:not(.twitter-tweet) {
     @apply w-full rounded-lg overflow-hidden my-6;
     aspect-ratio: 16 / 9;
   }
@@ -196,17 +195,24 @@
     max-width: 100%;
   }
 
-  /* Twitter embeds */
+  /* Twitter/X embeds - allow natural height */
   .article-content .twitter-tweet,
+  .article-content .twitter-tweet-rendered,
   .article-content [class*="twitter"],
-  .article-content iframe[src*="twitter"],
-  .article-content iframe[src*="x.com"],
   .article-content blockquote.twitter-tweet {
-    @apply mx-auto my-6 max-w-full;
+    @apply mx-auto my-6;
+    max-width: 550px !important;
+    width: 100% !important;
   }
 
-  .article-content .twitter-tweet iframe {
-    @apply max-w-full;
+  .article-content .twitter-tweet iframe,
+  .article-content iframe[src*="twitter"],
+  .article-content iframe[src*="platform.twitter"],
+  .article-content iframe[src*="x.com"] {
+    @apply max-w-full mx-auto;
+    aspect-ratio: unset !important;
+    height: auto !important;
+    min-height: 250px;
   }
 
   /* Instagram embeds */
@@ -221,8 +227,8 @@
     @apply w-full my-6 max-w-full;
   }
 
-  /* Generic iframe styling */
-  .article-content iframe:not([src*="youtube"]):not([src*="twitter"]):not([src*="instagram"]):not([src*="facebook"]) {
+  /* Generic iframe styling - exclude social embeds */
+  .article-content iframe:not([src*="youtube"]):not([src*="twitter"]):not([src*="platform.twitter"]):not([src*="instagram"]):not([src*="facebook"]):not([src*="x.com"]) {
     @apply w-full rounded-lg my-6;
     max-width: 100%;
   }
