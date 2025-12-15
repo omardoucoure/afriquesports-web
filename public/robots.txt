@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /search
+Disallow: /_next
+Disallow: /api
+
+# Googlebot-News
+User-agent: Googlebot-News
+Allow: /
+
+# Host
+Host: https://www.afriquesports.net
+
+# Sitemaps
+Sitemap: https://www.afriquesports.net/sitemap.xml
+Sitemap: https://www.afriquesports.net/news-sitemap.xml
