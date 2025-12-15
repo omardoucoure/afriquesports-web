@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { getLocale, getMessages } from "next-intl/server";
 import { GoogleAnalytics, CookieConsent } from "@/components/analytics";
-import { IntlProvider } from "@/components/providers";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -88,16 +86,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
-  const messages = await getMessages();
-
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -116,9 +111,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen" style={{ fontFamily: "'Product Sans', 'Rubik', system-ui, sans-serif" }}>
-        <IntlProvider locale={locale} messages={messages}>
-          {children}
-        </IntlProvider>
+        {children}
         <CookieConsent />
         <GoogleAnalytics />
         <Analytics />
