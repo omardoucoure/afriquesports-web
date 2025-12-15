@@ -116,7 +116,7 @@ export function Pagination({
               </span>
             ) : page === currentPage ? (
               <span
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#9DFF20] text-[#345C00] font-semibold"
+                className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#04453f] text-white font-semibold"
                 aria-current="page"
               >
                 {page}

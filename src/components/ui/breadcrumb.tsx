@@ -56,13 +56,13 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
                 )}
 
                 {isLast ? (
-                  <span className="text-gray-600 font-medium truncate max-w-[200px]">
+                  <span className="text-gray-900 font-medium line-clamp-2 sm:line-clamp-1">
                     {item.label}
                   </span>
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-gray-500 hover:text-[#345C00] transition-colors"
+                    className="text-gray-500 hover:text-[#022a27] transition-colors"
                   >
                     {item.label}
                   </Link>

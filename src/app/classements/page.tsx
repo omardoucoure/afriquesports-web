@@ -109,7 +109,7 @@ export default function ClassementsPage() {
                             <span
                               className={`inline-flex items-center justify-center w-6 h-6 text-xs font-medium rounded ${
                                 team.position <= 3
-                                  ? "bg-[#9DFF20] text-[#345C00]"
+                                  ? "bg-[#04453f] text-white"
                                   : team.position <= 5
                                   ? "bg-blue-100 text-blue-700"
                                   : "text-gray-600"
@@ -149,7 +149,7 @@ export default function ClassementsPage() {
 
                 {/* View full table link */}
                 <div className="p-3 border-t border-gray-100">
-                  <button className="w-full py-2 text-sm font-medium text-[#345C00] hover:bg-[#9DFF20]/10 rounded-lg transition-colors">
+                  <button className="w-full py-2 text-sm font-medium text-[#022a27] hover:bg-[#04453f]/10 rounded-lg transition-colors">
                     Voir le classement complet
                   </button>
                 </div>

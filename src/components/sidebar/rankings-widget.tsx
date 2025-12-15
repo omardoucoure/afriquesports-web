@@ -29,7 +29,7 @@ export function RankingsWidget({
   const displayTeams = teams.slice(0, maxTeams);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4">
+    <div className="bg-white rounded p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-gray-900">{title}</h3>
@@ -59,7 +59,7 @@ export function RankingsWidget({
                   <span
                     className={`inline-flex items-center justify-center w-5 h-5 text-xs font-medium rounded ${
                       team.position <= 3
-                        ? "bg-[#9DFF20] text-[#345C00]"
+                        ? "bg-[#04453f] text-white"
                         : "text-gray-600"
                     }`}
                   >
@@ -92,7 +92,7 @@ export function RankingsWidget({
       {showFullLink && (
         <Link
           href="/classements"
-          className="block mt-4 text-center text-sm font-medium text-[#345C00] hover:text-[#9DFF20] transition-colors"
+          className="block mt-4 text-center text-sm font-medium text-[#022a27] hover:text-[#04453f] transition-colors"
         >
           Voir le classement complet →
         </Link>
@@ -104,7 +104,7 @@ export function RankingsWidget({
 // Skeleton for loading state
 export function RankingsWidgetSkeleton() {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 animate-pulse">
+    <div className="bg-white rounded p-4 animate-pulse">
       <div className="flex items-center justify-between mb-4">
         <div className="h-5 w-24 bg-gray-200 rounded" />
         <div className="h-5 w-16 bg-gray-200 rounded" />

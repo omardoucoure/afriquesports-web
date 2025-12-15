@@ -42,7 +42,7 @@ export default function ConfidentialitePage() {
 
             <div className="prose prose-gray max-w-none">
               <p className="text-gray-600 mb-6">
-                Dernière mise à jour : {new Date().toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
+                Dernière mise à jour : 14 décembre 2024
               </p>
 
               <section className="mb-8">
@@ -133,7 +133,7 @@ export default function ConfidentialitePage() {
                 </ul>
                 <p className="text-gray-700 leading-relaxed mt-4">
                   Pour exercer ces droits, contactez-nous à :
-                  <a href="mailto:contact@afriquesports.net" className="text-[#345C00] hover:underline ml-1">
+                  <a href="mailto:contact@afriquesports.net" className="text-[#022a27] hover:underline ml-1">
                     contact@afriquesports.net
                   </a>
                 </p>
@@ -170,10 +170,10 @@ export default function ConfidentialitePage() {
                   <p className="text-gray-700"><strong>Afrique Sports</strong></p>
                   <p className="text-gray-600">Dakar, Sénégal</p>
                   <p className="text-gray-600">
-                    Email : <a href="mailto:contact@afriquesports.net" className="text-[#345C00] hover:underline">contact@afriquesports.net</a>
+                    Email : <a href="mailto:contact@afriquesports.net" className="text-[#022a27] hover:underline">contact@afriquesports.net</a>
                   </p>
                   <p className="text-gray-600">
-                    Téléphone : <a href="tel:+221778683200" className="text-[#345C00] hover:underline">+221 77 868 32 00</a>
+                    Téléphone : <a href="tel:+221778683200" className="text-[#022a27] hover:underline">+221 77 868 32 00</a>
                   </p>
                 </div>
               </section>

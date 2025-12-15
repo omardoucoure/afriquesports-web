@@ -1,0 +1,155 @@
+{
+  "common": {
+    "home": "Home",
+    "search": "Search",
+    "menu": "Menu",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "seeMore": "See more",
+    "seeAll": "See all",
+    "share": "Share",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "readMore": "Read more",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "page": "Page",
+    "of": "of"
+  },
+  "nav": {
+    "home": "Home",
+    "africa": "Africa",
+    "europe": "Europe",
+    "can2025": "AFCON 2025",
+    "mercato": "Transfers",
+    "videos": "Videos",
+    "rankings": "Rankings",
+    "contact": "Contact",
+    "privacy": "Privacy"
+  },
+  "countries": {
+    "senegal": "Senegal",
+    "cameroon": "Cameroon",
+    "ivoryCoast": "Ivory Coast",
+    "algeria": "Algeria",
+    "morocco": "Morocco",
+    "drc": "DRC",
+    "nigeria": "Nigeria",
+    "egypt": "Egypt",
+    "ghana": "Ghana",
+    "mali": "Mali"
+  },
+  "categories": {
+    "africa": "Africa",
+    "europe": "Europe",
+    "can2025": "AFCON 2025",
+    "mercato": "Transfers",
+    "worldCup": "World Cup",
+    "ballonDor": "Ballon d'Or",
+    "others": "Other sports"
+  },
+  "home": {
+    "title": "African football news",
+    "description": "All the latest African and European football news",
+    "featuredArticle": "Featured",
+    "latestNews": "Latest news",
+    "latestArticles": "Latest articles",
+    "mostRead": "Most read",
+    "rankings": "Rankings",
+    "keyPlayers": "Key players",
+    "trending": "TRENDING",
+    "latest": "LATEST",
+    "seeMore": "See more",
+    "seeMoreArticles": "See more articles",
+    "can2025Title": "Africa Cup of Nations 2025",
+    "can2025Description": "Follow all the news about AFCON 2025 in Morocco. Results, rankings, team line-ups and analysis.",
+    "can2025Button": "See AFCON 2025 articles"
+  },
+  "article": {
+    "by": "By",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "readingTime": "min read",
+    "relatedArticles": "Related articles",
+    "shareOn": "Share on",
+    "facebook": "Facebook",
+    "twitter": "X (Twitter)",
+    "whatsapp": "WhatsApp",
+    "noArticles": "No articles available at the moment."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for an article...",
+    "results": "results for",
+    "noResults": "No results found for",
+    "tryAgain": "Try different keywords"
+  },
+  "rankings": {
+    "title": "Rankings",
+    "description": "Follow the rankings of major African and European football leagues.",
+    "position": "#",
+    "team": "Team",
+    "played": "P",
+    "won": "W",
+    "drawn": "D",
+    "lost": "L",
+    "goalsFor": "GF",
+    "goalsAgainst": "GA",
+    "goalDifference": "+/-",
+    "points": "Pts",
+    "viewFull": "View full rankings",
+    "africanLeagues": "African leagues",
+    "comingSoon": "African league rankings will be available soon."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Contact the Afrique Sports team for any questions or suggestions.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Error sending message",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "subjectPlaceholder": "Subject of your message",
+    "messagePlaceholder": "Your message...",
+    "info": "Contact information",
+    "address": "Dakar, Senegal",
+    "phone": "Phone",
+    "followUs": "Follow us"
+  },
+  "footer": {
+    "description": "All the latest African and European football news. AFCON 2025, transfers, results and rankings.",
+    "categories": "Categories",
+    "countries": "Countries",
+    "keyPlayers": "Key players",
+    "copyright": "All rights reserved."
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience on our site.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "description": "The page you are looking for does not exist.",
+      "backHome": "Back to home"
+    },
+    "500": {
+      "title": "Server error",
+      "description": "An error occurred. Please try again later."
+    }
+  },
+  "meta": {
+    "siteTitle": "Afrique Sports - African Football News",
+    "siteDescription": "All the latest African football news: AFCON 2025, transfers, results, rankings. Follow your favorite teams from Senegal, Morocco, Algeria, Cameroon and more."
+  }
+}

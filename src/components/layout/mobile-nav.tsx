@@ -62,7 +62,7 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#9DFF20] rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#04453f] rounded-lg flex items-center justify-center">
               <span className="text-black font-bold text-sm">AS</span>
             </div>
             <span className="font-bold text-lg">Menu</span>
@@ -119,12 +119,12 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
 
                     {/* Children */}
                     {expandedItems.includes(item.label) && (
-                      <ul className="mt-1 ml-4 space-y-1 border-l-2 border-[#9DFF20]/30">
+                      <ul className="mt-1 ml-4 space-y-1 border-l-2 border-[#04453f]/30">
                         <li>
                           <Link
                             href={item.href}
                             onClick={onClose}
-                            className="block px-4 py-2 text-sm text-[#345C00] font-medium hover:bg-[#9DFF20]/10 rounded-r-lg transition-colors"
+                            className="block px-4 py-2 text-sm text-[#022a27] font-medium hover:bg-[#04453f]/10 rounded-r-lg transition-colors"
                           >
                             Tout voir
                           </Link>

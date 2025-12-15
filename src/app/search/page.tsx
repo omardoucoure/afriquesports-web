@@ -156,7 +156,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   name="q"
                   defaultValue={query}
                   placeholder="Rechercher un article, un joueur, une équipe..."
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9DFF20] focus:border-transparent outline-none transition-shadow"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                 />
                 <svg
                   className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -174,7 +174,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               </div>
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#9DFF20] text-[#345C00] font-bold rounded-lg hover:bg-[#8de619] transition-colors"
+                className="px-6 py-3 bg-[#04453f] text-white font-bold rounded-lg hover:bg-[#8de619] transition-colors"
               >
                 Rechercher
               </button>
@@ -193,7 +193,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     <a
                       key={term}
                       href={`/search?q=${encodeURIComponent(term)}`}
-                      className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-[#9DFF20] hover:text-[#345C00] hover:border-transparent transition-colors"
+                      className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-[#04453f] hover:text-[#022a27] hover:border-transparent transition-colors"
                     >
                       {term}
                     </a>

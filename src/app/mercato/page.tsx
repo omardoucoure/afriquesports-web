@@ -6,6 +6,9 @@ import { Breadcrumb, Pagination } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 
+// ISR: Revalidate mercato page every 60 seconds
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Mercato",
   description: "Les dernières rumeurs et transferts du mercato africain et européen. Indiscrétions, officialisations et analyses des mouvements de joueurs.",

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   categories: [
@@ -93,11 +96,14 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-[#9DFF20] rounded-lg flex items-center justify-center">
-                <span className="text-black font-bold">AS</span>
-              </div>
-              <span className="font-bold text-xl">Afrique Sports</span>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/logo.jpg"
+                alt="Afrique Sports"
+                width={150}
+                height={106}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-sm text-gray-400 mb-4">
               Toute l&apos;actualité du football africain et européen. CAN 2025,
@@ -110,7 +116,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#9DFF20] hover:text-black transition-colors"
+                  className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#04453f] hover:text-black transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -129,7 +135,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#9DFF20] transition-colors"
+                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -148,7 +154,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#9DFF20] transition-colors"
+                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -167,7 +173,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#9DFF20] transition-colors"
+                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -190,7 +196,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-gray-400 hover:text-[#9DFF20] transition-colors"
+                  className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
                 >
                   {link.label}
                 </Link>

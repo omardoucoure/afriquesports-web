@@ -1,15 +1,18 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getLocale, getMessages } from "next-intl/server";
 import { GoogleAnalytics, CookieConsent } from "@/components/analytics";
+import { IntlProvider } from "@/components/providers";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#04453f",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -85,23 +88,41 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#9DFF20" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ProductSans-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className={`${jakarta.variable} antialiased min-h-screen`}>
-        {children}
+      <body className="antialiased min-h-screen" style={{ fontFamily: "'Product Sans', 'Rubik', system-ui, sans-serif" }}>
+        <IntlProvider locale={locale} messages={messages}>
+          {children}
+        </IntlProvider>
         <CookieConsent />
         <GoogleAnalytics />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,0 +1,155 @@
+{
+  "common": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "error": "Se produjo un error",
+    "retry": "Reintentar",
+    "seeMore": "Ver más",
+    "seeAll": "Ver todo",
+    "share": "Compartir",
+    "copyLink": "Copiar enlace",
+    "linkCopied": "¡Enlace copiado!",
+    "readMore": "Leer más",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "page": "Página",
+    "of": "de"
+  },
+  "nav": {
+    "home": "Inicio",
+    "africa": "África",
+    "europe": "Europa",
+    "can2025": "CAN 2025",
+    "mercato": "Fichajes",
+    "videos": "Vídeos",
+    "rankings": "Clasificaciones",
+    "contact": "Contacto",
+    "privacy": "Privacidad"
+  },
+  "countries": {
+    "senegal": "Senegal",
+    "cameroon": "Camerún",
+    "ivoryCoast": "Costa de Marfil",
+    "algeria": "Argelia",
+    "morocco": "Marruecos",
+    "drc": "RDC",
+    "nigeria": "Nigeria",
+    "egypt": "Egipto",
+    "ghana": "Ghana",
+    "mali": "Malí"
+  },
+  "categories": {
+    "africa": "África",
+    "europe": "Europa",
+    "can2025": "CAN 2025",
+    "mercato": "Fichajes",
+    "worldCup": "Copa del Mundo",
+    "ballonDor": "Balón de Oro",
+    "others": "Otros deportes"
+  },
+  "home": {
+    "title": "Noticias de fútbol africano",
+    "description": "Todas las últimas noticias del fútbol africano y europeo",
+    "featuredArticle": "Destacado",
+    "latestNews": "Últimas noticias",
+    "latestArticles": "Últimos artículos",
+    "mostRead": "Los más leídos",
+    "rankings": "Clasificaciones",
+    "keyPlayers": "Jugadores clave",
+    "trending": "TENDENCIAS",
+    "latest": "RECIENTES",
+    "seeMore": "Ver más",
+    "seeMoreArticles": "Ver más artículos",
+    "can2025Title": "Copa Africana de Naciones 2025",
+    "can2025Description": "Sigue todas las noticias de la CAN 2025 en Marruecos. Resultados, clasificaciones, alineaciones y análisis.",
+    "can2025Button": "Ver artículos CAN 2025"
+  },
+  "article": {
+    "by": "Por",
+    "publishedOn": "Publicado el",
+    "updatedOn": "Actualizado el",
+    "readingTime": "min de lectura",
+    "relatedArticles": "Artículos relacionados",
+    "shareOn": "Compartir en",
+    "facebook": "Facebook",
+    "twitter": "X (Twitter)",
+    "whatsapp": "WhatsApp",
+    "noArticles": "No hay artículos disponibles en este momento."
+  },
+  "search": {
+    "title": "Búsqueda",
+    "placeholder": "Buscar un artículo...",
+    "results": "resultados para",
+    "noResults": "No se encontraron resultados para",
+    "tryAgain": "Intenta con otras palabras clave"
+  },
+  "rankings": {
+    "title": "Clasificaciones",
+    "description": "Sigue las clasificaciones de las principales ligas de fútbol africanas y europeas.",
+    "position": "#",
+    "team": "Equipo",
+    "played": "PJ",
+    "won": "G",
+    "drawn": "E",
+    "lost": "P",
+    "goalsFor": "GF",
+    "goalsAgainst": "GC",
+    "goalDifference": "+/-",
+    "points": "Pts",
+    "viewFull": "Ver clasificación completa",
+    "africanLeagues": "Ligas africanas",
+    "comingSoon": "Las clasificaciones de las ligas africanas estarán disponibles pronto."
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Contacta al equipo de Afrique Sports para cualquier pregunta o sugerencia.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "Error al enviar el mensaje",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "Tu correo electrónico",
+    "subjectPlaceholder": "Asunto de tu mensaje",
+    "messagePlaceholder": "Tu mensaje...",
+    "info": "Información de contacto",
+    "address": "Dakar, Senegal",
+    "phone": "Teléfono",
+    "followUs": "Síguenos"
+  },
+  "footer": {
+    "description": "Todas las últimas noticias del fútbol africano y europeo. CAN 2025, fichajes, resultados y clasificaciones.",
+    "categories": "Categorías",
+    "countries": "Países",
+    "keyPlayers": "Jugadores clave",
+    "copyright": "Todos los derechos reservados."
+  },
+  "cookie": {
+    "message": "Utilizamos cookies para mejorar tu experiencia en nuestro sitio.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "learnMore": "Más información"
+  },
+  "errors": {
+    "404": {
+      "title": "Página no encontrada",
+      "description": "La página que buscas no existe.",
+      "backHome": "Volver al inicio"
+    },
+    "500": {
+      "title": "Error del servidor",
+      "description": "Se produjo un error. Por favor, inténtalo de nuevo más tarde."
+    }
+  },
+  "meta": {
+    "siteTitle": "Afrique Sports - Noticias de Fútbol Africano",
+    "siteDescription": "Todas las últimas noticias del fútbol africano: CAN 2025, fichajes, resultados, clasificaciones. Sigue a tus equipos favoritos de Senegal, Marruecos, Argelia, Camerún y más."
+  }
+}

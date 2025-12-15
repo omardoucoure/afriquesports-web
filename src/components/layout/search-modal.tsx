@@ -140,7 +140,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       router.push(`/search?q=${encodeURIComponent(term)}`);
                       onClose();
                     }}
-                    className="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-full hover:bg-[#9DFF20] hover:text-[#345C00] transition-colors"
+                    className="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-full hover:bg-[#04453f] hover:text-[#022a27] transition-colors"
                   >
                     {term}
                   </button>

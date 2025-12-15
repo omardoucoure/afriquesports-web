@@ -7,6 +7,9 @@ import { Breadcrumb, generateBreadcrumbItems, Pagination } from "@/components/ui
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 
+// ISR: Revalidate category pages every 60 seconds
+export const revalidate = 60;
+
 // Category display names and descriptions
 const categoryMeta: Record<string, { title: string; description: string }> = {
   afrique: {

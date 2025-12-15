@@ -153,6 +153,17 @@ export function getCategorySlug(post: WordPressPost): string {
 }
 
 /**
+ * Get category name from a post
+ */
+export function getCategoryName(post: WordPressPost): string {
+  const categories = post._embedded?.["wp:term"]?.[0];
+  if (categories && categories.length > 0) {
+    return categories[0].name;
+  }
+  return "Actualités";
+}
+
+/**
  * Generate article URL based on the original permalink structure
  * Pattern: /{category}/{slug}
  */

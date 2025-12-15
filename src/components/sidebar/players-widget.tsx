@@ -64,7 +64,7 @@ export function PlayersWidget({
   players = defaultPlayers,
 }: PlayersWidgetProps) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4">
+    <div className="bg-white rounded p-4">
       {/* Header */}
       <h3 className="font-bold text-gray-900 mb-4">{title}</h3>
 
@@ -87,7 +87,7 @@ export function PlayersWidget({
                   sizes="48px"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-[#9DFF20]/20 text-[#345C00] font-bold text-lg">
+                <div className="w-full h-full flex items-center justify-center bg-[#04453f]/20 text-[#022a27] font-bold text-lg">
                   {player.name.charAt(0)}
                 </div>
               )}
@@ -96,7 +96,7 @@ export function PlayersWidget({
             {/* Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-900 group-hover:text-[#345C00] transition-colors truncate">
+                <span className="font-semibold text-gray-900 group-hover:text-[#022a27] transition-colors truncate">
                   {player.name}
                 </span>
                 {player.countryFlag && (
@@ -112,7 +112,7 @@ export function PlayersWidget({
 
             {/* Arrow */}
             <svg
-              className="w-4 h-4 text-gray-400 group-hover:text-[#9DFF20] transition-colors"
+              className="w-4 h-4 text-gray-400 group-hover:text-[#04453f] transition-colors"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ export function PlayersWidget({
 // Skeleton for loading state
 export function PlayersWidgetSkeleton() {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 animate-pulse">
+    <div className="bg-white rounded p-4 animate-pulse">
       <div className="h-5 w-28 bg-gray-200 rounded mb-4" />
       <div className="space-y-3">
         {Array.from({ length: 5 }).map((_, i) => (

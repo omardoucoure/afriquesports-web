@@ -32,7 +32,7 @@ export function ArticleCard({
   // Default vertical card
   if (variant === "default") {
     return (
-      <article className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="block">
           {/* Image */}
           <div className="relative aspect-video overflow-hidden">
@@ -53,7 +53,7 @@ export function ArticleCard({
 
             {/* Category badge */}
             {showCategory && categoryLabel && (
-              <span className="absolute top-3 left-3 px-2 py-1 bg-[#9DFF20] text-[#345C00] text-xs font-semibold rounded">
+              <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
                 {categoryLabel}
               </span>
             )}
@@ -62,7 +62,7 @@ export function ArticleCard({
           {/* Content */}
           <div className="p-4">
             <h3
-              className="font-semibold text-gray-900 line-clamp-2 group-hover:text-[#345C00] transition-colors"
+              className="title-card group-hover:text-[#022a27] transition-colors"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
 
@@ -104,7 +104,7 @@ export function ArticleCard({
         <div className="flex-1 min-w-0">
           <Link href={articleUrl}>
             <h4
-              className="font-medium text-sm text-gray-900 line-clamp-2 group-hover:text-[#345C00] transition-colors"
+              className="title-card text-sm group-hover:text-[#022a27] transition-colors"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
           </Link>
@@ -119,7 +119,7 @@ export function ArticleCard({
   // Horizontal card (image left, content right)
   if (variant === "horizontal") {
     return (
-      <article className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="flex flex-col sm:flex-row">
           {/* Image */}
           <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden">
@@ -140,7 +140,7 @@ export function ArticleCard({
 
             {/* Category badge */}
             {showCategory && categoryLabel && (
-              <span className="absolute top-3 left-3 px-2 py-1 bg-[#9DFF20] text-[#345C00] text-xs font-semibold rounded">
+              <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
                 {categoryLabel}
               </span>
             )}
@@ -149,7 +149,7 @@ export function ArticleCard({
           {/* Content */}
           <div className="flex-1 p-4 sm:p-5 flex flex-col justify-center">
             <h3
-              className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-[#345C00] transition-colors"
+              className="title-article text-lg group-hover:text-[#022a27]"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
 

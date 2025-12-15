@@ -108,7 +108,7 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9DFF20] focus:border-transparent outline-none transition-shadow"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                       placeholder="Votre nom"
                     />
                   </div>
@@ -122,7 +122,7 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9DFF20] focus:border-transparent outline-none transition-shadow"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                       placeholder="votre@email.com"
                     />
                   </div>
@@ -135,7 +135,7 @@ export default function ContactPage() {
                       id="subject"
                       name="subject"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9DFF20] focus:border-transparent outline-none transition-shadow"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                     >
                       <option value="">Sélectionnez un sujet</option>
                       <option value="info">Information</option>
@@ -155,14 +155,14 @@ export default function ContactPage() {
                       name="message"
                       rows={5}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9DFF20] focus:border-transparent outline-none transition-shadow resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow resize-none"
                       placeholder="Votre message..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3 bg-[#9DFF20] text-[#345C00] font-bold rounded-lg hover:bg-[#8de619] transition-colors"
+                    className="w-full py-3 bg-[#04453f] text-white font-bold rounded-lg hover:bg-[#8de619] transition-colors"
                   >
                     Envoyer le message
                   </button>
@@ -179,36 +179,36 @@ export default function ContactPage() {
 
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-[#9DFF20]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#345C00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-[#04453f]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5 text-[#022a27]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">Email</p>
-                        <a href="mailto:contact@afriquesports.net" className="text-[#345C00] hover:underline">
+                        <a href="mailto:contact@afriquesports.net" className="text-[#022a27] hover:underline">
                           contact@afriquesports.net
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-[#9DFF20]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#345C00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-[#04453f]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5 text-[#022a27]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">Téléphone</p>
-                        <a href="tel:+221778683200" className="text-[#345C00] hover:underline">
+                        <a href="tel:+221778683200" className="text-[#022a27] hover:underline">
                           +221 77 868 32 00
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-[#9DFF20]/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#345C00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-[#04453f]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5 text-[#022a27]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
@@ -236,7 +236,7 @@ export default function ContactPage() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-[#9DFF20] hover:text-[#345C00] transition-colors"
+                        className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-[#04453f] hover:text-[#022a27] transition-colors"
                         aria-label={social.name}
                       >
                         {social.icon}
@@ -246,14 +246,14 @@ export default function ContactPage() {
                 </div>
 
                 {/* Press inquiries */}
-                <div className="bg-gradient-to-r from-[#345C00] to-[#4a8000] rounded-xl p-6 text-white">
+                <div className="bg-gradient-to-r from-[#022a27] to-[#4a8000] rounded-xl p-6 text-white">
                   <h3 className="font-bold text-lg mb-2">Demande presse</h3>
                   <p className="text-white/80 text-sm mb-4">
                     Pour toute demande média ou interview, veuillez nous contacter via notre adresse presse dédiée.
                   </p>
                   <a
                     href="mailto:presse@afriquesports.net"
-                    className="inline-block px-4 py-2 bg-[#9DFF20] text-[#345C00] font-bold rounded-lg hover:bg-white transition-colors text-sm"
+                    className="inline-block px-4 py-2 bg-[#04453f] text-white font-bold rounded-lg hover:bg-white transition-colors text-sm"
                   >
                     presse@afriquesports.net
                   </a>

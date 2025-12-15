@@ -25,7 +25,7 @@ export function RecentArticlesWidget({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4">
+    <div className="bg-white rounded p-4">
       {/* Header */}
       <h3 className="font-bold text-gray-900 mb-4">{title}</h3>
 
@@ -54,8 +54,8 @@ export function RecentArticlesWidget({
                   />
                 </div>
               ) : (
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#9DFF20] rounded-full">
-                  <span className="text-[#345C00] font-bold text-sm">
+                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-[#04453f] rounded-full">
+                  <span className="text-[#022a27] font-bold text-sm">
                     {index + 1}
                   </span>
                 </div>
@@ -64,7 +64,7 @@ export function RecentArticlesWidget({
               {/* Content */}
               <div className="flex-1 min-w-0">
                 <h4
-                  className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#345C00] transition-colors"
+                  className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#022a27] transition-colors"
                   dangerouslySetInnerHTML={{ __html: article.title.rendered }}
                 />
                 <time className="block mt-1 text-xs text-gray-500">
@@ -82,7 +82,7 @@ export function RecentArticlesWidget({
 // Skeleton for loading state
 export function RecentArticlesWidgetSkeleton({ count = 5 }: { count?: number }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 animate-pulse">
+    <div className="bg-white rounded p-4 animate-pulse">
       <div className="h-5 w-32 bg-gray-200 rounded mb-4" />
       <div className="space-y-4">
         {Array.from({ length: count }).map((_, i) => (

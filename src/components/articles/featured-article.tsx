@@ -42,14 +42,14 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
         <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
           {/* Category badge */}
           {categoryLabel && (
-            <span className="inline-block px-3 py-1 bg-[#9DFF20] text-[#345C00] text-xs font-bold uppercase tracking-wider rounded mb-3">
+            <span className="inline-block px-3 py-1 bg-[#04453f] text-white text-xs font-bold uppercase tracking-wider rounded mb-3">
               {categoryLabel}
             </span>
           )}
 
           {/* Title */}
           <h2
-            className="text-xl md:text-3xl lg:text-4xl font-bold text-white line-clamp-3 group-hover:text-[#9DFF20] transition-colors"
+            className="title-main text-white text-xl md:text-3xl lg:text-4xl line-clamp-3 group-hover:text-[#04453f] transition-colors"
             dangerouslySetInnerHTML={{ __html: article.title.rendered }}
           />
 
@@ -64,7 +64,7 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
           {/* Meta */}
           <div className="flex items-center gap-4 mt-4">
             <time className="text-sm text-gray-300">{formattedDate}</time>
-            <span className="text-[#9DFF20] text-sm font-medium group-hover:underline">
+            <span className="text-[#04453f] text-sm font-medium group-hover:underline">
               Lire l&apos;article →
             </span>
           </div>
