@@ -162,8 +162,8 @@ export default async function Home() {
               {/* Load more button */}
               <div className="mt-8 text-center">
                 <a
-                  href="/category/actualites"
-                  className="inline-block px-8 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors"
+                  href="/articles"
+                  className="inline-block px-8 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors rounded-lg"
                 >
                   {t("seeMoreArticles")}
                 </a>
