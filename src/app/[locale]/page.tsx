@@ -13,6 +13,7 @@ import {
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/db";
+import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
 
 // ISR: Revalidate homepage every 60 seconds
 export const revalidate = 60;
@@ -27,20 +28,23 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   const canonicalUrl = locale === "fr" ? baseUrl : `${baseUrl}/${locale}`;
 
   const titles: Record<string, string> = {
-    fr: "Afrique Sports - Actualités Football Africain",
-    en: "Afrique Sports - African Football News",
-    es: "Afrique Sports - Noticias de Fútbol Africano",
+    fr: "Afrique Sports - Actualités Football Africain | CAN 2025, Mercato, Résultats en Direct",
+    en: "Afrique Sports - African Football News | AFCON 2025, Transfers, Live Results",
+    es: "Afrique Sports - Noticias Fútbol Africano | CAN 2025, Fichajes, Resultados en Vivo",
   };
 
   const descriptions: Record<string, string> = {
-    fr: "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements. Suivez vos équipes favorites.",
-    en: "All African football news: AFCON 2025, transfers, results, standings. Follow your favorite teams.",
-    es: "Todas las noticias del fútbol africano: CAN 2025, mercado, resultados, clasificaciones. Sigue a tus equipos favoritos.",
+    fr: "Toute l'actualité du football africain : CAN 2025 au Maroc, mercato, résultats, classements. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Sénégal, Maroc, Algérie, Nigeria, Cameroun.",
+    en: "All African football news: AFCON 2025 in Morocco, transfers, results, standings. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Senegal, Morocco, Algeria, Nigeria, Cameroon.",
+    es: "Todas las noticias del fútbol africano: CAN 2025 en Marruecos, fichajes, resultados, clasificaciones. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Senegal, Marruecos, Argelia, Nigeria.",
   };
+
+  const keywords = getPageKeywords("home");
 
   return {
     title: titles[locale] || titles.fr,
     description: descriptions[locale] || descriptions.fr,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
       languages: {
@@ -54,22 +58,57 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       title: titles[locale] || titles.fr,
       description: descriptions[locale] || descriptions.fr,
       url: canonicalUrl,
+      type: "website",
+      siteName: "Afrique Sports",
       locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
       images: [
         {
           url: "https://www.afriquesports.net/opengraph-image",
           width: 1200,
           height: 630,
-          alt: "Afrique Sports",
+          alt: "Afrique Sports - Football Africain CAN 2025",
+          type: "image/png",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      images: ["https://www.afriquesports.net/opengraph-image"],
+      site: "@afriquesports",
+      creator: "@afriquesports",
+      title: titles[locale] || titles.fr,
+      description: descriptions[locale] || descriptions.fr,
+      images: [{
+        url: "https://www.afriquesports.net/opengraph-image",
+        alt: "Afrique Sports - Football Africain",
+      }],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
     },
   };
 }
+
+// FAQ data for homepage - helps with featured snippets
+const homepageFaqs = [
+  {
+    question: "Quand commence la CAN 2025 ?",
+    answer: "La Coupe d'Afrique des Nations 2025 se déroule au Maroc du 21 décembre 2025 au 18 janvier 2026. Le match d'ouverture oppose le Maroc aux Comores au Stade Prince Moulay Abdellah de Rabat.",
+  },
+  {
+    question: "Qui sont les favoris de la CAN 2025 ?",
+    answer: "Les favoris de la CAN 2025 sont le Maroc (pays hôte et meilleure équipe africaine au classement FIFA), l'Égypte (7 fois champion), le Sénégal (champion 2022), le Nigeria et la Côte d'Ivoire (champion 2023).",
+  },
+  {
+    question: "Quels sont les meilleurs joueurs africains en 2025 ?",
+    answer: "Les meilleurs joueurs africains en 2025 sont Mohamed Salah (Égypte/Liverpool), Victor Osimhen (Nigeria), Achraf Hakimi (Maroc/PSG), Sadio Mané (Sénégal), Nicolas Jackson (Sénégal/Chelsea) et Ademola Lookman (Nigeria).",
+  },
+  {
+    question: "Où regarder les matchs de la CAN 2025 ?",
+    answer: "La CAN 2025 est diffusée sur beIN Sports, Canal+ Afrique, et les chaînes nationales des pays participants. Suivez les résultats en direct sur Afrique Sports.",
+  },
+];
 
 async function HeroArticlesSection() {
   const t = await getTranslations("home");
@@ -221,11 +260,27 @@ async function MostReadSection() {
   return <MostReadWidget articles={articles} />;
 }
 
-export default async function Home() {
+export default async function Home({ params }: HomePageProps) {
+  const { locale } = await params;
   const t = await getTranslations("home");
+
+  // Generate JSON-LD schemas for homepage
+  const websiteJsonLd = generateWebsiteJsonLd(locale);
+  const faqJsonLd = generateFaqJsonLd(homepageFaqs);
 
   return (
     <>
+      {/* WebSite Schema with SearchAction */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      {/* FAQ Schema for featured snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       <Header />
 
       <main className="min-h-screen bg-[#F6F6F6] pt-[72px] md:pt-[88px] lg:pt-16 pb-20 lg:pb-0">

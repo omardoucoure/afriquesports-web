@@ -8,60 +8,83 @@ import { Breadcrumb, Pagination } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
+import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
 // ISR: Revalidate category pages every 60 seconds
 export const revalidate = 60;
 
-// Category display names and descriptions
-const categoryMeta: Record<string, { title: string; description: string }> = {
+// Category display names, descriptions, and SEO-optimized titles
+const categoryMeta: Record<string, { title: string; seoTitle: string; description: string }> = {
   afrique: {
     title: "Football Africain",
-    description: "Toute l'actualité du football africain : CAN, championnats nationaux, sélections et transferts des joueurs africains.",
+    seoTitle: "Football Africain - Actualités CAN 2025, Championnats & Joueurs",
+    description: "Toute l'actualité du football africain : CAN 2025 au Maroc, championnats nationaux, sélections et transferts. Mohamed Salah, Victor Osimhen, Achraf Hakimi et plus.",
   },
   europe: {
-    title: "Football Européen",
-    description: "L'actualité du football européen : Ligue des Champions, Premier League, Liga, Serie A, Bundesliga et Ligue 1.",
+    title: "Joueurs Africains en Europe",
+    seoTitle: "Joueurs Africains en Europe - Premier League, Liga, Serie A, Ligue 1",
+    description: "L'actualité des joueurs africains en Europe : Mohamed Salah à Liverpool, Achraf Hakimi au PSG, Victor Osimhen, Nicolas Jackson et plus. Ligue des Champions, Premier League, Liga, Serie A.",
   },
   "can-2025": {
     title: "CAN 2025",
-    description: "Suivez toute l'actualité de la Coupe d'Afrique des Nations 2025 au Maroc : résultats, classements, calendrier et analyses.",
+    seoTitle: "CAN 2025 Maroc - Calendrier, Résultats, Classements & Pronostics",
+    description: "Suivez la Coupe d'Afrique des Nations 2025 au Maroc en direct : calendrier des matchs, résultats, classements des groupes, compositions d'équipes et analyses. Maroc, Sénégal, Égypte, Nigeria en lice.",
   },
   mercato: {
-    title: "Mercato",
-    description: "Les dernières rumeurs et transferts du mercato : indiscrétions, officialisations et analyses des mouvements de joueurs.",
+    title: "Mercato Africain",
+    seoTitle: "Mercato Africain 2025 - Transferts, Rumeurs & Officialisations",
+    description: "Les dernières rumeurs et transferts du mercato africain : indiscrétions sur Victor Osimhen, officialisations et analyses des mouvements de joueurs africains en Europe.",
   },
   youtube: {
-    title: "Vidéos",
-    description: "Les meilleures vidéos de football africain : résumés de matchs, interviews, analyses tactiques et moments forts.",
+    title: "Vidéos Football Africain",
+    seoTitle: "Vidéos Football Africain - Résumés, Interviews & Analyses",
+    description: "Les meilleures vidéos de football africain : résumés de matchs CAN 2025, interviews exclusives, analyses tactiques et moments forts des joueurs africains.",
   },
-  // Country subcategories
+  // Country subcategories with enhanced SEO
   senegal: {
     title: "Football Sénégalais",
-    description: "L'actualité du football sénégalais : Lions de la Teranga, Ligue 1 sénégalaise et joueurs sénégalais à l'étranger.",
+    seoTitle: "Équipe du Sénégal - Lions de la Teranga | CAN 2025, Actualités",
+    description: "L'actualité du football sénégalais : Lions de la Teranga à la CAN 2025, Sadio Mané, Nicolas Jackson, Édouard Mendy, Kalidou Koulibaly. Championnat du Sénégal et joueurs à l'étranger.",
   },
   cameroun: {
     title: "Football Camerounais",
-    description: "L'actualité du football camerounais : Lions Indomptables, Elite One et joueurs camerounais à l'étranger.",
+    seoTitle: "Équipe du Cameroun - Lions Indomptables | CAN 2025, Actualités",
+    description: "L'actualité du football camerounais : Lions Indomptables à la CAN 2025, André-Frank Zambo Anguissa, Karl Toko Ekambi. Elite One et joueurs camerounais à l'étranger.",
   },
   "cote-divoire": {
     title: "Football Ivoirien",
-    description: "L'actualité du football ivoirien : Éléphants, Ligue 1 ivoirienne et joueurs ivoiriens à l'étranger.",
+    seoTitle: "Équipe Côte d'Ivoire - Éléphants Champions CAN 2023 | Actualités",
+    description: "L'actualité du football ivoirien : Éléphants champions CAN 2023, Sébastien Haller, Franck Kessié à la CAN 2025. Ligue 1 ivoirienne et joueurs à l'étranger.",
   },
   algerie: {
     title: "Football Algérien",
-    description: "L'actualité du football algérien : Fennecs, Ligue 1 algérienne et joueurs algériens à l'étranger.",
+    seoTitle: "Équipe d'Algérie - Les Fennecs | CAN 2025, Actualités",
+    description: "L'actualité du football algérien : Les Fennecs à la CAN 2025, Riyad Mahrez, Ismaël Bennacer. Ligue 1 algérienne et joueurs algériens en Europe.",
   },
   maroc: {
     title: "Football Marocain",
-    description: "L'actualité du football marocain : Lions de l'Atlas, Botola Pro et joueurs marocains à l'étranger.",
+    seoTitle: "Équipe du Maroc - Lions de l'Atlas Hôtes CAN 2025 | Actualités",
+    description: "L'actualité du football marocain : Lions de l'Atlas pays hôte CAN 2025, Achraf Hakimi, Hakim Ziyech, Youssef En-Nesyri. Botola Pro et joueurs marocains en Europe.",
   },
   rdc: {
     title: "Football Congolais",
-    description: "L'actualité du football de la RDC : Léopards, Linafoot et joueurs congolais à l'étranger.",
+    seoTitle: "Équipe RD Congo - Léopards | CAN 2025, Actualités",
+    description: "L'actualité du football de la RDC : Léopards à la CAN 2025, Chancel Mbemba. Linafoot et joueurs congolais à l'étranger.",
   },
   nigeria: {
     title: "Football Nigérian",
-    description: "L'actualité du football nigérian : Super Eagles, NPFL et joueurs nigérians à l'étranger.",
+    seoTitle: "Équipe du Nigeria - Super Eagles | CAN 2025, Actualités",
+    description: "L'actualité du football nigérian : Super Eagles à la CAN 2025, Victor Osimhen, Ademola Lookman, Mohammed Kudus. NPFL et joueurs nigérians en Europe.",
+  },
+  egypte: {
+    title: "Football Égyptien",
+    seoTitle: "Équipe d'Égypte - Pharaons | CAN 2025, Mohamed Salah",
+    description: "L'actualité du football égyptien : Pharaons 7 fois champions d'Afrique, Mohamed Salah à la CAN 2025. Al Ahly, Zamalek et joueurs égyptiens en Europe.",
+  },
+  ghana: {
+    title: "Football Ghanéen",
+    seoTitle: "Équipe du Ghana - Black Stars | Actualités Football",
+    description: "L'actualité du football ghanéen : Black Stars, Mohammed Kudus, Thomas Partey. Ghana Premier League et joueurs ghanéens en Europe.",
   },
 };
 
@@ -79,8 +102,13 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
 
   const meta = categoryMeta[categorySlug] || {
     title: categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1).replace(/-/g, " "),
-    description: `Actualités ${categorySlug} - Afrique Sports`,
+    seoTitle: `${categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1).replace(/-/g, " ")} | Afrique Sports`,
+    description: `Actualités ${categorySlug} - Toute l'actualité du football africain sur Afrique Sports.`,
   };
+
+  // Get category-specific keywords
+  const categoryKeywords = CATEGORY_KEYWORDS[categorySlug] || CATEGORY_KEYWORDS.afrique || [];
+  const keywords = [...categoryKeywords, ...SEO_KEYWORDS.primary.slice(0, 3)];
 
   // Build canonical URL based on locale and page
   const baseUrl = "https://www.afriquesports.net";
@@ -88,9 +116,13 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
   const pageQuery = currentPage > 1 ? `?page=${currentPage}` : "";
   const canonicalUrl = `${baseUrl}${localePrefix}${categoryPath}${pageQuery}`;
 
+  // Use SEO title for search results, display title for OG
+  const pageTitle = currentPage > 1 ? `${meta.seoTitle} - Page ${currentPage}` : meta.seoTitle;
+
   return {
-    title: currentPage > 1 ? `${meta.title} - Page ${currentPage}` : meta.title,
+    title: pageTitle,
     description: meta.description,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
       languages: {
@@ -101,23 +133,35 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
       },
     },
     openGraph: {
-      title: `${meta.title} | Afrique Sports`,
+      title: pageTitle,
       description: meta.description,
       type: "website",
       siteName: "Afrique Sports",
       url: canonicalUrl,
       locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
-      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+      images: [{
+        url: "https://www.afriquesports.net/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: meta.title,
+        type: "image/png",
+      }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${meta.title} | Afrique Sports`,
+      site: "@afriquesports",
+      creator: "@afriquesports",
+      title: pageTitle,
       description: meta.description,
-      images: ["https://www.afriquesports.net/opengraph-image"],
+      images: [{
+        url: "https://www.afriquesports.net/opengraph-image",
+        alt: meta.title,
+      }],
     },
     robots: {
       index: currentPage === 1, // Only index first page of pagination
       follow: true,
+      "max-image-preview": "large",
     },
   };
 }

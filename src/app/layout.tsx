@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, CookieConsent, Clarity } from "@/components/analytics";
+import { generateOrganizationJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -14,28 +15,49 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Afrique Sports - Actualités Football Africain",
+    default: "Afrique Sports - Actualités Football Africain | CAN 2025, Mercato, Résultats",
     template: "%s | Afrique Sports",
   },
   description:
-    "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements. Suivez vos équipes favorites du Sénégal, Maroc, Algérie, Cameroun et plus.",
+    "Toute l'actualité du football africain : CAN 2025 au Maroc, mercato, résultats, classements. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Suivez le Sénégal, Maroc, Algérie, Cameroun, Nigeria et plus.",
   keywords: [
+    // Primary keywords
     "football africain",
+    "african football",
     "CAN 2025",
-    "actualités foot",
-    "Sénégal",
-    "Maroc",
-    "Algérie",
-    "Cameroun",
-    "Côte d'Ivoire",
-    "mercato",
-    "résultats",
-    "classements",
+    "AFCON 2025",
+    "Coupe d'Afrique des Nations",
+    "Africa Cup of Nations",
+    // Top players (high search volume)
+    "Mohamed Salah",
+    "Victor Osimhen",
+    "Achraf Hakimi",
+    "Sadio Mané",
+    "Riyad Mahrez",
+    "Nicolas Jackson",
+    // Countries
+    "Sénégal football",
+    "Maroc football",
+    "Algérie football",
+    "Nigeria football",
+    "Cameroun football",
+    "Côte d'Ivoire football",
+    "Égypte football",
+    // Topics
+    "mercato africain",
+    "transferts joueurs africains",
+    "résultats foot afrique",
+    "classements CAN",
+    "buteurs africains Europe",
+    "CAF Champions League",
+    "qualifications Coupe du Monde Afrique",
   ],
-  authors: [{ name: "Afrique Sports" }],
+  authors: [{ name: "Afrique Sports", url: "https://www.afriquesports.net" }],
   creator: "Afrique Sports",
   publisher: "Afrique Sports",
   metadataBase: new URL("https://www.afriquesports.net"),
+  category: "Sports News",
+  classification: "African Football News",
   // Note: alternates (canonical, hreflang) are set per-page to avoid inheritance issues
   openGraph: {
     type: "website",
@@ -43,25 +65,30 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US", "es_ES"],
     url: "https://www.afriquesports.net",
     siteName: "Afrique Sports",
-    title: "Afrique Sports - Actualités Football Africain",
+    title: "Afrique Sports - Actualités Football Africain | CAN 2025",
     description:
-      "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements.",
+      "Toute l'actualité du football africain : CAN 2025 au Maroc, mercato, résultats, classements. Mohamed Salah, Victor Osimhen, Achraf Hakimi et plus.",
     images: [
       {
         url: "https://www.afriquesports.net/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Afrique Sports",
+        alt: "Afrique Sports - Football Africain CAN 2025",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Afrique Sports - Actualités Football Africain",
-    description:
-      "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
+    site: "@afriquesports",
     creator: "@afriquesports",
+    title: "Afrique Sports - Actualités Football Africain | CAN 2025",
+    description:
+      "Toute l'actualité du football africain : CAN 2025, mercato, résultats. Mohamed Salah, Victor Osimhen, Achraf Hakimi.",
+    images: [{
+      url: "https://www.afriquesports.net/opengraph-image",
+      alt: "Afrique Sports",
+    }],
   },
   robots: {
     index: true,
@@ -77,7 +104,15 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
+  other: {
+    "google-site-verification": "your-google-verification-code",
+    "msvalidate.01": "your-bing-verification-code",
+    "facebook-domain-verification": "your-facebook-verification-code",
+  },
 };
+
+// Organization JSON-LD for all pages
+const organizationJsonLd = generateOrganizationJsonLd();
 
 export default function RootLayout({
   children,
@@ -101,6 +136,11 @@ export default function RootLayout({
           as="font"
           type="font/ttf"
           crossOrigin="anonymous"
+        />
+        {/* Organization Schema - appears on all pages */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
       <body className="antialiased min-h-screen" style={{ fontFamily: "'Product Sans', 'Rubik', system-ui, sans-serif" }}>

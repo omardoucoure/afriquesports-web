@@ -21,6 +21,7 @@ import {
   stripHtml,
   getCategoryLabel,
 } from "@/lib/utils";
+import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
@@ -139,48 +140,74 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   }
 }
 
-// JSON-LD structured data for the article
+// JSON-LD structured data for the article - enhanced with full properties
 function ArticleJsonLd({
   title,
   description,
+  articleBody,
   imageUrl,
   datePublished,
   dateModified,
   authorName,
   articleUrl,
+  category,
+  keywords,
 }: {
   title: string;
   description: string;
+  articleBody: string;
   imageUrl: string;
   datePublished: string;
   dateModified: string;
   authorName: string;
   articleUrl: string;
+  category: string;
+  keywords: string[];
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
+    "@id": `${articleUrl}#article`,
     headline: title,
     description,
-    image: imageUrl,
+    articleBody: articleBody.slice(0, 5000), // Truncate for schema
+    image: {
+      "@type": "ImageObject",
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+    },
     datePublished,
     dateModified,
     author: {
       "@type": "Person",
       name: authorName,
+      url: `https://www.afriquesports.net/author/${authorName.toLowerCase().replace(/\s+/g, "-")}`,
     },
     publisher: {
       "@type": "Organization",
       name: "Afrique Sports",
+      url: "https://www.afriquesports.net",
       logo: {
         "@type": "ImageObject",
         url: "https://www.afriquesports.net/logo.png",
+        width: 600,
+        height: 60,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": articleUrl,
     },
+    articleSection: category,
+    keywords: keywords.join(", "),
+    inLanguage: "fr-FR",
+    isAccessibleForFree: true,
+    copyrightHolder: {
+      "@type": "Organization",
+      name: "Afrique Sports",
+    },
+    copyrightYear: new Date(datePublished).getFullYear(),
   };
 
   return (
@@ -255,11 +282,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const title = stripHtml(article.title.rendered);
   const description = stripHtml(article.excerpt.rendered);
+  const articleBody = stripHtml(article.content.rendered);
   const imageUrl = getFeaturedImageUrl(article, "full");
   const authorName = getAuthorName(article);
   const categoryLabel = getCategoryLabel(article);
   const readingTime = getReadingTime(article.content.rendered);
   const articleUrl = `https://www.afriquesports.net/${category}/${slug}`;
+
+  // Get category-specific keywords for schema
+  const categoryKeywords = CATEGORY_KEYWORDS[category] || CATEGORY_KEYWORDS.afrique || [];
+  const articleKeywords = [...categoryKeywords, ...SEO_KEYWORDS.primary.slice(0, 3)];
 
   // Generate breadcrumb items with translations
   const breadcrumbItems = generateBreadcrumbItems(`/${category}/${slug}`, title, {
@@ -273,11 +305,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <ArticleJsonLd
         title={title}
         description={description}
+        articleBody={articleBody}
         imageUrl={imageUrl}
         datePublished={article.date}
         dateModified={article.modified}
         authorName={authorName}
         articleUrl={articleUrl}
+        category={categoryLabel}
+        keywords={articleKeywords}
       />
 
       <Header />
