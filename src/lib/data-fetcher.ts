@@ -89,9 +89,19 @@ export type WPPost = WordPressPost;
 // CONSTANTS
 // ============================================================================
 
-const WORDPRESS_API_BASE = "https://cms.realdemadrid.com/afriquesports";
+// WordPress API base URLs per locale
+const WORDPRESS_API_BASES: Record<string, string> = {
+  fr: "https://cms.realdemadrid.com/afriquesports",
+  en: "https://cms.realdemadrid.com/afriquesports-en",
+  es: "https://cms.realdemadrid.com/afriquesports-es",
+};
 const WORDPRESS_API_PATH = "/wp-json/wp/v2/posts";
 const WORDPRESS_CATEGORIES_PATH = "/wp-json/wp/v2/categories";
+
+// Helper to get base URL for locale
+function getWordPressBaseUrl(locale?: string): string {
+  return WORDPRESS_API_BASES[locale || "fr"] || WORDPRESS_API_BASES.fr;
+}
 const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
 const MAX_RETRIES = 3;
@@ -195,10 +205,9 @@ export class DataFetcher {
       searchParams.set("_t", Date.now().toString());
     }
 
-    // Build URL based on locale
-    const localePrefix =
-      locale === "en" ? "/en" : locale === "es" ? "/es" : "";
-    const fullUrl = `${WORDPRESS_API_BASE}${localePrefix}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
+    // Build URL based on locale (each locale has its own WordPress site)
+    const baseUrl = getWordPressBaseUrl(locale);
+    const fullUrl = `${baseUrl}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
 
     const fetchOptions: RequestInit = {
       cache: isDev ? "no-store" : options?.cache || "no-store",
@@ -280,12 +289,17 @@ export class DataFetcher {
     params?: Record<string, string>,
     options?: FetchOptions
   ): Promise<WordPressCategory[]> {
+    const locale = params?.locale;
+    const filteredParams = { ...params };
+    delete filteredParams.locale;
+
     const searchParams = new URLSearchParams({
       per_page: "100",
-      ...params,
+      ...filteredParams,
     });
 
-    const fullUrl = `${WORDPRESS_API_BASE}${WORDPRESS_CATEGORIES_PATH}?${searchParams.toString()}`;
+    const baseUrl = getWordPressBaseUrl(locale);
+    const fullUrl = `${baseUrl}${WORDPRESS_CATEGORIES_PATH}?${searchParams.toString()}`;
 
     const isDev = process.env.NODE_ENV === "development";
     const fetchOptions: RequestInit = {

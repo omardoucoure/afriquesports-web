@@ -9,8 +9,8 @@ const WP_APP_PASSWORD = process.env.WP_COMMENT_APP_PASSWORD || ""
 function getWordPressBaseUrl(locale: string = 'fr') {
   const baseUrls: Record<string, string> = {
     fr: 'https://cms.realdemadrid.com/afriquesports',
-    en: 'https://cms.realdemadrid.com/afriquesports/en',
-    es: 'https://cms.realdemadrid.com/afriquesports/es',
+    en: 'https://cms.realdemadrid.com/afriquesports-en',
+    es: 'https://cms.realdemadrid.com/afriquesports-es',
   }
   return baseUrls[locale] || baseUrls.fr
 }
