@@ -10,6 +10,13 @@ export const metadata: Metadata = {
     description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
     type: "website",
     siteName: "Afrique Sports",
+    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | Afrique Sports",
+    description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
+    images: ["https://www.afriquesports.net/opengraph-image"],
   },
 };
 

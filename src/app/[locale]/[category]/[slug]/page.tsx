@@ -70,6 +70,11 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     const description = stripHtml(article.excerpt.rendered).slice(0, 160);
     const imageUrl = getFeaturedImageUrl(article, "full");
 
+    // Ensure absolute URL for og:image - use default og-image if placeholder or relative
+    const ogImageUrl = imageUrl && !imageUrl.startsWith("/")
+      ? imageUrl
+      : "https://www.afriquesports.net/opengraph-image";
+
     return {
       title,
       description,
@@ -80,13 +85,13 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
         siteName: "Afrique Sports",
         publishedTime: article.date,
         modifiedTime: article.modified,
-        images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : [],
+        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       },
       twitter: {
         card: "summary_large_image",
         title,
         description,
-        images: imageUrl ? [imageUrl] : [],
+        images: [ogImageUrl],
       },
       robots: {
         index: true,

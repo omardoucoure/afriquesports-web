@@ -18,6 +18,13 @@ export const metadata: Metadata = {
     description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
     type: "website",
     siteName: "Afrique Sports",
+    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tous les articles | Afrique Sports",
+    description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
+    images: ["https://www.afriquesports.net/opengraph-image"],
   },
 };
 

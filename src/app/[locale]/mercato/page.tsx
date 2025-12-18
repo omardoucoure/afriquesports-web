@@ -17,6 +17,13 @@ export const metadata: Metadata = {
     description: "Les dernières rumeurs et transferts du mercato africain et européen.",
     type: "website",
     siteName: "Afrique Sports",
+    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mercato | Afrique Sports",
+    description: "Les dernières rumeurs et transferts du mercato africain et européen.",
+    images: ["https://www.afriquesports.net/opengraph-image"],
   },
 };
 

@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://www.afriquesports.net/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Afrique Sports",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Afrique Sports - Actualités Football Africain",
     description:
       "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements.",
-    images: ["/og-image.jpg"],
+    images: ["https://www.afriquesports.net/opengraph-image"],
     creator: "@afriquesports",
   },
   robots: {

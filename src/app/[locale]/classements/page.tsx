@@ -10,6 +10,13 @@ export const metadata: Metadata = {
     description: "Consultez les classements des championnats africains et européens.",
     type: "website",
     siteName: "Afrique Sports",
+    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Classements | Afrique Sports",
+    description: "Consultez les classements des championnats africains et européens.",
+    images: ["https://www.afriquesports.net/opengraph-image"],
   },
 };
 
