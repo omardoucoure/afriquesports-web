@@ -126,7 +126,6 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const articleId = searchParams.get('post')
-    const locale = searchParams.get('locale') || 'fr'
 
     if (!articleId) {
       return NextResponse.json(
@@ -135,7 +134,9 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const baseUrl = getWordPressBaseUrl(locale)
+    // Always use French base URL for comments - all posts are stored in main site
+    // The /en/ and /es/ paths often return HTML instead of JSON
+    const baseUrl = 'https://cms.realdemadrid.com/afriquesports'
     // Add cache buster to prevent WordPress caching
     const cacheBuster = `_=${Date.now()}`
     const wpUrl = `${baseUrl}/wp-json/wp/v2/comments?post=${articleId}&per_page=100&order=desc&orderby=date&${cacheBuster}`
@@ -154,6 +155,13 @@ export async function GET(request: NextRequest) {
     })
 
     console.log('[Comments API] WordPress response status:', response.status)
+
+    // Check content-type to ensure we're getting JSON
+    const contentType = response.headers.get('content-type') || ''
+    if (!contentType.includes('application/json')) {
+      console.error(`[Comments API] Unexpected content-type: ${contentType}, returning empty comments`)
+      return NextResponse.json([])
+    }
 
     if (!response.ok) {
       const errorText = await response.text()
