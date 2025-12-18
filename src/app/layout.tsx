@@ -104,11 +104,6 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-  other: {
-    "google-site-verification": "your-google-verification-code",
-    "msvalidate.01": "your-bing-verification-code",
-    "facebook-domain-verification": "your-facebook-verification-code",
-  },
 };
 
 // Organization JSON-LD for all pages
