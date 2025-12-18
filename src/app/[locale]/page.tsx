@@ -222,7 +222,7 @@ export default async function Home() {
 
                 {/* Top African Scorers in Europe */}
                 <Suspense fallback={<TopScorersWidgetSkeleton />}>
-                  <TopScorersWidget title="Top buteurs africains" />
+                  <TopScorersWidget title={t("topScorers")} />
                 </Suspense>
 
                 {/* Key players */}
