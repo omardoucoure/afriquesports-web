@@ -14,77 +14,89 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 export const revalidate = 60;
 
 // Category display names, descriptions, and SEO-optimized titles
+// Optimized for higher CTR with power words, current year, and action-oriented language
 const categoryMeta: Record<string, { title: string; seoTitle: string; description: string }> = {
   afrique: {
     title: "Football Africain",
-    seoTitle: "Football Africain - Actualités CAN 2025, Championnats & Joueurs",
-    description: "Toute l'actualité du football africain : CAN 2025 au Maroc, championnats nationaux, sélections et transferts. Mohamed Salah, Victor Osimhen, Achraf Hakimi et plus.",
+    seoTitle: "Football Africain 2025 : Actu CAN, Résultats en Direct & Transferts",
+    description: "Dernières nouvelles du football africain : CAN 2025 au Maroc, résultats en direct, transferts chocs. Mohamed Salah, Osimhen, Hakimi. Mises à jour quotidiennes.",
   },
   europe: {
     title: "Joueurs Africains en Europe",
-    seoTitle: "Joueurs Africains en Europe - Premier League, Liga, Serie A, Ligue 1",
-    description: "L'actualité des joueurs africains en Europe : Mohamed Salah à Liverpool, Achraf Hakimi au PSG, Victor Osimhen, Nicolas Jackson et plus. Ligue des Champions, Premier League, Liga, Serie A.",
+    seoTitle: "Joueurs Africains en Europe 2024/25 : Stats, Buts & Performances",
+    description: "Performances des africains en Europe : Salah domine la Premier League, Hakimi brille au PSG, Osimhen en feu. Stats, buts, classements buteurs mis à jour.",
   },
   "can-2025": {
     title: "CAN 2025",
-    seoTitle: "CAN 2025 Maroc - Calendrier, Résultats, Classements & Pronostics",
-    description: "Suivez la Coupe d'Afrique des Nations 2025 au Maroc en direct : calendrier des matchs, résultats, classements des groupes, compositions d'équipes et analyses. Maroc, Sénégal, Égypte, Nigeria en lice.",
+    seoTitle: "CAN 2025 Maroc : Calendrier Complet, Groupes & Résultats en Direct",
+    description: "Toute la CAN 2025 en direct : calendrier officiel des 52 matchs, groupes, résultats live, compositions. Maroc vs Sénégal, Nigeria, Égypte. Commencez à suivre !",
   },
   mercato: {
     title: "Mercato Africain",
-    seoTitle: "Mercato Africain 2025 - Transferts, Rumeurs & Officialisations",
-    description: "Les dernières rumeurs et transferts du mercato africain : indiscrétions sur Victor Osimhen, officialisations et analyses des mouvements de joueurs africains en Europe.",
+    seoTitle: "Mercato 2025 : Transferts Africains, Rumeurs Exclusives & Officiels",
+    description: "Mercato africain en direct : dernières rumeurs Osimhen, transferts officialisés, indiscrétions exclusives. Alertes transferts mises à jour chaque heure.",
   },
   youtube: {
     title: "Vidéos Football Africain",
-    seoTitle: "Vidéos Football Africain - Résumés, Interviews & Analyses",
-    description: "Les meilleures vidéos de football africain : résumés de matchs CAN 2025, interviews exclusives, analyses tactiques et moments forts des joueurs africains.",
+    seoTitle: "Vidéos Foot Africain : Résumés Matchs, Interviews & Best-Of",
+    description: "Vidéos exclusives : résumés CAN 2025, interviews stars africaines, best-of buts Salah, Osimhen, Hakimi. Nouvelles vidéos chaque jour.",
   },
-  // Country subcategories with enhanced SEO
+  // Country subcategories - targeting "liste [pays] can 2025" keywords
   senegal: {
     title: "Football Sénégalais",
-    seoTitle: "Équipe du Sénégal - Lions de la Teranga | CAN 2025, Actualités",
-    description: "L'actualité du football sénégalais : Lions de la Teranga à la CAN 2025, Sadio Mané, Nicolas Jackson, Édouard Mendy, Kalidou Koulibaly. Championnat du Sénégal et joueurs à l'étranger.",
+    seoTitle: "Équipe Sénégal CAN 2025 : Liste des 23 Joueurs, Effectif Complet",
+    description: "Liste officielle Sénégal CAN 2025 par Pape Thiaw : Sadio Mané, Nicolas Jackson, Mendy, Koulibaly. Effectif complet des Lions de la Teranga.",
   },
   cameroun: {
     title: "Football Camerounais",
-    seoTitle: "Équipe du Cameroun - Lions Indomptables | CAN 2025, Actualités",
-    description: "L'actualité du football camerounais : Lions Indomptables à la CAN 2025, André-Frank Zambo Anguissa, Karl Toko Ekambi. Elite One et joueurs camerounais à l'étranger.",
+    seoTitle: "Équipe Cameroun CAN 2025 : Liste Joueurs, Effectif Lions Indomptables",
+    description: "Liste Cameroun CAN 2025 : Anguissa, Choupo-Moting, Onana. Effectif complet des Lions Indomptables, parcours et pronostics.",
   },
   "cote-divoire": {
     title: "Football Ivoirien",
-    seoTitle: "Équipe Côte d'Ivoire - Éléphants Champions CAN 2023 | Actualités",
-    description: "L'actualité du football ivoirien : Éléphants champions CAN 2023, Sébastien Haller, Franck Kessié à la CAN 2025. Ligue 1 ivoirienne et joueurs à l'étranger.",
+    seoTitle: "Côte d'Ivoire CAN 2025 : Éléphants Champions Défendent leur Titre",
+    description: "Côte d'Ivoire CAN 2025 : champions en titre, liste Haller, Kessié, Adingra. Les Éléphants visent le doublé historique au Maroc.",
   },
   algerie: {
     title: "Football Algérien",
-    seoTitle: "Équipe d'Algérie - Les Fennecs | CAN 2025, Actualités",
-    description: "L'actualité du football algérien : Les Fennecs à la CAN 2025, Riyad Mahrez, Ismaël Bennacer. Ligue 1 algérienne et joueurs algériens en Europe.",
+    seoTitle: "Algérie CAN 2025 : Liste Fennecs, Mahrez, Bennacer & Effectif",
+    description: "Liste Algérie CAN 2025 : Mahrez, Bennacer, Benrahma. Effectif complet des Fennecs, groupe de qualifications, parcours.",
   },
   maroc: {
     title: "Football Marocain",
-    seoTitle: "Équipe du Maroc - Lions de l'Atlas Hôtes CAN 2025 | Actualités",
-    description: "L'actualité du football marocain : Lions de l'Atlas pays hôte CAN 2025, Achraf Hakimi, Hakim Ziyech, Youssef En-Nesyri. Botola Pro et joueurs marocains en Europe.",
+    seoTitle: "Maroc CAN 2025 : Pays Hôte, Liste Lions de l'Atlas, Favoris #1",
+    description: "Maroc favori CAN 2025 à domicile : Hakimi, Ziyech, En-Nesyri. Liste complète Lions de l'Atlas, calendrier matchs à domicile.",
   },
   rdc: {
     title: "Football Congolais",
-    seoTitle: "Équipe RD Congo - Léopards | CAN 2025, Actualités",
-    description: "L'actualité du football de la RDC : Léopards à la CAN 2025, Chancel Mbemba. Linafoot et joueurs congolais à l'étranger.",
+    seoTitle: "RD Congo CAN 2025 : Liste Léopards, Mbemba & Effectif Complet",
+    description: "Liste RD Congo CAN 2025 : Chancel Mbemba et les Léopards. Effectif complet, groupe, parcours qualifications.",
   },
   nigeria: {
     title: "Football Nigérian",
-    seoTitle: "Équipe du Nigeria - Super Eagles | CAN 2025, Actualités",
-    description: "L'actualité du football nigérian : Super Eagles à la CAN 2025, Victor Osimhen, Ademola Lookman, Mohammed Kudus. NPFL et joueurs nigérians en Europe.",
+    seoTitle: "Nigeria CAN 2025 : Liste Super Eagles, Osimhen, Lookman, Kudus",
+    description: "Liste Nigeria CAN 2025 : Osimhen, Lookman (Ballon d'Or Africain), Kudus. Super Eagles parmi les grands favoris.",
   },
   egypte: {
     title: "Football Égyptien",
-    seoTitle: "Équipe d'Égypte - Pharaons | CAN 2025, Mohamed Salah",
-    description: "L'actualité du football égyptien : Pharaons 7 fois champions d'Afrique, Mohamed Salah à la CAN 2025. Al Ahly, Zamalek et joueurs égyptiens en Europe.",
+    seoTitle: "Égypte CAN 2025 : Salah Vise 8e Titre, Liste Pharaons Complète",
+    description: "Mohamed Salah mène l'Égypte CAN 2025 : Pharaons 7x champions visent le record. Liste complète, groupe, parcours.",
   },
   ghana: {
     title: "Football Ghanéen",
-    seoTitle: "Équipe du Ghana - Black Stars | Actualités Football",
-    description: "L'actualité du football ghanéen : Black Stars, Mohammed Kudus, Thomas Partey. Ghana Premier League et joueurs ghanéens en Europe.",
+    seoTitle: "Ghana CAN 2025 : Liste Black Stars, Kudus, Partey & Effectif",
+    description: "Liste Ghana CAN 2025 : Mohammed Kudus, Thomas Partey. Effectif complet Black Stars, groupe, analyses.",
+  },
+  // Additional categories for high-traffic keywords
+  mali: {
+    title: "Football Malien",
+    seoTitle: "Mali CAN 2025 : Liste Aigles, Groupe A avec Maroc, Pronostics",
+    description: "Liste Mali CAN 2025 : Les Aigles dans le groupe A du pays hôte. Effectif complet, chances de qualification.",
+  },
+  tunisie: {
+    title: "Football Tunisien",
+    seoTitle: "Tunisie CAN 2025 : Liste Aigles de Carthage, Effectif & Groupe",
+    description: "Liste Tunisie CAN 2025 : Aigles de Carthage visent la qualification. Effectif complet, groupe, parcours.",
   },
 };
 
@@ -162,6 +174,15 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
       index: currentPage === 1, // Only index first page of pagination
       follow: true,
       "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+      googleBot: {
+        index: currentPage === 1,
+        follow: true,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
+        "max-snippet": -1,
+      },
     },
   };
 }

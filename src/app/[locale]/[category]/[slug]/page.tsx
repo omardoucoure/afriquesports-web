@@ -130,6 +130,20 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
         index: true,
         follow: true,
         "max-image-preview": "large",
+        "max-video-preview": -1,
+        "max-snippet": -1,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
+          "max-snippet": -1,
+        },
+      },
+      other: {
+        "article:published_time": article.date,
+        "article:modified_time": article.modified,
+        "article:section": category,
       },
     };
   } catch {

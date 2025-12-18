@@ -31,7 +31,7 @@ const navigationConfig: NavItem[] = [
     ],
   },
   { labelKey: "europe", href: "/category/europe" },
-  { labelKey: "can2025", href: "/category/can-2025" },
+  { labelKey: "can2025", href: "/can-2025" },
   { labelKey: "mercato", href: "/mercato" },
   { labelKey: "videos", href: "/category/youtube" },
   { labelKey: "rankings", href: "/classements" },

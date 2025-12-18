@@ -86,6 +86,15 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       index: true,
       follow: true,
       "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
+        "max-snippet": -1,
+      },
     },
   };
 }

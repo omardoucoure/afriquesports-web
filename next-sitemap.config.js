@@ -30,6 +30,10 @@ module.exports = {
     if (path === '/') {
       priority = 1.0;
       changefreq = 'hourly';
+    } else if (path === '/can-2025' || path.includes('/can-2025')) {
+      // CAN 2025 pages get high priority for SEO
+      priority = 0.95;
+      changefreq = 'hourly';
     } else if (path.startsWith('/category/')) {
       priority = 0.8;
       changefreq = 'daily';
