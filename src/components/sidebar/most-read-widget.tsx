@@ -5,20 +5,40 @@ import Link from "next/link";
 import { getArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
+// Simplified article type for trending posts from our database
+export interface TrendingArticle {
+  id: number;
+  slug: string;
+  title: { rendered: string };
+  link: string;
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{ source_url: string }>;
+  };
+  viewCount?: number;
+}
+
 interface MostReadWidgetProps {
   title?: string;
-  articles: WordPressPost[];
+  articles: WordPressPost[] | TrendingArticle[];
   maxArticles?: number;
 }
 
-// Simulate view counts (in production, this would come from analytics)
-function getViewCount(index: number): string {
-  const views = [1580, 1270, 980, 756, 542];
-  const count = views[index] || Math.floor(Math.random() * 500) + 100;
-  if (count >= 1000) {
-    return `${(count / 1000).toFixed(2)}k`;
+// Format view count for display
+function formatViewCount(count: number | undefined, index: number): string {
+  // If we have a real count, use it
+  if (count && count > 0) {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    }
+    return count.toString();
   }
-  return count.toString();
+  // Fallback to simulated counts
+  const views = [1580, 1270, 980, 756, 542];
+  const fallbackCount = views[index] || Math.floor(Math.random() * 500) + 100;
+  if (fallbackCount >= 1000) {
+    return `${(fallbackCount / 1000).toFixed(1)}k`;
+  }
+  return fallbackCount.toString();
 }
 
 export function MostReadWidget({
@@ -83,7 +103,7 @@ export function MostReadWidget({
                       <span className="text-[#04453f] font-medium">{authorName}</span>
                     </p>
                     <span className="text-sm text-gray-500 font-medium">
-                      {getViewCount(index)}
+                      {formatViewCount((article as TrendingArticle).viewCount, index)} vues
                     </span>
                   </div>
                 </div>

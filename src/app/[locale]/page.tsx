@@ -9,8 +9,9 @@ import {
   RankingSectionSkeleton,
   LoadMoreArticles,
 } from "@/components/articles";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
+import { getTrendingPostsByRange } from "@/lib/db";
 
 // ISR: Revalidate homepage every 60 seconds
 export const revalidate = 60;
@@ -19,43 +20,71 @@ async function HeroArticlesSection() {
   const t = await getTranslations("home");
   const tArticle = await getTranslations("article");
 
-  // Fetch featured post from "article-du-jour" category and latest posts
-  const [featuredPosts, latestPosts] = await Promise.all([
-    DataFetcher.fetchPosts({ per_page: "1", categories: "30615" }), // article-du-jour category
-    DataFetcher.fetchPosts({ per_page: "5" }),
-  ]);
+  try {
+    // Fetch featured post from "article-du-jour" category and latest posts
+    const [featuredPosts, latestPosts] = await Promise.all([
+      DataFetcher.fetchPosts({ per_page: "1", categories: "30615" }), // article-du-jour category
+      DataFetcher.fetchPosts({ per_page: "5" }),
+    ]);
 
-  // Use article-du-jour post if available, otherwise use the first latest post
-  const featuredArticle = featuredPosts?.[0] || latestPosts?.[0];
+    // Use article-du-jour post if available, otherwise use the first latest post
+    const featuredArticle = featuredPosts?.[0] || latestPosts?.[0];
 
-  // Filter out the featured article from latest posts to avoid duplication
-  const filteredPosts = latestPosts?.filter(
-    (post) => post.id !== featuredArticle?.id
-  ) || [];
+    // Filter out the featured article from latest posts to avoid duplication
+    const filteredPosts = latestPosts?.filter(
+      (post) => post.id !== featuredArticle?.id
+    ) || [];
 
-  if (!featuredArticle || filteredPosts.length < 4) {
+    if (!featuredArticle || filteredPosts.length < 4) {
+      return <HeroSectionSkeleton />;
+    }
+
+    return (
+      <HeroSection
+        featuredArticle={featuredArticle}
+        leftArticles={[filteredPosts[0], filteredPosts[1]]}
+        rightArticles={[filteredPosts[2], filteredPosts[3]]}
+        translations={{
+          trending: t("trending"),
+          latest: t("latest"),
+          by: tArticle("by"),
+        }}
+      />
+    );
+  } catch (error) {
+    console.error('[HeroArticlesSection] Error fetching articles:', error);
     return <HeroSectionSkeleton />;
   }
-
-  return (
-    <HeroSection
-      featuredArticle={featuredArticle}
-      leftArticles={[filteredPosts[0], filteredPosts[1]]}
-      rightArticles={[filteredPosts[2], filteredPosts[3]]}
-      translations={{
-        trending: t("trending"),
-        latest: t("latest"),
-        by: tArticle("by"),
-      }}
-    />
-  );
 }
 
 async function LatestArticlesSection() {
   const t = await getTranslations("home");
-  const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5" });
 
-  if (!articles || articles.length === 0) {
+  try {
+    const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5" });
+
+    if (!articles || articles.length === 0) {
+      return (
+        <div className="space-y-4">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <ArticleCardHorizontalSkeleton key={i} />
+          ))}
+        </div>
+      );
+    }
+
+    return (
+      <LoadMoreArticles
+        initialArticles={articles}
+        initialOffset={5}
+        perPage={20}
+        loadMoreText={t("loadMore")}
+        loadingText={t("loading")}
+        noMoreText={t("noMoreArticles")}
+      />
+    );
+  } catch (error) {
+    console.error('[LatestArticlesSection] Error fetching articles:', error);
     return (
       <div className="space-y-4">
         {Array.from({ length: 20 }).map((_, i) => (
@@ -64,47 +93,65 @@ async function LatestArticlesSection() {
       </div>
     );
   }
-
-  return (
-    <LoadMoreArticles
-      initialArticles={articles}
-      initialOffset={5}
-      perPage={20}
-      loadMoreText={t("loadMore")}
-      loadingText={t("loading")}
-      noMoreText={t("noMoreArticles")}
-    />
-  );
 }
 
 async function RankingArticlesSection() {
   const t = await getTranslations("home");
 
-  // Fetch posts from classement/ranking category
-  const articles = await DataFetcher.fetchPostsByCategory("classement", { per_page: "3" });
+  try {
+    // Fetch posts from classement/ranking category
+    const articles = await DataFetcher.fetchPostsByCategory("classement", { per_page: "3" });
 
-  if (!articles || articles.length < 3) {
-    // Fallback: fetch from another related category or just use latest
-    const fallbackArticles = await DataFetcher.fetchPosts({ per_page: "3" });
+    if (!articles || articles.length < 3) {
+      // Fallback: fetch from another related category or just use latest
+      const fallbackArticles = await DataFetcher.fetchPosts({ per_page: "3" });
+      return (
+        <RankingSection
+          articles={fallbackArticles || []}
+          title={t("rankings")}
+          seeMoreText={t("seeMore")}
+        />
+      );
+    }
+
     return (
       <RankingSection
-        articles={fallbackArticles}
+        articles={articles}
         title={t("rankings")}
         seeMoreText={t("seeMore")}
       />
     );
+  } catch (error) {
+    console.error('[RankingArticlesSection] Error fetching articles:', error);
+    return <RankingSectionSkeleton />;
   }
-
-  return (
-    <RankingSection
-      articles={articles}
-      title={t("rankings")}
-      seeMoreText={t("seeMore")}
-    />
-  );
 }
 
 async function MostReadSection() {
+  try {
+    // Fetch trending posts directly from database (last 7 days)
+    const trending = await getTrendingPostsByRange(7, 5);
+
+    if (trending && trending.length > 0) {
+      // Transform trending data to match article format for MostReadWidget
+      const trendingArticles = trending.map((item) => ({
+        id: parseInt(item.post_id as string),
+        slug: item.post_slug,
+        title: { rendered: item.post_title },
+        _embedded: item.post_image ? {
+          'wp:featuredmedia': [{ source_url: item.post_image }]
+        } : undefined,
+        link: `https://www.afriquesports.net/${item.post_category || 'football'}/${item.post_slug}`,
+        viewCount: item.total_count || item.count,
+      }));
+
+      return <MostReadWidget articles={trendingArticles} />;
+    }
+  } catch (error) {
+    console.error('Error fetching trending posts:', error);
+  }
+
+  // Fallback to latest posts if trending is empty or fails
   const articles = await DataFetcher.fetchPosts({ per_page: "5" });
 
   if (!articles || articles.length === 0) {

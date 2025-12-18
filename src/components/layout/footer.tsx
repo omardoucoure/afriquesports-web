@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// CAN 2025 Morocco inspired colors
+// Gold: #D4AF37, Green: #006233, Red: #C1272D
+
 const footerLinks = {
   categories: [
     { label: "Afrique", href: "/category/afrique" },
@@ -88,14 +91,44 @@ const socialLinks = [
   },
 ];
 
+// Africa border pattern component (same as header)
+function AfricaBorder({ position }: { position: 'top' | 'bottom' }) {
+  return (
+    <div
+      className={`absolute ${position === 'top' ? 'top-0' : 'bottom-0'} left-0 right-0 h-2 bg-repeat-x z-10`}
+      style={{
+        backgroundImage: 'url(/images/africa-border.png)',
+        backgroundSize: 'auto 100%'
+      }}
+    />
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="relative text-white overflow-hidden">
+      {/* Same background as header */}
+      <div className="absolute inset-0 bg-[#04453f]" />
+
+      {/* Moroccan pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: 'url(/images/can2025-pattern.png)',
+          backgroundSize: 'auto 100%',
+          backgroundRepeat: 'repeat-x',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* Africa border at top (same as header) */}
+      <AfricaBorder position="top" />
+
       {/* Main footer */}
-      <div className="container-main py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+      <div className="relative container-main py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
               <Image
                 src="/logo.jpg"
@@ -105,18 +138,19 @@ export function Footer() {
                 className="h-12 w-auto"
               />
             </Link>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-gray-300 mb-6 max-w-xs">
               Toute l&apos;actualité du football africain et européen. CAN 2025,
               mercato, résultats et classements.
             </p>
-            <div className="flex items-center gap-3">
+            {/* Social links - fixed layout */}
+            <div className="flex flex-wrap items-center gap-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#04453f] hover:text-black transition-colors"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 hover:scale-110"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -127,7 +161,7 @@ export function Footer() {
 
           {/* Categories */}
           <div>
-            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
               Catégories
             </h3>
             <ul className="space-y-2">
@@ -135,7 +169,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
+                    className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -146,7 +180,7 @@ export function Footer() {
 
           {/* Countries */}
           <div>
-            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
               Pays
             </h3>
             <ul className="space-y-2">
@@ -154,7 +188,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
+                    className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -165,7 +199,7 @@ export function Footer() {
 
           {/* Players */}
           <div>
-            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
               Joueurs clés
             </h3>
             <ul className="space-y-2">
@@ -173,7 +207,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
+                    className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -185,10 +219,10 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
+      <div className="relative border-t border-white/10">
         <div className="container-main py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-white/60">
               © {new Date().getFullYear()} Afrique Sports. Tous droits réservés.
             </p>
             <div className="flex items-center gap-6">
@@ -196,7 +230,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-gray-400 hover:text-[#04453f] transition-colors"
+                  className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -205,6 +239,9 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Africa border at bottom */}
+      <AfricaBorder position="bottom" />
     </footer>
   );
 }

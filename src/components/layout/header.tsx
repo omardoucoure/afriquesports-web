@@ -57,10 +57,20 @@ export function Header() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
         {/* Main header with Africa borders */}
-        <div className="relative bg-[#04453f] py-1">
+        <div className="relative bg-[#04453f] py-1 overflow-hidden">
+          {/* Moroccan pattern overlay (same as footer) */}
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: 'url(/images/can2025-pattern.png)',
+              backgroundSize: 'auto 200px',
+              backgroundRepeat: 'repeat-x',
+              backgroundPosition: 'center',
+            }}
+          />
           <AfricaBorder position="top" />
           <AfricaBorder position="bottom" />
-          <div className="container-main relative">
+          <div className="container-main relative z-10">
             <div className="flex items-center justify-between h-14 md:h-16">
               {/* Logo */}
               <Link href="/" className="flex-shrink-0">
@@ -85,7 +95,7 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-xs lg:text-sm font-bold text-white hover:text-[#9DFF20] transition-colors tracking-wide"
+                      className="px-3 py-2 text-xs lg:text-sm font-extrabold text-white hover:text-[#9DFF20] transition-colors tracking-wide"
                     >
                       {item.label}
                       {item.children && (

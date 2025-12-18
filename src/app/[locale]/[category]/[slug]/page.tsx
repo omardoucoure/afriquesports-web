@@ -8,6 +8,7 @@ import { ArticleGrid, ArticleGridSkeleton, ShareButtons, ArticleContent } from "
 import { Breadcrumb, generateBreadcrumbItems } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { CommentSection } from "@/components/comments";
+import { VisitTracker } from "@/components/tracking";
 import { DataFetcher } from "@/lib/data-fetcher";
 import {
   formatDate,
@@ -229,6 +230,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       />
 
       <Header />
+
+      {/* Track visit */}
+      <VisitTracker
+        postId={article.id.toString()}
+        postSlug={slug}
+        postTitle={title}
+        postImage={imageUrl}
+        postAuthor={authorName}
+        postCategory={category}
+        postSource="afriquesports"
+      />
 
       <main className="min-h-screen bg-[#F6F6F6] pt-[72px] md:pt-[88px] lg:pt-16 pb-20 lg:pb-0">
         {/* Breadcrumb with better mobile padding */}

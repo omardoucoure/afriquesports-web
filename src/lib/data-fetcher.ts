@@ -89,7 +89,7 @@ export type WPPost = WordPressPost;
 // CONSTANTS
 // ============================================================================
 
-const WORDPRESS_API_BASE = "https://www.afriquesports.net";
+const WORDPRESS_API_BASE = "https://cms.realdemadrid.com/afriquesports";
 const WORDPRESS_API_PATH = "/wp-json/wp/v2/posts";
 const WORDPRESS_CATEGORIES_PATH = "/wp-json/wp/v2/categories";
 const DEFAULT_PER_PAGE = "20";
@@ -207,8 +207,8 @@ export class DataFetcher {
         "Accept-Charset": "utf-8",
         "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://www.afriquesports.net/",
-        "Origin": "https://www.afriquesports.net",
+        "Referer": "https://cms.realdemadrid.com/afriquesports/",
+        "Origin": "https://cms.realdemadrid.com",
         "Cache-Control": isDev ? "no-cache, no-store, must-revalidate" : "",
         Pragma: isDev ? "no-cache" : "",
         ...options?.headers,
