@@ -177,6 +177,7 @@
   /* Article content styles for embedded media */
   .article-content {
     @apply text-gray-700 leading-relaxed;
+    overflow: visible !important;
   }
 
   /* YouTube and video embeds */
@@ -203,16 +204,27 @@
     @apply mx-auto my-6;
     max-width: 550px !important;
     width: 100% !important;
+    overflow: visible !important;
   }
 
   .article-content .twitter-tweet iframe,
   .article-content iframe[src*="twitter"],
   .article-content iframe[src*="platform.twitter"],
   .article-content iframe[src*="x.com"] {
-    @apply max-w-full mx-auto;
+    @apply max-w-full mx-auto block;
     aspect-ratio: unset !important;
-    height: auto !important;
-    min-height: 250px;
+    overflow: visible !important;
+  }
+
+  /* Twitter widget container - let it size naturally */
+  .article-content .twitter-tweet-rendered,
+  .article-content [data-tweet-id] {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  .article-content .twitter-tweet-rendered iframe {
+    display: block !important;
   }
 
   /* Instagram embeds */

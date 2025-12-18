@@ -7,6 +7,7 @@ import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton, ShareButtons, ArticleContent } from "@/components/articles";
 import { Breadcrumb, generateBreadcrumbItems } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
+import { CommentSection } from "@/components/comments";
 import { DataFetcher } from "@/lib/data-fetcher";
 import {
   formatDate,
@@ -48,7 +49,7 @@ export async function generateStaticParams() {
 }
 
 interface ArticlePageProps {
-  params: Promise<{ category: string; slug: string }>;
+  params: Promise<{ locale: string; category: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
@@ -189,7 +190,7 @@ async function SidebarMostRead() {
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { category, slug } = await params;
+  const { locale, category, slug } = await params;
 
   // Fetch the article
   let article;
@@ -242,9 +243,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {/* Main content */}
             <div className="flex-1 min-w-0">
               {/* Article card container */}
-              <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm">
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm overflow-visible">
                 {/* Article header and content */}
-                <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+                <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 overflow-visible">
                   {/* Category badge */}
                   <span className="inline-block px-3 py-1.5 bg-[#04453f] text-white text-xs font-bold uppercase rounded-full mb-4">
                     {categoryLabel}
@@ -298,7 +299,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   </div>
 
                   {/* Article content with enhanced embed handling */}
-                  <div className="mt-6">
+                  <div className="mt-6 overflow-visible">
                     <ArticleContent content={article.content.rendered} />
                   </div>
 
@@ -308,6 +309,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <ShareButtons url={articleUrl} title={title} />
                   </div>
                 </div>
+              </div>
+
+              {/* Comment section */}
+              <div className="mt-6 sm:mt-8">
+                <CommentSection articleId={article.id.toString()} locale={locale} />
               </div>
 
               {/* Related articles */}

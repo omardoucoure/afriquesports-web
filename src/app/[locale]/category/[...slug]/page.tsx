@@ -211,14 +211,16 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             </div>
 
             {/* Sidebar - hidden on mobile */}
-            <aside className="hidden lg:block w-80 flex-shrink-0 space-y-6">
-              {/* Most read */}
-              <Suspense fallback={<MostReadWidgetSkeleton />}>
-                <SidebarMostRead />
-              </Suspense>
+            <aside className="hidden lg:block w-80 flex-shrink-0">
+              <div className="sticky top-20 space-y-6">
+                {/* Most read */}
+                <Suspense fallback={<MostReadWidgetSkeleton />}>
+                  <SidebarMostRead />
+                </Suspense>
 
-              {/* Key players */}
-              <PlayersWidget />
+                {/* Key players */}
+                <PlayersWidget />
+              </div>
             </aside>
           </div>
         </div>

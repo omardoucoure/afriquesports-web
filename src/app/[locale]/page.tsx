@@ -161,19 +161,21 @@ export default async function Home() {
             </div>
 
             {/* Sidebar - hidden on mobile */}
-            <aside className="hidden lg:block w-[340px] flex-shrink-0 space-y-6">
-              {/* Most read */}
-              <Suspense fallback={<MostReadWidgetSkeleton />}>
-                <MostReadSection />
-              </Suspense>
+            <aside className="hidden lg:block w-[340px] flex-shrink-0">
+              <div className="sticky top-20 space-y-6">
+                {/* Most read */}
+                <Suspense fallback={<MostReadWidgetSkeleton />}>
+                  <MostReadSection />
+                </Suspense>
 
-              {/* Top African Scorers in Europe */}
-              <Suspense fallback={<TopScorersWidgetSkeleton />}>
-                <TopScorersWidget title="Top buteurs africains" />
-              </Suspense>
+                {/* Top African Scorers in Europe */}
+                <Suspense fallback={<TopScorersWidgetSkeleton />}>
+                  <TopScorersWidget title="Top buteurs africains" />
+                </Suspense>
 
-              {/* Key players */}
-              <PlayersWidget />
+                {/* Key players */}
+                <PlayersWidget />
+              </div>
             </aside>
           </div>
         </div>

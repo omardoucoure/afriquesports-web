@@ -141,11 +141,13 @@ export default async function MercatoPage({ searchParams }: MercatoPageProps) {
             </div>
 
             {/* Sidebar */}
-            <aside className="hidden lg:block w-80 flex-shrink-0 space-y-6">
-              <Suspense fallback={<MostReadWidgetSkeleton />}>
-                <SidebarMostRead />
-              </Suspense>
-              <PlayersWidget />
+            <aside className="hidden lg:block w-80 flex-shrink-0">
+              <div className="sticky top-20 space-y-6">
+                <Suspense fallback={<MostReadWidgetSkeleton />}>
+                  <SidebarMostRead />
+                </Suspense>
+                <PlayersWidget />
+              </div>
             </aside>
           </div>
         </div>
