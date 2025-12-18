@@ -77,6 +77,12 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       ? imageUrl
       : "https://www.afriquesports.net/opengraph-image";
 
+    // Determine image type from URL
+    const imageExtension = ogImageUrl.toLowerCase().split('.').pop()?.split('?')[0];
+    const ogImageType = imageExtension === 'png' ? 'image/png'
+      : imageExtension === 'webp' ? 'image/webp'
+      : 'image/jpeg';
+
     // Build canonical URL based on locale
     const baseUrl = "https://www.afriquesports.net";
     const articlePath = `/${category}/${slug}`;
@@ -105,13 +111,19 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
         modifiedTime: article.modified,
         url: canonicalUrl,
         locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
-        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+        images: [{
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: ogImageType,
+          alt: title,
+        }],
       },
       twitter: {
         card: "summary_large_image",
         title,
         description,
-        images: [ogImageUrl],
+        images: [{ url: ogImageUrl, alt: title }],
       },
       robots: {
         index: true,
