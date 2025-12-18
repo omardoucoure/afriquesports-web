@@ -2,24 +2,25 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 // CAN 2025 Morocco inspired colors
 // Gold: #D4AF37, Green: #006233, Red: #C1272D
 
-const footerLinks = {
+const footerLinksConfig = {
   categories: [
-    { label: "Afrique", href: "/category/afrique" },
-    { label: "Europe", href: "/category/europe" },
-    { label: "CAN 2025", href: "/category/can-2025" },
-    { label: "Mercato", href: "/mercato" },
-    { label: "Classements", href: "/classements" },
+    { labelKey: "africa", href: "/category/afrique" },
+    { labelKey: "europe", href: "/category/europe" },
+    { labelKey: "can2025", href: "/category/can-2025" },
+    { labelKey: "mercato", href: "/mercato" },
+    { labelKey: "rankings", href: "/classements" },
   ],
   countries: [
-    { label: "Sénégal", href: "/category/afrique/senegal" },
-    { label: "Cameroun", href: "/category/afrique/cameroun" },
-    { label: "Côte d'Ivoire", href: "/category/afrique/cote-divoire" },
-    { label: "Algérie", href: "/category/afrique/algerie" },
-    { label: "Maroc", href: "/category/afrique/maroc" },
+    { labelKey: "senegal", href: "/category/afrique/senegal" },
+    { labelKey: "cameroon", href: "/category/afrique/cameroun" },
+    { labelKey: "ivoryCoast", href: "/category/afrique/cote-divoire" },
+    { labelKey: "algeria", href: "/category/afrique/algerie" },
+    { labelKey: "morocco", href: "/category/afrique/maroc" },
   ],
   players: [
     { label: "Victor Osimhen", href: "/joueur/victor-osimhen" },
@@ -29,8 +30,8 @@ const footerLinks = {
     { label: "Riyad Mahrez", href: "/joueur/riyad-mahrez" },
   ],
   legal: [
-    { label: "Contact", href: "/contact" },
-    { label: "Confidentialité", href: "/confidentialite" },
+    { labelKey: "contact", href: "/contact" },
+    { labelKey: "privacy", href: "/confidentialite" },
   ],
 };
 
@@ -105,6 +106,11 @@ function AfricaBorder({ position }: { position: 'top' | 'bottom' }) {
 }
 
 export function Footer() {
+  const tFooter = useTranslations("footer");
+  const tNav = useTranslations("nav");
+  const tCountries = useTranslations("countries");
+  const tCategories = useTranslations("categories");
+
   return (
     <footer className="relative text-white overflow-hidden">
       {/* Same background as header */}
@@ -139,8 +145,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-gray-300 mb-6 max-w-xs">
-              Toute l&apos;actualité du football africain et européen. CAN 2025,
-              mercato, résultats et classements.
+              {tFooter("description")}
             </p>
             {/* Social links - fixed layout */}
             <div className="flex flex-wrap items-center gap-2">
@@ -162,16 +167,16 @@ export function Footer() {
           {/* Categories */}
           <div>
             <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
-              Catégories
+              {tFooter("categories")}
             </h3>
             <ul className="space-y-2">
-              {footerLinks.categories.map((link) => (
+              {footerLinksConfig.categories.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                   >
-                    {link.label}
+                    {tCategories(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -181,16 +186,16 @@ export function Footer() {
           {/* Countries */}
           <div>
             <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
-              Pays
+              {tFooter("countries")}
             </h3>
             <ul className="space-y-2">
-              {footerLinks.countries.map((link) => (
+              {footerLinksConfig.countries.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                   >
-                    {link.label}
+                    {tCountries(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -200,10 +205,10 @@ export function Footer() {
           {/* Players */}
           <div>
             <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-[#9DFF20]">
-              Joueurs clés
+              {tFooter("keyPlayers")}
             </h3>
             <ul className="space-y-2">
-              {footerLinks.players.map((link) => (
+              {footerLinksConfig.players.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -223,16 +228,16 @@ export function Footer() {
         <div className="container-main py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-white/60">
-              © {new Date().getFullYear()} Afrique Sports. Tous droits réservés.
+              © {new Date().getFullYear()} Afrique Sports. {tFooter("copyright")}
             </p>
             <div className="flex items-center gap-6">
-              {footerLinks.legal.map((link) => (
+              {footerLinksConfig.legal.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="text-sm text-white/80 hover:text-[#9DFF20] transition-colors"
                 >
-                  {link.label}
+                  {tNav(link.labelKey)}
                 </Link>
               ))}
             </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { MobileNav } from "./mobile-nav";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 import { SearchModal } from "./search-modal";
@@ -10,30 +11,30 @@ import { NextMatchBar } from "./next-match-bar";
 import { LanguageSwitcher } from "@/components/ui";
 
 interface NavItem {
-  label: string;
+  labelKey: string;
   href: string;
   children?: NavItem[];
 }
 
-const navigation: NavItem[] = [
-  { label: "ACCUEIL", href: "/" },
+const navigationConfig: NavItem[] = [
+  { labelKey: "home", href: "/" },
   {
-    label: "AFRIQUE",
+    labelKey: "africa",
     href: "/category/afrique",
     children: [
-      { label: "SÉNÉGAL", href: "/category/afrique/senegal" },
-      { label: "CAMEROUN", href: "/category/afrique/cameroun" },
-      { label: "CÔTE D'IVOIRE", href: "/category/afrique/cote-divoire" },
-      { label: "ALGÉRIE", href: "/category/afrique/algerie" },
-      { label: "MAROC", href: "/category/afrique/maroc" },
-      { label: "RDC", href: "/category/afrique/rdc" },
+      { labelKey: "senegal", href: "/category/afrique/senegal" },
+      { labelKey: "cameroon", href: "/category/afrique/cameroun" },
+      { labelKey: "ivoryCoast", href: "/category/afrique/cote-divoire" },
+      { labelKey: "algeria", href: "/category/afrique/algerie" },
+      { labelKey: "morocco", href: "/category/afrique/maroc" },
+      { labelKey: "drc", href: "/category/afrique/rdc" },
     ],
   },
-  { label: "EUROPE", href: "/category/europe" },
-  { label: "CAN 2025", href: "/category/can-2025" },
-  { label: "MERCATO", href: "/mercato" },
-  { label: "VIDÉOS", href: "/category/youtube" },
-  { label: "CLASSEMENTS", href: "/classements" },
+  { labelKey: "europe", href: "/category/europe" },
+  { labelKey: "can2025", href: "/category/can-2025" },
+  { labelKey: "mercato", href: "/mercato" },
+  { labelKey: "videos", href: "/category/youtube" },
+  { labelKey: "rankings", href: "/classements" },
 ];
 
 // African border pattern component
@@ -53,6 +54,30 @@ export function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const tNav = useTranslations("nav");
+  const tCountries = useTranslations("countries");
+  const tCommon = useTranslations("common");
+
+  // Build navigation with translated labels
+  const navigation = navigationConfig.map((item) => ({
+    label: item.labelKey === "home" ? tNav("home").toUpperCase() :
+           item.labelKey === "africa" ? tNav("africa").toUpperCase() :
+           item.labelKey === "europe" ? tNav("europe").toUpperCase() :
+           item.labelKey === "can2025" ? tNav("can2025").toUpperCase() :
+           item.labelKey === "mercato" ? tNav("mercato").toUpperCase() :
+           item.labelKey === "videos" ? tNav("videos").toUpperCase() :
+           item.labelKey === "rankings" ? tNav("rankings").toUpperCase() : item.labelKey,
+    href: item.href,
+    children: item.children?.map((child) => ({
+      label: child.labelKey === "senegal" ? tCountries("senegal").toUpperCase() :
+             child.labelKey === "cameroon" ? tCountries("cameroon").toUpperCase() :
+             child.labelKey === "ivoryCoast" ? tCountries("ivoryCoast").toUpperCase() :
+             child.labelKey === "algeria" ? tCountries("algeria").toUpperCase() :
+             child.labelKey === "morocco" ? tCountries("morocco").toUpperCase() :
+             child.labelKey === "drc" ? tCountries("drc").toUpperCase() : child.labelKey,
+      href: child.href,
+    })),
+  }));
 
   return (
     <>
@@ -157,7 +182,7 @@ export function Header() {
                 <button
                   onClick={() => setIsSearchOpen(true)}
                   className="p-2 text-white hover:text-[#9DFF20] transition-colors"
-                  aria-label="Rechercher"
+                  aria-label={tCommon("search")}
                 >
                   <svg
                     className="w-5 h-5"
