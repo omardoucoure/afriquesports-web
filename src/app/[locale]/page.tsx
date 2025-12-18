@@ -55,6 +55,18 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       description: descriptions[locale] || descriptions.fr,
       url: canonicalUrl,
       locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      images: [
+        {
+          url: "https://www.afriquesports.net/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "Afrique Sports",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["https://www.afriquesports.net/opengraph-image"],
     },
   };
 }
