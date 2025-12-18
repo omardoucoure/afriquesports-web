@@ -330,12 +330,17 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
     return comment.author_avatar_urls?.['48'] || comment.author_avatar_urls?.['96'] || null
   }
 
-  // Strip HTML from comment content
+  // Strip HTML from comment content (consistent on server and client)
   const stripHtml = (html: string) => {
-    if (typeof window === 'undefined') return html.replace(/<[^>]*>/g, '')
-    const tmp = document.createElement("DIV")
-    tmp.innerHTML = html
-    return tmp.textContent || tmp.innerText || ""
+    return html
+      .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'")
+      .trim()
   }
 
   // Get top-level comments (no parent)
