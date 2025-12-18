@@ -264,8 +264,10 @@ export class DataFetcher {
     params?: Record<string, string>,
     options?: FetchOptions
   ): Promise<WordPressPost[]> {
-    // First, get the category ID from the slug
-    const categories = await this.fetchCategories({ slug: categorySlug });
+    const locale = params?.locale;
+
+    // First, get the category ID from the slug (pass locale for correct site)
+    const categories = await this.fetchCategories({ slug: categorySlug, ...(locale && { locale }) });
 
     if (categories.length === 0) {
       return [];

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
@@ -19,12 +19,13 @@ export const revalidate = 60;
 async function HeroArticlesSection() {
   const t = await getTranslations("home");
   const tArticle = await getTranslations("article");
+  const locale = await getLocale();
 
   try {
     // Fetch featured post from "article-du-jour" category and latest posts
     const [featuredPosts, latestPosts] = await Promise.all([
-      DataFetcher.fetchPosts({ per_page: "1", categories: "30615" }), // article-du-jour category
-      DataFetcher.fetchPosts({ per_page: "5" }),
+      DataFetcher.fetchPosts({ per_page: "1", categories: "30615", locale }), // article-du-jour category
+      DataFetcher.fetchPosts({ per_page: "5", locale }),
     ]);
 
     // Use article-du-jour post if available, otherwise use the first latest post
@@ -59,9 +60,10 @@ async function HeroArticlesSection() {
 
 async function LatestArticlesSection() {
   const t = await getTranslations("home");
+  const locale = await getLocale();
 
   try {
-    const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5" });
+    const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5", locale });
 
     if (!articles || articles.length === 0) {
       return (
@@ -97,14 +99,15 @@ async function LatestArticlesSection() {
 
 async function RankingArticlesSection() {
   const t = await getTranslations("home");
+  const locale = await getLocale();
 
   try {
     // Fetch posts from classement/ranking category
-    const articles = await DataFetcher.fetchPostsByCategory("classement", { per_page: "3" });
+    const articles = await DataFetcher.fetchPostsByCategory("classement", { per_page: "3", locale });
 
     if (!articles || articles.length < 3) {
       // Fallback: fetch from another related category or just use latest
-      const fallbackArticles = await DataFetcher.fetchPosts({ per_page: "3" });
+      const fallbackArticles = await DataFetcher.fetchPosts({ per_page: "3", locale });
       return (
         <RankingSection
           articles={fallbackArticles || []}
@@ -128,6 +131,8 @@ async function RankingArticlesSection() {
 }
 
 async function MostReadSection() {
+  const locale = await getLocale();
+
   try {
     // Fetch trending posts directly from database (last 7 days)
     const trending = await getTrendingPostsByRange(7, 5);
@@ -152,7 +157,7 @@ async function MostReadSection() {
   }
 
   // Fallback to latest posts if trending is empty or fails
-  const articles = await DataFetcher.fetchPosts({ per_page: "5" });
+  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
