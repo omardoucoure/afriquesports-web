@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
-interface NavItem {
-  label: string;
+interface NavItemConfig {
+  labelKey: string;
   href: string;
   icon: React.ReactNode;
 }
 
-const navItems: NavItem[] = [
+const navItemsConfig: NavItemConfig[] = [
   {
-    label: "Accueil",
+    labelKey: "home",
     href: "/",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -20,7 +21,7 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    label: "Afrique",
+    labelKey: "africa",
     href: "/category/afrique",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -29,7 +30,7 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    label: "CAN 2025",
+    labelKey: "can2025",
     href: "/category/can-2025",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -38,7 +39,7 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    label: "Vidéos",
+    labelKey: "videos",
     href: "/category/youtube",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -48,7 +49,7 @@ const navItems: NavItem[] = [
     ),
   },
   {
-    label: "Menu",
+    labelKey: "menu",
     href: "#menu",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -64,6 +65,17 @@ interface MobileBottomNavProps {
 
 export function MobileBottomNav({ onMenuClick }: MobileBottomNavProps) {
   const pathname = usePathname();
+  const tNav = useTranslations("nav");
+  const tCommon = useTranslations("common");
+
+  const getLabel = (key: string) => {
+    if (key === "home") return tNav("home");
+    if (key === "africa") return tNav("africa");
+    if (key === "can2025") return tNav("can2025");
+    if (key === "videos") return tNav("videos");
+    if (key === "menu") return tCommon("menu");
+    return key;
+  };
 
   const isActive = (href: string) => {
     if (href === "/") {
@@ -75,18 +87,19 @@ export function MobileBottomNav({ onMenuClick }: MobileBottomNavProps) {
   return (
     <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#04453f] border-t border-[#022a27] safe-area-bottom">
       <div className="flex items-center justify-around h-16">
-        {navItems.map((item) => {
+        {navItemsConfig.map((item) => {
           const active = item.href !== "#menu" && isActive(item.href);
+          const label = getLabel(item.labelKey);
 
           if (item.href === "#menu") {
             return (
               <button
-                key={item.label}
+                key={item.labelKey}
                 onClick={onMenuClick}
                 className="flex flex-col items-center justify-center flex-1 h-full py-2 text-white/70 hover:text-white transition-colors"
               >
                 {item.icon}
-                <span className="text-[10px] mt-1 font-medium">{item.label}</span>
+                <span className="text-[10px] mt-1 font-medium">{label}</span>
               </button>
             );
           }
@@ -102,7 +115,7 @@ export function MobileBottomNav({ onMenuClick }: MobileBottomNavProps) {
               }`}
             >
               {item.icon}
-              <span className="text-[10px] mt-1 font-medium">{item.label}</span>
+              <span className="text-[10px] mt-1 font-medium">{label}</span>
             </Link>
           );
         })}
