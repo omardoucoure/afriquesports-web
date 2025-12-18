@@ -1,30 +1,33 @@
 import { createPool, VercelPool } from '@vercel/postgres';
 
 let tableInitialized = false;
-let dbAvailable = true;
 let pool: VercelPool | null = null;
 
 // Get database pool with proper connection string
-function getPool() {
+function getPool(): VercelPool | null {
   if (pool) return pool;
 
   const connectionString = process.env.POSTGRES_URL;
   if (!connectionString) {
     console.warn('[DB] No POSTGRES_URL configured');
-    dbAvailable = false;
     return null;
   }
-  pool = createPool({ connectionString });
-  return pool;
+
+  try {
+    pool = createPool({ connectionString });
+    return pool;
+  } catch (error) {
+    console.error('[DB] Failed to create pool:', error);
+    return null;
+  }
 }
 
 // Initialize the visits table
-export async function initVisitsTable() {
-  if (tableInitialized || !dbAvailable) return;
-  tableInitialized = true;
+export async function initVisitsTable(): Promise<boolean> {
+  if (tableInitialized) return true;
 
   const db = getPool();
-  if (!db) return;
+  if (!db) return false;
 
   try {
     await db.sql`
@@ -49,9 +52,12 @@ export async function initVisitsTable() {
     await db.sql`
       CREATE INDEX IF NOT EXISTS idx_visits_date_count ON visits(visit_date, count DESC)
     `;
+
+    tableInitialized = true;
+    return true;
   } catch (error) {
     console.error('[DB] Failed to initialize visits table:', error);
-    dbAvailable = false;
+    return false;
   }
 }
 
@@ -65,8 +71,6 @@ export async function recordVisit(data: {
   postCategory?: string;
   postSource?: string;
 }) {
-  if (!dbAvailable) return null;
-
   const db = getPool();
   if (!db) return null;
 
@@ -92,8 +96,8 @@ export async function recordVisit(data: {
 
 // Get trending posts (most visited today)
 export async function getTrendingPosts(limit: number = 10) {
-  await initVisitsTable();
-  if (!dbAvailable) return [];
+  const initialized = await initVisitsTable();
+  if (!initialized) return [];
 
   const db = getPool();
   if (!db) return [];
@@ -115,8 +119,8 @@ export async function getTrendingPosts(limit: number = 10) {
 
 // Get trending posts for a specific date range
 export async function getTrendingPostsByRange(days: number = 7, limit: number = 10) {
-  await initVisitsTable();
-  if (!dbAvailable) return [];
+  const initialized = await initVisitsTable();
+  if (!initialized) return [];
 
   const db = getPool();
   if (!db) return [];
