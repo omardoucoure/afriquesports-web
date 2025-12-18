@@ -9,32 +9,50 @@ import { DataFetcher } from "@/lib/data-fetcher";
 // ISR: Revalidate mercato page every 60 seconds
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Mercato",
-  description: "Les dernières rumeurs et transferts du mercato africain et européen. Indiscrétions, officialisations et analyses des mouvements de joueurs.",
-  openGraph: {
-    title: "Mercato | Afrique Sports",
-    description: "Les dernières rumeurs et transferts du mercato africain et européen.",
-    type: "website",
-    siteName: "Afrique Sports",
-    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mercato | Afrique Sports",
-    description: "Les dernières rumeurs et transferts du mercato africain et européen.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
-  },
-};
+interface MercatoPageProps {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({ params }: MercatoPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const pagePath = "/mercato";
+  const canonicalUrl = locale === "fr" ? `${baseUrl}${pagePath}` : `${baseUrl}/${locale}${pagePath}`;
+
+  return {
+    title: "Mercato",
+    description: "Les dernières rumeurs et transferts du mercato africain et européen. Indiscrétions, officialisations et analyses des mouvements de joueurs.",
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${pagePath}`,
+        "en-US": `${baseUrl}/en${pagePath}`,
+        "es-ES": `${baseUrl}/es${pagePath}`,
+        "x-default": `${baseUrl}${pagePath}`,
+      },
+    },
+    openGraph: {
+      title: "Mercato | Afrique Sports",
+      description: "Les dernières rumeurs et transferts du mercato africain et européen.",
+      type: "website",
+      siteName: "Afrique Sports",
+      url: canonicalUrl,
+      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Mercato | Afrique Sports",
+      description: "Les dernières rumeurs et transferts du mercato africain et européen.",
+      images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+  };
+}
 
 const breadcrumbItems = [
   { label: "Accueil", href: "/" },
   { label: "Mercato", href: "/mercato" },
 ];
-
-interface MercatoPageProps {
-  searchParams: Promise<{ page?: string }>;
-}
 
 async function MercatoArticles({ page }: { page: number }) {
   const perPage = 12;

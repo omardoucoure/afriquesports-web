@@ -2,23 +2,44 @@ import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { Breadcrumb } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Classements",
-  description: "Consultez les classements des championnats africains et européens. Ligue 1, Premier League, Liga, Serie A, Bundesliga et championnats africains.",
-  openGraph: {
-    title: "Classements | Afrique Sports",
-    description: "Consultez les classements des championnats africains et européens.",
-    type: "website",
-    siteName: "Afrique Sports",
-    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Classements | Afrique Sports",
-    description: "Consultez les classements des championnats africains et européens.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
-  },
-};
+interface ClassementsPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: ClassementsPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const pagePath = "/classements";
+  const canonicalUrl = locale === "fr" ? `${baseUrl}${pagePath}` : `${baseUrl}/${locale}${pagePath}`;
+
+  return {
+    title: "Classements",
+    description: "Consultez les classements des championnats africains et européens. Ligue 1, Premier League, Liga, Serie A, Bundesliga et championnats africains.",
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${pagePath}`,
+        "en-US": `${baseUrl}/en${pagePath}`,
+        "es-ES": `${baseUrl}/es${pagePath}`,
+        "x-default": `${baseUrl}${pagePath}`,
+      },
+    },
+    openGraph: {
+      title: "Classements | Afrique Sports",
+      description: "Consultez les classements des championnats africains et européens.",
+      type: "website",
+      siteName: "Afrique Sports",
+      url: canonicalUrl,
+      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Classements | Afrique Sports",
+      description: "Consultez les classements des championnats africains et européens.",
+      images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+  };
+}
 
 const breadcrumbItems = [
   { label: "Accueil", href: "/" },

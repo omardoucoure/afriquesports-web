@@ -56,10 +56,10 @@ interface ArticlePageProps {
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, category, slug } = await params;
 
   try {
-    const article = await DataFetcher.fetchPostBySlug(slug);
+    const article = await DataFetcher.fetchPostBySlug(slug, locale);
 
     if (!article) {
       return {
@@ -77,9 +77,25 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       ? imageUrl
       : "https://www.afriquesports.net/opengraph-image";
 
+    // Build canonical URL based on locale
+    const baseUrl = "https://www.afriquesports.net";
+    const articlePath = `/${category}/${slug}`;
+    const canonicalUrl = locale === "fr"
+      ? `${baseUrl}${articlePath}`
+      : `${baseUrl}/${locale}${articlePath}`;
+
     return {
       title,
       description,
+      alternates: {
+        canonical: canonicalUrl,
+        languages: {
+          "fr-FR": `${baseUrl}${articlePath}`,
+          "en-US": `${baseUrl}/en${articlePath}`,
+          "es-ES": `${baseUrl}/es${articlePath}`,
+          "x-default": `${baseUrl}${articlePath}`,
+        },
+      },
       openGraph: {
         title,
         description,
@@ -87,6 +103,8 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
         siteName: "Afrique Sports",
         publishedTime: article.date,
         modifiedTime: article.modified,
+        url: canonicalUrl,
+        locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
         images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       },
       twitter: {

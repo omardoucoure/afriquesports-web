@@ -66,26 +66,47 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
 };
 
 interface CategoryPageProps {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ locale: string; slug: string[] }>;
   searchParams: Promise<{ page?: string }>;
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({ params, searchParams }: CategoryPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const { page } = await searchParams;
   const categorySlug = slug[slug.length - 1];
+  const categoryPath = `/category/${slug.join("/")}`;
+  const currentPage = parseInt(page || "1", 10);
+
   const meta = categoryMeta[categorySlug] || {
     title: categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1).replace(/-/g, " "),
     description: `Actualités ${categorySlug} - Afrique Sports`,
   };
 
+  // Build canonical URL based on locale and page
+  const baseUrl = "https://www.afriquesports.net";
+  const localePrefix = locale === "fr" ? "" : `/${locale}`;
+  const pageQuery = currentPage > 1 ? `?page=${currentPage}` : "";
+  const canonicalUrl = `${baseUrl}${localePrefix}${categoryPath}${pageQuery}`;
+
   return {
-    title: meta.title,
+    title: currentPage > 1 ? `${meta.title} - Page ${currentPage}` : meta.title,
     description: meta.description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${categoryPath}${pageQuery}`,
+        "en-US": `${baseUrl}/en${categoryPath}${pageQuery}`,
+        "es-ES": `${baseUrl}/es${categoryPath}${pageQuery}`,
+        "x-default": `${baseUrl}${categoryPath}${pageQuery}`,
+      },
+    },
     openGraph: {
       title: `${meta.title} | Afrique Sports`,
       description: meta.description,
       type: "website",
       siteName: "Afrique Sports",
+      url: canonicalUrl,
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
       images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {
@@ -93,6 +114,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       title: `${meta.title} | Afrique Sports`,
       description: meta.description,
       images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+    robots: {
+      index: currentPage === 1, // Only index first page of pagination
+      follow: true,
     },
   };
 }

@@ -36,14 +36,7 @@ export const metadata: Metadata = {
   creator: "Afrique Sports",
   publisher: "Afrique Sports",
   metadataBase: new URL("https://www.afriquesports.net"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      "fr-FR": "/",
-      "en-US": "/en",
-      "es-ES": "/es",
-    },
-  },
+  // Note: alternates (canonical, hreflang) are set per-page to avoid inheritance issues
   openGraph: {
     type: "website",
     locale: "fr_FR",

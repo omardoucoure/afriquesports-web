@@ -2,27 +2,48 @@ import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { Breadcrumb } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Politique de confidentialité",
-  description: "Politique de confidentialité d'Afrique Sports. Découvrez comment nous collectons, utilisons et protégeons vos données personnelles.",
-  openGraph: {
-    title: "Politique de confidentialité | Afrique Sports",
-    description: "Politique de confidentialité d'Afrique Sports.",
-    type: "website",
-    siteName: "Afrique Sports",
-    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Politique de confidentialité | Afrique Sports",
-    description: "Politique de confidentialité d'Afrique Sports.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+interface ConfidentialitePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: ConfidentialitePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const pagePath = "/confidentialite";
+  const canonicalUrl = locale === "fr" ? `${baseUrl}${pagePath}` : `${baseUrl}/${locale}${pagePath}`;
+
+  return {
+    title: "Politique de confidentialité",
+    description: "Politique de confidentialité d'Afrique Sports. Découvrez comment nous collectons, utilisons et protégeons vos données personnelles.",
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${pagePath}`,
+        "en-US": `${baseUrl}/en${pagePath}`,
+        "es-ES": `${baseUrl}/es${pagePath}`,
+        "x-default": `${baseUrl}${pagePath}`,
+      },
+    },
+    openGraph: {
+      title: "Politique de confidentialité | Afrique Sports",
+      description: "Politique de confidentialité d'Afrique Sports.",
+      type: "website",
+      siteName: "Afrique Sports",
+      url: canonicalUrl,
+      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Politique de confidentialité | Afrique Sports",
+      description: "Politique de confidentialité d'Afrique Sports.",
+      images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
+}
 
 const breadcrumbItems = [
   { label: "Accueil", href: "/" },

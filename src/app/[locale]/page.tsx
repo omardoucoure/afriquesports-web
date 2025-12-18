@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import {
@@ -15,6 +16,48 @@ import { getTrendingPostsByRange } from "@/lib/db";
 
 // ISR: Revalidate homepage every 60 seconds
 export const revalidate = 60;
+
+interface HomePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const canonicalUrl = locale === "fr" ? baseUrl : `${baseUrl}/${locale}`;
+
+  const titles: Record<string, string> = {
+    fr: "Afrique Sports - Actualités Football Africain",
+    en: "Afrique Sports - African Football News",
+    es: "Afrique Sports - Noticias de Fútbol Africano",
+  };
+
+  const descriptions: Record<string, string> = {
+    fr: "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements. Suivez vos équipes favorites.",
+    en: "All African football news: AFCON 2025, transfers, results, standings. Follow your favorite teams.",
+    es: "Todas las noticias del fútbol africano: CAN 2025, mercado, resultados, clasificaciones. Sigue a tus equipos favoritos.",
+  };
+
+  return {
+    title: titles[locale] || titles.fr,
+    description: descriptions[locale] || descriptions.fr,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": baseUrl,
+        "en-US": `${baseUrl}/en`,
+        "es-ES": `${baseUrl}/es`,
+        "x-default": baseUrl,
+      },
+    },
+    openGraph: {
+      title: titles[locale] || titles.fr,
+      description: descriptions[locale] || descriptions.fr,
+      url: canonicalUrl,
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+    },
+  };
+}
 
 async function HeroArticlesSection() {
   const t = await getTranslations("home");

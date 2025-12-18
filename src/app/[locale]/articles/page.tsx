@@ -10,26 +10,44 @@ import { DataFetcher } from "@/lib/data-fetcher";
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Tous les articles",
-  description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
-  openGraph: {
-    title: "Tous les articles | Afrique Sports",
-    description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
-    type: "website",
-    siteName: "Afrique Sports",
-    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Tous les articles | Afrique Sports",
-    description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
-  },
-};
-
 interface ArticlesPageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({ params }: ArticlesPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const pagePath = "/articles";
+  const canonicalUrl = locale === "fr" ? `${baseUrl}${pagePath}` : `${baseUrl}/${locale}${pagePath}`;
+
+  return {
+    title: "Tous les articles",
+    description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${pagePath}`,
+        "en-US": `${baseUrl}/en${pagePath}`,
+        "es-ES": `${baseUrl}/es${pagePath}`,
+        "x-default": `${baseUrl}${pagePath}`,
+      },
+    },
+    openGraph: {
+      title: "Tous les articles | Afrique Sports",
+      description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
+      type: "website",
+      siteName: "Afrique Sports",
+      url: canonicalUrl,
+      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Tous les articles | Afrique Sports",
+      description: "Retrouvez tous les articles d'actualité football africain sur Afrique Sports.",
+      images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+  };
 }
 
 async function ArticlesList({ page }: { page: number }) {

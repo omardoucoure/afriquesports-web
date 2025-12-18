@@ -2,23 +2,44 @@ import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { Breadcrumb } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
-  openGraph: {
-    title: "Contact | Afrique Sports",
+interface ContactPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: ContactPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = "https://www.afriquesports.net";
+  const pagePath = "/contact";
+  const canonicalUrl = locale === "fr" ? `${baseUrl}${pagePath}` : `${baseUrl}/${locale}${pagePath}`;
+
+  return {
+    title: "Contact",
     description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
-    type: "website",
-    siteName: "Afrique Sports",
-    images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact | Afrique Sports",
-    description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
-    images: ["https://www.afriquesports.net/opengraph-image"],
-  },
-};
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${baseUrl}${pagePath}`,
+        "en-US": `${baseUrl}/en${pagePath}`,
+        "es-ES": `${baseUrl}/es${pagePath}`,
+        "x-default": `${baseUrl}${pagePath}`,
+      },
+    },
+    openGraph: {
+      title: "Contact | Afrique Sports",
+      description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
+      type: "website",
+      siteName: "Afrique Sports",
+      url: canonicalUrl,
+      images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Contact | Afrique Sports",
+      description: "Contactez l'équipe Afrique Sports. Nous sommes là pour répondre à vos questions sur l'actualité du football africain.",
+      images: ["https://www.afriquesports.net/opengraph-image"],
+    },
+  };
+}
 
 const breadcrumbItems = [
   { label: "Accueil", href: "/" },
