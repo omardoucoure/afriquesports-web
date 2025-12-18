@@ -173,11 +173,30 @@ export function getArticleUrl(post: WordPressPost): string {
 }
 
 /**
+ * Author ID to name mapping (for migrated posts where users weren't migrated)
+ */
+const AUTHOR_MAP: Record<number, string> = {
+  1: "Admin",
+  6: "Afrique Sports",
+  36: "Rédaction Afrique Sports",
+};
+
+/**
  * Get author name from a post
  */
 export function getAuthorName(post: WordPressPost): string {
+  // First try embedded author data
   const author = post._embedded?.author?.[0];
-  return author?.name || "Afrique Sports";
+  if (author?.name && !author.name.includes("invalid")) {
+    return author.name;
+  }
+
+  // Fallback to author ID mapping
+  if (post.author && AUTHOR_MAP[post.author]) {
+    return AUTHOR_MAP[post.author];
+  }
+
+  return "Afrique Sports";
 }
 
 /**
