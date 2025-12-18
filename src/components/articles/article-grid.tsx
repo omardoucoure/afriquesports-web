@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ArticleCard } from "./article-card";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -22,6 +23,7 @@ export function ArticleGrid({
   priorityCount = 3,
   locale = "fr",
 }: ArticleGridProps) {
+  const tArticle = useTranslations("article");
   const gridCols = {
     1: "grid-cols-1",
     2: "grid-cols-1 sm:grid-cols-2",
@@ -32,7 +34,7 @@ export function ArticleGrid({
   if (!articles || articles.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">Aucun article disponible</p>
+        <p className="text-gray-500">{tArticle("noArticles")}</p>
       </div>
     );
   }

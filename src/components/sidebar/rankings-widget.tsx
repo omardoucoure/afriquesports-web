@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface TeamRanking {
   position: number;
@@ -20,19 +23,21 @@ interface RankingsWidgetProps {
 }
 
 export function RankingsWidget({
-  title = "Classement",
+  title,
   competition = "Ligue 1",
   teams,
   maxTeams = 5,
   showFullLink = true,
 }: RankingsWidgetProps) {
+  const tRankings = useTranslations("rankings");
+  const displayTitle = title || tRankings("title");
   const displayTeams = teams.slice(0, maxTeams);
 
   return (
     <div className="bg-white rounded p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-bold text-gray-900">{title}</h3>
+        <h3 className="font-bold text-gray-900">{displayTitle}</h3>
         <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
           {competition}
         </span>
@@ -43,10 +48,10 @@ export function RankingsWidget({
         <table className="w-full text-sm">
           <thead>
             <tr className="text-xs text-gray-500 border-b">
-              <th className="py-2 text-left font-medium">#</th>
-              <th className="py-2 text-left font-medium">Équipe</th>
-              <th className="py-2 text-center font-medium">J</th>
-              <th className="py-2 text-center font-medium">Pts</th>
+              <th className="py-2 text-left font-medium">{tRankings("position")}</th>
+              <th className="py-2 text-left font-medium">{tRankings("team")}</th>
+              <th className="py-2 text-center font-medium">{tRankings("played")}</th>
+              <th className="py-2 text-center font-medium">{tRankings("points")}</th>
             </tr>
           </thead>
           <tbody>
@@ -94,7 +99,7 @@ export function RankingsWidget({
           href="/classements"
           className="block mt-4 text-center text-sm font-medium text-[#022a27] hover:text-[#04453f] transition-colors"
         >
-          Voir le classement complet →
+          {tRankings("viewFull")} →
         </Link>
       )}
     </div>

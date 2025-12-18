@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface NavItem {
   label: string;
@@ -17,6 +18,8 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const tCommon = useTranslations("common");
+  const tContact = useTranslations("contact");
 
   // Prevent body scroll when nav is open
   useEffect(() => {
@@ -65,12 +68,12 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
             <div className="w-8 h-8 bg-[#04453f] rounded-lg flex items-center justify-center">
               <span className="text-black font-bold text-sm">AS</span>
             </div>
-            <span className="font-bold text-lg">Menu</span>
+            <span className="font-bold text-lg">{tCommon("menu")}</span>
           </div>
           <button
             onClick={onClose}
             className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
-            aria-label="Fermer le menu"
+            aria-label={`${tCommon("close")} ${tCommon("menu").toLowerCase()}`}
           >
             <svg
               className="w-6 h-6"
@@ -126,7 +129,7 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
                             onClick={onClose}
                             className="block px-4 py-2 text-sm text-[#022a27] font-medium hover:bg-[#04453f]/10 rounded-r-lg transition-colors"
                           >
-                            Tout voir
+                            {tCommon("seeAll")}
                           </Link>
                         </li>
                         {item.children.map((child) => (
@@ -159,7 +162,7 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
           {/* Social links */}
           <div className="mt-8 pt-6 border-t">
             <p className="px-4 text-sm font-medium text-gray-500 mb-4">
-              Suivez-nous
+              {tContact("followUs")}
             </p>
             <div className="flex items-center gap-3 px-4">
               <a

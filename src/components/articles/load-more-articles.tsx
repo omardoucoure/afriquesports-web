@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { ArticleCardHorizontal, ArticleCardHorizontalSkeleton } from "./article-card-horizontal";
 import type { WPPost } from "@/lib/data-fetcher";
 
@@ -17,10 +18,14 @@ export function LoadMoreArticles({
   initialArticles,
   initialOffset,
   perPage = 20,
-  loadMoreText = "Voir plus d'articles",
-  loadingText = "Chargement...",
-  noMoreText = "Tous les articles ont été chargés",
+  loadMoreText,
+  loadingText,
+  noMoreText,
 }: LoadMoreArticlesProps) {
+  const tHome = useTranslations("home");
+  const displayLoadMore = loadMoreText || tHome("loadMore");
+  const displayLoading = loadingText || tHome("loading");
+  const displayNoMore = noMoreText || tHome("noMoreArticles");
   const [articles, setArticles] = useState<WPPost[]>(initialArticles);
   const [offset, setOffset] = useState(initialOffset + initialArticles.length);
   const [hasMore, setHasMore] = useState(initialArticles.length === perPage);
@@ -90,10 +95,10 @@ export function LoadMoreArticles({
             disabled={isLoading || isPending}
             className="inline-block px-8 py-3 bg-black text-white font-semibold hover:bg-gray-800 transition-colors rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading || isPending ? loadingText : loadMoreText}
+            {isLoading || isPending ? displayLoading : displayLoadMore}
           </button>
         ) : (
-          <p className="text-gray-500 text-sm">{noMoreText}</p>
+          <p className="text-gray-500 text-sm">{displayNoMore}</p>
         )}
       </div>
     </div>

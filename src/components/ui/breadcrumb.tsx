@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface BreadcrumbItem {
   label: string;
@@ -11,6 +14,7 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
+  const tCommon = useTranslations("common");
   // Generate JSON-LD structured data for breadcrumbs
   const jsonLd = {
     "@context": "https://schema.org",
@@ -32,7 +36,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       />
 
       {/* Breadcrumb navigation */}
-      <nav aria-label="Fil d'Ariane" className={className}>
+      <nav aria-label={tCommon("breadcrumb")} className={className}>
         <ol className="flex items-center flex-wrap gap-1 text-sm">
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
@@ -76,35 +80,43 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
   );
 }
 
+// Slug to translation key mapping
+const slugToKey: Record<string, { namespace: string; key: string }> = {
+  afrique: { namespace: "categories", key: "africa" },
+  europe: { namespace: "categories", key: "europe" },
+  football: { namespace: "categories", key: "africa" },
+  mercato: { namespace: "categories", key: "mercato" },
+  "can-2025": { namespace: "categories", key: "can2025" },
+  "coupe-du-monde": { namespace: "categories", key: "worldCup" },
+  autres: { namespace: "categories", key: "others" },
+  "ballon-dor": { namespace: "categories", key: "ballonDor" },
+  youtube: { namespace: "categories", key: "videos" },
+  // Countries
+  senegal: { namespace: "countries", key: "senegal" },
+  cameroun: { namespace: "countries", key: "cameroon" },
+  "cote-divoire": { namespace: "countries", key: "ivoryCoast" },
+  algerie: { namespace: "countries", key: "algeria" },
+  maroc: { namespace: "countries", key: "morocco" },
+  rdc: { namespace: "countries", key: "drc" },
+  nigeria: { namespace: "countries", key: "nigeria" },
+};
+
+interface TranslationFunctions {
+  tNav: (key: string) => string;
+  tCategories: (key: string) => string;
+  tCountries: (key: string) => string;
+}
+
 // Helper function to generate breadcrumb items from category path
 export function generateBreadcrumbItems(
   path: string,
-  title?: string
+  title?: string,
+  translations?: TranslationFunctions
 ): BreadcrumbItem[] {
-  const items: BreadcrumbItem[] = [{ label: "Accueil", href: "/" }];
+  const homeLabel = translations?.tNav("home") || "Home";
+  const items: BreadcrumbItem[] = [{ label: homeLabel, href: "/" }];
 
   const segments = path.split("/").filter(Boolean);
-
-  // Category mappings for display labels
-  const categoryLabels: Record<string, string> = {
-    afrique: "Afrique",
-    europe: "Europe",
-    football: "Football",
-    mercato: "Mercato",
-    "can-2025": "CAN 2025",
-    "coupe-du-monde": "Coupe du Monde",
-    autres: "Autres Sports",
-    "ballon-dor": "Ballon d'Or",
-    youtube: "Vidéos",
-    // Countries
-    senegal: "Sénégal",
-    cameroun: "Cameroun",
-    "cote-divoire": "Côte d'Ivoire",
-    algerie: "Algérie",
-    maroc: "Maroc",
-    rdc: "RDC",
-    nigeria: "Nigeria",
-  };
 
   let currentPath = "";
 
@@ -123,8 +135,20 @@ export function generateBreadcrumbItems(
         href: currentPath,
       });
     } else {
+      // Get translated label based on slug
+      const mapping = slugToKey[segment];
+      let label = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+
+      if (mapping && translations) {
+        if (mapping.namespace === "categories") {
+          label = translations.tCategories(mapping.key);
+        } else if (mapping.namespace === "countries") {
+          label = translations.tCountries(mapping.key);
+        }
+      }
+
       items.push({
-        label: categoryLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1),
+        label,
         href: currentPath,
       });
     }

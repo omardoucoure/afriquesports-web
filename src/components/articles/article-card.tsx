@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -24,6 +25,7 @@ export function ArticleCard({
   showCategory = true,
   locale = "fr",
 }: ArticleCardProps) {
+  const tCommon = useTranslations("common");
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryLabel = getCategoryLabel(article);
   const articleUrl = getArticleUrl(article);
@@ -47,7 +49,7 @@ export function ArticleCard({
               />
             ) : (
               <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-sm">Pas d&apos;image</span>
+                <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
               </div>
             )}
 
@@ -134,7 +136,7 @@ export function ArticleCard({
               />
             ) : (
               <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-sm">Pas d&apos;image</span>
+                <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
               </div>
             )}
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { fetchTopScorers, type TopScorerData } from "@/lib/football-api";
 
 interface TopScorersWidgetProps {
@@ -7,9 +8,13 @@ interface TopScorersWidgetProps {
 }
 
 export async function TopScorersWidget({
-  title = "Top buteurs africains",
+  title,
   maxScorers = 5,
 }: TopScorersWidgetProps) {
+  const tHome = await getTranslations("home");
+  const tRankings = await getTranslations("rankings");
+  const displayTitle = title || tHome("topScorers");
+
   const scorers = await fetchTopScorers();
   const displayScorers = scorers.slice(0, maxScorers);
 
@@ -21,7 +26,7 @@ export async function TopScorersWidget({
     <div>
       {/* Header with gradient line */}
       <div className="flex items-center gap-3 mb-4">
-        <h3 className="title-section whitespace-nowrap">{title}</h3>
+        <h3 className="title-section whitespace-nowrap">{displayTitle}</h3>
         <div
           className="flex-1 h-0.5"
           style={{
@@ -36,9 +41,9 @@ export async function TopScorersWidget({
         {/* Header row */}
         <div className="flex items-center px-4 py-2 bg-[#04453f] text-white text-xs font-bold">
           <span className="w-8 text-center">#</span>
-          <span className="flex-1">Joueur</span>
-          <span className="w-10 text-center">Buts</span>
-          <span className="w-10 text-center hidden sm:block">Passes</span>
+          <span className="flex-1">{tRankings("player")}</span>
+          <span className="w-10 text-center">{tRankings("goals")}</span>
+          <span className="w-10 text-center hidden sm:block">{tRankings("assists")}</span>
         </div>
 
         {/* Scorers rows */}
@@ -53,7 +58,7 @@ export async function TopScorersWidget({
           href="/classements/buteurs"
           className="block px-4 py-3 text-center text-sm font-bold text-[#04453f] hover:bg-gray-50 transition-colors border-t border-gray-100"
         >
-          Voir le classement complet →
+          {tRankings("viewFull")} →
         </a>
       </div>
     </div>

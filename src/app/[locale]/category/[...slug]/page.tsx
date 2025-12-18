@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, generateBreadcrumbItems, Pagination } from "@/components/ui";
@@ -104,17 +105,20 @@ async function CategoryArticles({
 }) {
   const perPage = 12;
   const offset = (page - 1) * perPage;
+  const locale = await getLocale();
+  const tArticle = await getTranslations("article");
 
   try {
     const articles = await DataFetcher.fetchPostsByCategory(categorySlug, {
       per_page: perPage.toString(),
       offset: offset.toString(),
+      locale,
     });
 
     if (!articles || articles.length === 0) {
       return (
         <div className="text-center py-12">
-          <p className="text-gray-500">Aucun article trouvé dans cette catégorie.</p>
+          <p className="text-gray-500">{tArticle("noArticles")}</p>
         </div>
       );
     }
@@ -151,7 +155,8 @@ async function CategoryArticles({
 }
 
 async function SidebarMostRead() {
-  const articles = await DataFetcher.fetchPosts({ per_page: "5" });
+  const locale = await getLocale();
+  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
@@ -164,6 +169,11 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const { slug } = await params;
   const { page: pageParam } = await searchParams;
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
+
+  // Get translations
+  const tNav = await getTranslations("nav");
+  const tCategories = await getTranslations("categories");
+  const tCountries = await getTranslations("countries");
 
   if (!slug || slug.length === 0) {
     notFound();
@@ -179,8 +189,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     description: `Actualités ${categorySlug}`,
   };
 
-  // Generate breadcrumb items
-  const breadcrumbItems = generateBreadcrumbItems(fullPath);
+  // Generate breadcrumb items with translations
+  const breadcrumbItems = generateBreadcrumbItems(fullPath, undefined, {
+    tNav: (key) => tNav(key),
+    tCategories: (key) => tCategories(key),
+    tCountries: (key) => tCountries(key),
+  });
 
   return (
     <>

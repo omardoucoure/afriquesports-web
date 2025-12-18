@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { getArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -35,10 +36,12 @@ function formatViewCount(count: number | undefined): string | null {
 }
 
 export function MostReadWidget({
-  title = "Les plus lus",
+  title,
   articles,
   maxArticles = 5,
 }: MostReadWidgetProps) {
+  const tHome = useTranslations("home");
+  const displayTitle = title || tHome("mostRead");
   const displayArticles = articles.slice(0, maxArticles);
 
   if (!displayArticles.length) {
@@ -49,7 +52,7 @@ export function MostReadWidget({
     <div>
       {/* Header with gradient line - outside container */}
       <div className="flex items-center gap-3 mb-4">
-        <h3 className="title-section whitespace-nowrap">{title}</h3>
+        <h3 className="title-section whitespace-nowrap">{displayTitle}</h3>
         <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
       </div>
 
@@ -103,7 +106,7 @@ export function MostReadWidget({
                     </p>
                     {formatViewCount((article as TrendingArticle).viewCount) && (
                       <span className="text-sm text-gray-500 font-medium">
-                        {formatViewCount((article as TrendingArticle).viewCount)} vues
+                        {formatViewCount((article as TrendingArticle).viewCount)} {tHome("views")}
                       </span>
                     )}
                   </div>

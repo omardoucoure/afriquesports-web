@@ -17,7 +17,9 @@
     "next": "Next",
     "previous": "Previous",
     "page": "Page",
-    "of": "of"
+    "of": "of",
+    "breadcrumb": "Breadcrumb",
+    "noImage": "No image"
   },
   "nav": {
     "home": "Home",
@@ -69,6 +71,7 @@
     "loadMore": "Load more articles",
     "loading": "Loading...",
     "noMoreArticles": "All articles have been loaded",
+    "views": "views",
     "topScorers": "Top African scorers",
     "can2025Title": "Africa Cup of Nations 2025",
     "can2025Description": "Follow all the news about AFCON 2025 in Morocco. Results, rankings, team line-ups and analysis.",
@@ -106,6 +109,9 @@
     "goalsAgainst": "GA",
     "goalDifference": "+/-",
     "points": "Pts",
+    "player": "Player",
+    "goals": "Goals",
+    "assists": "Assists",
     "viewFull": "View full rankings",
     "africanLeagues": "African leagues",
     "comingSoon": "African league rankings will be available soon."

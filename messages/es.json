@@ -17,7 +17,9 @@
     "next": "Siguiente",
     "previous": "Anterior",
     "page": "Página",
-    "of": "de"
+    "of": "de",
+    "breadcrumb": "Migas de pan",
+    "noImage": "Sin imagen"
   },
   "nav": {
     "home": "Inicio",
@@ -69,6 +71,7 @@
     "loadMore": "Ver más artículos",
     "loading": "Cargando...",
     "noMoreArticles": "Todos los artículos han sido cargados",
+    "views": "vistas",
     "topScorers": "Máximos goleadores africanos",
     "can2025Title": "Copa Africana de Naciones 2025",
     "can2025Description": "Sigue todas las noticias de la CAN 2025 en Marruecos. Resultados, clasificaciones, alineaciones y análisis.",
@@ -106,6 +109,9 @@
     "goalsAgainst": "GC",
     "goalDifference": "+/-",
     "points": "Pts",
+    "player": "Jugador",
+    "goals": "Goles",
+    "assists": "Asistencias",
     "viewFull": "Ver clasificación completa",
     "africanLeagues": "Ligas africanas",
     "comingSoon": "Las clasificaciones de las ligas africanas estarán disponibles pronto."

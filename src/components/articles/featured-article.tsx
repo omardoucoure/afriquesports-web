@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -11,6 +12,7 @@ interface FeaturedArticleProps {
 }
 
 export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps) {
+  const tCommon = useTranslations("common");
   const imageUrl = getFeaturedImageUrl(article, "full");
   const categoryLabel = getCategoryLabel(article);
   const articleUrl = getArticleUrl(article);
@@ -65,7 +67,7 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
           <div className="flex items-center gap-4 mt-4">
             <time className="text-sm text-gray-300">{formattedDate}</time>
             <span className="text-[#04453f] text-sm font-medium group-hover:underline">
-              Lire l&apos;article →
+              {tCommon("readMore")} →
             </span>
           </div>
         </div>

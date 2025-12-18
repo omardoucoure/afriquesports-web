@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getArticleUrl } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -13,11 +14,13 @@ interface RecentArticlesWidgetProps {
 }
 
 export function RecentArticlesWidget({
-  title = "Articles récents",
+  title,
   articles,
   maxArticles = 5,
   locale = "fr",
 }: RecentArticlesWidgetProps) {
+  const tHome = useTranslations("home");
+  const displayTitle = title || tHome("latestArticles");
   const displayArticles = articles.slice(0, maxArticles);
 
   if (!displayArticles.length) {
@@ -27,7 +30,7 @@ export function RecentArticlesWidget({
   return (
     <div className="bg-white rounded p-4">
       {/* Header */}
-      <h3 className="font-bold text-gray-900 mb-4">{title}</h3>
+      <h3 className="font-bold text-gray-900 mb-4">{displayTitle}</h3>
 
       {/* Articles list */}
       <div className="space-y-4">

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface Player {
   name: string;
@@ -60,13 +63,16 @@ const defaultPlayers: Player[] = [
 ];
 
 export function PlayersWidget({
-  title = "Joueurs clés",
+  title,
   players = defaultPlayers,
 }: PlayersWidgetProps) {
+  const tHome = useTranslations("home");
+  const displayTitle = title || tHome("keyPlayers");
+
   return (
     <div className="bg-white rounded p-4">
       {/* Header */}
-      <h3 className="font-bold text-gray-900 mb-4">{title}</h3>
+      <h3 className="font-bold text-gray-900 mb-4">{displayTitle}</h3>
 
       {/* Players list */}
       <div className="space-y-3">

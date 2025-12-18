@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Script from "next/script";
 import type { Metadata } from "next";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton, ShareButtons, ArticleContent } from "@/components/articles";
 import { Breadcrumb, generateBreadcrumbItems } from "@/components/ui";
@@ -160,9 +161,13 @@ function ArticleJsonLd({
 }
 
 async function RelatedArticles({ categorySlug }: { categorySlug: string }) {
+  const locale = await getLocale();
+  const tArticle = await getTranslations("article");
+
   try {
     const articles = await DataFetcher.fetchPostsByCategory(categorySlug, {
       per_page: "3",
+      locale,
     });
 
     if (!articles || articles.length === 0) {
@@ -173,7 +178,7 @@ async function RelatedArticles({ categorySlug }: { categorySlug: string }) {
       <section className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6">
         <div className="flex items-center gap-3 mb-4 sm:mb-6">
           <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 whitespace-nowrap">
-            Articles similaires
+            {tArticle("relatedArticles")}
           </h2>
           <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
         </div>
@@ -186,7 +191,8 @@ async function RelatedArticles({ categorySlug }: { categorySlug: string }) {
 }
 
 async function SidebarMostRead() {
-  const articles = await DataFetcher.fetchPosts({ per_page: "5" });
+  const locale = await getLocale();
+  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
@@ -198,10 +204,15 @@ async function SidebarMostRead() {
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { locale, category, slug } = await params;
 
+  // Get translations
+  const tNav = await getTranslations("nav");
+  const tCategories = await getTranslations("categories");
+  const tCountries = await getTranslations("countries");
+
   // Fetch the article
   let article;
   try {
-    article = await DataFetcher.fetchPostBySlug(slug);
+    article = await DataFetcher.fetchPostBySlug(slug, locale);
   } catch (error) {
     console.error("Error fetching article:", error);
     notFound();
@@ -219,8 +230,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const readingTime = getReadingTime(article.content.rendered);
   const articleUrl = `https://www.afriquesports.net/${category}/${slug}`;
 
-  // Generate breadcrumb items
-  const breadcrumbItems = generateBreadcrumbItems(`/${category}/${slug}`, title);
+  // Generate breadcrumb items with translations
+  const breadcrumbItems = generateBreadcrumbItems(`/${category}/${slug}`, title, {
+    tNav: (key) => tNav(key),
+    tCategories: (key) => tCategories(key),
+    tCountries: (key) => tCountries(key),
+  });
 
   return (
     <>
