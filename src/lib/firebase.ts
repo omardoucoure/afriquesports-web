@@ -56,7 +56,7 @@ export const auth = (() => {
   const handler: ProxyHandler<Auth> = {
     get(target, prop) {
       const realAuth = getFirebaseAuth();
-      return (realAuth as Record<string, unknown>)[prop as string];
+      return (realAuth as unknown as Record<string, unknown>)[prop as string];
     }
   };
   return new Proxy({} as Auth, handler);
@@ -66,7 +66,7 @@ export const auth = (() => {
 export const app = new Proxy({} as FirebaseApp, {
   get(target, prop) {
     const realApp = getFirebaseApp();
-    return (realApp as Record<string, unknown>)[prop as string];
+    return (realApp as unknown as Record<string, unknown>)[prop as string];
   }
 });
 

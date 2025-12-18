@@ -32,6 +32,10 @@ export async function POST(request: NextRequest) {
       postSource,
     });
 
+    if (!result) {
+      return NextResponse.json({ success: false, error: 'Database unavailable' }, { status: 503 });
+    }
+
     return NextResponse.json({ success: true, count: result.count });
   } catch (error) {
     console.error('Error recording visit:', error);

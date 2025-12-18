@@ -63,9 +63,15 @@ export function MostReadWidget({
       {/* Articles list - inside white container */}
       <div className="bg-white rounded overflow-hidden divide-y divide-gray-100">
         {displayArticles.map((article, index) => {
-          const articleUrl = getArticleUrl(article);
-          const imageUrl = getFeaturedImageUrl(article, "medium");
-          const authorName = getAuthorName(article);
+          // Check if it's a full WordPressPost or a simplified TrendingArticle
+          const isFullPost = 'date' in article;
+          const articleUrl = isFullPost
+            ? getArticleUrl(article as WordPressPost)
+            : `/${(article as TrendingArticle).link?.split('/').slice(-2, -1)[0] || 'football'}/${article.slug}`;
+          const imageUrl = isFullPost
+            ? getFeaturedImageUrl(article as WordPressPost, "medium")
+            : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.jpg');
+          const authorName = isFullPost ? getAuthorName(article as WordPressPost) : 'Afrique Sports';
           const articleTitle = stripHtml(article.title.rendered);
 
           return (
