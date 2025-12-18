@@ -337,7 +337,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
                   {/* Bottom share buttons for mobile */}
                   <div className="mt-8 pt-6 border-t border-gray-200 lg:hidden">
-                    <p className="text-sm font-medium text-gray-600 mb-3">Partager cet article</p>
                     <ShareButtons url={articleUrl} title={title} />
                   </div>
                 </div>
@@ -374,12 +373,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {/* Mobile most read section */}
         <section className="lg:hidden container-main pb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-xl font-extrabold text-gray-900 whitespace-nowrap">
-              Les plus lus
-            </h2>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
-          </div>
           <Suspense fallback={<MostReadWidgetSkeleton />}>
             <SidebarMostRead />
           </Suspense>
