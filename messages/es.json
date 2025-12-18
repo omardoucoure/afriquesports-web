@@ -154,5 +154,37 @@
   "meta": {
     "siteTitle": "Afrique Sports - Noticias de Fútbol Africano",
     "siteDescription": "Todas las últimas noticias del fútbol africano: CAN 2025, fichajes, resultados, clasificaciones. Sigue a tus equipos favoritos de Senegal, Marruecos, Argelia, Camerún y más."
+  },
+  "nextMatch": {
+    "label": "Próximo partido",
+    "liveNow": "EN VIVO",
+    "watchLive": "Ver",
+    "countdown": {
+      "days": "d",
+      "hours": "h",
+      "min": "m",
+      "sec": "s"
+    },
+    "stages": {
+      "groupStage": "Fase de grupos",
+      "roundOf16": "Octavos",
+      "quarterFinals": "Cuartos",
+      "semiFinals": "Semifinales",
+      "final": "Final"
+    },
+    "teams": {
+      "morocco": "Marruecos",
+      "mali": "Malí",
+      "senegal": "Senegal",
+      "cameroon": "Camerún",
+      "ivoryCoast": "Costa de Marfil",
+      "algeria": "Argelia",
+      "nigeria": "Nigeria",
+      "egypt": "Egipto",
+      "ghana": "Ghana",
+      "drc": "RD Congo",
+      "tunisia": "Túnez",
+      "southAfrica": "Sudáfrica"
+    }
   }
 }

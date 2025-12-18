@@ -154,5 +154,37 @@
   "meta": {
     "siteTitle": "Afrique Sports - Actualités Football Africain",
     "siteDescription": "Toute l'actualité du football africain : CAN 2025, mercato, résultats, classements. Suivez vos équipes favorites du Sénégal, Maroc, Algérie, Cameroun et plus."
+  },
+  "nextMatch": {
+    "label": "Prochain match",
+    "liveNow": "EN DIRECT",
+    "watchLive": "Regarder",
+    "countdown": {
+      "days": "j",
+      "hours": "h",
+      "min": "m",
+      "sec": "s"
+    },
+    "stages": {
+      "groupStage": "Phase de groupes",
+      "roundOf16": "Huitièmes",
+      "quarterFinals": "Quarts",
+      "semiFinals": "Demi-finales",
+      "final": "Finale"
+    },
+    "teams": {
+      "morocco": "Maroc",
+      "mali": "Mali",
+      "senegal": "Sénégal",
+      "cameroon": "Cameroun",
+      "ivoryCoast": "Côte d'Ivoire",
+      "algeria": "Algérie",
+      "nigeria": "Nigeria",
+      "egypt": "Égypte",
+      "ghana": "Ghana",
+      "drc": "RD Congo",
+      "tunisia": "Tunisie",
+      "southAfrica": "Afrique du Sud"
+    }
   }
 }

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MobileNav } from "./mobile-nav";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 import { SearchModal } from "./search-modal";
+import { NextMatchBar } from "./next-match-bar";
 import { LanguageSwitcher } from "@/components/ui";
 
 interface NavItem {
@@ -56,6 +57,9 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
+        {/* CAN 2025 Next Match Banner */}
+        <NextMatchBar />
+
         {/* Main header with Africa borders */}
         <div className="relative bg-[#04453f] py-1 overflow-hidden">
           {/* Moroccan pattern overlay (same as footer) */}
@@ -89,46 +93,50 @@ export function Header() {
                 {navigation.map((item, index) => (
                   <div
                     key={item.href}
-                    className="relative"
-                    onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    className="relative flex items-center"
                   >
-                    <Link
-                      href={item.href}
-                      className="px-3 py-2 text-xs lg:text-sm font-extrabold text-white hover:text-[#9DFF20] transition-colors tracking-wide"
+                    <div
+                      className="relative"
+                      onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+                      onMouseLeave={() => setActiveDropdown(null)}
                     >
-                      {item.label}
-                      {item.children && (
-                        <svg
-                          className="inline-block w-3 h-3 ml-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      )}
-                    </Link>
-
-                    {/* Dropdown */}
-                    {item.children && activeDropdown === item.label && (
-                      <div className="absolute top-full left-0 mt-0 w-52 bg-[#022a27] py-2 z-50">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="block px-4 py-2 text-sm font-medium text-white hover:bg-[#04453f] hover:text-[#9DFF20] transition-colors"
+                      <Link
+                        href={item.href}
+                        className={`px-3 py-2 text-xs lg:text-sm font-extrabold text-white hover:text-[#9DFF20] transition-colors tracking-wide inline-flex items-center ${item.children ? 'pb-4' : ''}`}
+                      >
+                        {item.label}
+                        {item.children && (
+                          <svg
+                            className="inline-block w-3 h-3 ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
                           >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={3}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        )}
+                      </Link>
+
+                      {/* Dropdown */}
+                      {item.children && activeDropdown === item.label && (
+                        <div className="absolute top-full left-0 w-52 bg-[#022a27] py-2 z-50 shadow-lg rounded-b">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block px-4 py-2 text-sm font-medium text-white hover:bg-[#04453f] hover:text-[#9DFF20] transition-colors"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
 
                     {/* Separator */}
                     {index < navigation.length - 1 && (

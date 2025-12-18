@@ -154,5 +154,37 @@
   "meta": {
     "siteTitle": "Afrique Sports - African Football News",
     "siteDescription": "All the latest African football news: AFCON 2025, transfers, results, rankings. Follow your favorite teams from Senegal, Morocco, Algeria, Cameroon and more."
+  },
+  "nextMatch": {
+    "label": "Next match",
+    "liveNow": "LIVE",
+    "watchLive": "Watch",
+    "countdown": {
+      "days": "d",
+      "hours": "h",
+      "min": "m",
+      "sec": "s"
+    },
+    "stages": {
+      "groupStage": "Group stage",
+      "roundOf16": "Round of 16",
+      "quarterFinals": "Quarter-finals",
+      "semiFinals": "Semi-finals",
+      "final": "Final"
+    },
+    "teams": {
+      "morocco": "Morocco",
+      "mali": "Mali",
+      "senegal": "Senegal",
+      "cameroon": "Cameroon",
+      "ivoryCoast": "Ivory Coast",
+      "algeria": "Algeria",
+      "nigeria": "Nigeria",
+      "egypt": "Egypt",
+      "ghana": "Ghana",
+      "drc": "DR Congo",
+      "tunisia": "Tunisia",
+      "southAfrica": "South Africa"
+    }
   }
 }
