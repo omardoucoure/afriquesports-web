@@ -189,6 +189,16 @@
     aspect-ratio: 16 / 9;
   }
 
+  /* HTML5 video elements */
+  .article-content video {
+    @apply w-full h-auto rounded-lg;
+    max-width: 100%;
+  }
+
+  .article-content .wp-block-video video {
+    @apply w-full h-full object-contain;
+  }
+
   .article-content iframe[src*="youtube"],
   .article-content iframe[src*="youtu.be"] {
     @apply w-full rounded-xl overflow-hidden my-6 shadow-lg;
