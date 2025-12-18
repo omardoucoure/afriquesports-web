@@ -173,12 +173,29 @@ export function getArticleUrl(post: WordPressPost): string {
 }
 
 /**
- * Author ID to name mapping (for migrated posts where users weren't migrated)
+ * Author ID to name mapping (source database user IDs to display names)
  */
 const AUTHOR_MAP: Record<number, string> = {
-  1: "Admin",
-  6: "Afrique Sports",
-  36: "Rédaction Afrique Sports",
+  1: "Ousmane Ba",
+  6: "Momar Touré",
+  7: "Carinos Satya",
+  36: "Noyine Touré",
+  38: "Birane Bassoum",
+  57: "Sobour Magadji",
+  73: "Omar Doucouré",
+  88: "Équipe Youtube",
+  97: "Josué",
+  103: "Boris Adakanou",
+  109: "Sakho Malick",
+  110: "Sidy Touré",
+  111: "Diop",
+  115: "Sada",
+  116: "Edouard Agbetou",
+  118: "Dianga",
+  119: "Ibrahim",
+  120: "Cakpo",
+  121: "Pascal",
+  122: "Ouattara",
 };
 
 /**
