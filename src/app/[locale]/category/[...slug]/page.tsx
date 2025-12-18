@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
-import { Breadcrumb, generateBreadcrumbItems, Pagination } from "@/components/ui";
+import { Breadcrumb, Pagination } from "@/components/ui";
+import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 
