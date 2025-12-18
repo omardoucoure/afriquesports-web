@@ -1,17 +1,21 @@
-import { createClient } from '@vercel/postgres';
+import { createPool, VercelPool } from '@vercel/postgres';
 
 let tableInitialized = false;
 let dbAvailable = true;
+let pool: VercelPool | null = null;
 
-// Get database client with proper connection string
-function getClient() {
+// Get database pool with proper connection string
+function getPool() {
+  if (pool) return pool;
+
   const connectionString = process.env.POSTGRES_URL;
   if (!connectionString) {
     console.warn('[DB] No POSTGRES_URL configured');
     dbAvailable = false;
     return null;
   }
-  return createClient({ connectionString });
+  pool = createPool({ connectionString });
+  return pool;
 }
 
 // Initialize the visits table
@@ -19,12 +23,11 @@ export async function initVisitsTable() {
   if (tableInitialized || !dbAvailable) return;
   tableInitialized = true;
 
-  const client = getClient();
-  if (!client) return;
+  const db = getPool();
+  if (!db) return;
 
   try {
-    await client.connect();
-    await client.sql`
+    await db.sql`
       CREATE TABLE IF NOT EXISTS visits (
         id SERIAL PRIMARY KEY,
         post_id VARCHAR(255) NOT NULL,
@@ -43,10 +46,9 @@ export async function initVisitsTable() {
     `;
 
     // Create index for faster queries
-    await client.sql`
+    await db.sql`
       CREATE INDEX IF NOT EXISTS idx_visits_date_count ON visits(visit_date, count DESC)
     `;
-    await client.end();
   } catch (error) {
     console.error('[DB] Failed to initialize visits table:', error);
     dbAvailable = false;
@@ -65,15 +67,14 @@ export async function recordVisit(data: {
 }) {
   if (!dbAvailable) return null;
 
-  const client = getClient();
-  if (!client) return null;
+  const db = getPool();
+  if (!db) return null;
 
   const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource = 'afriquesports' } = data;
 
   try {
-    await client.connect();
     // Try to update existing record, insert if not exists
-    const result = await client.sql`
+    const result = await db.sql`
       INSERT INTO visits (post_id, post_slug, post_title, post_image, post_author, post_category, post_source, count)
       VALUES (${postId}, ${postSlug}, ${postTitle}, ${postImage || null}, ${postAuthor || null}, ${postCategory || null}, ${postSource}, 1)
       ON CONFLICT (post_id, visit_date)
@@ -82,7 +83,6 @@ export async function recordVisit(data: {
         updated_at = CURRENT_TIMESTAMP
       RETURNING id, count
     `;
-    await client.end();
     return result.rows[0];
   } catch (error) {
     console.error('[DB] Failed to record visit:', error);
@@ -95,19 +95,17 @@ export async function getTrendingPosts(limit: number = 10) {
   await initVisitsTable();
   if (!dbAvailable) return [];
 
-  const client = getClient();
-  if (!client) return [];
+  const db = getPool();
+  if (!db) return [];
 
   try {
-    await client.connect();
-    const result = await client.sql`
+    const result = await db.sql`
       SELECT post_id, post_slug, post_title, post_image, post_author, post_category, post_source, count
       FROM visits
       WHERE visit_date = CURRENT_DATE
       ORDER BY count DESC
       LIMIT ${limit}
     `;
-    await client.end();
     return result.rows;
   } catch (error) {
     console.error('[DB] Failed to get trending posts:', error);
@@ -120,12 +118,11 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
   await initVisitsTable();
   if (!dbAvailable) return [];
 
-  const client = getClient();
-  if (!client) return [];
+  const db = getPool();
+  if (!db) return [];
 
   try {
-    await client.connect();
-    const result = await client.sql`
+    const result = await db.sql`
       SELECT post_id, post_slug, post_title, post_image, post_author, post_category, post_source, SUM(count) as total_count
       FROM visits
       WHERE visit_date >= CURRENT_DATE - ${days}::INTEGER
@@ -133,7 +130,6 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
       ORDER BY total_count DESC
       LIMIT ${limit}
     `;
-    await client.end();
     return result.rows;
   } catch (error) {
     console.error('[DB] Failed to get trending posts by range:', error);
