@@ -24,21 +24,14 @@ interface MostReadWidgetProps {
 }
 
 // Format view count for display
-function formatViewCount(count: number | undefined, index: number): string {
-  // If we have a real count, use it
-  if (count && count > 0) {
-    if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k`;
-    }
-    return count.toString();
+function formatViewCount(count: number | undefined): string | null {
+  if (!count || count <= 0) {
+    return null;
   }
-  // Fallback to simulated counts
-  const views = [1580, 1270, 980, 756, 542];
-  const fallbackCount = views[index] || Math.floor(Math.random() * 500) + 100;
-  if (fallbackCount >= 1000) {
-    return `${(fallbackCount / 1000).toFixed(1)}k`;
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}k`;
   }
-  return fallbackCount.toString();
+  return count.toString();
 }
 
 export function MostReadWidget({
@@ -108,9 +101,11 @@ export function MostReadWidget({
                     <p className="text-sm text-gray-500">
                       <span className="text-[#04453f] font-medium">{authorName}</span>
                     </p>
-                    <span className="text-sm text-gray-500 font-medium">
-                      {formatViewCount((article as TrendingArticle).viewCount, index)} vues
-                    </span>
+                    {formatViewCount((article as TrendingArticle).viewCount) && (
+                      <span className="text-sm text-gray-500 font-medium">
+                        {formatViewCount((article as TrendingArticle).viewCount)} vues
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
