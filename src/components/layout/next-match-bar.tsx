@@ -126,8 +126,8 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                       sizes="40px"
                     />
                   </div>
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
-                    {matchData.homeTeam?.code}
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
+                    {matchData.homeTeam?.name}
                   </span>
                 </div>
 
@@ -138,8 +138,8 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
                 {/* Away Team */}
                 <div className="flex items-center gap-2 md:gap-3">
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
-                    {matchData.awayTeam?.code}
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
+                    {matchData.awayTeam?.name}
                   </span>
                   <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
                     <Image
