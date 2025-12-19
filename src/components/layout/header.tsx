@@ -96,7 +96,7 @@ export function Header() {
           />
           <AfricaBorder position="top" />
           <AfricaBorder position="bottom" />
-          <div className="container-main relative z-10">
+          <div className="container-main relative z-20">
             <div className="flex items-center justify-between h-14 md:h-16">
               {/* Logo */}
               <Link href="/" className="flex-shrink-0">
