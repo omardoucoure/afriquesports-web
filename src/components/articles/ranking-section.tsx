@@ -22,7 +22,7 @@ function RankingCard({ article }: { article: WordPressPost }) {
   const articleUrl = `/${categorySlug}/${article.slug}`;
 
   return (
-    <article className="bg-white rounded overflow-hidden group">
+    <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group">
       <Link href={articleUrl} className="block">
         <div className="relative aspect-[16/10] overflow-hidden">
           <Image
@@ -30,19 +30,24 @@ function RankingCard({ article }: { article: WordPressPost }) {
             alt={stripHtml(article.title.rendered)}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
           />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {/* Category badge */}
-          <span className="absolute top-3 left-3 px-2 py-1 bg-[#9DFF20] text-[#022a27] text-xs font-bold uppercase">
+          <span className="absolute top-2 left-2 px-2.5 py-1 bg-[#04453f] text-white text-xs font-bold uppercase rounded shadow-md">
             {categoryName}
           </span>
         </div>
-        <div className="p-4">
+        <div className="p-3">
           <h3
-            className="title-card text-base group-hover:text-[#04453f] transition-colors"
+            className="title-card text-base font-bold group-hover:text-[#04453f] transition-colors line-clamp-2 mb-2"
             dangerouslySetInnerHTML={{ __html: article.title.rendered }}
           />
-          <div className="flex items-center gap-2 text-xs text-gray-500 mt-2">
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             <time dateTime={article.date}>{formatDate(article.date)}</time>
           </div>
         </div>
@@ -57,9 +62,9 @@ export function RankingSection({ articles, title, seeMoreText }: RankingSectionP
   }
 
   return (
-    <section className="container-main py-4 md:py-6">
+    <section className="container-main py-3 md:py-4">
       {/* Section header with gradient line */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4">
         <h2 className="title-section whitespace-nowrap">{title}</h2>
         <div
           className="flex-1 h-0.5"
@@ -77,7 +82,7 @@ export function RankingSection({ articles, title, seeMoreText }: RankingSectionP
       </div>
 
       {/* Simple 3-column grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {articles.slice(0, 3).map((article) => (
           <RankingCard key={article.id} article={article} />
         ))}
@@ -88,9 +93,9 @@ export function RankingSection({ articles, title, seeMoreText }: RankingSectionP
 
 export function RankingSectionSkeleton() {
   return (
-    <section className="container-main py-4 md:py-6">
+    <section className="container-main py-3 md:py-4">
       {/* Section header skeleton */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4">
         <div className="h-6 w-32 bg-gray-200 animate-pulse rounded" />
         <div
           className="flex-1 h-0.5"
@@ -103,11 +108,11 @@ export function RankingSectionSkeleton() {
       </div>
 
       {/* 3-column skeleton grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white rounded overflow-hidden animate-pulse">
+          <div key={i} className="bg-white rounded-lg overflow-hidden shadow-sm animate-pulse">
             <div className="aspect-[16/10] bg-gray-200" />
-            <div className="p-4 space-y-2">
+            <div className="p-3 space-y-2">
               <div className="h-5 w-full bg-gray-200 rounded" />
               <div className="h-5 w-3/4 bg-gray-200 rounded" />
               <div className="h-3 w-24 bg-gray-200 rounded" />

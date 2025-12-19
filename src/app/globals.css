@@ -419,21 +419,21 @@
 
   /* Page top padding to account for fixed header + NextMatchBar */
   .pt-header {
-    /* Mobile: NextMatchBar (~52px) + Header (~56px) = ~108px */
-    padding-top: 110px;
+    /* Mobile: Header (~56px) + NextMatchBar (~60px) + spacing = ~130px */
+    padding-top: 130px;
   }
 
   @media (min-width: 768px) {
     .pt-header {
-      /* Tablet: NextMatchBar (~56px) + Header (~64px) = ~120px */
-      padding-top: 120px;
+      /* Tablet: Header (~64px) + NextMatchBar (~52px) + spacing = ~145px */
+      padding-top: 145px;
     }
   }
 
   @media (min-width: 1024px) {
     .pt-header {
-      /* Desktop: NextMatchBar (~60px) + Header (~64px) = ~124px */
-      padding-top: 124px;
+      /* Desktop: Header (~64px) + NextMatchBar (~52px) + spacing = ~150px */
+      padding-top: 150px;
     }
   }
 }

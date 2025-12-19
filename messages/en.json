@@ -14,6 +14,7 @@
     "linkCopied": "Link copied!",
     "readMore": "Read more",
     "back": "Back",
+    "backToHome": "Back to home",
     "next": "Next",
     "previous": "Previous",
     "page": "Page",
@@ -259,6 +260,40 @@
       "drc": "DR Congo",
       "tunisia": "Tunisia",
       "southAfrica": "South Africa"
+    }
+  },
+  "matchCommentary": {
+    "breadcrumb": "Live match",
+    "liveTitle": "Live match",
+    "description": "Football match between {home} and {away}. Score: {scoreHome}-{scoreAway}. Follow the match live with minute-by-minute commentary.",
+    "liveDescription": "Follow the live match between {home} and {away} with minute-by-minute commentary, statistics and analysis.",
+    "live": "LIVE",
+    "finished": "Finished",
+    "information": "Information",
+    "viewers": "Online viewers",
+    "lastUpdate": "Last update",
+    "status": "Status",
+    "minute": "Minute",
+    "venue": "Venue",
+    "summary": "Summary",
+    "commentaryTitle": "Live commentary",
+    "filterLabel": "Filter:",
+    "filter": {
+      "all": "All",
+      "goals": "Goals",
+      "yellowCard": "Yellow card",
+      "redCard": "Red card",
+      "substitution": "Substitution",
+      "shotOnTarget": "Shot on target",
+      "shotOffTarget": "Shot off target",
+      "shotBlocked": "Shot blocked",
+      "corner": "Corner",
+      "foul": "Foul"
+    },
+    "stats": {
+      "goals": "Goals",
+      "substitutions": "Substitutions",
+      "cards": "Cards"
     }
   }
 }

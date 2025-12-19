@@ -14,6 +14,7 @@
     "linkCopied": "¡Enlace copiado!",
     "readMore": "Leer más",
     "back": "Volver",
+    "backToHome": "Volver al inicio",
     "next": "Siguiente",
     "previous": "Anterior",
     "page": "Página",
@@ -259,6 +260,40 @@
       "drc": "RD Congo",
       "tunisia": "Túnez",
       "southAfrica": "Sudáfrica"
+    }
+  },
+  "matchCommentary": {
+    "breadcrumb": "Partido en directo",
+    "liveTitle": "Partido en directo",
+    "description": "Partido de fútbol entre {home} y {away}. Marcador: {scoreHome}-{scoreAway}. Sigue el partido en directo con comentarios minuto a minuto.",
+    "liveDescription": "Sigue el partido en directo entre {home} y {away} con comentarios minuto a minuto, estadísticas y análisis.",
+    "live": "EN DIRECTO",
+    "finished": "Finalizado",
+    "information": "Información",
+    "viewers": "Espectadores en línea",
+    "lastUpdate": "Última actualización",
+    "status": "Estado",
+    "minute": "Minuto",
+    "venue": "Estadio",
+    "summary": "Resumen",
+    "commentaryTitle": "Comentarios en directo",
+    "filterLabel": "Filtrar:",
+    "filter": {
+      "all": "Todos",
+      "goals": "Goles",
+      "yellowCard": "Tarjeta amarilla",
+      "redCard": "Tarjeta roja",
+      "substitution": "Sustitución",
+      "shotOnTarget": "Tiro a puerta",
+      "shotOffTarget": "Tiro fuera",
+      "shotBlocked": "Tiro bloqueado",
+      "corner": "Córner",
+      "foul": "Falta"
+    },
+    "stats": {
+      "goals": "Goles",
+      "substitutions": "Sustituciones",
+      "cards": "Tarjetas"
     }
   }
 }

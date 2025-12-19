@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { ArticleCard } from "./article-card";
 import { ArticleCardHorizontal, ArticleCardHorizontalSkeleton } from "./article-card-horizontal";
 import type { WPPost } from "@/lib/data-fetcher";
 
@@ -67,8 +68,8 @@ export function LoadMoreArticles({
 
   return (
     <div>
-      {/* Articles list */}
-      <div className="space-y-4">
+      {/* Mobile: Vertical list with horizontal cards */}
+      <div className="lg:hidden space-y-4">
         {articles.map((article, index) => (
           <ArticleCardHorizontal
             key={article.id}
@@ -77,11 +78,39 @@ export function LoadMoreArticles({
           />
         ))}
 
-        {/* Loading skeleton */}
+        {/* Mobile loading skeleton */}
         {isLoading && (
           <>
             {Array.from({ length: 5 }).map((_, i) => (
-              <ArticleCardHorizontalSkeleton key={`skeleton-${i}`} />
+              <ArticleCardHorizontalSkeleton key={`skeleton-mobile-${i}`} />
+            ))}
+          </>
+        )}
+      </div>
+
+      {/* Desktop: Grid layout with vertical cards */}
+      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {articles.map((article, index) => (
+          <ArticleCard
+            key={article.id}
+            article={article}
+            variant="default"
+            priority={index < 6}
+          />
+        ))}
+
+        {/* Desktop loading skeleton */}
+        {isLoading && (
+          <>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={`skeleton-desktop-${i}`} className="bg-white rounded overflow-hidden animate-pulse">
+                <div className="aspect-video bg-gray-200" />
+                <div className="p-4 space-y-3">
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                  <div className="h-3 bg-gray-200 rounded w-1/4" />
+                </div>
+              </div>
             ))}
           </>
         )}

@@ -82,9 +82,6 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        {/* CAN 2025 Next Match Banner */}
-        <NextMatchBar />
-
         {/* Main header with Africa borders */}
         <div className="relative bg-[#04453f] py-1 overflow-hidden">
           {/* Moroccan pattern overlay (same as footer) */}
@@ -149,7 +146,7 @@ export function Header() {
 
                       {/* Dropdown */}
                       {item.children && activeDropdown === item.label && (
-                        <div className="absolute top-full left-0 w-52 bg-[#022a27] py-2 z-50 shadow-lg rounded-b">
+                        <div className="absolute top-full left-0 w-52 bg-[#022a27] py-2 z-[100] shadow-lg rounded-b">
                           {item.children.map((child) => (
                             <Link
                               key={child.href}
@@ -203,6 +200,9 @@ export function Header() {
             </div>
           </div>
         </div>
+
+        {/* CAN 2025 Next Match Banner */}
+        <NextMatchBar />
 
       </header>
 

@@ -5,10 +5,8 @@ import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
   HeroSectionSkeleton,
-  ArticleCardHorizontalSkeleton,
-  RankingSection,
-  RankingSectionSkeleton,
   LoadMoreArticles,
+  ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
@@ -124,32 +122,41 @@ async function HeroArticlesSection({ locale }: { locale: string }) {
   const tArticle = await getTranslations("article");
 
   try {
-    // Fetch featured post from "article-du-jour" category and latest posts
-    const [featuredPosts, latestPosts] = await Promise.all([
+    // Fetch featured post, flash feed posts (recent), and Afrique Sports TV posts
+    const [featuredPosts, flashFeedPosts, afriqueSportsTVPosts] = await Promise.all([
       DataFetcher.fetchPosts({ per_page: "1", categories: "30615", locale }), // article-du-jour category
-      DataFetcher.fetchPosts({ per_page: "5", locale }),
+      DataFetcher.fetchPosts({ per_page: "10", locale }), // For flash feed/left section (recent articles)
+      DataFetcher.fetchPostsByCategory("afrique-sports-tv", { per_page: "2", locale }), // For right section
     ]);
 
     // Use article-du-jour post if available, otherwise use the first latest post
-    const featuredArticle = featuredPosts?.[0] || latestPosts?.[0];
+    const featuredArticle = featuredPosts?.[0] || flashFeedPosts?.[0];
 
-    // Filter out the featured article from latest posts to avoid duplication
-    const filteredPosts = latestPosts?.filter(
+    // Filter out the featured article from flash feed to avoid duplication
+    const filteredFlashFeed = flashFeedPosts?.filter(
       (post) => post.id !== featuredArticle?.id
     ) || [];
 
-    if (!featuredArticle || filteredPosts.length < 4) {
+    // Prepare Afrique Sports TV posts for left section (numbered cards)
+    const leftArticles = afriqueSportsTVPosts && afriqueSportsTVPosts.length >= 2
+      ? [afriqueSportsTVPosts[0], afriqueSportsTVPosts[1]]
+      : [filteredFlashFeed[0], filteredFlashFeed[1]];
+
+    // Prepare flash feed for right section (chronological list with timestamps)
+    const rightArticles = filteredFlashFeed.slice(0, 8);
+
+    if (!featuredArticle || filteredFlashFeed.length < 2) {
       return <HeroSectionSkeleton />;
     }
 
     return (
       <HeroSection
         featuredArticle={featuredArticle}
-        leftArticles={[filteredPosts[0], filteredPosts[1]]}
-        rightArticles={[filteredPosts[2], filteredPosts[3]]}
+        leftArticles={leftArticles} // Afrique Sports TV - 2 numbered cards
+        rightArticles={rightArticles} // Fil Actu - 8 flash feed posts with timestamps
         translations={{
-          trending: t("trending"),
-          latest: t("latest"),
+          trending: "FIL ACTU",
+          latest: "AFRIQUE SPORTS TV",
           by: tArticle("by"),
         }}
       />
@@ -198,37 +205,6 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
   }
 }
 
-async function RankingArticlesSection({ locale }: { locale: string }) {
-  const t = await getTranslations("home");
-
-  try {
-    // Fetch posts from classement/ranking category
-    const articles = await DataFetcher.fetchPostsByCategory("classement", { per_page: "3", locale });
-
-    if (!articles || articles.length < 3) {
-      // Fallback: fetch from another related category or just use latest
-      const fallbackArticles = await DataFetcher.fetchPosts({ per_page: "3", locale });
-      return (
-        <RankingSection
-          articles={fallbackArticles || []}
-          title={t("rankings")}
-          seeMoreText={t("seeMore")}
-        />
-      );
-    }
-
-    return (
-      <RankingSection
-        articles={articles}
-        title={t("rankings")}
-        seeMoreText={t("seeMore")}
-      />
-    );
-  } catch (error) {
-    console.error('[RankingArticlesSection] Error fetching articles:', error);
-    return <RankingSectionSkeleton />;
-  }
-}
 
 async function MostReadSection({ locale }: { locale: string }) {
 
@@ -246,13 +222,15 @@ async function MostReadSection({ locale }: { locale: string }) {
           'wp:featuredmedia': [{ source_url: item.post_image }]
         } : undefined,
         link: `https://www.afriquesports.net/${item.post_category || 'football'}/${item.post_slug}`,
-        viewCount: item.total_count || item.count,
+        viewCount: Number(item.total_count || item.count || 0),
       }));
+
+      console.log('[MostReadSection] Trending articles with view counts:', trendingArticles.map(a => ({ title: a.title.rendered, viewCount: a.viewCount })));
 
       return <MostReadWidget articles={trendingArticles} />;
     }
   } catch (error) {
-    console.error('Error fetching trending posts:', error);
+    console.error('[MostReadSection] Error fetching trending posts:', error);
   }
 
   // Fallback to latest posts if trending is empty or fails
@@ -262,7 +240,15 @@ async function MostReadSection({ locale }: { locale: string }) {
     return <MostReadWidgetSkeleton />;
   }
 
-  return <MostReadWidget articles={articles} />;
+  // Add mock view counts for fallback articles for testing
+  const articlesWithViews = articles.map((article, index) => ({
+    ...article,
+    viewCount: 1000 + (index * 100), // Mock view counts: 1000, 1100, 1200, etc.
+  }));
+
+  console.log('[MostReadSection] Using fallback articles with mock view counts');
+
+  return <MostReadWidget articles={articlesWithViews} />;
 }
 
 export default async function Home({ params }: HomePageProps) {
@@ -296,10 +282,45 @@ export default async function Home({ params }: HomePageProps) {
           </Suspense>
         </section>
 
-        {/* Ranking section */}
-        <Suspense fallback={<RankingSectionSkeleton />}>
-          <RankingArticlesSection locale={locale} />
-        </Suspense>
+        {/* CAN 2025 section */}
+        <section className="container-main py-6 md:py-8">
+          <div className="relative bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#4a8000] p-8 md:p-10 rounded-xl overflow-hidden shadow-2xl">
+            {/* Moroccan pattern overlay - same as footer */}
+            <div
+              className="absolute inset-0 opacity-40"
+              style={{
+                backgroundImage: 'url(/images/can2025-pattern.png)',
+                backgroundSize: 'auto 100%',
+                backgroundRepeat: 'repeat-x',
+                backgroundPosition: 'center',
+              }}
+            />
+
+            {/* Content */}
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="inline-block px-4 py-1.5 bg-white text-[#04453f] text-sm font-extrabold uppercase tracking-wide shadow-lg relative" style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)' }}>
+                    CAN 2025
+                  </span>
+                  <div className="flex-1 h-1 max-w-[100px]" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)' }} />
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-3 drop-shadow-lg">
+                  {t("can2025Title")}
+                </h2>
+                <p className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed">
+                  {t("can2025Description")}
+                </p>
+              </div>
+              <a
+                href="/category/can-2025"
+                className="flex-shrink-0 px-8 py-4 bg-white text-[#04453f] font-extrabold text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
+              >
+                {t("can2025Button")}
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* Main content with sidebar */}
         <div className="container-main py-4 md:py-6">
@@ -307,7 +328,7 @@ export default async function Home({ params }: HomePageProps) {
             {/* Articles list */}
             <div className="flex-1">
               {/* Section header with gradient line */}
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-4">
                 <h2 className="text-xl font-extrabold text-gray-900 whitespace-nowrap">
                   {t("latestArticles")}
                 </h2>
@@ -316,11 +337,27 @@ export default async function Home({ params }: HomePageProps) {
 
               <Suspense
                 fallback={
-                  <div className="space-y-4">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                      <ArticleCardHorizontalSkeleton key={i} />
-                    ))}
-                  </div>
+                  <>
+                    {/* Mobile skeleton */}
+                    <div className="lg:hidden space-y-4">
+                      {Array.from({ length: 20 }).map((_, i) => (
+                        <ArticleCardHorizontalSkeleton key={i} />
+                      ))}
+                    </div>
+                    {/* Desktop skeleton */}
+                    <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {Array.from({ length: 18 }).map((_, i) => (
+                        <div key={i} className="bg-white rounded overflow-hidden animate-pulse">
+                          <div className="aspect-video bg-gray-200" />
+                          <div className="p-4 space-y-3">
+                            <div className="h-4 bg-gray-200 rounded w-3/4" />
+                            <div className="h-4 bg-gray-200 rounded w-1/2" />
+                            <div className="h-3 bg-gray-200 rounded w-1/4" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
                 }
               >
                 <LatestArticlesSection locale={locale} />
@@ -358,31 +395,6 @@ export default async function Home({ params }: HomePageProps) {
           <Suspense fallback={<MostReadWidgetSkeleton />}>
             <MostReadSection locale={locale} />
           </Suspense>
-        </section>
-
-        {/* CAN 2025 section */}
-        <section className="container-main py-6 md:py-8">
-          <div className="bg-gradient-to-r from-[#022a27] to-[#4a8000] p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div>
-                <span className="inline-block px-3 py-1 bg-[#04453f] text-white text-xs font-bold uppercase mb-3">
-                  CAN 2025
-                </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-white">
-                  {t("can2025Title")}
-                </h2>
-                <p className="mt-2 text-white/80 max-w-xl">
-                  {t("can2025Description")}
-                </p>
-              </div>
-              <a
-                href="/category/can-2025"
-                className="flex-shrink-0 px-6 py-3 bg-[#04453f] text-white font-bold hover:bg-white hover:text-[#04453f] transition-colors"
-              >
-                {t("can2025Button")}
-              </a>
-            </div>
-          </div>
         </section>
       </main>
 
