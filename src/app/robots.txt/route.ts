@@ -17,9 +17,53 @@ export async function GET() {
 # Default rules for all crawlers
 User-agent: *
 Allow: /
+
+# Block search and internal pages
 Disallow: /search
 Disallow: /_next
 Disallow: /api
+
+# Block query strings (cache busting, pagination params)
+Disallow: /*?*cb=
+Disallow: /*?*query-0-page=
+Disallow: /*?*dcb=
+Disallow: /*?*shcb=
+Disallow: /*?*a=a
+Disallow: /*?s=
+Disallow: /*?p=
+Disallow: /*?preview=
+
+# Block old WordPress paths
+Disallow: /feed
+Disallow: /feed/
+Disallow: /comments/feed
+Disallow: /trackback
+Disallow: /xmlrpc.php
+Disallow: /wp-admin
+Disallow: /wp-login.php
+Disallow: /wp-includes
+Disallow: /wp-content/plugins
+Disallow: /wp-json
+
+# Block low-value pages
+Disallow: /author/
+Disallow: /tag/
+Disallow: /attachment/
+Disallow: /replytocom=
+
+# Block date archives
+Disallow: /2020/
+Disallow: /2021/
+Disallow: /2022/
+Disallow: /2023/
+Disallow: /2024/
+Disallow: /2025/
+
+# Block deep pagination (page 10+)
+Disallow: /page/1
+Disallow: /*/page/1
+
+# Block JSON files
 Disallow: /*.json$
 
 # Google News specific
