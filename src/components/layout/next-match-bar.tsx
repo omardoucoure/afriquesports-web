@@ -194,7 +194,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="flex items-center gap-2">
               {/* Watch Match Button */}
               <Link
-                href="/can-2025"
+                href="/match-en-direct"
                 className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
