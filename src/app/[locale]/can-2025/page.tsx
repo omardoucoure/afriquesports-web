@@ -208,42 +208,53 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
     }).then(res => res.json()).catch(() => null),
   ]);
 
-  // Extract groups from schedule data
-  const groupsMap = new Map<string, Set<any>>();
+  // Official CAN 2025 groups with team IDs from ESPN API
+  const officialGroups = [
+    {
+      abbreviation: 'A',
+      teams: ['Morocco', 'Mali', 'Zambia', 'Comoros']
+    },
+    {
+      abbreviation: 'B',
+      teams: ['Egypt', 'South Africa', 'Angola', 'Zimbabwe']
+    },
+    {
+      abbreviation: 'C',
+      teams: ['Nigeria', 'Tunisia', 'Uganda', 'Tanzania']
+    },
+    {
+      abbreviation: 'D',
+      teams: ['Senegal', 'DR Congo', 'Benin', 'Botswana']
+    },
+    {
+      abbreviation: 'E',
+      teams: ['Algeria', 'Burkina Faso', 'Equatorial Guinea', 'Sudan']
+    },
+    {
+      abbreviation: 'F',
+      teams: ['Ivory Coast', 'Cameroon', 'Gabon', 'Mozambique']
+    }
+  ];
 
-  if (scheduleData?.events) {
-    scheduleData.events.forEach((event: any) => {
-      const competition = event.competitions?.[0];
-      if (competition?.group) {
-        const groupName = competition.group.name || competition.group.abbreviation || '';
-        if (!groupsMap.has(groupName)) {
-          groupsMap.set(groupName, new Set());
-        }
+  // Match teams from API with official groups
+  const allTeams = teamsData?.sports?.[0]?.leagues?.[0]?.teams || [];
+  const groupsData = officialGroups.map(group => {
+    const groupTeams = group.teams.map(teamName => {
+      const teamItem = allTeams.find((item: any) => {
+        const team = item.team;
+        const displayName = team?.displayName || team?.name || '';
+        return displayName === teamName ||
+               displayName.includes(teamName) ||
+               teamName.includes(displayName);
+      });
+      return teamItem?.team;
+    }).filter(Boolean);
 
-        competition.competitors?.forEach((competitor: any) => {
-          if (competitor.team) {
-            const existing = Array.from(groupsMap.get(groupName)!).find(
-              (t: any) => t.id === competitor.team.id
-            );
-            if (!existing) {
-              groupsMap.get(groupName)!.add(competitor.team);
-            }
-          }
-        });
-      }
-    });
-  }
-
-  // Convert to array format for rendering
-  const groupsData = Array.from(groupsMap.entries())
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([groupName, teams]) => ({
-      name: groupName,
-      abbreviation: groupName.replace('Group ', ''),
-      teams: Array.from(teams).sort((a: any, b: any) =>
-        (a.displayName || a.name).localeCompare(b.displayName || b.name)
-      )
-    }));
+    return {
+      abbreviation: group.abbreviation,
+      teams: groupTeams
+    };
+  });
 
   // Generate FAQ data for schema
   const faqs = [
