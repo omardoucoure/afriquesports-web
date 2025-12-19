@@ -55,7 +55,7 @@ export default function ConfidentialitePage() {
     <>
       <Header />
 
-      <main className="min-h-screen bg-[#F6F6F6] pt-[104px] md:pt-[88px] lg:pt-16">
+      <main className="min-h-screen bg-[#F6F6F6] pt-header">
         {/* Breadcrumb */}
         <div className="container-main py-4">
           <Breadcrumb items={breadcrumbItems} />

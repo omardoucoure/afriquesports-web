@@ -292,7 +292,7 @@ export default async function Home({ params }: HomePageProps) {
 
       <Header />
 
-      <main className="min-h-screen bg-[#F6F6F6] pt-[72px] md:pt-[88px] lg:pt-16 pb-20 lg:pb-0">
+      <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">
         {/* Hero section with featured article */}
         <section className="container-main py-4 md:py-6">
           <Suspense fallback={<HeroSectionSkeleton />}>

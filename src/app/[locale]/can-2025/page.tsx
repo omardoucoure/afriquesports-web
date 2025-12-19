@@ -289,7 +289,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
 
       <Header />
 
-      <main className="min-h-screen bg-[#F6F6F6] pt-[104px] md:pt-[88px] lg:pt-16 pb-20 lg:pb-0">
+      <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">
         {/* Breadcrumb */}
         <div className="container-main py-4">
           <Breadcrumb items={breadcrumbItems} />

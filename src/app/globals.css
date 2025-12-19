@@ -416,4 +416,24 @@
   .pb-mobile-nav {
     @apply pb-20 lg:pb-0;
   }
+
+  /* Page top padding to account for fixed header + NextMatchBar */
+  .pt-header {
+    /* Mobile: NextMatchBar (~52px) + Header (~56px) = ~108px */
+    padding-top: 110px;
+  }
+
+  @media (min-width: 768px) {
+    .pt-header {
+      /* Tablet: NextMatchBar (~56px) + Header (~64px) = ~120px */
+      padding-top: 120px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pt-header {
+      /* Desktop: NextMatchBar (~60px) + Header (~64px) = ~124px */
+      padding-top: 124px;
+    }
+  }
 }

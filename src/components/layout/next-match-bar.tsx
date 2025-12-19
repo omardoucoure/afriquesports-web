@@ -115,7 +115,10 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   if (!isVisible) return null;
 
   return (
-    <div className={`bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#022a27] text-white ${className}`}>
+    <div
+      id="next-match-bar"
+      className={`bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#022a27] text-white shadow-lg ${className}`}
+    >
       {/* Moroccan pattern overlay for CAN 2025 branding */}
       <div className="relative">
         <div
@@ -129,118 +132,120 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
         />
 
         <div className="container-main relative z-10">
-          <div className="flex items-center justify-between py-2 px-2 md:px-0">
+          <div className="flex items-center justify-between py-3 px-3 md:px-0">
             {/* Mobile: Simplified view */}
             <Link
               href={MOCK_NEXT_MATCH.matchUrl}
-              className="flex-1 flex items-center gap-2 md:gap-4 hover:opacity-90 transition-opacity"
+              className="flex-1 flex items-center gap-2 md:gap-4 hover:opacity-95 transition-all hover:scale-[1.01]"
             >
               {/* CAN 2025 Badge */}
               <div className="flex-shrink-0 flex items-center gap-1.5">
-                <div className="hidden sm:flex items-center gap-1 bg-[#9DFF20] text-[#022a27] px-2 py-0.5 rounded text-[10px] md:text-xs font-bold uppercase tracking-wide">
+                <div className="hidden sm:flex items-center gap-1.5 bg-[#9DFF20] text-[#022a27] px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wide shadow-md">
+                  <span>⚽</span>
                   <span>CAN 2025</span>
                 </div>
-                <span className="sm:hidden bg-[#9DFF20] text-[#022a27] px-1.5 py-0.5 rounded text-[10px] font-bold">
-                  CAN
+                <span className="sm:hidden bg-[#9DFF20] text-[#022a27] px-2 py-1 rounded-md text-xs font-bold shadow-md">
+                  ⚽ CAN
                 </span>
               </div>
 
               {/* Next Match Label - Desktop only */}
-              <div className="hidden lg:flex items-center gap-1 text-white/70 text-xs">
-                <CalendarIcon className="w-3 h-3" />
+              <div className="hidden lg:flex items-center gap-1.5 text-white/90 text-xs font-medium">
+                <CalendarIcon className="w-4 h-4" />
                 <span>{t("nextMatch.label")}</span>
               </div>
 
               {/* Teams Section */}
-              <div className="flex items-center gap-2 md:gap-3">
+              <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                 {/* Home Team */}
                 <div className="flex items-center gap-1.5 md:gap-2">
-                  <div className="relative w-5 h-4 md:w-6 md:h-5 overflow-hidden rounded-sm shadow-sm">
+                  <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded shadow-md border border-white/20">
                     <Image
                       src={MOCK_NEXT_MATCH.homeTeam.flag}
                       alt={MOCK_NEXT_MATCH.homeTeam.name}
                       fill
                       className="object-cover"
-                      sizes="24px"
+                      sizes="28px"
                     />
                   </div>
-                  <span className="text-xs md:text-sm font-semibold hidden sm:inline">
+                  <span className="text-xs md:text-sm font-bold hidden sm:inline">
                     {getTeamName(MOCK_NEXT_MATCH.homeTeam.nameKey, MOCK_NEXT_MATCH.homeTeam.name)}
                   </span>
-                  <span className="text-xs font-semibold sm:hidden">
+                  <span className="text-xs font-bold sm:hidden">
                     {MOCK_NEXT_MATCH.homeTeam.code}
                   </span>
                 </div>
 
                 {/* VS Badge */}
-                <div className="flex-shrink-0 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] md:text-xs font-bold text-[#9DFF20]">
+                <div className="flex-shrink-0 bg-[#9DFF20] text-[#022a27] px-2.5 py-1 rounded-md text-[11px] md:text-xs font-extrabold shadow-md">
                   VS
                 </div>
 
                 {/* Away Team */}
                 <div className="flex items-center gap-1.5 md:gap-2">
-                  <div className="relative w-5 h-4 md:w-6 md:h-5 overflow-hidden rounded-sm shadow-sm">
+                  <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded shadow-md border border-white/20">
                     <Image
                       src={MOCK_NEXT_MATCH.awayTeam.flag}
                       alt={MOCK_NEXT_MATCH.awayTeam.name}
                       fill
                       className="object-cover"
-                      sizes="24px"
+                      sizes="28px"
                     />
                   </div>
-                  <span className="text-xs md:text-sm font-semibold hidden sm:inline">
+                  <span className="text-xs md:text-sm font-bold hidden sm:inline">
                     {getTeamName(MOCK_NEXT_MATCH.awayTeam.nameKey, MOCK_NEXT_MATCH.awayTeam.name)}
                   </span>
-                  <span className="text-xs font-semibold sm:hidden">
+                  <span className="text-xs font-bold sm:hidden">
                     {MOCK_NEXT_MATCH.awayTeam.code}
                   </span>
                 </div>
               </div>
 
               {/* Separator */}
-              <div className="hidden md:block w-px h-4 bg-white/20" />
+              <div className="hidden md:block w-px h-6 bg-white/30" />
 
               {/* Date & Time */}
-              <div className="hidden md:flex items-center gap-3 text-xs text-white/80">
-                <div className="flex items-center gap-1">
-                  <CalendarIcon className="w-3 h-3" />
+              <div className="hidden md:flex items-center gap-3 text-xs text-white font-medium">
+                <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                  <CalendarIcon className="w-4 h-4 text-[#9DFF20]" />
                   <span>{formatDate(MOCK_NEXT_MATCH.date)}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <ClockIcon className="w-3 h-3" />
+                <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                  <ClockIcon className="w-4 h-4 text-[#9DFF20]" />
                   <span>{formatTime(MOCK_NEXT_MATCH.date)}</span>
                 </div>
               </div>
 
               {/* Countdown - Desktop */}
-              <div className="hidden lg:flex items-center gap-1 ml-auto mr-4">
-                <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-2 py-1 rounded text-[10px]">
-                  <span className="font-mono font-bold text-[#9DFF20]">{countdown.days}</span>
-                  <span className="text-white/60">{t("nextMatch.countdown.days")}</span>
+              <div className="hidden lg:flex items-center gap-1.5 ml-auto mr-4">
+                <div className="flex flex-col items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-md min-w-[48px]">
+                  <span className="font-mono font-bold text-[#9DFF20] text-base">{countdown.days}</span>
+                  <span className="text-white/70 text-[9px] uppercase">{t("nextMatch.countdown.days")}</span>
                 </div>
-                <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-2 py-1 rounded text-[10px]">
-                  <span className="font-mono font-bold text-[#9DFF20]">{countdown.hours}</span>
-                  <span className="text-white/60">{t("nextMatch.countdown.hours")}</span>
+                <div className="flex flex-col items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-md min-w-[48px]">
+                  <span className="font-mono font-bold text-[#9DFF20] text-base">{countdown.hours}</span>
+                  <span className="text-white/70 text-[9px] uppercase">{t("nextMatch.countdown.hours")}</span>
                 </div>
-                <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-2 py-1 rounded text-[10px]">
-                  <span className="font-mono font-bold text-[#9DFF20]">{countdown.minutes}</span>
-                  <span className="text-white/60">{t("nextMatch.countdown.min")}</span>
+                <div className="flex flex-col items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-md min-w-[48px]">
+                  <span className="font-mono font-bold text-[#9DFF20] text-base">{countdown.minutes}</span>
+                  <span className="text-white/70 text-[9px] uppercase">{t("nextMatch.countdown.min")}</span>
                 </div>
               </div>
             </Link>
 
             {/* Mobile: Time only */}
-            <div className="flex md:hidden items-center gap-2 text-[10px] text-white/80 mr-2">
+            <div className="flex md:hidden items-center gap-1.5 text-xs text-white font-medium mr-2 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-md">
+              <ClockIcon className="w-3 h-3 text-[#9DFF20]" />
               <span>{formatTime(MOCK_NEXT_MATCH.date)}</span>
             </div>
 
             {/* Close Button */}
             <button
               onClick={() => setIsVisible(false)}
-              className="flex-shrink-0 p-1 hover:bg-white/10 rounded transition-colors"
+              className="flex-shrink-0 p-1.5 hover:bg-white/10 rounded-md transition-all hover:scale-105"
               aria-label={t("common.close")}
             >
-              <CloseIcon className="w-4 h-4 text-white/60 hover:text-white" />
+              <CloseIcon className="w-4 h-4 text-white/70 hover:text-white" />
             </button>
           </div>
         </div>
