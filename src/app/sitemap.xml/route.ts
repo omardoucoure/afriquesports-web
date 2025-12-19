@@ -51,6 +51,7 @@ export async function GET() {
   sitemaps.push(`<sitemap><loc>${SITE_URL}/sitemaps/can-2025.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`);
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="${SITE_URL}/sitemap.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemaps.join("\n")}
 </sitemapindex>`;
