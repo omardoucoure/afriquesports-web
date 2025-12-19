@@ -25,7 +25,10 @@ export async function POST(request: NextRequest) {
 
     // Validate secret to prevent unauthorized revalidation
     if (!secret || secret !== process.env.REVALIDATE_SECRET) {
-      console.error("[Revalidate] Invalid or missing secret");
+      console.error("[Revalidate] Secret validation failed");
+      console.error("[Revalidate] Received secret length:", secret?.length);
+      console.error("[Revalidate] Expected secret length:", process.env.REVALIDATE_SECRET?.length);
+      console.error("[Revalidate] Env var defined:", !!process.env.REVALIDATE_SECRET);
       return NextResponse.json(
         { error: "Invalid secret" },
         { status: 401 }
