@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb } from "@/components/ui";
@@ -185,9 +185,7 @@ export async function generateMetadata({ params }: CAN2025PageProps): Promise<Me
   };
 }
 
-async function CAN2025Articles() {
-  const locale = await getLocale();
-
+async function CAN2025Articles({ locale }: { locale: string }) {
   try {
     const articles = await DataFetcher.fetchPostsByCategory("can-2025", {
       per_page: "9",
@@ -449,7 +447,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
             </div>
 
             <Suspense fallback={<ArticleGridSkeleton count={9} />}>
-              <CAN2025Articles />
+              <CAN2025Articles locale={locale} />
             </Suspense>
 
             <div className="text-center mt-8">

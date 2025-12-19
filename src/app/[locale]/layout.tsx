@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale, getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { IntlProvider } from "@/components/providers";
 import { LocaleModal } from "@/components/ui";
 import { locales, type Locale } from "@/i18n/config";
@@ -26,7 +26,7 @@ export default async function LocaleLayout({
   }
 
   // Enable static rendering
-  setRequestLocale(locale);
+  await setRequestLocale(locale);
 
   const messages = await getMessages();
 

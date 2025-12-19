@@ -10,8 +10,4 @@ export const routing = defineRouting({
 
   // Don't add locale prefix for default locale (French)
   localePrefix: "as-needed",
-
-  // Disable automatic locale detection from browser
-  // Users can manually switch using the language switcher or see a modal
-  localeDetection: false,
 });

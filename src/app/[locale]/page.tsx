@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
@@ -119,10 +119,9 @@ const homepageFaqs = [
   },
 ];
 
-async function HeroArticlesSection() {
+async function HeroArticlesSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
   const tArticle = await getTranslations("article");
-  const locale = await getLocale();
 
   try {
     // Fetch featured post from "article-du-jour" category and latest posts
@@ -161,9 +160,8 @@ async function HeroArticlesSection() {
   }
 }
 
-async function LatestArticlesSection() {
+async function LatestArticlesSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
-  const locale = await getLocale();
 
   try {
     const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5", locale });
@@ -200,9 +198,8 @@ async function LatestArticlesSection() {
   }
 }
 
-async function RankingArticlesSection() {
+async function RankingArticlesSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
-  const locale = await getLocale();
 
   try {
     // Fetch posts from classement/ranking category
@@ -233,8 +230,7 @@ async function RankingArticlesSection() {
   }
 }
 
-async function MostReadSection() {
-  const locale = await getLocale();
+async function MostReadSection({ locale }: { locale: string }) {
 
   try {
     // Fetch trending posts directly from database (last 7 days)
@@ -296,13 +292,13 @@ export default async function Home({ params }: HomePageProps) {
         {/* Hero section with featured article */}
         <section className="container-main py-4 md:py-6">
           <Suspense fallback={<HeroSectionSkeleton />}>
-            <HeroArticlesSection />
+            <HeroArticlesSection locale={locale} />
           </Suspense>
         </section>
 
         {/* Ranking section */}
         <Suspense fallback={<RankingSectionSkeleton />}>
-          <RankingArticlesSection />
+          <RankingArticlesSection locale={locale} />
         </Suspense>
 
         {/* Main content with sidebar */}
@@ -327,7 +323,7 @@ export default async function Home({ params }: HomePageProps) {
                   </div>
                 }
               >
-                <LatestArticlesSection />
+                <LatestArticlesSection locale={locale} />
               </Suspense>
             </div>
 
@@ -336,7 +332,7 @@ export default async function Home({ params }: HomePageProps) {
               <div className="sticky top-20 space-y-6">
                 {/* Most read */}
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
-                  <MostReadSection />
+                  <MostReadSection locale={locale} />
                 </Suspense>
 
                 {/* Top African Scorers in Europe */}
@@ -360,7 +356,7 @@ export default async function Home({ params }: HomePageProps) {
             <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
           </div>
           <Suspense fallback={<MostReadWidgetSkeleton />}>
-            <MostReadSection />
+            <MostReadSection locale={locale} />
           </Suspense>
         </section>
 

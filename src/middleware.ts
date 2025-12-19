@@ -8,7 +8,6 @@ export const config = {
   // - /api routes
   // - /_next (Next.js internals)
   // - /_vercel (Vercel internals)
-  // - /static (public files)
-  // - all root files (favicon.ico, robots.txt, etc.)
+  // - All files with extensions (images, fonts, etc.)
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

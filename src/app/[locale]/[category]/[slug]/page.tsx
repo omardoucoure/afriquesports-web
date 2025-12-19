@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Script from "next/script";
 import type { Metadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton, ShareButtons, ArticleContent } from "@/components/articles";
 import { Breadcrumb } from "@/components/ui";
@@ -233,8 +233,7 @@ function ArticleJsonLd({
   );
 }
 
-async function RelatedArticles({ categorySlug }: { categorySlug: string }) {
-  const locale = await getLocale();
+async function RelatedArticles({ categorySlug, locale }: { categorySlug: string; locale: string }) {
   const tArticle = await getTranslations("article");
 
   try {
@@ -263,8 +262,7 @@ async function RelatedArticles({ categorySlug }: { categorySlug: string }) {
   }
 }
 
-async function SidebarMostRead() {
-  const locale = await getLocale();
+async function SidebarMostRead({ locale }: { locale: string }) {
   const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
@@ -431,7 +429,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               {/* Related articles */}
               <div className="mt-6 sm:mt-8">
                 <Suspense fallback={<ArticleGridSkeleton count={3} />}>
-                  <RelatedArticles categorySlug={category} />
+                  <RelatedArticles categorySlug={category} locale={locale} />
                 </Suspense>
               </div>
             </div>
@@ -441,7 +439,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               {/* Most read */}
               <div className="sticky top-20">
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
-                  <SidebarMostRead />
+                  <SidebarMostRead locale={locale} />
                 </Suspense>
 
                 <div className="mt-6">
@@ -455,7 +453,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         {/* Mobile most read section */}
         <section className="lg:hidden container-main pb-6">
           <Suspense fallback={<MostReadWidgetSkeleton />}>
-            <SidebarMostRead />
+            <SidebarMostRead locale={locale} />
           </Suspense>
         </section>
       </main>
