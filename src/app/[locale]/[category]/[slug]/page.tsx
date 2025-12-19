@@ -26,7 +26,7 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
 
-// Pre-generate popular articles at build time
+// Pre-generate popular articles at build time for all locales
 export async function generateStaticParams() {
   try {
     // Fetch the latest 50 articles to pre-generate
@@ -36,16 +36,25 @@ export async function generateStaticParams() {
       return [];
     }
 
-    return articles.map((article) => {
-      // Extract category slug from the article link
-      const linkParts = article.link.replace("https://www.afriquesports.net/", "").split("/");
-      const category = linkParts[0] || "football";
+    // Generate params for all locales to fix 404 errors on English/Spanish URLs
+    const locales = ['fr', 'en', 'es'];
+    const params = [];
 
-      return {
-        category,
-        slug: article.slug,
-      };
-    });
+    for (const locale of locales) {
+      for (const article of articles) {
+        // Extract category slug from the article link
+        const linkParts = article.link.replace("https://www.afriquesports.net/", "").split("/");
+        const category = linkParts[0] || "football";
+
+        params.push({
+          locale,
+          category,
+          slug: article.slug,
+        });
+      }
+    }
+
+    return params;
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
