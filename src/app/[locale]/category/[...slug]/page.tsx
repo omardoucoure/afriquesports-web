@@ -10,8 +10,8 @@ import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/compone
 import { DataFetcher } from "@/lib/data-fetcher";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Dynamic rendering: Always fetch fresh data for news content
-export const revalidate = 0;
+// ISR: Revalidate category pages every 60 seconds
+export const revalidate = 60;
 
 // Category display names, descriptions, and SEO-optimized titles
 // Optimized for higher CTR with power words, current year, and action-oriented language

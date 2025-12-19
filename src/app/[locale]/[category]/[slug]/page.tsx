@@ -23,8 +23,8 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Dynamic rendering: Always fetch fresh data for news articles
-export const revalidate = 0;
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
 
 // Pre-generate popular articles at build time for all locales
 export async function generateStaticParams() {
