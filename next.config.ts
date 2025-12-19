@@ -56,6 +56,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cms.realdemadrid.com",
+        pathname: "/wp-content/uploads/sites/8/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cms.realdemadrid.com",
         pathname: "/wp-content/uploads/sites/9/**",
       },
       {
