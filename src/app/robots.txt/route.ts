@@ -28,10 +28,43 @@ Disallow: /*?*cb=
 Disallow: /*?*query-0-page=
 Disallow: /*?*dcb=
 Disallow: /*?*shcb=
+Disallow: /*?*gcb=
 Disallow: /*?*a=a
 Disallow: /*?s=
 Disallow: /*?p=
 Disallow: /*?preview=
+Disallow: /*?page=
+
+# Block Facebook tracking params
+Disallow: /*?*fbclid=
+Disallow: /*?*fb_comment_id=
+
+# Block social share tracking
+Disallow: /*?*share=
+Disallow: /*?*nb=
+
+# Block AMP params (handled by canonical)
+Disallow: /*?*amp=
+Disallow: /*?*amp
+Disallow: /*?*noamp=
+Disallow: /*?*nonamp=
+
+# Block view mode params
+Disallow: /*?*mode=
+Disallow: /*?*filter_by=
+Disallow: /*?*expand_article=
+
+# Block image/cache params
+Disallow: /*?*width=
+Disallow: /*?*quality=
+Disallow: /*?*ezimgfmt=
+Disallow: /*?*PageSpeed=
+
+# Block misc WordPress params
+Disallow: /*?*newsmaticargs=
+Disallow: /*?*uy24=
+Disallow: /*?*vp_on_pageload=
+Disallow: /*?*push
 
 # Block old WordPress paths
 Disallow: /feed
@@ -59,9 +92,10 @@ Disallow: /2023/
 Disallow: /2024/
 Disallow: /2025/
 
-# Block deep pagination (page 10+)
-Disallow: /page/1
-Disallow: /*/page/1
+# Block ALL old WordPress pagination URLs
+# The new site uses different pagination - these are all spam
+Disallow: /page/
+Disallow: /*/page/
 
 # Block JSON files
 Disallow: /*.json$
