@@ -330,7 +330,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </div>
 
         {/* Groups Section - targeting "groupes CAN 2025" */}
-        <section className="container-main py-10 md:py-16">
+        <section className="container-main py-12 md:py-16">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
               {t("groups")}
@@ -468,7 +468,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* Scheduled Matches Section */}
-        <section className="bg-white py-10 md:py-16">
+        <section className="bg-white py-12 md:py-16">
           <div className="container-main">
             <div className="text-center mb-8 md:mb-12">
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
@@ -679,12 +679,11 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* Key Players Section - targeting player name keywords */}
-        <section className="container-main py-8 md:py-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
+        <section className="container-main py-12 md:py-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
               {t("keyPlayers.title")}
             </h2>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -738,13 +737,12 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* Latest News Section */}
-        <section className="bg-white py-8 md:py-12">
+        <section className="bg-white py-12 md:py-16">
           <div className="container-main">
-            <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
                 {t("latestNews")}
               </h2>
-              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
             </div>
 
             <Suspense fallback={<ArticleGridSkeleton count={9} />}>
@@ -763,12 +761,11 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* FAQ Section - for featured snippets */}
-        <section className="container-main py-8 md:py-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
+        <section className="container-main py-12 md:py-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
               {t("faq.title")}
             </h2>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
           </div>
 
           <div className="space-y-4">
@@ -793,13 +790,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* Tournament Favorites Section */}
-        <section className="bg-gradient-to-r from-[#022a27] to-[#04453f] py-8 md:py-12">
+        <section className="bg-gradient-to-r from-[#022a27] to-[#04453f] py-12 md:py-16">
           <div className="container-main">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-3">
                 {t("favorites")}
               </h2>
-              <p className="text-white/80">{t("favoritesDescription")}</p>
+              <p className="text-base md:text-lg text-white/80">{t("favoritesDescription")}</p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
