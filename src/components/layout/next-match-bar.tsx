@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 // Inline SVG icons
 const CalendarIcon = ({ className }: { className?: string }) => (
@@ -87,9 +87,20 @@ const getTeamTranslationKey = (teamName: string): string => {
 
 export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(true);
   const [matchData, setMatchData] = useState<NextMatch | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Get localized commentary page URL
+  const getCommentaryUrl = () => {
+    const urls: Record<string, string> = {
+      'fr': '/match-en-direct',
+      'en': '/live-match',
+      'es': '/partido-en-vivo',
+    };
+    return urls[locale] || '/match-en-direct';
+  };
 
   useEffect(() => {
     async function fetchNextMatch() {
@@ -194,7 +205,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="flex items-center gap-2">
               {/* Watch Match Button */}
               <Link
-                href="/match-en-direct"
+                href={getCommentaryUrl()}
                 className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
