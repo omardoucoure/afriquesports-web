@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -24,30 +24,26 @@ const CloseIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Mock data for the next CAN 2025 match
-const MOCK_NEXT_MATCH = {
-  id: "can2025-match-1",
-  competition: "CAN 2025",
-  stage: "groupStage", // groupStage, roundOf16, quarterFinals, semiFinals, final
-  group: "A",
-  homeTeam: {
-    name: "Morocco",
-    nameKey: "morocco",
-    code: "MAR",
-    flag: "https://flagcdn.com/w80/ma.png",
-  },
-  awayTeam: {
-    name: "Mali",
-    nameKey: "mali",
-    code: "MLI",
-    flag: "https://flagcdn.com/w80/ml.png",
-  },
-  date: "2025-01-14T20:00:00Z",
-  venue: "Stade Mohammed V",
-  city: "Casablanca",
-  isLive: false,
-  matchUrl: "/match-en-direct",
-};
+interface NextMatch {
+  hasMatch: boolean;
+  id?: string;
+  competition?: string;
+  homeTeam?: {
+    name: string;
+    code: string;
+    flag: string;
+  };
+  awayTeam?: {
+    name: string;
+    code: string;
+    flag: string;
+  };
+  date?: string;
+  venue?: string;
+  city?: string;
+  isLive?: boolean;
+  message?: string;
+}
 
 interface NextMatchBarProps {
   className?: string;
@@ -56,6 +52,25 @@ interface NextMatchBarProps {
 export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const t = useTranslations();
   const [isVisible, setIsVisible] = useState(true);
+  const [matchData, setMatchData] = useState<NextMatch | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNextMatch() {
+      try {
+        const response = await fetch('/api/can2025/next-match');
+        const data = await response.json();
+        setMatchData(data);
+      } catch (error) {
+        console.error('Error fetching next match:', error);
+        setMatchData({ hasMatch: false });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchNextMatch();
+  }, []);
 
   // Format date based on locale
   const formatDate = (dateString: string) => {
@@ -75,16 +90,8 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     });
   };
 
-  // Get team name from translations or fallback
-  const getTeamName = (nameKey: string, fallback: string) => {
-    try {
-      return t(`nextMatch.teams.${nameKey}`);
-    } catch {
-      return fallback;
-    }
-  };
-
-  if (!isVisible) return null;
+  // Don't show if not visible, loading, or no match data
+  if (!isVisible || isLoading || !matchData?.hasMatch) return null;
 
   return (
     <div
@@ -111,18 +118,18 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               <div className="flex items-center gap-1.5 md:gap-2">
                 <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded border border-white/20">
                   <Image
-                    src={MOCK_NEXT_MATCH.homeTeam.flag}
-                    alt={MOCK_NEXT_MATCH.homeTeam.name}
+                    src={matchData.homeTeam?.flag || ''}
+                    alt={matchData.homeTeam?.name || ''}
                     fill
                     className="object-cover"
                     sizes="28px"
                   />
                 </div>
                 <span className="text-xs md:text-sm font-extrabold hidden sm:inline text-white drop-shadow-lg">
-                  {getTeamName(MOCK_NEXT_MATCH.homeTeam.nameKey, MOCK_NEXT_MATCH.homeTeam.name)}
+                  {matchData.homeTeam?.name}
                 </span>
                 <span className="text-xs font-extrabold sm:hidden text-white drop-shadow-lg">
-                  {MOCK_NEXT_MATCH.homeTeam.code}
+                  {matchData.homeTeam?.code}
                 </span>
               </div>
 
@@ -135,18 +142,18 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               <div className="flex items-center gap-1.5 md:gap-2">
                 <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded border border-white/20">
                   <Image
-                    src={MOCK_NEXT_MATCH.awayTeam.flag}
-                    alt={MOCK_NEXT_MATCH.awayTeam.name}
+                    src={matchData.awayTeam?.flag || ''}
+                    alt={matchData.awayTeam?.name || ''}
                     fill
                     className="object-cover"
                     sizes="28px"
                   />
                 </div>
                 <span className="text-xs md:text-sm font-extrabold hidden sm:inline text-white drop-shadow-lg">
-                  {getTeamName(MOCK_NEXT_MATCH.awayTeam.nameKey, MOCK_NEXT_MATCH.awayTeam.name)}
+                  {matchData.awayTeam?.name}
                 </span>
                 <span className="text-xs font-extrabold sm:hidden text-white drop-shadow-lg">
-                  {MOCK_NEXT_MATCH.awayTeam.code}
+                  {matchData.awayTeam?.code}
                 </span>
               </div>
             </div>
@@ -155,16 +162,18 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="hidden md:block w-px h-6 bg-white/30" />
 
             {/* Date */}
-            <div className="hidden md:flex items-center gap-2 text-xs text-white font-bold">
-              <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-2 py-0.5 rounded-md">
-                <CalendarIcon className="w-4 h-4 text-white" />
-                <span>{formatDate(MOCK_NEXT_MATCH.date)}</span>
+            {matchData.date && (
+              <div className="hidden md:flex items-center gap-2 text-xs text-white font-bold">
+                <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                  <CalendarIcon className="w-4 h-4 text-white" />
+                  <span>{formatDate(matchData.date)}</span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Watch Match Button */}
             <Link
-              href={MOCK_NEXT_MATCH.matchUrl}
+              href="/can-2025"
               className="flex-shrink-0 flex items-center gap-1.5 bg-white hover:bg-white/90 text-red-600 font-bold px-3 py-1 rounded-md transition-all hover:scale-105"
             >
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
