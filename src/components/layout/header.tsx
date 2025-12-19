@@ -83,7 +83,7 @@ export function Header() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
         {/* Main header with Africa borders */}
-        <div className="relative bg-[#04453f] py-1 overflow-hidden">
+        <div className="relative bg-[#04453f] py-1 overflow-visible">
           {/* Moroccan pattern overlay (same as footer) */}
           <div
             className="absolute inset-0 opacity-40"
