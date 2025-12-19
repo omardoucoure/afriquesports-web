@@ -136,20 +136,20 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     >
       <div className="relative">
         <div className="container-main relative z-10">
-          <div className="flex items-center justify-between py-3 px-3 md:px-0 gap-4">
-            {/* CAN 2025 Badge - Left */}
-            <div className="flex-shrink-0 flex items-center gap-2">
-              <span className="hidden sm:inline text-sm md:text-base font-extrabold text-white uppercase tracking-wide drop-shadow-lg">
-                ⚽ CAN 2025
-              </span>
-              <span className="sm:hidden text-sm font-extrabold text-white drop-shadow-lg">
-                ⚽ CAN
-              </span>
-            </div>
+          <div className="flex flex-col gap-2 py-3 px-3 md:px-0">
+            {/* Top Row */}
+            <div className="flex items-center justify-between gap-4">
+              {/* CAN 2025 Badge - Left */}
+              <div className="flex-shrink-0 flex items-center gap-2">
+                <span className="hidden sm:inline text-sm md:text-base font-extrabold text-white uppercase tracking-wide drop-shadow-lg">
+                  ⚽ CAN 2025
+                </span>
+                <span className="sm:hidden text-sm font-extrabold text-white drop-shadow-lg">
+                  ⚽ CAN
+                </span>
+              </div>
 
-            {/* Match Info Section - Center */}
-            <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
-              {/* Teams Section */}
+              {/* Teams Section - Center */}
               <div className="flex items-center gap-3 md:gap-4">
                 {/* Home Team */}
                 <div className="flex items-center gap-2 md:gap-3">
@@ -162,7 +162,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                       sizes="40px"
                     />
                   </div>
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
                 </div>
@@ -174,7 +174,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
                 {/* Away Team */}
                 <div className="flex items-center gap-2 md:gap-3">
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>
                   <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
@@ -189,48 +189,48 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 </div>
               </div>
 
-              {/* Match Details - Date & Time */}
-              {matchData.date && (
-                <div className="hidden md:flex items-center gap-3 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <CalendarIcon className="w-4 h-4 text-white/90" />
-                    <span className="text-xs font-bold text-white/90">
-                      {formatDate(matchData.date)}
-                    </span>
-                  </div>
-                  <div className="w-px h-4 bg-white/30" />
-                  <div className="flex items-center gap-2">
-                    <ClockIcon className="w-4 h-4 text-white/90" />
-                    <span className="text-xs font-bold text-white/90">
-                      {formatTime(matchData.date)}
-                    </span>
-                  </div>
+              {/* Right Section - Watch Button & Close */}
+              <div className="flex items-center gap-2">
+                {/* Watch Match Button */}
+                <Link
+                  href="/can-2025"
+                  className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <span className="hidden sm:inline text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
+                </Link>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsVisible(false)}
+                  className="flex-shrink-0 p-2 hover:bg-white/20 rounded-lg transition-all hover:scale-110"
+                  aria-label={t("common.close")}
+                >
+                  <CloseIcon className="w-5 h-5 text-white/90 hover:text-white" />
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Row - Date & Time */}
+            {matchData.date && (
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center gap-2 text-white/90">
+                  <CalendarIcon className="w-4 h-4" />
+                  <span className="text-xs font-bold">
+                    {formatDate(matchData.date)}
+                  </span>
                 </div>
-              )}
-            </div>
-
-            {/* Right Section - Watch Button & Close */}
-            <div className="flex items-center gap-2">
-              {/* Watch Match Button */}
-              <Link
-                href="/can-2025"
-                className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span className="hidden sm:inline text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
-              </Link>
-
-              {/* Close Button */}
-              <button
-                onClick={() => setIsVisible(false)}
-                className="flex-shrink-0 p-2 hover:bg-white/20 rounded-lg transition-all hover:scale-110"
-                aria-label={t("common.close")}
-              >
-                <CloseIcon className="w-5 h-5 text-white/90 hover:text-white" />
-              </button>
-            </div>
+                <div className="w-px h-4 bg-white/30" />
+                <div className="flex items-center gap-2 text-white/90">
+                  <ClockIcon className="w-4 h-4" />
+                  <span className="text-xs font-bold">
+                    {formatTime(matchData.date)}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
