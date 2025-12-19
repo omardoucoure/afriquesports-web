@@ -208,6 +208,43 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
     }).then(res => res.json()).catch(() => null),
   ]);
 
+  // Extract groups from schedule data
+  const groupsMap = new Map<string, Set<any>>();
+
+  if (scheduleData?.events) {
+    scheduleData.events.forEach((event: any) => {
+      const competition = event.competitions?.[0];
+      if (competition?.group) {
+        const groupName = competition.group.name || competition.group.abbreviation || '';
+        if (!groupsMap.has(groupName)) {
+          groupsMap.set(groupName, new Set());
+        }
+
+        competition.competitors?.forEach((competitor: any) => {
+          if (competitor.team) {
+            const existing = Array.from(groupsMap.get(groupName)!).find(
+              (t: any) => t.id === competitor.team.id
+            );
+            if (!existing) {
+              groupsMap.get(groupName)!.add(competitor.team);
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Convert to array format for rendering
+  const groupsData = Array.from(groupsMap.entries())
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([groupName, teams]) => ({
+      name: groupName,
+      abbreviation: groupName.replace('Group ', ''),
+      teams: Array.from(teams).sort((a: any, b: any) =>
+        (a.displayName || a.name).localeCompare(b.displayName || b.name)
+      )
+    }));
+
   // Generate FAQ data for schema
   const faqs = [
     { question: t("faq.q1"), answer: t("faq.a1") },
@@ -325,6 +362,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           <p className="text-gray-600 mb-8">{t("groupsDescription")}</p>
 
           {standingsData?.children?.length > 0 ? (
+            // Show standings with points once tournament starts
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {standingsData.children.map((group: any) => {
                 const groupName = group.name?.replace('Group ', '') || group.abbreviation || '';
@@ -354,11 +392,9 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                           <span className="font-medium text-gray-900 flex-1">
                             {entry.team?.displayName || entry.team?.name}
                           </span>
-                          {entry.stats?.find((s: any) => s.name === 'points') && (
-                            <div className="flex gap-2 text-xs text-gray-600">
-                              <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
-                            </div>
-                          )}
+                          <div className="flex gap-2 text-xs text-gray-600">
+                            <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
+                          </div>
                         </li>
                       ))}
                     </ul>
@@ -366,12 +402,45 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                 );
               })}
             </div>
+          ) : groupsData.length > 0 ? (
+            // Show groups from schedule before tournament starts
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {groupsData.map((group: any) => (
+                <div key={group.abbreviation} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+                  <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
+                    <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      {group.abbreviation}
+                    </span>
+                    Groupe {group.abbreviation}
+                  </h3>
+                  <ul className="space-y-2">
+                    {group.teams.map((team: any, idx: number) => (
+                      <li key={team.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
+                        <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
+                        {team.flagUrl && (
+                          <Image
+                            src={team.flagUrl}
+                            alt={team.displayName || team.name}
+                            width={24}
+                            height={16}
+                            className="rounded"
+                          />
+                        )}
+                        <span className="font-medium text-gray-900 flex-1">
+                          {team.displayName || team.name}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="text-center py-12 bg-white rounded-lg">
               <p className="text-gray-500 text-lg">
-                {locale === "fr" ? "Les classements seront disponibles une fois le tournoi commencé (21 décembre 2025)." :
-                 locale === "en" ? "Standings will be available once the tournament starts (December 21, 2025)." :
-                 "Las clasificaciones estarán disponibles una vez que comience el torneo (21 de diciembre de 2025)."}
+                {locale === "fr" ? "Les groupes seront affichés prochainement." :
+                 locale === "en" ? "Groups will be displayed soon." :
+                 "Los grupos se mostrarán pronto."}
               </p>
             </div>
           )}
