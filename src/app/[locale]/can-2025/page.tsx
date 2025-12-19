@@ -374,77 +374,119 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
 
           {standingsData?.children?.length > 0 ? (
             // Show standings with points once tournament starts
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {standingsData.children.map((group: any) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {standingsData.children.map((group: any, groupIdx: number) => {
                 const groupName = group.name?.replace('Group ', '') || group.abbreviation || '';
                 const standings = group.standings?.entries || [];
+                const gradients = [
+                  'from-emerald-600 to-teal-600',
+                  'from-blue-600 to-cyan-600',
+                  'from-purple-600 to-pink-600',
+                  'from-orange-600 to-red-600',
+                  'from-yellow-600 to-orange-600',
+                  'from-indigo-600 to-blue-600'
+                ];
 
                 return (
-                  <div key={group.id || groupName} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-                    <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
-                      <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
-                        {groupName}
-                      </span>
-                      Groupe {groupName}
-                    </h3>
-                    <ul className="space-y-2">
-                      {standings.map((entry: any, idx: number) => (
-                        <li key={entry.team?.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
-                          <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
-                          {entry.team?.flagUrl && (
-                            <Image
-                              src={entry.team.flagUrl}
-                              alt={entry.team.displayName || entry.team.name}
-                              width={24}
-                              height={16}
-                              className="rounded"
-                            />
-                          )}
-                          <span className="font-medium text-gray-900 flex-1">
-                            {entry.team?.displayName || entry.team?.name}
-                          </span>
-                          <div className="flex gap-2 text-xs text-gray-600">
-                            <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+                  <div key={group.id || groupName} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+                    <div className={`bg-gradient-to-br ${gradients[groupIdx % 6]} px-6 py-4`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                          <span className="text-2xl font-black text-white">{groupName}</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white">
+                          Groupe {groupName}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <ul className="space-y-1">
+                        {standings.map((entry: any, idx: number) => (
+                          <li key={entry.team?.id || idx} className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <span className="w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-500 bg-gray-100 rounded-full">
+                              {idx + 1}
+                            </span>
+                            {entry.team?.flagUrl && (
+                              <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                                <Image
+                                  src={entry.team.flagUrl}
+                                  alt={entry.team.displayName || entry.team.name}
+                                  width={32}
+                                  height={24}
+                                  className="object-cover"
+                                />
+                              </div>
+                            )}
+                            <span className="font-semibold text-gray-900 flex-1">
+                              {entry.team?.displayName || entry.team?.name}
+                            </span>
+                            <div className="flex items-center gap-1 bg-gray-100 px-2.5 py-1 rounded-full">
+                              <span className="text-xs font-bold text-gray-700">
+                                {entry.stats?.find((s: any) => s.name === 'points')?.value || 0}
+                              </span>
+                              <span className="text-xs text-gray-500">pts</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 );
               })}
             </div>
           ) : groupsData.length > 0 ? (
             // Show groups from schedule before tournament starts
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {groupsData.map((group: any) => (
-                <div key={group.abbreviation} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-                  <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
-                    <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
-                      {group.abbreviation}
-                    </span>
-                    Groupe {group.abbreviation}
-                  </h3>
-                  <ul className="space-y-2">
-                    {group.teams.map((team: any, idx: number) => (
-                      <li key={team.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
-                        <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
-                        {team.flagUrl && (
-                          <Image
-                            src={team.flagUrl}
-                            alt={team.displayName || team.name}
-                            width={24}
-                            height={16}
-                            className="rounded"
-                          />
-                        )}
-                        <span className="font-medium text-gray-900 flex-1">
-                          {team.displayName || team.name}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {groupsData.map((group: any, groupIdx: number) => {
+                const gradients = [
+                  'from-emerald-600 to-teal-600',
+                  'from-blue-600 to-cyan-600',
+                  'from-purple-600 to-pink-600',
+                  'from-orange-600 to-red-600',
+                  'from-yellow-600 to-orange-600',
+                  'from-indigo-600 to-blue-600'
+                ];
+
+                return (
+                  <div key={group.abbreviation} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+                    <div className={`bg-gradient-to-br ${gradients[groupIdx % 6]} px-6 py-4`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                          <span className="text-2xl font-black text-white">{group.abbreviation}</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white">
+                          Groupe {group.abbreviation}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <ul className="space-y-1">
+                        {group.teams.map((team: any, idx: number) => (
+                          <li key={team.id || idx} className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <span className="w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-500 bg-gray-100 rounded-full">
+                              {idx + 1}
+                            </span>
+                            {team.flagUrl && (
+                              <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                                <Image
+                                  src={team.flagUrl}
+                                  alt={team.displayName || team.name}
+                                  width={32}
+                                  height={24}
+                                  className="object-cover"
+                                />
+                              </div>
+                            )}
+                            <span className="font-semibold text-gray-900 flex-1">
+                              {team.displayName || team.name}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12 bg-white rounded-lg">
