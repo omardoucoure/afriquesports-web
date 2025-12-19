@@ -7,6 +7,21 @@ const SITE_NAME = "Afrique Sports";
 const DEFAULT_LOCALE = "fr";
 
 /**
+ * Get optimized og:image URL via Next.js Image Optimization
+ * This ensures images are cached on Vercel's CDN and handles special characters in filenames
+ */
+function getOgImageUrl(imageUrl: string | undefined): string {
+  if (!imageUrl) {
+    return `${SITE_URL}/opengraph-image`;
+  }
+
+  // Use Next.js Image Optimization API for external images
+  // This caches images on Vercel's CDN and normalizes URLs
+  const encodedUrl = encodeURIComponent(imageUrl);
+  return `${SITE_URL}/_next/image?url=${encodedUrl}&w=1200&q=75`;
+}
+
+/**
  * High-value SEO keywords for African football - researched for 2025
  */
 export const SEO_KEYWORDS = {
@@ -195,17 +210,15 @@ export function generateArticleMetadata(
       authors: [authorName],
       section: categoryLabel,
       tags: categoryKeywords,
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-              type: "image/jpeg",
-            },
-          ]
-        : [],
+      images: [
+        {
+          url: getOgImageUrl(imageUrl),
+          width: 1200,
+          height: 630,
+          alt: title,
+          type: "image/jpeg",
+        },
+      ],
       url: articleUrl,
       locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
     },
@@ -213,7 +226,7 @@ export function generateArticleMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: imageUrl ? [{ url: imageUrl, alt: title }] : [],
+      images: [{ url: getOgImageUrl(imageUrl), alt: title }],
       creator: "@afriquesports",
       site: "@afriquesports",
     },
@@ -302,7 +315,7 @@ export function generateArticleJsonLd(
     articleBody: articleBody.slice(0, 5000), // Truncate for schema
     image: {
       "@type": "ImageObject",
-      url: imageUrl,
+      url: getOgImageUrl(imageUrl),
       width: 1200,
       height: 630,
     },

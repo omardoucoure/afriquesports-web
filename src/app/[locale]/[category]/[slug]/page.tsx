@@ -72,20 +72,21 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     const title = stripHtml(article.title.rendered);
     const description = stripHtml(article.excerpt.rendered).slice(0, 160);
     const imageUrl = getFeaturedImageUrl(article, "full");
+    const baseUrl = "https://www.afriquesports.net";
 
-    // Ensure absolute URL for og:image - use default og-image if placeholder or relative
+    // Use Next.js Image Optimization for og:image to ensure reliable delivery
+    // This caches images on Vercel's CDN and handles special characters in filenames
     const ogImageUrl = imageUrl && !imageUrl.startsWith("/")
-      ? imageUrl
-      : "https://www.afriquesports.net/opengraph-image";
+      ? `${baseUrl}/_next/image?url=${encodeURIComponent(imageUrl)}&w=1200&q=75`
+      : `${baseUrl}/opengraph-image`;
 
-    // Determine image type from URL
-    const imageExtension = ogImageUrl.toLowerCase().split('.').pop()?.split('?')[0];
+    // Determine image type from original URL (before optimization)
+    const imageExtension = imageUrl?.toLowerCase().split('.').pop()?.split('?')[0];
     const ogImageType = imageExtension === 'png' ? 'image/png'
       : imageExtension === 'webp' ? 'image/webp'
       : 'image/jpeg';
 
     // Build canonical URL based on locale
-    const baseUrl = "https://www.afriquesports.net";
     const articlePath = `/${category}/${slug}`;
     const canonicalUrl = locale === "fr"
       ? `${baseUrl}${articlePath}`
