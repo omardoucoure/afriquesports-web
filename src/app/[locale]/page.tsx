@@ -313,7 +313,7 @@ export default async function Home({ params }: HomePageProps) {
                 </p>
               </div>
               <a
-                href="/category/can-2025"
+                href="/can-2025"
                 className="flex-shrink-0 px-8 py-4 bg-white text-[#04453f] font-extrabold text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
               >
                 {t("can2025Button")}
