@@ -16,69 +16,47 @@ interface CAN2025PageProps {
   params: Promise<{ locale: string }>;
 }
 
-// CAN 2025 Groups data
-const CAN_2025_GROUPS = {
-  A: ["Maroc", "Mali", "Zambie", "Comores"],
-  B: ["Égypte", "Afrique du Sud", "Angola", "Zimbabwe"],
-  C: ["Nigeria", "Tunisie", "Ouganda", "Tanzanie"],
-  D: ["Sénégal", "RD Congo", "Bénin", "Botswana"],
-  E: ["Algérie", "Burkina Faso", "Guinée équatoriale", "Soudan"],
-  F: ["Côte d'Ivoire", "Cameroun", "Gabon", "Mozambique"],
-};
+// Fetch CAN 2025 standings from API
+async function fetchStandings() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/standings`, {
+      next: { revalidate: 300 }
+    });
+    if (!response.ok) throw new Error('Failed to fetch standings');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching standings:', error);
+    return null;
+  }
+}
 
-// Team data with flags and key players
-const TEAM_DATA: Record<string, { flag: string; keyPlayers: string[]; nickname: string }> = {
-  senegal: {
-    flag: "sn",
-    keyPlayers: ["Sadio Mané", "Nicolas Jackson", "Édouard Mendy", "Kalidou Koulibaly", "Ismaïla Sarr"],
-    nickname: "Lions de la Teranga",
-  },
-  morocco: {
-    flag: "ma",
-    keyPlayers: ["Achraf Hakimi", "Hakim Ziyech", "Youssef En-Nesyri", "Sofyan Amrabat", "Bono"],
-    nickname: "Lions de l'Atlas",
-  },
-  algeria: {
-    flag: "dz",
-    keyPlayers: ["Riyad Mahrez", "Ismaël Bennacer", "Saïd Benrahma", "Youcef Atal"],
-    nickname: "Les Fennecs",
-  },
-  nigeria: {
-    flag: "ng",
-    keyPlayers: ["Victor Osimhen", "Ademola Lookman", "Mohammed Kudus", "Wilfred Ndidi", "William Troost-Ekong"],
-    nickname: "Super Eagles",
-  },
-  egypt: {
-    flag: "eg",
-    keyPlayers: ["Mohamed Salah", "Omar Marmoush", "Mohamed Elneny", "Ahmed Hegazi"],
-    nickname: "Les Pharaons",
-  },
-  ivoryCoast: {
-    flag: "ci",
-    keyPlayers: ["Sébastien Haller", "Franck Kessié", "Simon Adingra", "Serge Aurier"],
-    nickname: "Les Éléphants",
-  },
-  cameroon: {
-    flag: "cm",
-    keyPlayers: ["André-Frank Zambo Anguissa", "Karl Toko Ekambi", "Vincent Aboubakar", "Eric Maxim Choupo-Moting"],
-    nickname: "Lions Indomptables",
-  },
-  ghana: {
-    flag: "gh",
-    keyPlayers: ["Mohammed Kudus", "Thomas Partey", "Jordan Ayew", "Inaki Williams"],
-    nickname: "Black Stars",
-  },
-};
+// Fetch CAN 2025 teams from API
+async function fetchTeams() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/teams`, {
+      next: { revalidate: 3600 }
+    });
+    if (!response.ok) throw new Error('Failed to fetch teams');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching teams:', error);
+    return null;
+  }
+}
 
-// Key players to watch
-const KEY_PLAYERS = [
-  { name: "Mohamed Salah", team: "Égypte", club: "Liverpool", image: "/players/salah.jpg", position: "Ailier droit" },
-  { name: "Victor Osimhen", team: "Nigeria", club: "Galatasaray", image: "/players/osimhen.jpg", position: "Attaquant" },
-  { name: "Achraf Hakimi", team: "Maroc", club: "PSG", image: "/players/hakimi.jpg", position: "Arrière droit" },
-  { name: "Sadio Mané", team: "Sénégal", club: "Al-Nassr", image: "/players/mane.jpg", position: "Ailier gauche" },
-  { name: "Nicolas Jackson", team: "Sénégal", club: "Chelsea", image: "/players/jackson.jpg", position: "Attaquant" },
-  { name: "Ademola Lookman", team: "Nigeria", club: "Atalanta", image: "/players/lookman.jpg", position: "Ailier" },
-];
+// Fetch CAN 2025 top scorers from API
+async function fetchTopScorers() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/scorers`, {
+      next: { revalidate: 300 }
+    });
+    if (!response.ok) throw new Error('Failed to fetch scorers');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching scorers:', error);
+    return null;
+  }
+}
 
 export async function generateMetadata({ params }: CAN2025PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -220,6 +198,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
   const t = await getTranslations("can2025Page");
   const tNav = await getTranslations("nav");
 
+  // Fetch data from APIs
+  const [standingsData, teamsData, scorersData] = await Promise.all([
+    fetchStandings(),
+    fetchTeams(),
+    fetchTopScorers(),
+  ]);
+
   // Generate FAQ data for schema
   const faqs = [
     { question: t("faq.q1"), answer: t("faq.a1") },
@@ -337,24 +322,43 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           <p className="text-gray-600 mb-8">{t("groupsDescription")}</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {Object.entries(CAN_2025_GROUPS).map(([group, teams]) => (
-              <div key={group} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-                <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    {group}
-                  </span>
-                  Groupe {group}
-                </h3>
-                <ul className="space-y-2">
-                  {teams.map((team, idx) => (
-                    <li key={team} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
-                      <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
-                      <span className="font-medium text-gray-900">{team}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {standingsData?.children?.map((group: any) => {
+              const groupName = group.name?.replace('Group ', '') || group.abbreviation || '';
+              const standings = group.standings?.entries || [];
+
+              return (
+                <div key={group.id || groupName} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+                  <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
+                    <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      {groupName}
+                    </span>
+                    Groupe {groupName}
+                  </h3>
+                  <ul className="space-y-2">
+                    {standings.map((entry: any, idx: number) => (
+                      <li key={entry.team?.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
+                        <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
+                        {entry.team?.flagUrl && (
+                          <Image
+                            src={entry.team.flagUrl}
+                            alt={entry.team.displayName || entry.team.name}
+                            width={24}
+                            height={16}
+                            className="rounded"
+                          />
+                        )}
+                        <span className="font-medium text-gray-900 flex-1">
+                          {entry.team?.displayName || entry.team?.name}
+                        </span>
+                        <div className="flex gap-2 text-xs text-gray-600">
+                          <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -370,45 +374,50 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
             <p className="text-gray-600 mb-8">{t("teamListsDescription")}</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {Object.entries(TEAM_DATA).map(([key, data]) => (
-                <Link
-                  key={key}
-                  href={`/category/afrique/${key}`}
-                  className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 md:p-6 hover:shadow-lg transition-all border border-gray-200 hover:border-[#04453f]"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-8 bg-gray-200 rounded overflow-hidden flex items-center justify-center text-2xl">
-                      {/* Flag emoji based on country code */}
-                      {data.flag === "sn" && "&#127480;&#127475;"}
-                      {data.flag === "ma" && "&#127474;&#127462;"}
-                      {data.flag === "dz" && "&#127465;&#127487;"}
-                      {data.flag === "ng" && "&#127475;&#127468;"}
-                      {data.flag === "eg" && "&#127466;&#127468;"}
-                      {data.flag === "ci" && "&#127464;&#127470;"}
-                      {data.flag === "cm" && "&#127464;&#127474;"}
-                      {data.flag === "gh" && "&#127468;&#127469;"}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-[#04453f] transition-colors">
-                        {t(`teams.${key}`)}
-                      </h3>
-                      <p className="text-xs text-gray-500">{data.nickname}</p>
-                    </div>
-                  </div>
+              {teamsData?.sports?.[0]?.leagues?.[0]?.teams?.slice(0, 24).map((item: any) => {
+                const team = item.team;
+                const teamName = team?.displayName || team?.name || '';
+                const teamSlug = teamName.toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .replace(/\s+/g, '-');
 
-                  <div className="space-y-1">
-                    <p className="text-xs text-gray-500 uppercase font-semibold mb-2">
-                      {locale === "fr" ? "Joueurs clés" : locale === "en" ? "Key players" : "Jugadores clave"}
-                    </p>
-                    {data.keyPlayers.slice(0, 3).map((player) => (
-                      <p key={player} className="text-sm text-gray-700">{player}</p>
-                    ))}
-                    <p className="text-xs text-[#04453f] font-medium mt-2">
-                      {t("viewList")} &rarr;
-                    </p>
-                  </div>
-                </Link>
-              ))}
+                return (
+                  <Link
+                    key={team?.id || teamName}
+                    href={`/category/afrique/${teamSlug}`}
+                    className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 md:p-6 hover:shadow-lg transition-all border border-gray-200 hover:border-[#04453f]"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      {team?.flagUrl && (
+                        <div className="w-12 h-8 rounded overflow-hidden flex items-center justify-center">
+                          <Image
+                            src={team.flagUrl}
+                            alt={teamName}
+                            width={48}
+                            height={32}
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-gray-900 group-hover:text-[#04453f] transition-colors truncate">
+                          {teamName}
+                        </h3>
+                        {team?.abbreviation && (
+                          <p className="text-xs text-gray-500">{team.abbreviation}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <p className="text-xs text-[#04453f] font-medium mt-2">
+                        {t("viewList")} &rarr;
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -423,17 +432,53 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {KEY_PLAYERS.map((player) => (
-              <div key={player.name} className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-[#04453f] to-[#4a8000] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                  {player.name.charAt(0)}
+            {scorersData?.categories?.[0]?.leaders?.slice(0, 12).map((leader: any) => {
+              const athlete = leader.athlete;
+              const playerName = athlete?.displayName || athlete?.fullName || athlete?.name || '';
+              const teamName = athlete?.team?.displayName || athlete?.team?.name || '';
+              const stats = leader.value || leader.displayValue || '0';
+
+              return (
+                <div key={athlete?.id || playerName} className="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                  {athlete?.headshot?.href ? (
+                    <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden bg-gray-100">
+                      <Image
+                        src={athlete.headshot.href}
+                        alt={playerName}
+                        width={64}
+                        height={64}
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-[#04453f] to-[#4a8000] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                      {playerName.charAt(0)}
+                    </div>
+                  )}
+                  <h3 className="font-bold text-gray-900 text-sm md:text-base line-clamp-1">{playerName}</h3>
+                  <div className="flex items-center justify-center gap-1 mt-1">
+                    {athlete?.team?.flagUrl && (
+                      <Image
+                        src={athlete.team.flagUrl}
+                        alt={teamName}
+                        width={16}
+                        height={12}
+                        className="rounded"
+                      />
+                    )}
+                    <p className="text-xs text-[#04453f] font-medium">{teamName}</p>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">{stats} {locale === "fr" ? "buts" : locale === "en" ? "goals" : "goles"}</p>
                 </div>
-                <h3 className="font-bold text-gray-900 text-sm md:text-base">{player.name}</h3>
-                <p className="text-xs text-[#04453f] font-medium">{player.team}</p>
-                <p className="text-xs text-gray-500">{player.club}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
+          {(!scorersData || !scorersData.categories?.length) && (
+            <div className="text-center py-8">
+              <p className="text-gray-500">{scorersData?.message || locale === "fr" ? "Les données seront disponibles une fois le tournoi commencé." : locale === "en" ? "Data will be available once the tournament starts." : "Los datos estarán disponibles una vez que comience el torneo."}</p>
+            </div>
+          )}
         </section>
 
         {/* Latest News Section */}
