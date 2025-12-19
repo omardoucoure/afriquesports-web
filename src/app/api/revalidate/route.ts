@@ -98,8 +98,14 @@ export async function POST(request: NextRequest) {
 
 // Handle GET requests for testing
 export async function GET(request: NextRequest) {
+  const envSecret = process.env.REVALIDATE_SECRET;
   return NextResponse.json({
     message: "Revalidation endpoint is active. Use POST with proper credentials.",
+    debug: {
+      envSecretDefined: !!envSecret,
+      envSecretLength: envSecret?.length || 0,
+      envSecretFirst5: envSecret?.substring(0, 5) || "undefined",
+    },
     usage: {
       method: "POST",
       body: {
