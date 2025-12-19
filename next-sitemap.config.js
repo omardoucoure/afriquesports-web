@@ -1,52 +1,22 @@
 /** @type {import('next-sitemap').IConfig} */
+/**
+ * DEPRECATED: We now use custom dynamic sitemap routes for better performance
+ * with 134k+ posts. This config is kept for reference but sitemaps are
+ * generated via:
+ * - /sitemap.xml (sitemap index)
+ * - /sitemaps/posts/[page].xml (paginated posts)
+ * - /sitemaps/categories.xml
+ * - /sitemaps/pages.xml
+ * - /news-sitemap.xml (Google News)
+ * - /sitemaps/can-2025.xml (CAN 2025 priority content)
+ * - /robots.txt (dynamic)
+ *
+ * This next-sitemap config is disabled to avoid conflicts.
+ */
 module.exports = {
   siteUrl: 'https://www.afriquesports.net',
-  generateRobotsTxt: true,
-  sitemapSize: 7000,
-  changefreq: 'daily',
-  priority: 0.7,
-  exclude: ['/search', '/search/*', '/_not-found'],
-  robotsTxtOptions: {
-    additionalSitemaps: [
-      'https://www.afriquesports.net/news-sitemap.xml',
-    ],
-    policies: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/search', '/_next', '/api'],
-      },
-      {
-        userAgent: 'Googlebot-News',
-        allow: '/',
-      },
-    ],
-  },
-  transform: async (config, path) => {
-    // Custom priority for different pages
-    let priority = config.priority;
-    let changefreq = config.changefreq;
-
-    if (path === '/') {
-      priority = 1.0;
-      changefreq = 'hourly';
-    } else if (path === '/can-2025' || path.includes('/can-2025')) {
-      // CAN 2025 pages get high priority for SEO
-      priority = 0.95;
-      changefreq = 'hourly';
-    } else if (path.startsWith('/category/')) {
-      priority = 0.8;
-      changefreq = 'daily';
-    } else if (path === '/contact') {
-      priority = 0.3;
-      changefreq = 'monthly';
-    }
-
-    return {
-      loc: path,
-      changefreq,
-      priority,
-      lastmod: new Date().toISOString(),
-    };
-  },
+  generateRobotsTxt: false, // We use custom robots.txt route
+  generateIndexSitemap: false, // We use custom sitemap.xml route
+  // Exclude all pages from next-sitemap - we handle sitemaps ourselves
+  exclude: ['*'],
 };
