@@ -199,10 +199,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
   const tNav = await getTranslations("nav");
 
   // Fetch data from APIs
-  const [standingsData, teamsData, scorersData] = await Promise.all([
+  const [standingsData, teamsData, scorersData, scheduleData] = await Promise.all([
     fetchStandings(),
     fetchTeams(),
     fetchTopScorers(),
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/schedule`, {
+      next: { revalidate: 300 }
+    }).then(res => res.json()).catch(() => null),
   ]);
 
   // Generate FAQ data for schema
@@ -321,45 +324,57 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           </div>
           <p className="text-gray-600 mb-8">{t("groupsDescription")}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {standingsData?.children?.map((group: any) => {
-              const groupName = group.name?.replace('Group ', '') || group.abbreviation || '';
-              const standings = group.standings?.entries || [];
+          {standingsData?.children?.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {standingsData.children.map((group: any) => {
+                const groupName = group.name?.replace('Group ', '') || group.abbreviation || '';
+                const standings = group.standings?.entries || [];
 
-              return (
-                <div key={group.id || groupName} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-                  <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
-                    <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
-                      {groupName}
-                    </span>
-                    Groupe {groupName}
-                  </h3>
-                  <ul className="space-y-2">
-                    {standings.map((entry: any, idx: number) => (
-                      <li key={entry.team?.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
-                        <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
-                        {entry.team?.flagUrl && (
-                          <Image
-                            src={entry.team.flagUrl}
-                            alt={entry.team.displayName || entry.team.name}
-                            width={24}
-                            height={16}
-                            className="rounded"
-                          />
-                        )}
-                        <span className="font-medium text-gray-900 flex-1">
-                          {entry.team?.displayName || entry.team?.name}
-                        </span>
-                        <div className="flex gap-2 text-xs text-gray-600">
-                          <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
+                return (
+                  <div key={group.id || groupName} className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+                    <h3 className="text-lg font-bold text-[#04453f] mb-4 flex items-center gap-2">
+                      <span className="w-8 h-8 bg-[#04453f] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        {groupName}
+                      </span>
+                      Groupe {groupName}
+                    </h3>
+                    <ul className="space-y-2">
+                      {standings.map((entry: any, idx: number) => (
+                        <li key={entry.team?.id || idx} className="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0">
+                          <span className="text-sm text-gray-500 w-4">{idx + 1}</span>
+                          {entry.team?.flagUrl && (
+                            <Image
+                              src={entry.team.flagUrl}
+                              alt={entry.team.displayName || entry.team.name}
+                              width={24}
+                              height={16}
+                              className="rounded"
+                            />
+                          )}
+                          <span className="font-medium text-gray-900 flex-1">
+                            {entry.team?.displayName || entry.team?.name}
+                          </span>
+                          {entry.stats?.find((s: any) => s.name === 'points') && (
+                            <div className="flex gap-2 text-xs text-gray-600">
+                              <span title="Points">{entry.stats?.find((s: any) => s.name === 'points')?.value || 0} pts</span>
+                            </div>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-white rounded-lg">
+              <p className="text-gray-500 text-lg">
+                {locale === "fr" ? "Les classements seront disponibles une fois le tournoi commencé (21 décembre 2025)." :
+                 locale === "en" ? "Standings will be available once the tournament starts (December 21, 2025)." :
+                 "Las clasificaciones estarán disponibles una vez que comience el torneo (21 de diciembre de 2025)."}
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Team Lists Section - targeting "liste Sénégal CAN 2025" */}
