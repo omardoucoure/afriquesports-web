@@ -49,6 +49,42 @@ interface NextMatchBarProps {
   className?: string;
 }
 
+// Map ESPN team names to translation keys
+const getTeamTranslationKey = (teamName: string): string => {
+  const mapping: Record<string, string> = {
+    'Morocco': 'morocco',
+    'Mali': 'mali',
+    'Zambia': 'zambia',
+    'Comoros': 'comoros',
+    'Egypt': 'egypt',
+    'South Africa': 'southAfrica',
+    'Angola': 'angola',
+    'Zimbabwe': 'zimbabwe',
+    'Senegal': 'senegal',
+    'Cameroon': 'cameroon',
+    'DR Congo': 'drCongo',
+    'Guinea': 'guinea',
+    'Tunisia': 'tunisia',
+    'Tanzania': 'tanzania',
+    'Mauritania': 'mauritania',
+    'Gambia': 'gambia',
+    'Ivory Coast': 'ivoryCoast',
+    'Gabon': 'gabon',
+    'Equatorial Guinea': 'equatorialGuinea',
+    'Mozambique': 'mozambique',
+    'Nigeria': 'nigeria',
+    'Ghana': 'ghana',
+    'Benin': 'benin',
+    'Botswana': 'botswana',
+    'Algeria': 'algeria',
+    'Burkina Faso': 'burkinaFaso',
+    'Cape Verde': 'capeVerde',
+    'Sudan': 'sudan',
+    'Uganda': 'uganda',
+  };
+  return mapping[teamName] || teamName.toLowerCase();
+};
+
 export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const t = useTranslations();
   const [isVisible, setIsVisible] = useState(true);
@@ -127,7 +163,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                     />
                   </div>
                   <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
-                    {matchData.homeTeam?.name}
+                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
                 </div>
 
@@ -139,7 +175,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 {/* Away Team */}
                 <div className="flex items-center gap-2 md:gap-3">
                   <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg uppercase">
-                    {matchData.awayTeam?.name}
+                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>
                   <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
                     <Image
