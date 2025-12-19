@@ -148,7 +148,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             </div>
 
             {/* Match Info Section - Center */}
-            <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+            <div className="flex-1 flex items-center justify-center gap-3 md:gap-4">
               {/* Teams Section */}
               <div className="flex items-center gap-3 md:gap-4">
                 {/* Home Team */}
@@ -188,25 +188,6 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   </div>
                 </div>
               </div>
-
-              {/* Match Details - Date & Time */}
-              {matchData.date && (
-                <div className="hidden md:flex items-center gap-3 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <CalendarIcon className="w-4 h-4 text-white/90" />
-                    <span className="text-xs font-bold text-white/90">
-                      {formatDate(matchData.date)}
-                    </span>
-                  </div>
-                  <div className="w-px h-4 bg-white/30" />
-                  <div className="flex items-center gap-2">
-                    <ClockIcon className="w-4 h-4 text-white/90" />
-                    <span className="text-xs font-bold text-white/90">
-                      {formatTime(matchData.date)}
-                    </span>
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Right Section - Watch Button & Close */}
