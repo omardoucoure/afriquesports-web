@@ -13,8 +13,8 @@ import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
 
-// ISR: Revalidate homepage every 60 seconds
-export const revalidate = 60;
+// Dynamic rendering: Always fetch fresh data for news content
+export const revalidate = 0;
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
