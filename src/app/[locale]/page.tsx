@@ -209,8 +209,8 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
 async function MostReadSection({ locale }: { locale: string }) {
 
   try {
-    // Fetch trending posts directly from database (last 7 days)
-    const trending = await getTrendingPostsByRange(7, 5);
+    // Fetch trending posts directly from database (last 24 hours)
+    const trending = await getTrendingPostsByRange(1, 5);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
