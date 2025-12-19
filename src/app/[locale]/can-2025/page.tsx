@@ -325,52 +325,20 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
 
       <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">
         {/* Breadcrumb */}
-        <div className="container-main py-4">
+        <div className="container-main py-6">
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
-        {/* Hero Section with CAN 2025 branding */}
-        <section className="bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#4a8000] py-8 md:py-12">
-          <div className="container-main">
-            <div className="text-center md:text-left">
-              <span className="inline-block px-4 py-1 bg-white/10 text-white text-sm font-bold uppercase mb-4 rounded-full">
-                {t("subtitle")}
-              </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4">
-                {t("title")}
-              </h1>
-              <p className="text-lg md:text-xl text-white/80 mb-6 max-w-2xl">
-                {t("dates")}
-              </p>
-
-              {/* Quick stats */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-8 text-white">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">&#127942;</span>
-                  <span>{t("host")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">&#9917;</span>
-                  <span>{t("teams")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">&#127967;</span>
-                  <span>{t("stadiums")}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Groups Section - targeting "groupes CAN 2025" */}
-        <section className="container-main py-8 md:py-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
+        <section className="container-main py-10 md:py-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
               {t("groups")}
             </h2>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+              {t("groupsDescription")}
+            </p>
           </div>
-          <p className="text-gray-600 mb-8">{t("groupsDescription")}</p>
 
           {standingsData?.children?.length > 0 ? (
             // Show standings with points once tournament starts
@@ -500,20 +468,19 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         </section>
 
         {/* Scheduled Matches Section */}
-        <section className="bg-white py-8 md:py-12">
+        <section className="bg-white py-10 md:py-16">
           <div className="container-main">
-            <div className="flex items-center gap-3 mb-6">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">
                 {locale === "fr" ? "Calendrier des matchs" : locale === "en" ? "Match schedule" : "Calendario de partidos"}
               </h2>
-              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+              <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+                {locale === "fr" ? "Tous les matchs de la CAN 2025" : locale === "en" ? "All CAN 2025 matches" : "Todos los partidos de la CAN 2025"}
+              </p>
             </div>
-            <p className="text-gray-600 mb-8">
-              {locale === "fr" ? "Tous les matchs de la CAN 2025" : locale === "en" ? "All CAN 2025 matches" : "Todos los partidos de la CAN 2025"}
-            </p>
 
             {scheduleData?.events?.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {scheduleData.events.slice(0, 12).map((event: any) => {
                   const competition = event.competitions?.[0];
                   const homeTeam = competition?.competitors?.find((c: any) => c.homeAway === 'home')?.team;
@@ -522,41 +489,129 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                   const status = competition?.status;
 
                   return (
-                    <div key={event.id} className="bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 md:p-6 border border-gray-200 hover:border-[#04453f] hover:shadow-md transition-all">
-                      <div className="flex flex-col md:flex-row md:items-center gap-4">
+                    <div key={event.id} className="bg-white rounded-2xl p-4 md:p-6 border-2 border-gray-100 hover:border-[#9DFF20] hover:shadow-lg transition-all">
+                      {/* Mobile Layout */}
+                      <div className="md:hidden space-y-4">
                         {/* Date & Time */}
-                        <div className="flex flex-col items-start md:items-center md:w-32">
-                          <span className="text-xs font-semibold text-gray-500 uppercase">
-                            {matchDate.toLocaleDateString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
-                              month: 'short',
-                              day: 'numeric'
-                            })}
-                          </span>
-                          <span className="text-lg font-bold text-gray-900">
+                        <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-sm font-semibold text-gray-600">
+                              {matchDate.toLocaleDateString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
+                                weekday: 'short',
+                                month: 'short',
+                                day: 'numeric'
+                              })}
+                            </span>
+                          </div>
+                          <span className="text-lg font-black text-gray-900">
                             {matchDate.toLocaleTimeString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
                               hour: '2-digit',
                               minute: '2-digit'
                             })}
                           </span>
-                          {status?.type?.state === 'pre' && (
-                            <span className="text-xs text-gray-500 mt-0.5">
-                              {locale === "fr" ? "À venir" : locale === "en" ? "Upcoming" : "Próximo"}
-                            </span>
-                          )}
                         </div>
 
                         {/* Teams */}
-                        <div className="flex-1 flex items-center justify-between gap-4">
+                        <div className="space-y-3">
                           {/* Home Team */}
-                          <div className="flex items-center gap-3 flex-1 justify-end">
-                            <span className="font-bold text-gray-900 text-right">{homeTeam?.displayName || homeTeam?.name}</span>
+                          <div className="flex items-center justify-between gap-3 bg-gray-50 rounded-xl p-3">
+                            <div className="flex items-center gap-3 flex-1">
+                              {homeTeam?.flagUrl && (
+                                <div className="w-12 h-9 rounded-lg overflow-hidden shadow-sm flex-shrink-0 border border-gray-200">
+                                  <Image
+                                    src={homeTeam.flagUrl}
+                                    alt={homeTeam.displayName || homeTeam.name}
+                                    width={48}
+                                    height={36}
+                                    className="object-cover"
+                                  />
+                                </div>
+                              )}
+                              <span className="font-bold text-gray-900 text-base">{homeTeam?.displayName || homeTeam?.name}</span>
+                            </div>
+                            {status?.type?.completed && (
+                              <span className="text-2xl font-black text-gray-900 min-w-[2rem] text-right">
+                                {competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* VS Badge */}
+                          <div className="flex items-center justify-center">
+                            <span className="px-4 py-1.5 bg-gradient-to-r from-[#04453f] to-[#345C00] text-white text-xs font-bold rounded-full uppercase tracking-wide">
+                              VS
+                            </span>
+                          </div>
+
+                          {/* Away Team */}
+                          <div className="flex items-center justify-between gap-3 bg-gray-50 rounded-xl p-3">
+                            <div className="flex items-center gap-3 flex-1">
+                              {awayTeam?.flagUrl && (
+                                <div className="w-12 h-9 rounded-lg overflow-hidden shadow-sm flex-shrink-0 border border-gray-200">
+                                  <Image
+                                    src={awayTeam.flagUrl}
+                                    alt={awayTeam.displayName || awayTeam.name}
+                                    width={48}
+                                    height={36}
+                                    className="object-cover"
+                                  />
+                                </div>
+                              )}
+                              <span className="font-bold text-gray-900 text-base">{awayTeam?.displayName || awayTeam?.name}</span>
+                            </div>
+                            {status?.type?.completed && (
+                              <span className="text-2xl font-black text-gray-900 min-w-[2rem] text-right">
+                                {competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Venue */}
+                        {event.venue?.displayName && (
+                          <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
+                            <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="text-sm text-gray-600">{event.venue.displayName}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Desktop Layout */}
+                      <div className="hidden md:flex items-center gap-6">
+                        {/* Date & Time */}
+                        <div className="flex flex-col items-center justify-center min-w-[100px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
+                          <span className="text-xs font-bold text-gray-500 uppercase mb-1">
+                            {matchDate.toLocaleDateString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </span>
+                          <span className="text-xl font-black text-gray-900">
+                            {matchDate.toLocaleTimeString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
+                        </div>
+
+                        {/* Teams Container */}
+                        <div className="flex-1 flex items-center justify-between gap-6">
+                          {/* Home Team */}
+                          <div className="flex items-center gap-4 flex-1 justify-end">
+                            <span className="font-bold text-gray-900 text-lg text-right">{homeTeam?.displayName || homeTeam?.name}</span>
                             {homeTeam?.flagUrl && (
-                              <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
+                              <div className="w-14 h-10 rounded-lg overflow-hidden shadow-md border-2 border-gray-200">
                                 <Image
                                   src={homeTeam.flagUrl}
                                   alt={homeTeam.displayName || homeTeam.name}
-                                  width={40}
-                                  height={28}
+                                  width={56}
+                                  height={40}
                                   className="object-cover"
                                 />
                               </div>
@@ -564,43 +619,43 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                           </div>
 
                           {/* VS or Score */}
-                          <div className="flex items-center justify-center px-4">
+                          <div className="flex items-center justify-center min-w-[120px]">
                             {status?.type?.completed ? (
-                              <div className="flex items-center gap-2 text-2xl font-black text-gray-900">
-                                <span>{competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}</span>
-                                <span className="text-gray-400">-</span>
-                                <span>{competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}</span>
+                              <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#04453f] to-[#345C00] rounded-xl">
+                                <span className="text-3xl font-black text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}</span>
+                                <span className="text-2xl font-black text-white/50">-</span>
+                                <span className="text-3xl font-black text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}</span>
                               </div>
                             ) : (
-                              <span className="text-sm font-bold text-gray-400 px-3 py-1 bg-gray-100 rounded-full">VS</span>
+                              <span className="px-6 py-3 bg-gradient-to-r from-[#04453f] to-[#345C00] text-white text-sm font-bold rounded-xl uppercase tracking-wider">VS</span>
                             )}
                           </div>
 
                           {/* Away Team */}
-                          <div className="flex items-center gap-3 flex-1">
+                          <div className="flex items-center gap-4 flex-1">
                             {awayTeam?.flagUrl && (
-                              <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
+                              <div className="w-14 h-10 rounded-lg overflow-hidden shadow-md border-2 border-gray-200">
                                 <Image
                                   src={awayTeam.flagUrl}
                                   alt={awayTeam.displayName || awayTeam.name}
-                                  width={40}
-                                  height={28}
+                                  width={56}
+                                  height={40}
                                   className="object-cover"
                                 />
                               </div>
                             )}
-                            <span className="font-bold text-gray-900">{awayTeam?.displayName || awayTeam?.name}</span>
+                            <span className="font-bold text-gray-900 text-lg">{awayTeam?.displayName || awayTeam?.name}</span>
                           </div>
                         </div>
 
                         {/* Venue */}
                         {event.venue?.displayName && (
-                          <div className="hidden lg:flex items-center gap-2 text-xs text-gray-500 md:w-48">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="flex items-center gap-2 min-w-[180px] bg-gray-50 rounded-xl px-4 py-3">
+                            <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <span className="truncate">{event.venue.displayName}</span>
+                            <span className="text-sm text-gray-600 truncate font-medium">{event.venue.displayName}</span>
                           </div>
                         )}
                       </div>
@@ -609,8 +664,11 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                 })}
               </div>
             ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-gray-500">
+              <div className="text-center py-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-gray-200">
+                <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p className="text-lg text-gray-500 font-medium">
                   {locale === "fr" ? "Le calendrier sera disponible prochainement." :
                    locale === "en" ? "Schedule will be available soon." :
                    "El calendario estará disponible pronto."}
