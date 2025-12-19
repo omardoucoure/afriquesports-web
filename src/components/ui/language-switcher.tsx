@@ -16,6 +16,10 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   const handleChange = (newLocale: string) => {
+    // Save language preference to localStorage to prevent modal from showing
+    localStorage.setItem("locale-preference", newLocale);
+    localStorage.setItem("locale-preference-dismissed", "true");
+
     // Remove current locale prefix if present
     let newPath = pathname;
     for (const loc of locales) {

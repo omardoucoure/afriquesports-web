@@ -46,6 +46,12 @@ export function LocaleModal() {
       return;
     }
 
+    // Check if user has a saved locale preference
+    const savedLocale = localStorage.getItem("locale-preference");
+    if (savedLocale) {
+      return;
+    }
+
     // Detect browser language
     const browserLang = navigator.language.split("-")[0];
 
@@ -60,6 +66,8 @@ export function LocaleModal() {
   }, [currentLocale]);
 
   const handleStay = () => {
+    // Save current locale as preference
+    localStorage.setItem("locale-preference", currentLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
     setShowModal(false);
   };
@@ -67,6 +75,8 @@ export function LocaleModal() {
   const handleSwitch = () => {
     if (!detectedLocale) return;
 
+    // Save detected locale as preference
+    localStorage.setItem("locale-preference", detectedLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
     // Build new path with locale prefix

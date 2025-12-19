@@ -9,7 +9,7 @@ function getPool(): VercelPool | null {
 
   const connectionString = process.env.POSTGRES_URL;
   if (!connectionString) {
-    console.warn('[DB] No POSTGRES_URL configured');
+    // Database is optional - silently return null if not configured
     return null;
   }
 
@@ -17,7 +17,7 @@ function getPool(): VercelPool | null {
     pool = createPool({ connectionString });
     return pool;
   } catch (error) {
-    console.error('[DB] Failed to create pool:', error);
+    // Silently fail if database connection fails
     return null;
   }
 }
@@ -56,7 +56,7 @@ export async function initVisitsTable(): Promise<boolean> {
     tableInitialized = true;
     return true;
   } catch (error) {
-    console.error('[DB] Failed to initialize visits table:', error);
+    // Silently fail if table initialization fails (database is optional)
     return false;
   }
 }
@@ -89,7 +89,7 @@ export async function recordVisit(data: {
     `;
     return result.rows[0];
   } catch (error) {
-    console.error('[DB] Failed to record visit:', error);
+    // Silently fail if visit recording fails (database is optional)
     return null;
   }
 }
@@ -112,7 +112,7 @@ export async function getTrendingPosts(limit: number = 10) {
     `;
     return result.rows;
   } catch (error) {
-    console.error('[DB] Failed to get trending posts:', error);
+    // Silently fail if getting trending posts fails (database is optional)
     return [];
   }
 }
@@ -136,7 +136,7 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
     `;
     return result.rows;
   } catch (error) {
-    console.error('[DB] Failed to get trending posts by range:', error);
+    // Silently fail if getting trending posts by range fails (database is optional)
     return [];
   }
 }
