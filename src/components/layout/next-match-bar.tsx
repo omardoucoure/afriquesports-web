@@ -100,97 +100,112 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     >
       <div className="relative">
         <div className="container-main relative z-10">
-          <div className="flex items-center justify-center py-2 px-3 md:px-0 gap-3">
-            {/* CAN 2025 Badge */}
-            <div className="flex-shrink-0 flex items-center gap-1.5">
-              <div className="hidden sm:flex items-center gap-2 bg-white text-red-600 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wide">
-                <span className="text-sm">⚽</span>
-                <span>CAN 2025</span>
-              </div>
-              <span className="sm:hidden bg-white text-red-600 px-2 py-0.5 rounded-md text-xs font-extrabold">
+          <div className="flex items-center justify-between py-3 px-3 md:px-0 gap-4">
+            {/* CAN 2025 Badge - Left */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <span className="hidden sm:inline text-sm md:text-base font-extrabold text-white uppercase tracking-wide drop-shadow-lg">
+                ⚽ CAN 2025
+              </span>
+              <span className="sm:hidden text-sm font-extrabold text-white drop-shadow-lg">
                 ⚽ CAN
               </span>
             </div>
 
-            {/* Teams Section */}
-            <div className="flex items-center gap-2 md:gap-3 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-lg">
-              {/* Home Team */}
-              <div className="flex items-center gap-1.5 md:gap-2">
-                <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded border border-white/20">
-                  <Image
-                    src={matchData.homeTeam?.flag || ''}
-                    alt={matchData.homeTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="28px"
-                  />
+            {/* Match Info Section - Center */}
+            <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+              {/* Teams Section */}
+              <div className="flex items-center gap-3 md:gap-4">
+                {/* Home Team */}
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
+                    <Image
+                      src={matchData.homeTeam?.flag || ''}
+                      alt={matchData.homeTeam?.name || ''}
+                      fill
+                      className="object-cover"
+                      sizes="40px"
+                    />
+                  </div>
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
+                    {matchData.homeTeam?.code}
+                  </span>
                 </div>
-                <span className="text-xs md:text-sm font-extrabold hidden sm:inline text-white drop-shadow-lg">
-                  {matchData.homeTeam?.name}
-                </span>
-                <span className="text-xs font-extrabold sm:hidden text-white drop-shadow-lg">
-                  {matchData.homeTeam?.code}
-                </span>
+
+                {/* VS Badge */}
+                <div className="flex-shrink-0 bg-white text-red-600 px-3 py-1.5 rounded-lg text-sm font-extrabold shadow-md">
+                  VS
+                </div>
+
+                {/* Away Team */}
+                <div className="flex items-center gap-2 md:gap-3">
+                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
+                    {matchData.awayTeam?.code}
+                  </span>
+                  <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
+                    <Image
+                      src={matchData.awayTeam?.flag || ''}
+                      alt={matchData.awayTeam?.name || ''}
+                      fill
+                      className="object-cover"
+                      sizes="40px"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* VS Badge */}
-              <div className="flex-shrink-0 bg-white text-red-600 px-2 py-1 rounded-md text-xs font-extrabold">
-                VS
-              </div>
-
-              {/* Away Team */}
-              <div className="flex items-center gap-1.5 md:gap-2">
-                <div className="relative w-6 h-5 md:w-7 md:h-6 overflow-hidden rounded border border-white/20">
-                  <Image
-                    src={matchData.awayTeam?.flag || ''}
-                    alt={matchData.awayTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="28px"
-                  />
+              {/* Match Details - Date & Time */}
+              {matchData.date && (
+                <div className="hidden md:flex items-center gap-3 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <CalendarIcon className="w-4 h-4 text-white/90" />
+                    <span className="text-xs font-bold text-white/90">
+                      {formatDate(matchData.date)}
+                    </span>
+                  </div>
+                  <div className="w-px h-4 bg-white/30" />
+                  <div className="flex items-center gap-2">
+                    <ClockIcon className="w-4 h-4 text-white/90" />
+                    <span className="text-xs font-bold text-white/90">
+                      {formatTime(matchData.date)}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-xs md:text-sm font-extrabold hidden sm:inline text-white drop-shadow-lg">
-                  {matchData.awayTeam?.name}
-                </span>
-                <span className="text-xs font-extrabold sm:hidden text-white drop-shadow-lg">
-                  {matchData.awayTeam?.code}
-                </span>
-              </div>
+              )}
+
+              {/* Venue - Desktop only */}
+              {matchData.venue && (
+                <div className="hidden lg:flex items-center gap-2 text-xs text-white/80 font-medium">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="max-w-[200px] truncate">{matchData.venue}</span>
+                </div>
+              )}
             </div>
 
-            {/* Separator */}
-            <div className="hidden md:block w-px h-6 bg-white/30" />
+            {/* Right Section - Watch Button & Close */}
+            <div className="flex items-center gap-2">
+              {/* Watch Match Button */}
+              <Link
+                href="/can-2025"
+                className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span className="hidden sm:inline text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
+              </Link>
 
-            {/* Date */}
-            {matchData.date && (
-              <div className="hidden md:flex items-center gap-2 text-xs text-white font-bold">
-                <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-2 py-0.5 rounded-md">
-                  <CalendarIcon className="w-4 h-4 text-white" />
-                  <span>{formatDate(matchData.date)}</span>
-                </div>
-              </div>
-            )}
-
-            {/* Watch Match Button */}
-            <Link
-              href="/can-2025"
-              className="flex-shrink-0 flex items-center gap-1.5 bg-white hover:bg-white/90 text-red-600 font-bold px-3 py-1 rounded-md transition-all hover:scale-105"
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <span className="hidden sm:inline text-xs">{t("nextMatch.watchLive")}</span>
-              <span className="sm:hidden text-xs">▶</span>
-            </Link>
-
-            {/* Close Button */}
-            <button
-              onClick={() => setIsVisible(false)}
-              className="flex-shrink-0 p-2 hover:bg-white/20 rounded-md transition-all hover:scale-110"
-              aria-label={t("common.close")}
-            >
-              <CloseIcon className="w-5 h-5 text-white/90 hover:text-white" />
-            </button>
+              {/* Close Button */}
+              <button
+                onClick={() => setIsVisible(false)}
+                className="flex-shrink-0 p-2 hover:bg-white/20 rounded-lg transition-all hover:scale-110"
+                aria-label={t("common.close")}
+              >
+                <CloseIcon className="w-5 h-5 text-white/90 hover:text-white" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
