@@ -199,9 +199,10 @@ export class DataFetcher {
 
     const searchParams = new URLSearchParams(filteredParams);
 
-    // DEVELOPMENT: Always add cache-busting timestamp in development
+    // PRODUCTION: Add cache-busting timestamp to bypass Cloudflare's 4-hour cache
+    // This ensures ISR revalidation gets fresh data from WordPress
     const isDev = process.env.NODE_ENV === "development";
-    if (isDev || options?.cache === "no-store") {
+    if (isDev || !options?.cache || options?.cache === "no-store") {
       searchParams.set("_t", Date.now().toString());
     }
 
