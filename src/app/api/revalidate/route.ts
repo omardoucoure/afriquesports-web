@@ -25,13 +25,14 @@ export async function POST(request: NextRequest) {
 
     // Validate secret to prevent unauthorized revalidation
     const envSecret = process.env.REVALIDATE_SECRET;
+
+    // DEBUG: Log full secrets for comparison (REMOVE IN PRODUCTION)
+    console.log("[Revalidate] Received secret:", secret);
+    console.log("[Revalidate] Env secret:", envSecret);
+    console.log("[Revalidate] Are equal:", secret === envSecret);
+
     if (!secret || secret !== envSecret) {
       console.error("[Revalidate] Secret validation failed");
-      console.error("[Revalidate] Received:", JSON.stringify(secret));
-      console.error("[Revalidate] Expected:", JSON.stringify(envSecret));
-      console.error("[Revalidate] Match:", secret === envSecret);
-      console.error("[Revalidate] Received length:", secret?.length);
-      console.error("[Revalidate] Expected length:", envSecret?.length);
       return NextResponse.json(
         { error: "Invalid secret" },
         { status: 401 }
