@@ -26,7 +26,107 @@ const securityHeaders = [
   },
 ];
 
+// Country slugs that should redirect from /afrique/{country} to /category/afrique/{country}
+const countrySubcategories = [
+  "senegal",
+  "cameroun",
+  "cote-divoire",
+  "algerie",
+  "maroc",
+  "rdc",
+  "nigeria",
+  "egypte",
+  "ghana",
+  "mali",
+  "tunisie",
+  "afrique-du-sud",
+  "guinee",
+  "burkina-faso",
+  "togo",
+  "benin",
+  "niger",
+  "gabon",
+  "congo",
+  "mozambique",
+  "zambie",
+  "zimbabwe",
+  "ouganda",
+  "tanzanie",
+  "kenya",
+  "soudan",
+  "libye",
+  "cap-vert",
+  "maurice",
+  "comores",
+  "madagascar",
+  "angola",
+  "namibie",
+  "botswana",
+  "ethiopie",
+  "erythree",
+  "rwanda",
+  "burundi",
+  "centrafrique",
+  "tchad",
+  "mauritanie",
+  "gambie",
+  "sierra-leone",
+  "liberia",
+  "guinee-bissau",
+  "guinee-equatoriale",
+  "sao-tome-et-principe",
+  "seychelles",
+  "djibouti",
+  "somalie",
+  "soudan-du-sud",
+  "lesotho",
+  "eswatini",
+  "malawi",
+];
+
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // Redirect /afrique/{country} to /category/afrique/{country}
+      ...countrySubcategories.map((country) => ({
+        source: `/afrique/${country}`,
+        destination: `/category/afrique/${country}`,
+        permanent: true,
+      })),
+      // Also handle trailing slashes
+      ...countrySubcategories.map((country) => ({
+        source: `/afrique/${country}/`,
+        destination: `/category/afrique/${country}`,
+        permanent: true,
+      })),
+      // Redirect /europe/{country} patterns too
+      {
+        source: "/europe/angleterre",
+        destination: "/category/europe/angleterre",
+        permanent: true,
+      },
+      {
+        source: "/europe/espagne",
+        destination: "/category/europe/espagne",
+        permanent: true,
+      },
+      {
+        source: "/europe/france",
+        destination: "/category/europe/france",
+        permanent: true,
+      },
+      {
+        source: "/europe/italie",
+        destination: "/category/europe/italie",
+        permanent: true,
+      },
+      {
+        source: "/europe/allemagne",
+        destination: "/category/europe/allemagne",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
