@@ -499,63 +499,124 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           )}
         </section>
 
-        {/* Team Lists Section - targeting "liste Sénégal CAN 2025" */}
+        {/* Scheduled Matches Section */}
         <section className="bg-white py-8 md:py-12">
           <div className="container-main">
             <div className="flex items-center gap-3 mb-6">
               <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 whitespace-nowrap">
-                {t("teamLists")}
+                {locale === "fr" ? "Calendrier des matchs" : locale === "en" ? "Match schedule" : "Calendario de partidos"}
               </h2>
               <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
             </div>
-            <p className="text-gray-600 mb-8">{t("teamListsDescription")}</p>
+            <p className="text-gray-600 mb-8">
+              {locale === "fr" ? "Tous les matchs de la CAN 2025" : locale === "en" ? "All CAN 2025 matches" : "Todos los partidos de la CAN 2025"}
+            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {teamsData?.sports?.[0]?.leagues?.[0]?.teams?.slice(0, 24).map((item: any) => {
-                const team = item.team;
-                const teamName = team?.displayName || team?.name || '';
-                const teamSlug = teamName.toLowerCase()
-                  .normalize('NFD')
-                  .replace(/[\u0300-\u036f]/g, '')
-                  .replace(/\s+/g, '-');
+            {scheduleData?.events?.length > 0 ? (
+              <div className="space-y-4">
+                {scheduleData.events.slice(0, 12).map((event: any) => {
+                  const competition = event.competitions?.[0];
+                  const homeTeam = competition?.competitors?.find((c: any) => c.homeAway === 'home')?.team;
+                  const awayTeam = competition?.competitors?.find((c: any) => c.homeAway === 'away')?.team;
+                  const matchDate = new Date(event.date);
+                  const status = competition?.status;
 
-                return (
-                  <Link
-                    key={team?.id || teamName}
-                    href={`/category/afrique/${teamSlug}`}
-                    className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 md:p-6 hover:shadow-lg transition-all border border-gray-200 hover:border-[#04453f]"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      {team?.flagUrl && (
-                        <div className="w-12 h-8 rounded overflow-hidden flex items-center justify-center">
-                          <Image
-                            src={team.flagUrl}
-                            alt={teamName}
-                            width={48}
-                            height={32}
-                            className="object-cover"
-                          />
+                  return (
+                    <div key={event.id} className="bg-gradient-to-r from-gray-50 to-white rounded-xl p-4 md:p-6 border border-gray-200 hover:border-[#04453f] hover:shadow-md transition-all">
+                      <div className="flex flex-col md:flex-row md:items-center gap-4">
+                        {/* Date & Time */}
+                        <div className="flex flex-col items-start md:items-center md:w-32">
+                          <span className="text-xs font-semibold text-gray-500 uppercase">
+                            {matchDate.toLocaleDateString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </span>
+                          <span className="text-lg font-bold text-gray-900">
+                            {matchDate.toLocaleTimeString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
+                          {status?.type?.state === 'pre' && (
+                            <span className="text-xs text-gray-500 mt-0.5">
+                              {locale === "fr" ? "À venir" : locale === "en" ? "Upcoming" : "Próximo"}
+                            </span>
+                          )}
                         </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-gray-900 group-hover:text-[#04453f] transition-colors truncate">
-                          {teamName}
-                        </h3>
-                        {team?.abbreviation && (
-                          <p className="text-xs text-gray-500">{team.abbreviation}</p>
+
+                        {/* Teams */}
+                        <div className="flex-1 flex items-center justify-between gap-4">
+                          {/* Home Team */}
+                          <div className="flex items-center gap-3 flex-1 justify-end">
+                            <span className="font-bold text-gray-900 text-right">{homeTeam?.displayName || homeTeam?.name}</span>
+                            {homeTeam?.flagUrl && (
+                              <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
+                                <Image
+                                  src={homeTeam.flagUrl}
+                                  alt={homeTeam.displayName || homeTeam.name}
+                                  width={40}
+                                  height={28}
+                                  className="object-cover"
+                                />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* VS or Score */}
+                          <div className="flex items-center justify-center px-4">
+                            {status?.type?.completed ? (
+                              <div className="flex items-center gap-2 text-2xl font-black text-gray-900">
+                                <span>{competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}</span>
+                                <span className="text-gray-400">-</span>
+                                <span>{competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}</span>
+                              </div>
+                            ) : (
+                              <span className="text-sm font-bold text-gray-400 px-3 py-1 bg-gray-100 rounded-full">VS</span>
+                            )}
+                          </div>
+
+                          {/* Away Team */}
+                          <div className="flex items-center gap-3 flex-1">
+                            {awayTeam?.flagUrl && (
+                              <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
+                                <Image
+                                  src={awayTeam.flagUrl}
+                                  alt={awayTeam.displayName || awayTeam.name}
+                                  width={40}
+                                  height={28}
+                                  className="object-cover"
+                                />
+                              </div>
+                            )}
+                            <span className="font-bold text-gray-900">{awayTeam?.displayName || awayTeam?.name}</span>
+                          </div>
+                        </div>
+
+                        {/* Venue */}
+                        {event.venue?.displayName && (
+                          <div className="hidden lg:flex items-center gap-2 text-xs text-gray-500 md:w-48">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="truncate">{event.venue.displayName}</span>
+                          </div>
                         )}
                       </div>
                     </div>
-
-                    <div className="space-y-1">
-                      <p className="text-xs text-[#04453f] font-medium mt-2">
-                        {t("viewList")} &rarr;
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <p className="text-gray-500">
+                  {locale === "fr" ? "Le calendrier sera disponible prochainement." :
+                   locale === "en" ? "Schedule will be available soon." :
+                   "El calendario estará disponible pronto."}
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
