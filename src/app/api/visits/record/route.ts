@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { recordVisit, initVisitsTable } from '@/lib/db';
 
+// Force Node.js runtime for database operations
+export const runtime = 'nodejs';
+
 // Initialize table on first request
 let tableInitialized = false;
 
@@ -33,14 +36,16 @@ export async function POST(request: NextRequest) {
     });
 
     if (!result) {
+      console.error('[API /api/visits/record] Database connection failed - result is null');
       return NextResponse.json({ success: false, error: 'Database unavailable' }, { status: 503 });
     }
 
+    console.log('[API /api/visits/record] Visit recorded successfully:', { postId, count: result.count });
     return NextResponse.json({ success: true, count: result.count });
   } catch (error) {
-    console.error('Error recording visit:', error);
+    console.error('[API /api/visits/record] Error recording visit:', error);
     return NextResponse.json(
-      { error: 'Failed to record visit' },
+      { error: 'Failed to record visit', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
