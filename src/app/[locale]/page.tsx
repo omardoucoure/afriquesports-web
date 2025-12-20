@@ -173,7 +173,7 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
 
   try {
-    const articles = await DataFetcher.fetchPosts({ per_page: "20", offset: "5", locale });
+    const articles = await DataFetcher.fetchPosts({ per_page: "20", locale });
 
     if (!articles || articles.length === 0) {
       return (
@@ -188,7 +188,7 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
     return (
       <LoadMoreArticles
         initialArticles={articles}
-        initialOffset={5}
+        initialOffset={20}
         perPage={20}
         loadMoreText={t("loadMore")}
         loadingText={t("loading")}
