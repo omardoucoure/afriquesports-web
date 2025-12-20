@@ -227,30 +227,27 @@ async function MostReadSection({ locale }: { locale: string }) {
         viewCount: Number(item.total_count || item.count || 0),
       }));
 
-      console.log('[MostReadSection] Trending articles with view counts:', trendingArticles.map(a => ({ title: a.title.rendered, viewCount: a.viewCount })));
+      console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount })));
 
       return <MostReadWidget articles={trendingArticles} />;
+    } else {
+      console.log('[MostReadSection] ⚠ No trending data in database yet - using fallback');
     }
   } catch (error) {
-    console.error('[MostReadSection] Error fetching trending posts:', error);
+    console.error('[MostReadSection] ❌ Error fetching trending posts:', error);
   }
 
-  // Fallback to latest posts if trending is empty or fails
+  // Fallback: Show latest articles WITHOUT view counts
+  // Real view counts will appear once visits are recorded in the database
   const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
   }
 
-  // Add mock view counts for fallback articles for testing
-  const articlesWithViews = articles.map((article, index) => ({
-    ...article,
-    viewCount: 1000 + (index * 100), // Mock view counts: 1000, 1100, 1200, etc.
-  }));
+  console.log('[MostReadSection] → Showing latest articles (view counts hidden until database has data)');
 
-  console.log('[MostReadSection] Using fallback articles with mock view counts');
-
-  return <MostReadWidget articles={articlesWithViews} />;
+  return <MostReadWidget articles={articles} />;
 }
 
 export default async function Home({ params }: HomePageProps) {
