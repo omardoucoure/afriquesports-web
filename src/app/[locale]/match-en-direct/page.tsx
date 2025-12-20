@@ -471,8 +471,22 @@ export default function MatchEnDirectPage() {
                   </h2>
                 </div>
 
-                <div className="space-y-2 sm:space-y-3">
-                  {filteredCommentaries.map((commentary, index) => {
+                {/* Show message if no commentary available */}
+                {filteredCommentaries.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                      <Clock className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {t("matchCommentary.notStarted")}
+                    </h3>
+                    <p className="text-sm text-gray-600 max-w-md mx-auto">
+                      {t("matchCommentary.notStartedDescription")}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2 sm:space-y-3">
+                    {filteredCommentaries.map((commentary, index) => {
                     const isGoal =
                       commentary.type === "goal" ||
                       commentary.type.includes("goal");
@@ -584,7 +598,8 @@ export default function MatchEnDirectPage() {
                       </React.Fragment>
                     );
                   })}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
 

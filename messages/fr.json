@@ -286,6 +286,8 @@
     "liveDescription": "Suivez le match en direct entre {home} et {away} avec commentaires minute par minute, statistiques et analyses.",
     "live": "EN DIRECT",
     "finished": "Terminé",
+    "notStarted": "Le match n'a pas encore commencé",
+    "notStartedDescription": "Le match débutera bientôt. Les commentaires en direct seront disponibles dès le coup d'envoi.",
     "information": "Informations",
     "viewers": "Spectateurs en ligne",
     "lastUpdate": "Mise à jour",

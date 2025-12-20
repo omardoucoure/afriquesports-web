@@ -286,6 +286,8 @@
     "liveDescription": "Follow the live match between {home} and {away} with minute-by-minute commentary, statistics and analysis.",
     "live": "LIVE",
     "finished": "Finished",
+    "notStarted": "The match has not started yet",
+    "notStartedDescription": "The match will begin soon. Live commentary will be available from kick-off.",
     "information": "Information",
     "viewers": "Online viewers",
     "lastUpdate": "Last update",
