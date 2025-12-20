@@ -7,7 +7,8 @@ let pool: VercelPool | null = null;
 function getPool(): VercelPool | null {
   if (pool) return pool;
 
-  const connectionString = process.env.POSTGRES_URL;
+  // Use POSTGRES_URL_NON_POOLING for better compatibility with Supabase
+  const connectionString = process.env.POSTGRES_URL_NON_POOLING || process.env.POSTGRES_URL;
   if (!connectionString) {
     // Database is optional - silently return null if not configured
     return null;
@@ -18,6 +19,7 @@ function getPool(): VercelPool | null {
     return pool;
   } catch (error) {
     // Silently fail if database connection fails
+    console.error('[Database] Connection failed:', error);
     return null;
   }
 }
