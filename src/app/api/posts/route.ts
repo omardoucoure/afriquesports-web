@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DataFetcher } from "@/lib/data-fetcher";
 
-export const dynamic = "force-dynamic";
+// Revalidate every 60 seconds
+export const revalidate = 60;
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,8 +25,10 @@ export async function GET(request: NextRequest) {
       params.locale = locale;
     }
 
+    // Use force-cache with revalidation instead of no-store
+    // This allows Next.js to cache responses for 60 seconds
     const posts = await DataFetcher.fetchPosts(params, {
-      cache: "no-store",
+      revalidate: 60,
     });
 
     return NextResponse.json(posts);

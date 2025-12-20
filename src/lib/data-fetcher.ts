@@ -112,6 +112,17 @@ const RETRYABLE_STATUS_CODES = [
   520, 521, 522, 523, 524, 525, 526, 527, 530, 502, 503, 504,
 ];
 
+// Category ID cache - maps slug to ID for common categories
+// This eliminates the extra API call to look up category IDs
+// IDs are the same across all locales (fr/en/es)
+const CATEGORY_ID_CACHE: Record<string, number> = {
+  "afrique-sports-tv": 9791,
+  "article-du-jour": 30615,
+  "mercato": 102205,
+  "can-2025": 121425,
+  // Add more commonly used categories here as needed
+};
+
 export class DataFetcher {
   // ============================================================================
   // PRIVATE HELPERS
@@ -199,19 +210,20 @@ export class DataFetcher {
 
     const searchParams = new URLSearchParams(filteredParams);
 
-    // PRODUCTION: Add cache-busting timestamp to bypass Cloudflare's 4-hour cache
-    // This ensures ISR revalidation gets fresh data from WordPress
-    const isDev = process.env.NODE_ENV === "development";
-    if (isDev || !options?.cache || options?.cache === "no-store") {
-      searchParams.set("_t", Date.now().toString());
-    }
-
     // Build URL based on locale (each locale has its own WordPress site)
     const baseUrl = getWordPressBaseUrl(locale);
     const fullUrl = `${baseUrl}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
 
+    // Determine cache strategy
+    // - Use options.cache if explicitly provided (e.g., "no-store" for dynamic data)
+    // - Otherwise, let Next.js handle caching via ISR (revalidate at page level)
+    // - Next.js will use fetch cache with revalidation based on page's `export const revalidate`
+    const cacheStrategy = options?.cache || "force-cache";
+
     const fetchOptions: RequestInit = {
-      cache: isDev ? "no-store" : options?.cache || "no-store",
+      cache: cacheStrategy,
+      // Use Next.js revalidate option if provided
+      ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
       headers: {
         Accept: "application/json",
         "Accept-Charset": "utf-8",
@@ -219,8 +231,6 @@ export class DataFetcher {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Referer": "https://cms.realdemadrid.com/afriquesports/",
         "Origin": "https://cms.realdemadrid.com",
-        "Cache-Control": isDev ? "no-cache, no-store, must-revalidate" : "",
-        Pragma: isDev ? "no-cache" : "",
         ...options?.headers,
       },
     };
@@ -259,6 +269,7 @@ export class DataFetcher {
 
   /**
    * Fetch posts by category slug
+   * Uses cached category IDs when available to avoid extra API call
    */
   static async fetchPostsByCategory(
     categorySlug: string,
@@ -266,15 +277,21 @@ export class DataFetcher {
     options?: FetchOptions
   ): Promise<WordPressPost[]> {
     const locale = params?.locale;
+    let categoryId: number;
 
-    // First, get the category ID from the slug (pass locale for correct site)
-    const categories = await this.fetchCategories({ slug: categorySlug, ...(locale && { locale }) });
+    // Check cache first - saves ~0.3s per request
+    if (CATEGORY_ID_CACHE[categorySlug]) {
+      categoryId = CATEGORY_ID_CACHE[categorySlug];
+    } else {
+      // Fallback: fetch category ID from API
+      const categories = await this.fetchCategories({ slug: categorySlug, ...(locale && { locale }) });
 
-    if (categories.length === 0) {
-      return [];
+      if (categories.length === 0) {
+        return [];
+      }
+
+      categoryId = categories[0].id;
     }
-
-    const categoryId = categories[0].id;
 
     return this.fetchPosts(
       {
@@ -304,9 +321,12 @@ export class DataFetcher {
     const baseUrl = getWordPressBaseUrl(locale);
     const fullUrl = `${baseUrl}${WORDPRESS_CATEGORIES_PATH}?${searchParams.toString()}`;
 
-    const isDev = process.env.NODE_ENV === "development";
+    // Categories rarely change, so default to aggressive caching
+    const cacheStrategy = options?.cache || "force-cache";
+
     const fetchOptions: RequestInit = {
-      cache: isDev ? "no-store" : options?.cache || "force-cache",
+      cache: cacheStrategy,
+      ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
       headers: {
         Accept: "application/json",
         "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",

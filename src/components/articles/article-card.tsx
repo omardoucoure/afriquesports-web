@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl } from "@/lib/utils";
+import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl, getAuthorName } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
 interface ArticleCardProps {
@@ -30,6 +30,7 @@ export function ArticleCard({
   const categoryLabel = getCategoryLabel(article);
   const articleUrl = getArticleUrl(article);
   const formattedDate = formatDate(article.date, locale);
+  const authorName = getAuthorName(article);
 
   // Default vertical card
   if (variant === "default") {
@@ -75,9 +76,16 @@ export function ArticleCard({
               />
             )}
 
-            {showDate && (
-              <time className="block mt-3 text-xs text-gray-500">{formattedDate}</time>
-            )}
+            {/* Meta: author and date */}
+            <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+              <span className="font-medium">{authorName}</span>
+              {showDate && (
+                <>
+                  <span className="text-gray-300">•</span>
+                  <time dateTime={article.date}>{formattedDate}</time>
+                </>
+              )}
+            </div>
           </div>
         </Link>
       </article>
@@ -110,9 +118,16 @@ export function ArticleCard({
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
           </Link>
-          {showDate && (
-            <time className="block mt-1 text-xs text-gray-500">{formattedDate}</time>
-          )}
+          {/* Meta: author and date */}
+          <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
+            <span className="font-medium truncate">{authorName}</span>
+            {showDate && (
+              <>
+                <span className="text-gray-300">•</span>
+                <time dateTime={article.date} className="whitespace-nowrap">{formattedDate}</time>
+              </>
+            )}
+          </div>
         </div>
       </article>
     );
@@ -162,9 +177,16 @@ export function ArticleCard({
               />
             )}
 
-            {showDate && (
-              <time className="block mt-3 text-xs text-gray-500">{formattedDate}</time>
-            )}
+            {/* Meta: author and date */}
+            <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+              <span className="font-medium">{authorName}</span>
+              {showDate && (
+                <>
+                  <span className="text-gray-300">•</span>
+                  <time dateTime={article.date}>{formattedDate}</time>
+                </>
+              )}
+            </div>
           </div>
         </Link>
       </article>
