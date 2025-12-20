@@ -24,21 +24,10 @@ export async function POST(request: NextRequest) {
     const { secret, slug, category, action } = body;
 
     // Validate secret to prevent unauthorized revalidation
-    const envSecret = process.env.REVALIDATE_SECRET;
-
-    // DEBUG: Temporary debug response to see exact values
-    if (!secret || secret !== envSecret) {
+    if (!secret || secret !== process.env.REVALIDATE_SECRET) {
+      console.error("[Revalidate] Invalid or missing secret");
       return NextResponse.json(
-        {
-          error: "Invalid secret",
-          debug: {
-            receivedSecret: secret,
-            receivedLength: secret?.length,
-            envSecret: envSecret,
-            envLength: envSecret?.length,
-            match: secret === envSecret
-          }
-        },
+        { error: "Invalid secret" },
         { status: 401 }
       );
     }
@@ -106,14 +95,8 @@ export async function POST(request: NextRequest) {
 
 // Handle GET requests for testing
 export async function GET(request: NextRequest) {
-  const envSecret = process.env.REVALIDATE_SECRET;
   return NextResponse.json({
     message: "Revalidation endpoint is active. Use POST with proper credentials.",
-    debug: {
-      envSecretDefined: !!envSecret,
-      envSecretLength: envSecret?.length || 0,
-      envSecretFirst5: envSecret?.substring(0, 5) || "undefined",
-    },
     usage: {
       method: "POST",
       body: {
