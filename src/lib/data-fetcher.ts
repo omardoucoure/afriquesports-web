@@ -214,14 +214,13 @@ export class DataFetcher {
     const baseUrl = getWordPressBaseUrl(locale);
     const fullUrl = `${baseUrl}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
 
-    // Determine cache strategy
-    // - Use options.cache if explicitly provided (e.g., "no-store" for dynamic data)
-    // - Otherwise, let Next.js handle caching via ISR (revalidate at page level)
-    // - Next.js will use fetch cache with revalidation based on page's `export const revalidate`
-    const cacheStrategy = options?.cache || "force-cache";
-
+    // Build fetch options
+    // - Only set cache if explicitly provided (e.g., "no-store" for dynamic data)
+    // - Otherwise, let Next.js automatically handle caching based on page's `export const revalidate`
+    // - This allows ISR (Incremental Static Regeneration) to work correctly
     const fetchOptions: RequestInit = {
-      cache: cacheStrategy,
+      // Only include cache if explicitly provided, otherwise let Next.js handle it
+      ...(options?.cache && { cache: options.cache }),
       // Use Next.js revalidate option if provided
       ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
       headers: {
@@ -321,11 +320,10 @@ export class DataFetcher {
     const baseUrl = getWordPressBaseUrl(locale);
     const fullUrl = `${baseUrl}${WORDPRESS_CATEGORIES_PATH}?${searchParams.toString()}`;
 
-    // Categories rarely change, so default to aggressive caching
-    const cacheStrategy = options?.cache || "force-cache";
-
     const fetchOptions: RequestInit = {
-      cache: cacheStrategy,
+      // Categories rarely change, use force-cache by default for better performance
+      // But allow override via options
+      cache: options?.cache || "force-cache",
       ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
       headers: {
         Accept: "application/json",

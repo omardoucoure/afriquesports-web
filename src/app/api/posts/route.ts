@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DataFetcher } from "@/lib/data-fetcher";
 
-// Revalidate every 60 seconds
-export const revalidate = 60;
+// Revalidate every 10 minutes as fallback
+// Primary updates via on-demand revalidation from WordPress webhook
+export const revalidate = 600;
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,11 +26,9 @@ export async function GET(request: NextRequest) {
       params.locale = locale;
     }
 
-    // Use force-cache with revalidation instead of no-store
-    // This allows Next.js to cache responses for 60 seconds
-    const posts = await DataFetcher.fetchPosts(params, {
-      revalidate: 60,
-    });
+    // Let Next.js handle caching based on route-level revalidate
+    // On-demand revalidation webhook will purge cache when needed
+    const posts = await DataFetcher.fetchPosts(params);
 
     return NextResponse.json(posts);
   } catch (error) {

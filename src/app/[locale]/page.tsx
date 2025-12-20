@@ -13,8 +13,10 @@ import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
 
-// ISR: Revalidate homepage every 60 seconds
-export const revalidate = 60;
+// ISR: Revalidate homepage every 10 minutes as fallback
+// Primary updates happen via on-demand revalidation webhook from WordPress
+// This longer cache time maximizes performance while webhook ensures instant updates
+export const revalidate = 600;
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
