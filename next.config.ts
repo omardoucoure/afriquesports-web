@@ -87,6 +87,12 @@ const countrySubcategories = [
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Redirect /foot to /football (legacy URL fix)
+      {
+        source: "/foot/:slug*",
+        destination: "/football/:slug*",
+        permanent: true,
+      },
       // Redirect /afrique/{country} to /category/afrique/{country}
       ...countrySubcategories.map((country) => ({
         source: `/afrique/${country}`,

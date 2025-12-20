@@ -91,6 +91,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [matchData, setMatchData] = useState<NextMatch | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Get localized commentary page URL
   const getCommentaryUrl = () => {
@@ -101,6 +102,11 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     };
     return urls[locale] || '/match-en-direct';
   };
+
+  // Fix hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     async function fetchNextMatch() {
@@ -121,6 +127,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
   // Format date based on locale
   const formatDate = (dateString: string) => {
+    if (!isMounted) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString("fr-FR", {
       weekday: "short",
@@ -130,6 +137,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   };
 
   const formatTime = (dateString: string) => {
+    if (!isMounted) return '';
     const date = new Date(dateString);
     return date.toLocaleTimeString("fr-FR", {
       hour: "2-digit",

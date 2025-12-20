@@ -155,8 +155,14 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
   const [loading, setLoading] = useState(true)
   const [posting, setPosting] = useState(false)
   const [expandedReplies, setExpandedReplies] = useState<Set<number>>(new Set())
+  const [isMounted, setIsMounted] = useState(false)
 
   const maxCommentLength = 1000
+
+  // Fix hydration mismatch by only rendering dynamic dates on client
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Fetch comments from WordPress via API route
   useEffect(() => {
@@ -302,6 +308,15 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
   // Format timestamp
   const formatTimestamp = (dateString: string) => {
     const date = new Date(dateString)
+
+    // Avoid hydration mismatch: show static date until mounted
+    if (!isMounted) {
+      return date.toLocaleDateString(
+        locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : 'fr-FR',
+        { day: 'numeric', month: 'short', year: 'numeric' }
+      )
+    }
+
     const now = new Date()
     const diffMs = now.getTime() - date.getTime()
     const diffMins = Math.floor(diffMs / 60000)
