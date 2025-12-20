@@ -1,20 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { recordVisit, initVisitsTable } from '@/lib/db';
+import { recordVisit } from '@/lib/supabase-db';
 
 // Force Node.js runtime for database operations
 export const runtime = 'nodejs';
 
-// Initialize table on first request
-let tableInitialized = false;
-
 export async function POST(request: NextRequest) {
   try {
-    // Initialize table if not done yet
-    if (!tableInitialized) {
-      await initVisitsTable();
-      tableInitialized = true;
-    }
-
     const body = await request.json();
     const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource } = body;
 

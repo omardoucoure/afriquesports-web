@@ -10,7 +10,7 @@ import {
 } from "@/components/articles";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
-import { getTrendingPostsByRange } from "@/lib/db";
+import { getTrendingPostsByRange } from "@/lib/supabase-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
 
 // ISR: Revalidate homepage every 10 minutes as fallback
