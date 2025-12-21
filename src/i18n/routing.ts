@@ -1,4 +1,4 @@
-import { defineRouting, createNavigation } from "next-intl/routing";
+import { defineRouting } from "next-intl/routing";
 import { locales, defaultLocale } from "./config";
 
 // Use "always" in dev for Next.js 16 compatibility, "as-needed" in prod for SEO
@@ -15,7 +15,3 @@ export const routing = defineRouting({
   // Prod: use "as-needed" to keep French at root (no /fr prefix) for SEO
   localePrefix: isDev ? "always" : "as-needed",
 });
-
-// Export navigation utilities for client components
-export const { Link, redirect, usePathname, useRouter } =
-  createNavigation(routing);
