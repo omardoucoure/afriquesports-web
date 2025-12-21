@@ -81,8 +81,27 @@ export default function MatchEnDirectPage() {
     const fetchMatchData = async () => {
       try {
         const locale = window.location.pathname.split('/')[1] || 'fr';
-        const response = await fetch(`/api/match-commentary-ai?locale=${locale}`);
+        console.log('[MatchPage] Fetching match data for locale:', locale);
+
+        const response = await fetch(`/api/match-commentary-ai?locale=${locale}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`API returned ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log('[MatchPage] Received match data:', {
+          eventId: data.match?.eventId,
+          commentaryCount: data.commentary?.length || 0,
+          matchType: data.match?.matchType,
+          status: data.match?.status
+        });
+
         setMatchData(data);
 
         const matchStatus = data.match.status.toLowerCase();
@@ -93,7 +112,7 @@ export default function MatchEnDirectPage() {
         );
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching match data:", error);
+        console.error("[MatchPage] Error fetching match data:", error);
         setLoading(false);
       }
     };
@@ -314,7 +333,10 @@ export default function MatchEnDirectPage() {
                   {/* Commentary Timeline - L'Équipe Style */}
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="border-b border-gray-200 px-6 py-4 bg-gray-50">
-                      <h2 className="text-lg font-bold text-gray-900">{t("matchCommentary.commentaryTitle")}</h2>
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-lg font-bold text-gray-900">{t("matchCommentary.commentaryTitle")}</h2>
+                        <span className="text-sm text-gray-500">({commentary.length} {commentary.length === 1 ? 'événement' : 'événements'})</span>
+                      </div>
                     </div>
 
                     {commentary.length === 0 ? (
