@@ -94,6 +94,7 @@ const WORDPRESS_API_BASES: Record<string, string> = {
   fr: "https://cms.realdemadrid.com/afriquesports",
   en: "https://cms.realdemadrid.com/afriquesports-en",
   es: "https://cms.realdemadrid.com/afriquesports-es",
+  ar: "https://cms.realdemadrid.com/afriquesports-ar",
 };
 const WORDPRESS_API_PATH = "/wp-json/wp/v2/posts";
 const WORDPRESS_CATEGORIES_PATH = "/wp-json/wp/v2/categories";
