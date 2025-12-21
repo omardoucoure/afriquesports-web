@@ -13,7 +13,15 @@ export async function POST(request: NextRequest) {
     const authHeader = request.headers.get('x-webhook-secret');
     const expectedSecret = process.env.AI_AGENT_WEBHOOK_SECRET;
 
-    if (!expectedSecret || authHeader !== expectedSecret) {
+    if (!expectedSecret) {
+      console.error('[ERROR] AI_AGENT_WEBHOOK_SECRET environment variable is not set!');
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
+
+    if (authHeader !== expectedSecret) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -50,8 +58,6 @@ export async function POST(request: NextRequest) {
         icon: body.icon || '⚽',
         is_scoring: body.is_scoring || false,
         confidence: body.confidence || 0.9,
-        video_url: body.video_url || null,
-        image_url: body.image_url || null,
       })
       .select()
       .single();

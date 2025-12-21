@@ -42,6 +42,9 @@ interface NextMatch {
   venue?: string;
   city?: string;
   isLive?: boolean;
+  homeScore?: number;
+  awayScore?: number;
+  statusDetail?: string;
   message?: string;
 }
 
@@ -151,7 +154,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   return (
     <div
       id="next-match-bar"
-      className={`bg-gradient-to-r from-red-900 via-red-700 to-red-900 text-white shadow-lg ${className}`}
+      className={`bg-gradient-to-r ${matchData.isLive ? 'from-green-900 via-green-700 to-green-900' : 'from-red-900 via-red-700 to-red-900'} text-white shadow-lg ${className}`}
     >
       <div className="relative">
         <div className="container-main relative z-10">
@@ -174,15 +177,29 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   <span className="text-xs font-bold text-white drop-shadow-lg truncate">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
+                  {matchData.isLive && (
+                    <span className="text-sm font-black text-white">
+                      {matchData.homeScore}
+                    </span>
+                  )}
                 </div>
 
-                {/* VS Badge */}
+                {/* Score/VS Badge */}
                 <div className="flex-shrink-0 bg-white text-red-600 px-2 py-0.5 rounded text-[10px] font-bold shadow-md">
-                  VS
+                  {matchData.isLive ? (
+                    <span className="text-green-600 animate-pulse">● LIVE</span>
+                  ) : (
+                    'VS'
+                  )}
                 </div>
 
                 {/* Away Team */}
                 <div className="flex items-center gap-1.5 min-w-0">
+                  {matchData.isLive && (
+                    <span className="text-sm font-black text-white">
+                      {matchData.awayScore}
+                    </span>
+                  )}
                   <span className="text-xs font-bold text-white drop-shadow-lg truncate">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>
@@ -218,6 +235,11 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               <span className="text-base font-bold text-white uppercase tracking-wide drop-shadow-lg">
                 ⚽ CAN 2025
               </span>
+              {matchData.isLive && matchData.statusDetail && (
+                <span className="text-xs text-white/90 font-medium">
+                  {matchData.statusDetail}
+                </span>
+              )}
             </div>
 
             {/* Match Info Section - Center */}
@@ -238,15 +260,29 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   <span className="text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
+                  {matchData.isLive && (
+                    <span className="text-2xl font-black text-white">
+                      {matchData.homeScore}
+                    </span>
+                  )}
                 </div>
 
-                {/* VS Badge */}
-                <div className="flex-shrink-0 bg-white text-red-600 px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
-                  VS
+                {/* VS Badge or Live Score Separator */}
+                <div className="flex-shrink-0 bg-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
+                  {matchData.isLive ? (
+                    <span className="text-green-600 animate-pulse">● LIVE</span>
+                  ) : (
+                    <span className="text-red-600">VS</span>
+                  )}
                 </div>
 
                 {/* Away Team */}
                 <div className="flex items-center gap-3">
+                  {matchData.isLive && (
+                    <span className="text-2xl font-black text-white">
+                      {matchData.awayScore}
+                    </span>
+                  )}
                   <span className="text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>

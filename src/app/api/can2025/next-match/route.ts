@@ -52,7 +52,7 @@ function getCountryCode(teamName: string): string {
 export async function GET() {
   try {
     const response = await fetch(`${ESPN_API_BASE}/scoreboard`, {
-      next: { revalidate: 60 } // Cache for 60 seconds
+      next: { revalidate: 15 } // Cache for 15 seconds for live matches
     });
 
     if (!response.ok) {
@@ -61,7 +61,52 @@ export async function GET() {
 
     const data = await response.json();
 
-    // Find the next upcoming match (status is pre and date is in the future)
+    // PRIORITY 1: Find any LIVE match (status='in')
+    const liveMatches = data.events?.filter((event: any) => {
+      const status = event.competitions?.[0]?.status?.type?.state;
+      return status === 'in';
+    });
+
+    if (liveMatches && liveMatches.length > 0) {
+      const liveMatch = liveMatches[0];
+      const competition = liveMatch.competitions[0];
+      const homeCompetitor = competition.competitors?.find((c: any) => c.homeAway === 'home');
+      const awayCompetitor = competition.competitors?.find((c: any) => c.homeAway === 'away');
+      const homeTeam = homeCompetitor?.team;
+      const awayTeam = awayCompetitor?.team;
+
+      // Get current score
+      const homeScore = homeCompetitor?.score || 0;
+      const awayScore = awayCompetitor?.score || 0;
+
+      // Get clock/period info
+      const statusDetail = competition.status?.type?.detail || 'LIVE';
+
+      return NextResponse.json({
+        hasMatch: true,
+        id: liveMatch.id,
+        competition: 'CAN 2025',
+        homeTeam: {
+          name: homeTeam?.displayName || homeTeam?.name || '',
+          code: homeTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(homeTeam?.displayName || '')}.png`,
+        },
+        awayTeam: {
+          name: awayTeam?.displayName || awayTeam?.name || '',
+          code: awayTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(awayTeam?.displayName || '')}.png`,
+        },
+        date: liveMatch.date,
+        venue: liveMatch.venue?.fullName || liveMatch.venue?.displayName || '',
+        city: liveMatch.venue?.address?.city || '',
+        isLive: true,
+        homeScore,
+        awayScore,
+        statusDetail,
+      });
+    }
+
+    // PRIORITY 2: Find the next upcoming match (status='pre' and date is in the future)
     const now = new Date();
     const upcomingMatches = data.events?.filter((event: any) => {
       const matchDate = new Date(event.date);
@@ -101,7 +146,7 @@ export async function GET() {
       date: nextMatch.date,
       venue: nextMatch.venue?.fullName || nextMatch.venue?.displayName || '',
       city: nextMatch.venue?.address?.city || '',
-      isLive: competition.status?.type?.state === 'in',
+      isLive: false,
     };
 
     return NextResponse.json(matchData);

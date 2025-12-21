@@ -19,6 +19,58 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
+## Database migrations
+
+**CRITICAL: Always use Supabase CLI for database migrations and schema updates**
+
+When you need to run database migrations or schema updates:
+
+1. **Install Supabase CLI** (if not installed):
+   ```bash
+   brew install supabase/tap/supabase
+   ```
+
+2. **Apply migrations using Node.js with pg package**:
+   ```bash
+   # Create a script to apply migration directly
+   node apply_migration.js
+   ```
+
+   Example script:
+   ```javascript
+   const { Client } = require('pg');
+   const fs = require('fs');
+   require('dotenv').config({ path: '.env.local' });
+
+   const client = new Client({
+     connectionString: process.env.POSTGRES_URL_NON_POOLING
+   });
+
+   async function applyMigration() {
+     await client.connect();
+     const sql = fs.readFileSync('supabase/migrations/XXX_migration.sql', 'utf8');
+     await client.query(sql);
+     await client.end();
+   }
+
+   applyMigration();
+   ```
+
+3. **Run with:**
+   ```bash
+   NODE_TLS_REJECT_UNAUTHORIZED=0 node apply_migration.js
+   ```
+
+**Never:**
+- ❌ Use psql directly (not installed on macOS by default)
+- ❌ Use Supabase JS client for DDL operations (doesn't support ALTER TABLE)
+- ❌ Try to execute DDL via REST API (not supported)
+
+**Always:**
+- ✅ Use Node.js with `pg` package and `POSTGRES_URL_NON_POOLING`
+- ✅ Set `NODE_TLS_REJECT_UNAUTHORIZED=0` for Supabase connections
+- ✅ Verify migrations after applying them
+
 ## Tech stack
 
 - **Framework:** Next.js 15 (App Router)

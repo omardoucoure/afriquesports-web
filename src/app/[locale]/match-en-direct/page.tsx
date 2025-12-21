@@ -311,39 +311,95 @@ export default function MatchEnDirectPage() {
                     </div>
                   )}
 
-                  {/* Commentary Timeline */}
-                  <div className="bg-white rounded-xl shadow-sm p-6">
-                    <h2 className="text-lg font-semibold mb-6">{t("matchCommentary.commentaryTitle")}</h2>
+                  {/* Commentary Timeline - L'Équipe Style */}
+                  <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div className="border-b border-gray-200 px-6 py-4 bg-gray-50">
+                      <h2 className="text-lg font-bold text-gray-900">{t("matchCommentary.commentaryTitle")}</h2>
+                    </div>
+
                     {commentary.length === 0 ? (
-                      <div className="text-center py-12">
-                        <Clock className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                        <p className="text-gray-600">{t("matchCommentary.notStarted")}</p>
+                      <div className="text-center py-16 px-6">
+                        <Clock className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                        <p className="text-gray-500 text-base font-medium">{t("matchCommentary.notStarted")}</p>
                       </div>
                     ) : (
-                      <div className="space-y-3">
-                        {commentary.slice(0, 10).map((item, index) => (
-                          <div
-                            key={index}
-                            className="p-4 rounded-lg border-l-4 border-l-[#04453f] bg-gray-50 hover:shadow-md transition-shadow"
-                          >
-                            <div className="flex items-start gap-3">
-                              <span className="text-2xl">{item.icon}</span>
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <span className="px-2 py-1 bg-gray-800 text-white rounded text-xs font-bold">
-                                    {item.time}
-                                  </span>
-                                  {item.playerName && (
-                                    <span className="px-2 py-1 bg-[#04453f] text-white rounded text-xs font-medium">
-                                      {item.playerName}
-                                    </span>
-                                  )}
+                      <div className="divide-y divide-gray-100">
+                        {commentary.map((item, index) => {
+                          // Determine color scheme based on event type
+                          const getEventStyle = (type: string, isScoring: boolean) => {
+                            if (isScoring || type === 'goal') {
+                              return {
+                                bgColor: 'bg-blue-50',
+                                borderColor: 'border-l-blue-600',
+                                timeBg: 'bg-blue-600',
+                                iconBg: 'bg-blue-100'
+                              };
+                            }
+                            if (type === 'yellow_card') {
+                              return {
+                                bgColor: 'bg-yellow-50',
+                                borderColor: 'border-l-yellow-500',
+                                timeBg: 'bg-yellow-500',
+                                iconBg: 'bg-yellow-100'
+                              };
+                            }
+                            if (type === 'red_card') {
+                              return {
+                                bgColor: 'bg-red-50',
+                                borderColor: 'border-l-red-600',
+                                timeBg: 'bg-red-600',
+                                iconBg: 'bg-red-100'
+                              };
+                            }
+                            if (type === 'substitution') {
+                              return {
+                                bgColor: 'bg-purple-50',
+                                borderColor: 'border-l-purple-500',
+                                timeBg: 'bg-purple-500',
+                                iconBg: 'bg-purple-100'
+                              };
+                            }
+                            return {
+                              bgColor: 'bg-white',
+                              borderColor: 'border-l-gray-300',
+                              timeBg: 'bg-gray-700',
+                              iconBg: 'bg-gray-100'
+                            };
+                          };
+
+                          const style = getEventStyle(item.type, item.isScoring);
+
+                          return (
+                            <div
+                              key={index}
+                              className={`flex items-start gap-4 px-6 py-4 ${style.bgColor} border-l-4 ${style.borderColor} hover:bg-opacity-80 transition-all`}
+                            >
+                              {/* Time Badge */}
+                              <div className="flex-shrink-0 w-14">
+                                <div className={`${style.timeBg} text-white text-center rounded-md px-2 py-1.5 text-sm font-bold`}>
+                                  {item.time}
                                 </div>
-                                <p className="text-sm text-gray-800">{item.text}</p>
+                              </div>
+
+                              {/* Icon */}
+                              <div className={`flex-shrink-0 w-10 h-10 ${style.iconBg} rounded-full flex items-center justify-center text-xl`}>
+                                {item.icon}
+                              </div>
+
+                              {/* Content */}
+                              <div className="flex-1 min-w-0 pt-1">
+                                {item.playerName && (
+                                  <div className="font-bold text-gray-900 mb-1 text-base">
+                                    {item.playerName}
+                                  </div>
+                                )}
+                                <p className="text-gray-700 leading-relaxed text-base">
+                                  {item.text}
+                                </p>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
