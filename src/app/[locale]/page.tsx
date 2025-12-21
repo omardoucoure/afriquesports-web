@@ -276,7 +276,7 @@ export default async function Home({ params }: HomePageProps) {
 
       <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">
         {/* Hero section with featured article */}
-        <section className="container-main py-4 md:py-6">
+        <section className="container-main py-6 md:py-6">
           <Suspense fallback={<HeroSectionSkeleton />}>
             <HeroArticlesSection locale={locale} />
           </Suspense>
@@ -284,7 +284,7 @@ export default async function Home({ params }: HomePageProps) {
 
         {/* CAN 2025 section */}
         <section className="container-main py-6 md:py-8">
-          <div className="relative bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#4a8000] p-8 md:p-10 rounded-xl overflow-hidden shadow-2xl">
+          <div className="relative bg-gradient-to-r from-[#022a27] via-[#04453f] to-[#4a8000] p-6 md:p-10 rounded-xl overflow-hidden shadow-2xl">
             {/* Moroccan pattern overlay - same as footer */}
             <div
               className="absolute inset-0 opacity-40"
@@ -297,24 +297,24 @@ export default async function Home({ params }: HomePageProps) {
             />
 
             {/* Content */}
-            <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-block px-4 py-1.5 bg-white text-[#04453f] text-sm font-bold uppercase tracking-wide shadow-lg relative" style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)' }}>
+            <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="flex-1 w-full">
+                <div className="flex items-center gap-3 mb-3 md:mb-4">
+                  <span className="inline-block px-3 md:px-4 py-1 md:py-1.5 bg-white text-[#04453f] text-xs md:text-sm font-bold uppercase tracking-wide shadow-lg relative" style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)' }}>
                     CAN 2025
                   </span>
                   <div className="flex-1 h-1 max-w-[100px]" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)' }} />
                 </div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 drop-shadow-lg">
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-3 drop-shadow-lg leading-tight">
                   {t("can2025Title")}
                 </h2>
-                <p className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed">
+                <p className="text-sm md:text-lg text-white/90 max-w-2xl leading-relaxed">
                   {t("can2025Description")}
                 </p>
               </div>
               <a
                 href="/can-2025"
-                className="flex-shrink-0 px-8 py-4 bg-white text-[#04453f] font-bold text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
+                className="w-full md:w-auto flex-shrink-0 text-center px-6 md:px-8 py-3 md:py-4 bg-white text-[#04453f] font-bold text-sm md:text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
               >
                 {t("can2025Button")}
               </a>
@@ -323,13 +323,13 @@ export default async function Home({ params }: HomePageProps) {
         </section>
 
         {/* Main content with sidebar */}
-        <div className="container-main py-4 md:py-6">
+        <div className="container-main py-6 md:py-6">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Articles list */}
             <div className="flex-1">
               {/* Section header with gradient line */}
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-xl font-bold text-gray-900 whitespace-nowrap">
+              <div className="flex items-center gap-3 mb-5">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
                   {t("latestArticles")}
                 </h2>
                 <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
@@ -384,18 +384,34 @@ export default async function Home({ params }: HomePageProps) {
           </div>
         </div>
 
-        {/* Most read section - mobile only */}
-        <section className="lg:hidden container-main py-6 border-t border-gray-200">
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-xl font-bold text-gray-900 whitespace-nowrap">
-              {t("mostRead")}
-            </h2>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
-          </div>
-          <Suspense fallback={<MostReadWidgetSkeleton />}>
-            <MostReadSection locale={locale} />
-          </Suspense>
-        </section>
+        {/* Mobile-only widgets */}
+        <div className="lg:hidden container-main space-y-8 py-8 border-t border-gray-200">
+          {/* Most read */}
+          <section>
+            <div className="flex items-center gap-3 mb-5">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
+                {t("mostRead")}
+              </h2>
+              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+            </div>
+            <Suspense fallback={<MostReadWidgetSkeleton />}>
+              <MostReadSection locale={locale} />
+            </Suspense>
+          </section>
+
+          {/* Top Scorers - mobile */}
+          <section>
+            <div className="flex items-center gap-3 mb-5">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
+                {t("topScorers")}
+              </h2>
+              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+            </div>
+            <Suspense fallback={<TopScorersWidgetSkeleton />}>
+              <TopScorersWidget title={t("topScorers")} />
+            </Suspense>
+          </section>
+        </div>
       </main>
 
       <Footer />

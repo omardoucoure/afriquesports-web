@@ -249,6 +249,26 @@ export function HeroSection({
 
       {/* Mobile: Show TV and flash feed below */}
       <div className="lg:hidden space-y-6">
+        {/* Mobile Afrique Sports TV */}
+        <div>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
+              {translations.latest}
+            </span>
+            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {leftArticles.slice(0, 2).map((article, index) => (
+              <TrendingCard
+                key={article.id}
+                article={article}
+                index={index + 1}
+                priority={false}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* Mobile flash feed */}
         <div>
           <div className="flex items-center gap-2 mb-4">
