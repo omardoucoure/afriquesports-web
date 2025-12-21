@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { locales, type Locale } from "@/i18n/config";
 
 const localeNames: Record<Locale, string> = {
@@ -15,26 +15,13 @@ export function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleChange = (newLocale: string) => {
+  const handleChange = (newLocale: Locale) => {
     // Save language preference to localStorage to prevent modal from showing
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
-    // Remove current locale prefix if present
-    let newPath = pathname;
-    for (const loc of locales) {
-      if (pathname.startsWith(`/${loc}/`) || pathname === `/${loc}`) {
-        newPath = pathname.replace(`/${loc}`, "") || "/";
-        break;
-      }
-    }
-
-    // Add new locale prefix if not default (fr)
-    if (newLocale !== "fr") {
-      newPath = `/${newLocale}${newPath}`;
-    }
-
-    router.push(newPath);
+    // Use next-intl's router to switch locale with proper path handling
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
