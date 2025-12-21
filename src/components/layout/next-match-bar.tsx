@@ -155,62 +155,59 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     >
       <div className="relative">
         <div className="container-main relative z-10">
-          {/* Mobile Layout - Stacked */}
-          <div className="lg:hidden py-3 px-3">
-            {/* Top row: CAN 2025 Badge + Watch Button */}
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-white uppercase tracking-wide drop-shadow-lg">
-                ⚽ CAN 2025
-              </span>
+          {/* Mobile Layout - Horizontal single row */}
+          <div className="lg:hidden py-2.5 px-2">
+            <div className="flex items-center justify-between gap-2">
+              {/* Teams - Center */}
+              <div className="flex items-center justify-center gap-2 flex-1 min-w-0">
+                {/* Home Team */}
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="relative w-8 h-6 overflow-hidden rounded border-2 border-white/30 shadow-lg flex-shrink-0">
+                    <Image
+                      src={matchData.homeTeam?.flag || ''}
+                      alt={matchData.homeTeam?.name || ''}
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-white drop-shadow-lg truncate">
+                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
+                  </span>
+                </div>
+
+                {/* VS Badge */}
+                <div className="flex-shrink-0 bg-white text-red-600 px-2 py-0.5 rounded text-[10px] font-bold shadow-md">
+                  VS
+                </div>
+
+                {/* Away Team */}
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span className="text-xs font-bold text-white drop-shadow-lg truncate">
+                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
+                  </span>
+                  <div className="relative w-8 h-6 overflow-hidden rounded border-2 border-white/30 shadow-lg flex-shrink-0">
+                    <Image
+                      src={matchData.awayTeam?.flag || ''}
+                      alt={matchData.awayTeam?.name || ''}
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Watch Button - Right */}
               <Link
                 href={getCommentaryUrl()}
-                className="flex items-center gap-1.5 bg-white hover:bg-white/95 text-red-600 font-bold px-3 py-1.5 rounded-lg transition-all shadow-md"
+                className="flex items-center gap-1 bg-white hover:bg-white/95 text-red-600 font-bold px-2.5 py-1.5 rounded-lg transition-all shadow-md flex-shrink-0"
               >
                 <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <span className="text-xs uppercase tracking-tight whitespace-nowrap">{t("nextMatch.watchLive")}</span>
+                <span className="text-[10px] uppercase tracking-tight whitespace-nowrap">{t("nextMatch.watchLive")}</span>
               </Link>
-            </div>
-
-            {/* Bottom row: Teams */}
-            <div className="flex items-center justify-center gap-3">
-              {/* Home Team */}
-              <div className="flex items-center gap-2 flex-1 justify-end">
-                <span className="text-sm font-bold text-white drop-shadow-lg text-right">
-                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
-                </span>
-                <div className="relative w-9 h-7 overflow-hidden rounded-md border-2 border-white/30 shadow-lg flex-shrink-0">
-                  <Image
-                    src={matchData.homeTeam?.flag || ''}
-                    alt={matchData.homeTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="40px"
-                  />
-                </div>
-              </div>
-
-              {/* VS Badge */}
-              <div className="flex-shrink-0 bg-white text-red-600 px-2.5 py-1 rounded-lg text-xs font-bold shadow-md">
-                VS
-              </div>
-
-              {/* Away Team */}
-              <div className="flex items-center gap-2 flex-1 justify-start">
-                <div className="relative w-9 h-7 overflow-hidden rounded-md border-2 border-white/30 shadow-lg flex-shrink-0">
-                  <Image
-                    src={matchData.awayTeam?.flag || ''}
-                    alt={matchData.awayTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="40px"
-                  />
-                </div>
-                <span className="text-sm font-bold text-white drop-shadow-lg text-left">
-                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
-                </span>
-              </div>
             </div>
           </div>
 
