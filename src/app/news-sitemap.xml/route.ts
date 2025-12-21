@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getRecentPostsForNews } from "@/lib/sitemap-cache";
+import { getRecentPostsForNews, calculatePriority } from "@/lib/sitemap-cache";
 
 /**
  * Google News Sitemap
@@ -29,14 +29,18 @@ export async function GET() {
     // Limit to 1000 (Google News sitemap limit)
     const limitedPosts = posts.slice(0, 1000);
 
-    // Build news sitemap XML
+    // Build news sitemap XML with priority and lastmod
     const urlEntries = limitedPosts.map((post) => {
       const url = `${SITE_URL}/${post.category}/${post.slug}`;
       // Format date for news sitemap (W3C format)
       const pubDate = new Date(post.modified).toISOString();
+      // Calculate priority based on freshness (for Bing/Yandex)
+      const priority = post.publishDate ? calculatePriority(post.publishDate) : 0.9;
 
       return `<url>
 <loc>${url}</loc>
+<lastmod>${pubDate}</lastmod>
+<priority>${priority.toFixed(1)}</priority>
 <news:news>
 <news:publication>
 <news:name>${PUBLICATION_NAME}</news:name>

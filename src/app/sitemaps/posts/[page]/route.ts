@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCachedSitemapPosts } from "@/lib/sitemap-cache";
+import { getCachedSitemapPosts, calculatePriority } from "@/lib/sitemap-cache";
 
 /**
  * Paginated Post Sitemap
@@ -39,15 +39,18 @@ export async function GET(
       return new NextResponse("Sitemap page not found", { status: 404 });
     }
 
-    // Build XML efficiently
+    // Build XML efficiently with priority and lastmod
     const urlEntries = posts.map((post) => {
       const url = `${SITE_URL}/${post.category}/${post.slug}`;
-      const lastmod = post.modified.split("T")[0]; // Just date
+      const lastmod = new Date(post.modified).toISOString();
+      // Calculate priority based on content age (using modified date as proxy)
+      const priority = calculatePriority(post.publishDate || post.modified);
 
       // Include image sitemap extension for better indexing
       return `<url>
 <loc>${url}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>${priority.toFixed(1)}</priority>
 <xhtml:link rel="alternate" hreflang="fr" href="${url}" />
 <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/en/${post.category}/${post.slug}" />
 <xhtml:link rel="alternate" hreflang="es" href="${SITE_URL}/es/${post.category}/${post.slug}" />

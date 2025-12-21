@@ -61,6 +61,7 @@ export async function GET() {
       allUrls.push(`<url>
 <loc>${SITE_URL}${cat.path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>0.8</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${cat.path}" />
 </url>`);
@@ -77,6 +78,7 @@ ${hreflangs}
       allUrls.push(`<url>
 <loc>${SITE_URL}${path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>0.8</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${path}" />
 </url>`);
@@ -94,6 +96,7 @@ ${hreflangs}
         allUrls.push(`<url>
 <loc>${SITE_URL}${path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>0.7</priority>
 </url>`);
       }
     }

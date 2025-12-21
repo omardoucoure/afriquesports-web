@@ -16,13 +16,14 @@ export const revalidate = 86400;
 const SITE_URL = "https://www.afriquesports.net";
 const LOCALES = ["fr", "en", "es"];
 
-// Static pages with their change frequency hints
+// Static pages with their priority values
+// Priority: 1.0 = most important, 0.5 = least important (for Bing/Yandex)
 const STATIC_PAGES = [
-  { path: "/", changefreq: "hourly" },
-  { path: "/can-2025", changefreq: "hourly" },
-  { path: "/classements", changefreq: "daily" },
-  { path: "/contact", changefreq: "monthly" },
-  { path: "/confidentialite", changefreq: "monthly" },
+  { path: "/", priority: 1.0 }, // Homepage - highest priority
+  { path: "/can-2025", priority: 0.9 }, // CAN 2025 - hot topic, very important
+  { path: "/classements", priority: 0.9 }, // Rankings - important feature
+  { path: "/contact", priority: 0.5 }, // Contact - low priority
+  { path: "/confidentialite", priority: 0.5 }, // Privacy - low priority
 ];
 
 export async function GET() {
@@ -43,6 +44,7 @@ export async function GET() {
     urlEntries.push(`<url>
 <loc>${SITE_URL}${page.path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>${page.priority.toFixed(1)}</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${page.path}" />
 </url>`);
@@ -51,6 +53,7 @@ ${hreflangs}
     urlEntries.push(`<url>
 <loc>${SITE_URL}/en${page.path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>${page.priority.toFixed(1)}</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${page.path}" />
 </url>`);
@@ -59,6 +62,7 @@ ${hreflangs}
     urlEntries.push(`<url>
 <loc>${SITE_URL}/es${page.path}</loc>
 <lastmod>${lastmod}</lastmod>
+<priority>${page.priority.toFixed(1)}</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${page.path}" />
 </url>`);

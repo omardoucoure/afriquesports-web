@@ -53,10 +53,14 @@ export async function GET() {
     if (response.ok) {
       const posts = await response.json();
       canArticles = posts.map((post: { slug: string; modified: string; link: string }) => {
+        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
+        // Extract category and slug from the WordPress URL structure
         const linkParts = post.link
-          .replace("https://www.afriquesports.net/", "")
-          .replace(/\/$/, "")
+          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
+          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
+          .replace(/\/$/, "") // Remove trailing slash
           .split("/");
+
         return {
           slug: post.slug,
           category: linkParts[0] || "can-2025",
@@ -77,6 +81,7 @@ export async function GET() {
       urlEntries.push(`<url>
 <loc>${SITE_URL}${page}</loc>
 <lastmod>${lastmod.split("T")[0]}</lastmod>
+<priority>0.9</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${page}" />
 </url>`);
@@ -92,7 +97,8 @@ ${hreflangs}
 
       urlEntries.push(`<url>
 <loc>${url}</loc>
-<lastmod>${article.modified.split("T")[0]}</lastmod>
+<lastmod>${new Date(article.modified).toISOString()}</lastmod>
+<priority>0.9</priority>
 ${hreflangs}
 <xhtml:link rel="alternate" hreflang="x-default" href="${url}" />
 </url>`);

@@ -15,6 +15,7 @@ export interface SitemapPost {
   slug: string;
   category: string;
   modified: string;
+  publishDate?: string; // For calculating priority based on freshness
 }
 
 export interface SitemapCache {
@@ -145,11 +146,14 @@ async function fetchSitemapPosts(
       const posts = await response.json();
 
       for (const post of posts) {
-        // Extract category from link
+        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
+        // Extract category and slug from the WordPress URL structure
         const linkParts = post.link
-          .replace("https://www.afriquesports.net/", "")
-          .replace(/\/$/, "")
+          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
+          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
+          .replace(/\/$/, "") // Remove trailing slash
           .split("/");
+
         const category = linkParts[0] || "football";
 
         allPosts.push({
@@ -246,16 +250,21 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
       if (posts.length === 0) break;
 
       for (const post of posts) {
+        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
+        // Extract category and slug from the WordPress URL structure
         const linkParts = post.link
-          .replace("https://www.afriquesports.net/", "")
-          .replace(/\/$/, "")
+          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
+          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
+          .replace(/\/$/, "") // Remove trailing slash
           .split("/");
+
         const category = linkParts[0] || "football";
 
         allPosts.push({
           slug: post.slug,
           category,
           modified: post.date, // Use publish date for news sitemap
+          publishDate: post.date, // For priority calculation
         });
       }
 
@@ -300,4 +309,30 @@ export async function invalidateSitemapCache(type: "posts" | "categories" | "new
   if (type === "all" || type === "posts") {
     memoryCache.delete(`${CACHE_KEY_PREFIX}:post-count`);
   }
+}
+
+/**
+ * Calculate sitemap priority based on content freshness
+ *
+ * SEO Best Practices 2025:
+ * - Google ignores <priority> but Bing/Yandex use it
+ * - Fresh content = higher priority for better crawl allocation
+ * - News sites benefit from prioritizing recent articles
+ *
+ * Priority scale:
+ * - 1.0: Homepage, key landing pages
+ * - 0.9: Articles < 7 days old (fresh news)
+ * - 0.8: Articles 7-30 days old (recent)
+ * - 0.7: Articles 30-90 days old
+ * - 0.6: Articles 90-180 days old
+ * - 0.5: Articles > 180 days old (evergreen)
+ */
+export function calculatePriority(publishDate: string): number {
+  const ageInDays = (Date.now() - new Date(publishDate).getTime()) / (1000 * 60 * 60 * 24);
+
+  if (ageInDays < 7) return 0.9; // Fresh news
+  if (ageInDays < 30) return 0.8; // Recent
+  if (ageInDays < 90) return 0.7;
+  if (ageInDays < 180) return 0.6;
+  return 0.5; // Evergreen
 }
