@@ -332,7 +332,7 @@ export function generateArticleJsonLd(
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/logo.png`,
+        url: `${SITE_URL}/logo.jpg`,
         width: 600,
         height: 60,
       },
@@ -501,7 +501,7 @@ export function generateVideoJsonLd(video: {
       name: SITE_NAME,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/logo.png`,
+        url: `${SITE_URL}/logo.jpg`,
       },
     },
   };

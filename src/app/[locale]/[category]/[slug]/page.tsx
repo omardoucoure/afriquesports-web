@@ -219,7 +219,7 @@ function ArticleJsonLd({
       url: "https://www.afriquesports.net",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.afriquesports.net/logo.png",
+        url: "https://www.afriquesports.net/logo.jpg",
         width: 600,
         height: 60,
       },

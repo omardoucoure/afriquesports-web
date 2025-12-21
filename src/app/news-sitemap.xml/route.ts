@@ -38,11 +38,15 @@ export async function GET() {
       const priority = post.publishDate ? calculatePriority(post.publishDate) : 0.9;
       // Use actual title if available, otherwise fallback to formatted slug
       const title = post.title || post.slug.replace(/-/g, " ");
+      // Include image if available (improves Google News visibility)
+      const imageTag = post.image ? `<image:image>
+<image:loc>${post.image}</image:loc>
+</image:image>` : "";
 
       return `<url>
 <loc>${url}</loc>
 <lastmod>${pubDate}</lastmod>
-<priority>${priority.toFixed(1)}</priority>
+<priority>${priority.toFixed(1)}</priority>${imageTag}
 <news:news>
 <news:publication>
 <news:name>${PUBLICATION_NAME}</news:name>
@@ -57,7 +61,8 @@ export async function GET() {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="${SITE_URL}/news-sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urlEntries.join("\n")}
 </urlset>`;
 

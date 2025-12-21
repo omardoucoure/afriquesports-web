@@ -17,6 +17,7 @@ export interface SitemapPost {
   modified: string;
   publishDate?: string; // For calculating priority based on freshness
   title?: string; // Article title for news sitemap
+  image?: string; // Featured image URL for news sitemap
 }
 
 export interface SitemapCache {
@@ -264,12 +265,21 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
           }
         }
 
+        // Get featured image URL from embedded data
+        let imageUrl = "";
+        if (post._embedded && post._embedded["wp:featuredmedia"] && post._embedded["wp:featuredmedia"][0]) {
+          const media = post._embedded["wp:featuredmedia"][0];
+          // Use large size if available, otherwise source_url
+          imageUrl = media.media_details?.sizes?.large?.source_url || media.source_url || "";
+        }
+
         allPosts.push({
           slug: post.slug,
           category,
           modified: post.date, // Use publish date for news sitemap
           publishDate: post.date, // For priority calculation
           title: post.title?.rendered || post.title, // Include title for news sitemap
+          image: imageUrl, // Featured image for Google News
         });
       }
 
