@@ -55,6 +55,16 @@ interface MatchData {
   language: string;
   match: Match;
   commentary: Commentary[];
+  preMatchAnalysis?: {
+    headToHead?: string;
+    recentForm?: string;
+    keyPlayers?: string;
+    tacticalPreview?: string;
+    prediction?: string;
+    homeFormation?: string;
+    awayFormation?: string;
+    generatedAt?: string;
+  };
   sources?: {
     espn?: string;
   };
