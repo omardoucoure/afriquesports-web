@@ -44,7 +44,7 @@ export async function GET() {
   try {
     // Fetch recent CAN 2025 articles from WordPress
     const response = await fetch(
-      "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=100&categories=30616&_fields=slug,modified,link",
+      "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=100&categories=30616&_fields=slug,modified,link,_embedded&_embed",
       { next: { revalidate: 3600 } }
     );
 
@@ -52,18 +52,20 @@ export async function GET() {
 
     if (response.ok) {
       const posts = await response.json();
-      canArticles = posts.map((post: { slug: string; modified: string; link: string }) => {
-        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
-        // Extract category and slug from the WordPress URL structure
-        const linkParts = post.link
-          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
-          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
-          .replace(/\/$/, "") // Remove trailing slash
-          .split("/");
+      canArticles = posts.map((post: { slug: string; modified: string; link: string; _embedded?: any }) => {
+        // Get category slug from embedded data
+        let category = "can-2025"; // default fallback
+
+        if (post._embedded && post._embedded["wp:term"] && post._embedded["wp:term"][0]) {
+          const primaryCategory = post._embedded["wp:term"][0][0];
+          if (primaryCategory && primaryCategory.slug) {
+            category = primaryCategory.slug;
+          }
+        }
 
         return {
           slug: post.slug,
-          category: linkParts[0] || "can-2025",
+          category,
           modified: post.modified,
         };
       });

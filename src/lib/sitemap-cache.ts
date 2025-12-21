@@ -129,7 +129,7 @@ async function fetchSitemapPosts(
 
     try {
       const response = await fetch(
-        `${baseUrl}/wp-json/wp/v2/posts?per_page=${POSTS_PER_PAGE}&page=${apiPage}&_fields=slug,modified,link&orderby=id&order=asc`,
+        `${baseUrl}/wp-json/wp/v2/posts?per_page=${POSTS_PER_PAGE}&page=${apiPage}&_fields=slug,modified,link,date,_embedded&_embed&orderby=id&order=asc`,
         {
           next: { revalidate: 3600 },
           headers: {
@@ -146,20 +146,21 @@ async function fetchSitemapPosts(
       const posts = await response.json();
 
       for (const post of posts) {
-        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
-        // Extract category and slug from the WordPress URL structure
-        const linkParts = post.link
-          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
-          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
-          .replace(/\/$/, "") // Remove trailing slash
-          .split("/");
+        // Get category slug from embedded data
+        let category = "football"; // default fallback
 
-        const category = linkParts[0] || "football";
+        if (post._embedded && post._embedded["wp:term"] && post._embedded["wp:term"][0]) {
+          const primaryCategory = post._embedded["wp:term"][0][0];
+          if (primaryCategory && primaryCategory.slug) {
+            category = primaryCategory.slug;
+          }
+        }
 
         allPosts.push({
           slug: post.slug,
           category,
           modified: post.modified,
+          publishDate: post.date,
         });
       }
 
@@ -240,7 +241,7 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
 
     while (page <= maxPages) {
       const response = await fetch(
-        `${baseUrl}/wp-json/wp/v2/posts?per_page=100&page=${page}&after=${afterDate}&_fields=slug,modified,link,date,title&orderby=date&order=desc`,
+        `${baseUrl}/wp-json/wp/v2/posts?per_page=100&page=${page}&after=${afterDate}&_fields=slug,modified,link,date,title,_embedded&_embed&orderby=date&order=desc`,
         { next: { revalidate: 300 } } // Revalidate every 5 minutes for news
       );
 
@@ -250,15 +251,15 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
       if (posts.length === 0) break;
 
       for (const post of posts) {
-        // WordPress returns: https://cms.realdemadrid.com/afriquesports/2025/12/21/category/article-slug/
-        // Extract category and slug from the WordPress URL structure
-        const linkParts = post.link
-          .replace(/^https?:\/\/[^/]+\/[^/]+\//, "") // Remove domain + /afriquesports/
-          .replace(/^\d{4}\/\d{2}\/\d{2}\//, "") // Remove date /2025/12/21/
-          .replace(/\/$/, "") // Remove trailing slash
-          .split("/");
+        // Get category slug from embedded data
+        let category = "football"; // default fallback
 
-        const category = linkParts[0] || "football";
+        if (post._embedded && post._embedded["wp:term"] && post._embedded["wp:term"][0]) {
+          const primaryCategory = post._embedded["wp:term"][0][0];
+          if (primaryCategory && primaryCategory.slug) {
+            category = primaryCategory.slug;
+          }
+        }
 
         allPosts.push({
           slug: post.slug,
