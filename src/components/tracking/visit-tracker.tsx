@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+import { useLocale } from 'next-intl';
 
 interface VisitTrackerProps {
   postId: string;
@@ -21,6 +22,7 @@ export function VisitTracker({
   postCategory,
   postSource = 'afriquesports',
 }: VisitTrackerProps) {
+  const locale = useLocale();
   const hasTracked = useRef(false);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ export function VisitTracker({
             postAuthor,
             postCategory,
             postSource,
+            postLocale: locale,
           }),
         });
       } catch (error) {
@@ -52,7 +55,7 @@ export function VisitTracker({
     };
 
     recordVisit();
-  }, [postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource]);
+  }, [postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource, locale]);
 
   return null;
 }

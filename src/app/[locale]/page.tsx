@@ -212,8 +212,8 @@ async function MostReadSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
 
   try {
-    // Fetch trending posts directly from database (last 7 days, limit 3)
-    const trending = await getTrendingPostsByRange(7, 3);
+    // Fetch trending posts directly from database (last 7 days, limit 3) filtered by locale
+    const trending = await getTrendingPostsByRange(7, 3, locale);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget

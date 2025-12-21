@@ -16,8 +16,9 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get('limit') || '10', 10);
     const days = parseInt(searchParams.get('days') || '1', 10); // Default to today
+    const locale = searchParams.get('locale') || 'fr'; // Default to French
 
-    const trending = await getTrendingPostsByRange(days, limit);
+    const trending = await getTrendingPostsByRange(days, limit, locale);
 
     return NextResponse.json({ trending });
   } catch (error) {

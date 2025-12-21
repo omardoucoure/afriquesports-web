@@ -29,20 +29,22 @@ export async function recordVisit(data: {
   postAuthor?: string;
   postCategory?: string;
   postSource?: string;
+  postLocale?: string;
 }): Promise<{ id: number; count: number } | null> {
   const supabase = getClient();
   if (!supabase) return null;
 
-  const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource = 'afriquesports' } = data;
+  const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource = 'afriquesports', postLocale = 'fr' } = data;
   const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
   try {
-    // Check if visit exists for today
+    // Check if visit exists for today and this locale
     const { data: existing, error: selectError } = await supabase
       .from('visits')
       .select('id, count')
       .eq('post_id', postId)
       .eq('visit_date', visitDate)
+      .eq('post_locale', postLocale)
       .maybeSingle();
 
     if (selectError) {
@@ -81,6 +83,7 @@ export async function recordVisit(data: {
           post_author: postAuthor || null,
           post_category: postCategory || null,
           post_source: postSource,
+          post_locale: postLocale,
           visit_date: visitDate,
           count: 1
         })
@@ -109,12 +112,13 @@ export interface TrendingPost {
   post_author?: string | null;
   post_category?: string | null;
   post_source?: string | null;
+  post_locale?: string | null;
   count: number;
   total_count: number;
 }
 
 // Get trending posts for a date range
-export async function getTrendingPostsByRange(days: number = 7, limit: number = 10): Promise<TrendingPost[]> {
+export async function getTrendingPostsByRange(days: number = 7, limit: number = 10, locale: string = 'fr'): Promise<TrendingPost[]> {
   const supabase = getClient();
   if (!supabase) return [];
 
@@ -127,6 +131,7 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
       .from('visits')
       .select('post_id, post_slug, post_title, post_image, post_author, post_category, post_source, count')
       .gte('visit_date', fromDate)
+      .eq('post_locale', locale)
       .order('count', { ascending: false })
       .limit(limit);
 

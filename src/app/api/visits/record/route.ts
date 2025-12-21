@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource } = body;
+    const { postId, postSlug, postTitle, postImage, postAuthor, postCategory, postSource, postLocale } = body;
 
     if (!postId || !postSlug || !postTitle) {
       return NextResponse.json(
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
       postAuthor,
       postCategory,
       postSource,
+      postLocale,
     });
 
     if (!result) {
