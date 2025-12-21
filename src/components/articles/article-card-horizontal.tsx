@@ -60,9 +60,9 @@ export function ArticleCardHorizontal({
 
           {/* Meta */}
           <div className="mt-auto pt-1 sm:pt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-500">
-            <span className="font-medium truncate max-w-[80px] sm:max-w-none">{authorName}</span>
-            <span className="text-gray-300">•</span>
-            <time dateTime={article.date} className="whitespace-nowrap">{formatDate(article.date)}</time>
+            <span className="font-medium truncate">{authorName}</span>
+            <span className="text-gray-300 hidden sm:inline">•</span>
+            <time dateTime={article.date} className="whitespace-nowrap hidden sm:inline">{formatDate(article.date)}</time>
           </div>
         </div>
       </Link>
@@ -86,9 +86,9 @@ export function ArticleCardHorizontalSkeleton() {
           <div className="h-4 bg-gray-200 rounded w-2/3 hidden md:block" />
           {/* Meta placeholder */}
           <div className="mt-auto pt-1 sm:pt-2 flex items-center gap-2 sm:gap-3">
-            <div className="h-2 sm:h-3 bg-gray-200 rounded w-16 sm:w-20" />
-            <div className="h-2 sm:h-3 bg-gray-200 rounded w-1" />
-            <div className="h-2 sm:h-3 bg-gray-200 rounded w-20 sm:w-24" />
+            <div className="h-2 sm:h-3 bg-gray-200 rounded w-24 sm:w-20" />
+            <div className="h-2 sm:h-3 bg-gray-200 rounded w-1 hidden sm:block" />
+            <div className="h-2 sm:h-3 bg-gray-200 rounded w-20 sm:w-24 hidden sm:block" />
           </div>
         </div>
       </div>

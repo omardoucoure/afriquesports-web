@@ -71,7 +71,7 @@ export function ArticleCard({
 
             {showExcerpt && article.excerpt && (
               <p
-                className="mt-2 text-sm text-gray-600 line-clamp-2"
+                className="mt-2 text-sm text-gray-600 line-clamp-2 hidden md:block"
                 dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}
               />
             )}
@@ -172,7 +172,7 @@ export function ArticleCard({
 
             {showExcerpt && article.excerpt && (
               <p
-                className="mt-2 text-sm text-gray-600 line-clamp-2"
+                className="mt-2 text-sm text-gray-600 line-clamp-2 hidden md:block"
                 dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}
               />
             )}
