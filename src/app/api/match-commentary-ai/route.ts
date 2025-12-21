@@ -199,6 +199,8 @@ export async function GET(request: Request) {
           keyPlayers: preMatch.key_players,
           tacticalPreview: preMatch.tactical_preview,
           prediction: preMatch.prediction,
+          homeFormation: preMatch.home_formation || null,
+          awayFormation: preMatch.away_formation || null,
           generatedAt: preMatch.created_at,
         };
       }

@@ -6,6 +6,7 @@ import { Header, Footer } from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, MessageCircle, Users, ArrowLeft, Filter, Share2, BarChart3 } from "lucide-react";
+import { FormationDisplay } from "@/components/FormationDisplay";
 
 interface Commentary {
   time: string;
@@ -718,6 +719,31 @@ export default function MatchEnDirectPage() {
                   )}
                 </div>
               </div>
+
+              {/* Team Formations - Show when pre-match analysis exists */}
+              {match.matchType === 'upcoming' && matchData.preMatchAnalysis?.homeFormation && matchData.preMatchAnalysis?.awayFormation && (
+                <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                  <div className="flex items-center gap-2 mb-5">
+                    <span className="text-xl">⚽</span>
+                    <h3 className="font-semibold text-lg text-gray-900">
+                      {t("can2025.match.formations")}
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormationDisplay
+                      formation={matchData.preMatchAnalysis.homeFormation}
+                      teamName={getTeamName(match.teams.home.nameKey, match.teams.home.name)}
+                      variant="home"
+                    />
+                    <FormationDisplay
+                      formation={matchData.preMatchAnalysis.awayFormation}
+                      teamName={getTeamName(match.teams.away.nameKey, match.teams.away.name)}
+                      variant="away"
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* Match Stats Summary */}
               <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">

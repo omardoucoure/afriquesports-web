@@ -53,6 +53,8 @@ export async function GET(request: NextRequest) {
         keyPlayers: data.key_players,
         tacticalPreview: data.tactical_preview,
         prediction: data.prediction,
+        homeFormation: data.home_formation || null,
+        awayFormation: data.away_formation || null,
         generatedAt: data.created_at,
         updatedAt: data.updated_at,
       }
@@ -95,9 +97,9 @@ export async function POST(request: NextRequest) {
     }
 
     // At least one analysis field must be provided
-    if (!body.head_to_head && !body.recent_form && !body.key_players && !body.tactical_preview && !body.prediction) {
+    if (!body.head_to_head && !body.recent_form && !body.key_players && !body.tactical_preview && !body.prediction && !body.home_formation && !body.away_formation) {
       return NextResponse.json(
-        { error: 'At least one analysis field is required (head_to_head, recent_form, key_players, tactical_preview, or prediction)' },
+        { error: 'At least one analysis field is required (head_to_head, recent_form, key_players, tactical_preview, prediction, home_formation, or away_formation)' },
         { status: 400 }
       );
     }
@@ -113,6 +115,8 @@ export async function POST(request: NextRequest) {
         key_players: body.key_players || null,
         tactical_preview: body.tactical_preview || null,
         prediction: body.prediction || null,
+        home_formation: body.home_formation || null,
+        away_formation: body.away_formation || null,
       }, {
         onConflict: 'match_id,locale',
         ignoreDuplicates: false,

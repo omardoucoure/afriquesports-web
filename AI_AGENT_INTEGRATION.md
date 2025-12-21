@@ -133,7 +133,9 @@ curl -X POST https://www.afriquesports.net/api/can2025/prematch-analysis \
     "recent_form": "Maroc: 4 victoires, 1 nul dans les 5 derniers matchs. Comores: 2 victoires, 2 nuls, 1 défaite.",
     "key_players": "À surveiller: Achraf Hakimi (Maroc) - 3 buts en 2025, Youssef En-Nesyri (Maroc) - meilleur buteur, Faïz Selemani (Comores) - créateur de jeu.",
     "tactical_preview": "Le Maroc devrait dominer la possession (65%+) avec son 4-3-3 habituel. Les Comores joueront en contre avec un bloc bas 5-3-2. La clé: les centres de Hakimi contre la défense comorienne.",
-    "prediction": "Maroc 2-0 Comores | Probabilités: Maroc 75%, Nul 18%, Comores 7%"
+    "prediction": "Maroc 2-0 Comores | Probabilités: Maroc 75%, Nul 18%, Comores 7%",
+    "home_formation": "4-3-3",
+    "away_formation": "5-3-2"
   }'
 ```
 
@@ -153,6 +155,8 @@ curl -X POST https://www.afriquesports.net/api/can2025/prematch-analysis \
 | `key_players` | string | Top 3-5 players to watch | 100-300 chars |
 | `tactical_preview` | string | Tactical analysis and formations | 150-400 chars |
 | `prediction` | string | Score prediction with probabilities | 50-150 chars |
+| `home_formation` | string | Expected formation for home team | 3-10 chars |
+| `away_formation` | string | Expected formation for away team | 3-10 chars |
 
 ### Content Guidelines
 
@@ -218,6 +222,30 @@ Example:
 Maroc 2-1 Mali | Probabilités: Maroc 65%, Nul 22%, Mali 13% |
 Le Maroc à domicile reste redoutable, mais le Mali a les armes pour marquer.
 ```
+
+#### Formations
+
+**Important:** Always include expected formations for both teams. These will be displayed visually in the sidebar.
+
+Format: Use standard notation with dashes (e.g., "4-3-3", "4-2-3-1", "3-5-2")
+
+Common formations:
+- **4-3-3** - Offensive with wingers
+- **4-2-3-1** - Balanced with attacking midfielder
+- **4-4-2** - Classic balanced formation
+- **3-5-2** - Defensive with wing-backs
+- **5-3-2** - Very defensive
+- **3-4-3** - Attacking with 3 center-backs
+
+Example:
+```json
+{
+  "home_formation": "4-3-3",
+  "away_formation": "5-3-2"
+}
+```
+
+The formations will be displayed as visual football pitches in the match page sidebar.
 
 ### Response
 
