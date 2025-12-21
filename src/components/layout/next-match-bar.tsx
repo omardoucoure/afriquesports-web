@@ -214,12 +214,12 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               {/* Watch Match Button */}
               <Link
                 href={getCommentaryUrl()}
-                className="flex-shrink-0 flex items-center gap-1.5 md:gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-3 md:px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+                className="flex-shrink-0 flex items-center gap-1.5 md:gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <span className="text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
+                <span className="text-[10px] md:text-xs uppercase tracking-tight md:tracking-wide whitespace-nowrap">{t("nextMatch.watchLive")}</span>
               </Link>
             </div>
           </div>

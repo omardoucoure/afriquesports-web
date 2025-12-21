@@ -209,6 +209,7 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
 
 
 async function MostReadSection({ locale }: { locale: string }) {
+  const t = await getTranslations("home");
 
   try {
     // Fetch trending posts directly from database (last 7 days, limit 3)
@@ -230,7 +231,7 @@ async function MostReadSection({ locale }: { locale: string }) {
 
       console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
 
-      return <MostReadWidget articles={trendingArticles} />;
+      return <MostReadWidget articles={trendingArticles} title={t("mostRead")} />;
     } else {
       console.log('[MostReadSection] ⚠ No trending data in database yet - using fallback');
     }
@@ -248,7 +249,7 @@ async function MostReadSection({ locale }: { locale: string }) {
 
   console.log('[MostReadSection] → Showing latest articles (view counts hidden until database has data)');
 
-  return <MostReadWidget articles={articles} />;
+  return <MostReadWidget articles={articles} title={t("mostRead")} />;
 }
 
 export default async function Home({ params }: HomePageProps) {

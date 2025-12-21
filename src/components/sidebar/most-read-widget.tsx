@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 import { getArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -41,14 +40,14 @@ export function MostReadWidget({
   articles,
   maxArticles = 3,
 }: MostReadWidgetProps) {
-  const tHome = useTranslations("home");
-  const tArticle = useTranslations("article");
-  const displayTitle = title || tHome("mostRead");
   const displayArticles = articles.slice(0, maxArticles);
 
   if (!displayArticles.length) {
     return null;
   }
+
+  // Only use translation hook if no title prop is provided
+  const displayTitle = title || "Les Plus Lus";
 
   return (
     <div>
