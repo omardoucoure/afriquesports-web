@@ -158,10 +158,10 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
           <div className="flex items-center justify-between py-3 px-3 md:px-0 gap-4">
             {/* CAN 2025 Badge - Left */}
             <div className="flex-shrink-0 flex items-center gap-2">
-              <span className="hidden sm:inline text-sm md:text-base font-extrabold text-white uppercase tracking-wide drop-shadow-lg">
+              <span className="hidden sm:inline text-sm md:text-base font-bold text-white uppercase tracking-wide drop-shadow-lg">
                 ⚽ CAN 2025
               </span>
-              <span className="sm:hidden text-sm font-extrabold text-white drop-shadow-lg">
+              <span className="sm:hidden text-sm font-bold text-white drop-shadow-lg">
                 ⚽ CAN
               </span>
             </div>
@@ -181,19 +181,19 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                       sizes="40px"
                     />
                   </div>
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
+                  <span className="text-sm md:text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
                 </div>
 
                 {/* VS Badge */}
-                <div className="flex-shrink-0 bg-white text-red-600 px-3 py-1.5 rounded-lg text-sm font-extrabold shadow-md">
+                <div className="flex-shrink-0 bg-white text-red-600 px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
                   VS
                 </div>
 
                 {/* Away Team */}
                 <div className="flex items-center gap-2 md:gap-3">
-                  <span className="text-sm md:text-base font-extrabold text-white drop-shadow-lg">
+                  <span className="text-sm md:text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>
                   <div className="relative w-8 h-6 md:w-10 md:h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
@@ -214,7 +214,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               {/* Watch Match Button */}
               <Link
                 href={getCommentaryUrl()}
-                className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-extrabold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+                className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />

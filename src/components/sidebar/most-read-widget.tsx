@@ -83,7 +83,7 @@ export function MostReadWidget({
               <Link href={articleUrl} className="block">
                 {/* Rank badge - positioned absolutely */}
                 <div className="absolute top-4 left-4 z-10">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-extrabold text-lg shadow-lg backdrop-blur-sm ${
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg backdrop-blur-sm ${
                     index === 0 ? 'bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-500 text-white' :
                     index === 1 ? 'bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 text-gray-800' :
                     'bg-gradient-to-br from-orange-200 via-orange-300 to-orange-400 text-white'

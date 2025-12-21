@@ -124,7 +124,7 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
-                        className={`px-3 py-2 text-xs lg:text-sm font-extrabold text-white hover:text-[#9DFF20] transition-colors tracking-wide inline-flex items-center ${item.children ? 'pb-4' : ''}`}
+                        className={`px-3 py-2 text-xs lg:text-sm font-bold text-white hover:text-[#9DFF20] transition-colors tracking-wide inline-flex items-center ${item.children ? 'pb-4' : ''}`}
                       >
                         {item.label}
                         {item.children && (

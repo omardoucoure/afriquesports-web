@@ -122,9 +122,9 @@
     line-height: 1.5;
   }
 
-  /* Typography defaults - all headings use extrabold */
+  /* Typography defaults - all headings use bold */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-extrabold tracking-tight;
+    @apply font-bold tracking-tight;
   }
 
   /* Ensure minimum touch target size for accessibility */
@@ -157,19 +157,19 @@
 @layer components {
   /* Centralized title styles */
   .title-main {
-    @apply font-extrabold text-gray-900 leading-tight;
+    @apply font-bold text-gray-900 leading-tight;
   }
 
   .title-section {
-    @apply font-extrabold text-xl text-gray-900;
+    @apply font-bold text-xl text-gray-900;
   }
 
   .title-card {
-    @apply font-extrabold text-gray-900 leading-tight line-clamp-2;
+    @apply font-bold text-gray-900 leading-tight line-clamp-2;
   }
 
   .title-article {
-    @apply font-extrabold text-gray-900 leading-tight line-clamp-2 hover:text-[#04453f] transition-colors;
+    @apply font-bold text-gray-900 leading-tight line-clamp-2 hover:text-[#04453f] transition-colors;
   }
 }
 

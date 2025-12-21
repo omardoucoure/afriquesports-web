@@ -258,7 +258,7 @@ async function RelatedArticles({ categorySlug, locale }: { categorySlug: string;
     return (
       <section className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6">
         <div className="flex items-center gap-3 mb-4 sm:mb-6">
-          <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 whitespace-nowrap">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 whitespace-nowrap">
             {tArticle("relatedArticles")}
           </h2>
           <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
@@ -373,7 +373,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
                   {/* Title - larger and more impactful */}
                   <h1
-                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight mb-4"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-4"
                     dangerouslySetInnerHTML={{ __html: article.title.rendered }}
                   />
 

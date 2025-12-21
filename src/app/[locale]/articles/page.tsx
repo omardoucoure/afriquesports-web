@@ -133,7 +133,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
         {/* Page header */}
         <section className="container-main py-6">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
               {t("latestArticles")}
             </h1>
             <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />

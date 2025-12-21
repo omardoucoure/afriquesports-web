@@ -300,12 +300,12 @@ export default async function Home({ params }: HomePageProps) {
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-block px-4 py-1.5 bg-white text-[#04453f] text-sm font-extrabold uppercase tracking-wide shadow-lg relative" style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)' }}>
+                  <span className="inline-block px-4 py-1.5 bg-white text-[#04453f] text-sm font-bold uppercase tracking-wide shadow-lg relative" style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%)' }}>
                     CAN 2025
                   </span>
                   <div className="flex-1 h-1 max-w-[100px]" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)' }} />
                 </div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-3 drop-shadow-lg">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 drop-shadow-lg">
                   {t("can2025Title")}
                 </h2>
                 <p className="text-base md:text-lg text-white/90 max-w-2xl leading-relaxed">
@@ -314,7 +314,7 @@ export default async function Home({ params }: HomePageProps) {
               </div>
               <a
                 href="/can-2025"
-                className="flex-shrink-0 px-8 py-4 bg-white text-[#04453f] font-extrabold text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
+                className="flex-shrink-0 px-8 py-4 bg-white text-[#04453f] font-bold text-base hover:bg-[#9DFF20] hover:text-[#04453f] transition-all duration-300 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 uppercase tracking-wide"
               >
                 {t("can2025Button")}
               </a>
@@ -329,7 +329,7 @@ export default async function Home({ params }: HomePageProps) {
             <div className="flex-1">
               {/* Section header with gradient line */}
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-xl font-extrabold text-gray-900 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-900 whitespace-nowrap">
                   {t("latestArticles")}
                 </h2>
                 <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
@@ -387,7 +387,7 @@ export default async function Home({ params }: HomePageProps) {
         {/* Most read section - mobile only */}
         <section className="lg:hidden container-main py-6 border-t border-gray-200">
           <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-xl font-extrabold text-gray-900 whitespace-nowrap">
+            <h2 className="text-xl font-bold text-gray-900 whitespace-nowrap">
               {t("mostRead")}
             </h2>
             <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
