@@ -179,8 +179,8 @@ export async function GET() {
         city: recentMatch.venue?.address?.city || '',
         isLive: false,
         isFinished: true,
-        homeScore: homeCompetitor?.score || 0,
-        awayScore: awayCompetitor?.score || 0,
+        homeScore: parseInt(homeCompetitor?.score || '0'),
+        awayScore: parseInt(awayCompetitor?.score || '0'),
         statusDetail: competition.status?.type?.detail || 'Terminé',
       });
     }
