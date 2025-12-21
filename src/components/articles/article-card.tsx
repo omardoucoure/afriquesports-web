@@ -69,13 +69,6 @@ export function ArticleCard({
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
 
-            {showExcerpt && article.excerpt && (
-              <p
-                className="mt-2 text-sm text-gray-600 line-clamp-2 hidden md:block"
-                dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}
-              />
-            )}
-
             {/* Meta: author and date */}
             <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
               <span className="font-medium">{authorName}</span>
@@ -169,13 +162,6 @@ export function ArticleCard({
               className="title-article text-lg group-hover:text-[#022a27]"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
             />
-
-            {showExcerpt && article.excerpt && (
-              <p
-                className="mt-2 text-sm text-gray-600 line-clamp-2 hidden md:block"
-                dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}
-              />
-            )}
 
             {/* Meta: author and date */}
             <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">

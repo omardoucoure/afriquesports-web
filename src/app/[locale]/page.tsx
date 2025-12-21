@@ -277,7 +277,7 @@ export default async function Home({ params }: HomePageProps) {
 
       <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">
         {/* Hero section with featured article */}
-        <section className="container-main py-6 md:py-6">
+        <section className="container-main py-6 md:py-8">
           <Suspense fallback={<HeroSectionSkeleton />}>
             <HeroArticlesSection locale={locale} />
           </Suspense>
@@ -324,7 +324,7 @@ export default async function Home({ params }: HomePageProps) {
         </section>
 
         {/* Main content with sidebar */}
-        <div className="container-main py-6 md:py-6">
+        <div className="container-main py-6 md:py-8">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Articles list */}
             <div className="flex-1">

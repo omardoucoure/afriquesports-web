@@ -24,7 +24,6 @@ export function ArticleCardHorizontal({
   const categoryName = getCategoryName(article);
   const articleUrl = `/${categorySlug}/${article.slug}`;
   const title = stripHtml(article.title.rendered);
-  const excerpt = stripHtml(article.excerpt.rendered).slice(0, 150);
   const authorName = getAuthorName(article);
 
   return (
@@ -53,10 +52,6 @@ export function ArticleCardHorizontal({
             className="title-article text-sm sm:text-base md:text-lg"
             dangerouslySetInnerHTML={{ __html: article.title.rendered }}
           />
-
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2 hidden md:block">
-            {excerpt}...
-          </p>
 
           {/* Meta */}
           <div className="mt-auto pt-1 sm:pt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-500">
