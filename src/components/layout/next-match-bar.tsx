@@ -209,27 +209,18 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               </div>
             </div>
 
-            {/* Right Section - Watch Button & Close */}
+            {/* Right Section - Watch Button */}
             <div className="flex items-center gap-2">
               {/* Watch Match Button */}
               <Link
                 href={getCommentaryUrl()}
-                className="flex-shrink-0 flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+                className="flex-shrink-0 flex items-center gap-1.5 md:gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-3 md:px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <span className="hidden sm:inline text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
+                <span className="text-xs uppercase tracking-wide">{t("nextMatch.watchLive")}</span>
               </Link>
-
-              {/* Close Button */}
-              <button
-                onClick={() => setIsVisible(false)}
-                className="flex-shrink-0 p-2 hover:bg-white/20 rounded-lg transition-all hover:scale-110"
-                aria-label={t("common.close")}
-              >
-                <CloseIcon className="w-5 h-5 text-white/90 hover:text-white" />
-              </button>
             </div>
           </div>
         </div>
