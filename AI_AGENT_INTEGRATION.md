@@ -337,11 +337,45 @@ Example:
 }
 ```
 
-**How to get lineup data:**
-1. Use ESPN API: `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/summary?event={match_id}`
-2. Parse the `rosters` section which contains full lineup data
-3. Match player numbers with their positions based on the formation
-4. Ensure lineup has exactly 11 players (1 GK + 10 outfield)
+**How the AI agent should generate lineups:**
+
+The AI agent is **autonomous and agentic** - it should intelligently research and synthesize lineup information:
+
+1. **Web Search & Research:**
+   - Search for official team news, press conferences, injury reports
+   - Check multiple sports news sites (ESPN, BBC Sport, Goal.com, local sources)
+   - Find lineup predictions from football analysts
+   - Look for recent starting XIs from previous matches
+
+2. **Cross-Reference & Validate:**
+   - Compare information from multiple sources
+   - Verify player availability (injuries, suspensions, rotation)
+   - Consider tactical context (opponent strength, tournament stage)
+   - Check recent form and coach preferences
+
+3. **Intelligent Synthesis:**
+   - Use reasoning to predict most likely lineup (not just copy one source)
+   - Consider formations, player positions, and tactical fit
+   - Assign appropriate jersey numbers (research from team rosters)
+   - Ensure 11 players: 1 Gardien + 10 outfield players
+
+4. **Quality Requirements:**
+   - Players must exist and play for the correct team
+   - Positions must match their actual roles
+   - Formation must match tactical preview
+   - Substitutes should include key bench players
+
+**The AI should NOT:**
+- ❌ Just fetch from one API endpoint
+- ❌ Make up fake player names
+- ❌ Use outdated or inaccurate data
+- ❌ Ignore injuries or suspensions
+
+**The AI SHOULD:**
+- ✅ Search multiple sources autonomously
+- ✅ Use reasoning to determine best lineup
+- ✅ Cross-validate information
+- ✅ Generate data 2 hours before kickoff when lineups are typically announced
 
 **Important:** The lineup data will be displayed on a visual football pitch and in list format. Without this data, users will see "No data available" message.
 
