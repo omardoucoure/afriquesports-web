@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Header, Footer } from "@/components/layout";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,6 +71,7 @@ type Tab = 'overview' | 'lineups' | 'stats' | 'video';
 
 export default function MatchEnDirectPage() {
   const t = useTranslations();
+  const locale = useLocale();
   const [matchData, setMatchData] = useState<MatchData | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [isLive, setIsLive] = useState(false);
@@ -80,7 +81,6 @@ export default function MatchEnDirectPage() {
   useEffect(() => {
     const fetchMatchData = async () => {
       try {
-        const locale = window.location.pathname.split('/')[1] || 'fr';
         console.log('[MatchPage] Fetching match data for locale:', locale);
 
         const response = await fetch(`/api/match-commentary-ai?locale=${locale}`, {
@@ -124,7 +124,7 @@ export default function MatchEnDirectPage() {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [locale]);
 
   if (loading || !matchData) {
     return (
