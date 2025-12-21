@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { locales, type Locale } from "@/i18n/config";
 
 const localeNames: Record<Locale, string> = {
@@ -20,37 +20,9 @@ export function LanguageSwitcher() {
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
-    // Strip current locale from pathname
-    let pathWithoutLocale = pathname;
-
-    // Remove locale prefix if it exists
-    for (const loc of locales) {
-      const localePrefix = `/${loc}`;
-      if (pathname === localePrefix) {
-        pathWithoutLocale = "/";
-        break;
-      } else if (pathname.startsWith(`${localePrefix}/`)) {
-        pathWithoutLocale = pathname.slice(localePrefix.length);
-        break;
-      }
-    }
-
-    // Build new path with the selected locale
-    // In production with "as-needed", French has no prefix
-    const isDev = process.env.NODE_ENV === "development";
-    let newPath;
-
-    if (isDev) {
-      // In dev, always use locale prefix
-      newPath = `/${newLocale}${pathWithoutLocale}`;
-    } else {
-      // In prod, only add prefix for non-French locales
-      newPath = newLocale === "fr"
-        ? pathWithoutLocale
-        : `/${newLocale}${pathWithoutLocale}`;
-    }
-
-    router.push(newPath);
+    // Use next-intl's router.replace with locale option
+    // This properly handles the locale switching without manual path manipulation
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (

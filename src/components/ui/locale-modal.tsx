@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { locales, type Locale } from "@/i18n/config";
 
 const localeNames: Record<Locale, string> = {
@@ -79,24 +79,11 @@ export function LocaleModal() {
     localStorage.setItem("locale-preference", detectedLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
-    // Build new path with locale prefix
-    let newPath = pathname;
-
-    // Remove current locale prefix if present
-    for (const loc of locales) {
-      if (pathname.startsWith(`/${loc}/`) || pathname === `/${loc}`) {
-        newPath = pathname.replace(`/${loc}`, "") || "/";
-        break;
-      }
-    }
-
-    // Add new locale prefix if not default (fr)
-    if (detectedLocale !== "fr") {
-      newPath = `/${detectedLocale}${newPath}`;
-    }
-
     setShowModal(false);
-    router.push(newPath);
+
+    // Use next-intl's router.replace with locale option
+    // This properly handles the locale switching without manual path manipulation
+    router.replace(pathname, { locale: detectedLocale });
   };
 
   if (!showModal || !detectedLocale) {
