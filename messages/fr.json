@@ -368,6 +368,31 @@
     "checkBackDuringMatch": "Revenez pendant le match pour les commentaires en direct",
     "goal": "BUT",
     "events": "événements",
-    "aiGeneratedCommentary": "Commentaires générés par IA"
+    "aiGeneratedCommentary": "Commentaires générés par IA",
+    "results": {
+      "title": "Résultats CAN 2025",
+      "subtitle": "Tous les matchs de la Coupe d'Afrique des Nations 2025",
+      "description": "Résultats en direct, scores et classements de la CAN 2025 au Maroc",
+      "liveNow": "En direct maintenant",
+      "completed": "Matchs terminés",
+      "upcoming": "Matchs à venir",
+      "finished": "Terminé",
+      "viewFullReport": "Voir le rapport complet",
+      "noMatches": "Aucun match disponible"
+    },
+    "match": {
+      "preMatchAnalysis": "Analyse d'avant-match",
+      "headToHead": "Face-à-face",
+      "recentForm": "Forme récente",
+      "keyPlayers": "Joueurs clés",
+      "tacticalPreview": "Aperçu tactique",
+      "prediction": "Prédiction",
+      "matchReport": "Rapport de match",
+      "keyMoments": "Moments clés",
+      "analysis": "Analyse",
+      "liveCommentary": "Commentaires en direct",
+      "events": "événements",
+      "noDataYet": "Les données du match seront disponibles prochainement"
+    }
   }
 }

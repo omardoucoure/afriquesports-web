@@ -172,7 +172,20 @@
     "metaDescription": "Sigue la CAN 2025 en Marruecos: lista completa de jugadores de Senegal, Marruecos, Argelia, Nigeria. Calendario de partidos, grupos, resultados en vivo y pronósticos.",
     "dates": "21 de diciembre 2025 - 18 de enero 2026",
     "host": "País anfitrión: Marruecos",
-    "teams": "24 equipos clasificados",
+    "teams": {
+      "senegal": "Senegal - Leones de la Teranga",
+      "morocco": "Marruecos - Leones del Atlas",
+      "algeria": "Argelia - Los Fennecs",
+      "nigeria": "Nigeria - Super Águilas",
+      "egypt": "Egipto - Los Faraones",
+      "ivoryCoast": "Costa de Marfil - Los Elefantes",
+      "cameroon": "Camerún - Leones Indomables",
+      "ghana": "Ghana - Estrellas Negras",
+      "mali": "Malí - Las Águilas",
+      "drc": "RD Congo - Los Leopardos",
+      "tunisia": "Túnez - Águilas de Cartago",
+      "southAfrica": "Sudáfrica - Bafana Bafana"
+    },
     "stadiums": "6 estadios",
     "latestNews": "Últimas noticias CAN 2025",
     "edition": "35ª edición",
@@ -247,20 +260,6 @@
       "a4": "La CAN 2025 se transmite en beIN Sports, Canal+ África y canales nacionales. Sigue los resultados en vivo en Afrique Sports.",
       "q5": "¿Cuántos equipos participan en la CAN 2025?",
       "a5": "24 equipos participan en la CAN 2025, divididos en 6 grupos de 4 equipos. Los 2 primeros de cada grupo y los 4 mejores terceros clasifican a octavos de final."
-    },
-    "teams": {
-      "senegal": "Senegal - Leones de la Teranga",
-      "morocco": "Marruecos - Leones del Atlas",
-      "algeria": "Argelia - Los Fennecs",
-      "nigeria": "Nigeria - Super Águilas",
-      "egypt": "Egipto - Los Faraones",
-      "ivoryCoast": "Costa de Marfil - Los Elefantes",
-      "cameroon": "Camerún - Leones Indomables",
-      "ghana": "Ghana - Estrellas Negras",
-      "mali": "Malí - Las Águilas",
-      "drc": "RD Congo - Los Leopardos",
-      "tunisia": "Túnez - Águilas de Cartago",
-      "southAfrica": "Sudáfrica - Bafana Bafana"
     },
     "keyPlayers": {
       "title": "Jugadores clave a seguir",
@@ -365,9 +364,34 @@
     "errorLoadingCommentary": "Error al cargar comentarios",
     "tryAgain": "Intentar de nuevo",
     "noCommentaryYet": "No hay comentarios disponibles todavía",
-    "checkBackDuringMatch": "Vuelva durante el partido para comentarios en vivo",
+    "checkBackDuringMatch": "Vuelve durante el partido para comentarios en vivo",
     "goal": "GOL",
     "events": "eventos",
-    "aiGeneratedCommentary": "Comentarios generados por IA"
+    "aiGeneratedCommentary": "Comentarios generados por IA",
+    "results": {
+      "title": "Resultados CAN 2025",
+      "subtitle": "Todos los partidos de la Copa Africana de Naciones 2025",
+      "description": "Resultados en vivo, marcadores y clasificaciones de la CAN 2025 en Marruecos",
+      "liveNow": "En vivo ahora",
+      "completed": "Partidos finalizados",
+      "upcoming": "Próximos partidos",
+      "finished": "Finalizado",
+      "viewFullReport": "Ver informe completo",
+      "noMatches": "No hay partidos disponibles"
+    },
+    "match": {
+      "preMatchAnalysis": "Análisis previo al partido",
+      "headToHead": "Cara a cara",
+      "recentForm": "Forma reciente",
+      "keyPlayers": "Jugadores clave",
+      "tacticalPreview": "Vista táctica",
+      "prediction": "Predicción",
+      "matchReport": "Informe del partido",
+      "keyMoments": "Momentos clave",
+      "analysis": "Análisis",
+      "liveCommentary": "Comentarios en vivo",
+      "events": "eventos",
+      "noDataYet": "Los datos del partido estarán disponibles pronto"
+    }
   }
 }

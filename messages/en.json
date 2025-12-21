@@ -172,7 +172,20 @@
     "metaDescription": "Follow AFCON 2025 in Morocco: complete squad lists for Senegal, Morocco, Algeria, Nigeria. Match schedule, groups, live results and predictions.",
     "dates": "December 21, 2025 - January 18, 2026",
     "host": "Host country: Morocco",
-    "teams": "24 qualified teams",
+    "teams": {
+      "senegal": "Senegal - Lions of Teranga",
+      "morocco": "Morocco - Atlas Lions",
+      "algeria": "Algeria - The Fennecs",
+      "nigeria": "Nigeria - Super Eagles",
+      "egypt": "Egypt - The Pharaohs",
+      "ivoryCoast": "Ivory Coast - The Elephants",
+      "cameroon": "Cameroon - Indomitable Lions",
+      "ghana": "Ghana - Black Stars",
+      "mali": "Mali - The Eagles",
+      "drc": "DR Congo - The Leopards",
+      "tunisia": "Tunisia - Eagles of Carthage",
+      "southAfrica": "South Africa - Bafana Bafana"
+    },
     "stadiums": "6 stadiums",
     "latestNews": "Latest AFCON 2025 news",
     "edition": "35th edition",
@@ -247,20 +260,6 @@
       "a4": "AFCON 2025 is broadcast on beIN Sports, Canal+ Africa, and national channels. Follow live results on Afrique Sports.",
       "q5": "How many teams participate in AFCON 2025?",
       "a5": "24 teams participate in AFCON 2025, divided into 6 groups of 4 teams. The top 2 from each group and the 4 best third-placed teams qualify for the round of 16."
-    },
-    "teams": {
-      "senegal": "Senegal - Lions of Teranga",
-      "morocco": "Morocco - Atlas Lions",
-      "algeria": "Algeria - The Fennecs",
-      "nigeria": "Nigeria - Super Eagles",
-      "egypt": "Egypt - The Pharaohs",
-      "ivoryCoast": "Ivory Coast - The Elephants",
-      "cameroon": "Cameroon - Indomitable Lions",
-      "ghana": "Ghana - Black Stars",
-      "mali": "Mali - The Eagles",
-      "drc": "DR Congo - The Leopards",
-      "tunisia": "Tunisia - Eagles of Carthage",
-      "southAfrica": "South Africa - Bafana Bafana"
     },
     "keyPlayers": {
       "title": "Key players to watch",
@@ -368,6 +367,31 @@
     "checkBackDuringMatch": "Check back during the match for live commentary",
     "goal": "GOAL",
     "events": "events",
-    "aiGeneratedCommentary": "AI-generated commentary"
+    "aiGeneratedCommentary": "AI-generated commentary",
+    "results": {
+      "title": "CAN 2025 Results",
+      "subtitle": "All matches from the 2025 Africa Cup of Nations",
+      "description": "Live results, scores and standings from the 2025 AFCON in Morocco",
+      "liveNow": "Live now",
+      "completed": "Completed matches",
+      "upcoming": "Upcoming matches",
+      "finished": "Finished",
+      "viewFullReport": "View full report",
+      "noMatches": "No matches available"
+    },
+    "match": {
+      "preMatchAnalysis": "Pre-match analysis",
+      "headToHead": "Head-to-head",
+      "recentForm": "Recent form",
+      "keyPlayers": "Key players",
+      "tacticalPreview": "Tactical preview",
+      "prediction": "Prediction",
+      "matchReport": "Match report",
+      "keyMoments": "Key moments",
+      "analysis": "Analysis",
+      "liveCommentary": "Live commentary",
+      "events": "events",
+      "noDataYet": "Match data will be available soon"
+    }
   }
 }
