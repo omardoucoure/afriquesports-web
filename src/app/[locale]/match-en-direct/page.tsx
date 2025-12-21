@@ -464,16 +464,54 @@ export default function MatchEnDirectPage() {
                 </div>
               </div>
 
+              {/* Pre-Match Analysis Section - Show prominently when match is upcoming */}
+              {match.matchType === 'upcoming' && commentary.length > 0 && (
+                <div className="bg-gradient-to-br from-green-50 via-lime-50 to-green-50 rounded-xl shadow-lg p-4 sm:p-6 border-2 border-[#9DFF20]/30">
+                  <div className="flex items-center gap-2 mb-4 flex-wrap">
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#04453f] to-[#022a27] text-white rounded-full text-sm font-semibold shadow-md">
+                      <span>📊</span>
+                      <span>{t("can2025.match.preMatchAnalysis")}</span>
+                    </div>
+                    <span className="text-xs text-[#04453f] font-medium">
+                      {t("can2025.match.generatedAt")} {new Date(matchData.preMatchAnalysis?.generatedAt || '').toLocaleString('fr-FR', {
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-sm text-[#04453f]/80 mb-4">
+                    {t("can2025.match.analysisDescription")}
+                  </p>
+                  <div className="grid grid-cols-1 gap-4">
+                    {commentary.map((item, index) => (
+                      <div key={index} className="bg-white rounded-lg p-4 shadow-sm border border-[#9DFF20]/20 hover:border-[#9DFF20]/40 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-2xl">{item.icon}</span>
+                          <span className="text-xs font-semibold text-[#04453f] uppercase tracking-wide">
+                            {item.time}
+                          </span>
+                        </div>
+                        <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+                          {item.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Commentary Timeline */}
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-6 sm:mb-8">
                   <div className="flex items-center gap-2 sm:gap-3">
                     <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#04453f]" />
                     <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
-                      {t("matchCommentary.commentaryTitle")}
+                      {match.matchType === 'upcoming' ? 'Match Preview' : t("matchCommentary.commentaryTitle")}
                     </h2>
                   </div>
-                  {commentary.length > 0 && commentary[0]?.source === 'ai' && (
+                  {commentary.length > 0 && commentary[0]?.source === 'ai' && match.matchType !== 'upcoming' && (
                     <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full text-xs font-medium shadow-sm">
                       <span className="animate-pulse">🤖</span>
                       <span>AI-Powered</span>
@@ -484,15 +522,15 @@ export default function MatchEnDirectPage() {
                 {/* Show message if no commentary available */}
                 {filteredCommentaries.length === 0 ? (
                   <div className="text-center py-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 mb-4">
-                      <Clock className="h-8 w-8 text-purple-600" />
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-100 to-lime-100 mb-4">
+                      <Clock className="h-8 w-8 text-[#04453f]" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {match.matchType === 'upcoming' ? '🤖 AI Pre-Match Analysis Coming Soon' : t("matchCommentary.notStarted")}
+                      {match.matchType === 'upcoming' ? t("can2025.match.comingSoon") : t("matchCommentary.notStarted")}
                     </h3>
                     <p className="text-sm text-gray-600 max-w-md mx-auto">
                       {match.matchType === 'upcoming'
-                        ? 'Our AI will generate in-depth pre-match analysis including head-to-head history, recent form, and tactical preview 2 hours before kickoff.'
+                        ? t("can2025.match.comingSoonDescription")
                         : t("matchCommentary.notStartedDescription")
                       }
                     </p>

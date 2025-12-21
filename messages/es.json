@@ -381,6 +381,11 @@
     },
     "match": {
       "preMatchAnalysis": "Análisis previo al partido",
+      "analysisDescription": "Análisis completo basado en datos en tiempo real, registros históricos e información táctica.",
+      "matchPreview": "Vista Previa del Partido",
+      "generatedAt": "Publicado",
+      "comingSoon": "Análisis Previo al Partido Próximamente",
+      "comingSoonDescription": "El análisis profundo previo al partido, incluyendo historial de enfrentamientos, forma reciente y vista táctica estará disponible 2 horas antes del inicio.",
       "headToHead": "Cara a cara",
       "recentForm": "Forma reciente",
       "keyPlayers": "Jugadores clave",

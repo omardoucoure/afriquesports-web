@@ -381,6 +381,11 @@
     },
     "match": {
       "preMatchAnalysis": "Pre-match analysis",
+      "analysisDescription": "Comprehensive analysis based on real-time data, historical records, and tactical insights.",
+      "matchPreview": "Match Preview",
+      "generatedAt": "Published",
+      "comingSoon": "Pre-Match Analysis Coming Soon",
+      "comingSoonDescription": "In-depth analysis including head-to-head history, recent form, and tactical preview will be available 2 hours before kickoff.",
       "headToHead": "Head-to-head",
       "recentForm": "Recent form",
       "keyPlayers": "Key players",
