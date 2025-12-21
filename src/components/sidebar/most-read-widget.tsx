@@ -16,6 +16,7 @@ export interface TrendingArticle {
     'wp:featuredmedia'?: Array<{ source_url: string }>;
   };
   viewCount?: number;
+  author?: string;
 }
 
 interface MostReadWidgetProps {
@@ -38,9 +39,10 @@ function formatViewCount(count: number | undefined): string | null {
 export function MostReadWidget({
   title,
   articles,
-  maxArticles = 5,
+  maxArticles = 3,
 }: MostReadWidgetProps) {
   const tHome = useTranslations("home");
+  const tArticle = useTranslations("article");
   const displayTitle = title || tHome("mostRead");
   const displayArticles = articles.slice(0, maxArticles);
 
@@ -57,7 +59,7 @@ export function MostReadWidget({
       </div>
 
       {/* Articles list - inside white container */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         {displayArticles.map((article, index) => {
           // Check if it's a full WordPressPost or a simplified TrendingArticle
           const isFullPost = 'date' in article;
@@ -67,59 +69,73 @@ export function MostReadWidget({
           const imageUrl = isFullPost
             ? getFeaturedImageUrl(article as WordPressPost, "medium")
             : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.jpg');
-          const authorName = isFullPost ? getAuthorName(article as WordPressPost) : 'Afrique Sports';
+          const authorName = isFullPost
+            ? getAuthorName(article as WordPressPost)
+            : ((article as TrendingArticle).author || 'Afrique Sports');
           const articleTitle = stripHtml(article.title.rendered);
+          const viewCount = formatViewCount((article as TrendingArticle).viewCount);
 
           return (
             <div
               key={article.id}
-              className={`p-4 hover:bg-gray-50 transition-colors ${index !== displayArticles.length - 1 ? 'border-b border-gray-100' : ''}`}
+              className={`relative group ${index !== displayArticles.length - 1 ? 'border-b border-gray-100' : ''}`}
             >
-              <Link href={articleUrl} className="group block">
-                <div className="flex gap-3">
-                  {/* Rank badge */}
-                  <div className="flex-shrink-0">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-base shadow-md ${
-                      index === 0 ? 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white' :
-                      index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-800' :
-                      index === 2 ? 'bg-gradient-to-br from-orange-300 to-orange-400 text-white' :
-                      'bg-[#04453f] text-white'
-                    }`}>
-                      {index + 1}
-                    </div>
+              <Link href={articleUrl} className="block">
+                {/* Rank badge - positioned absolutely */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-extrabold text-lg shadow-lg backdrop-blur-sm ${
+                    index === 0 ? 'bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-500 text-white' :
+                    index === 1 ? 'bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 text-gray-800' :
+                    'bg-gradient-to-br from-orange-200 via-orange-300 to-orange-400 text-white'
+                  }`}>
+                    {index + 1}
                   </div>
+                </div>
 
-                  {/* Content and image */}
-                  <div className="flex-1 min-w-0">
-                    {/* Image */}
-                    <div className="relative w-full aspect-[16/10] overflow-hidden mb-2 rounded-lg shadow-sm">
-                      <Image
-                        src={imageUrl}
-                        alt={articleTitle}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 280px"
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      {/* Overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
+                {/* Image */}
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={imageUrl}
+                    alt={articleTitle}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 340px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-                    {/* Title */}
-                    <h4
-                      className="title-card text-sm font-bold leading-snug group-hover:text-[#04453f] transition-colors line-clamp-2 mb-2"
-                      dangerouslySetInnerHTML={{ __html: article.title.rendered }}
-                    />
-
-                    {/* Views count */}
-                    {formatViewCount((article as TrendingArticle).viewCount) && (
-                      <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  {/* View count badge */}
+                  {viewCount && (
+                    <div className="absolute top-4 right-4 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full shadow-lg">
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 text-[#04453f]" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                          <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="font-medium">{formatViewCount((article as TrendingArticle).viewCount)} {tHome("views")}</span>
+                        <span className="text-xs font-bold text-gray-800">{viewCount}</span>
                       </div>
-                    )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 space-y-3">
+                  {/* Title */}
+                  <h4
+                    className="font-bold text-base leading-tight text-gray-900 group-hover:text-[#04453f] transition-colors line-clamp-2"
+                    dangerouslySetInnerHTML={{ __html: article.title.rendered }}
+                  />
+
+                  {/* Author info */}
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#04453f] to-[#345C00] flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <span className="font-medium text-gray-700">{authorName}</span>
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -132,7 +148,7 @@ export function MostReadWidget({
 }
 
 // Skeleton for loading state
-export function MostReadWidgetSkeleton({ count = 5 }: { count?: number }) {
+export function MostReadWidgetSkeleton({ count = 3 }: { count?: number }) {
   return (
     <div className="animate-pulse">
       {/* Header skeleton - outside container */}
@@ -141,16 +157,16 @@ export function MostReadWidgetSkeleton({ count = 5 }: { count?: number }) {
         <div className="flex-1 h-0.5 bg-gray-200" />
       </div>
       {/* Content skeleton - inside white container */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className={`p-4 ${i !== count - 1 ? 'border-b border-gray-100' : ''}`}>
-            <div className="flex gap-3">
-              <div className="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0" />
-              <div className="flex-1">
-                <div className="w-full aspect-[16/10] bg-gray-200 rounded-lg mb-2" />
-                <div className="h-4 bg-gray-200 rounded w-full mb-1" />
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
-                <div className="h-3 bg-gray-200 rounded w-16" />
+          <div key={i} className={`relative ${i !== count - 1 ? 'border-b border-gray-100' : ''}`}>
+            <div className="w-full aspect-[16/9] bg-gray-200" />
+            <div className="p-4 space-y-3">
+              <div className="h-5 bg-gray-200 rounded w-full" />
+              <div className="h-5 bg-gray-200 rounded w-4/5" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-gray-200 rounded-full" />
+                <div className="h-4 bg-gray-200 rounded w-24" />
               </div>
             </div>
           </div>

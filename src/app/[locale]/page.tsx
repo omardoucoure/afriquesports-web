@@ -211,8 +211,8 @@ async function LatestArticlesSection({ locale }: { locale: string }) {
 async function MostReadSection({ locale }: { locale: string }) {
 
   try {
-    // Fetch trending posts directly from database (last 7 days)
-    const trending = await getTrendingPostsByRange(7, 5);
+    // Fetch trending posts directly from database (last 7 days, limit 3)
+    const trending = await getTrendingPostsByRange(7, 3);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
@@ -225,9 +225,10 @@ async function MostReadSection({ locale }: { locale: string }) {
         } : undefined,
         link: `https://www.afriquesports.net/${item.post_category || 'football'}/${item.post_slug}`,
         viewCount: Number(item.total_count || item.count || 0),
+        author: item.post_author || 'Afrique Sports',
       }));
 
-      console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount })));
+      console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
 
       return <MostReadWidget articles={trendingArticles} />;
     } else {
@@ -239,7 +240,7 @@ async function MostReadSection({ locale }: { locale: string }) {
 
   // Fallback: Show latest articles WITHOUT view counts
   // Real view counts will appear once visits are recorded in the database
-  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
+  const articles = await DataFetcher.fetchPosts({ per_page: "3", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
