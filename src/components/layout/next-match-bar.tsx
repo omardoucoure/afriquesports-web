@@ -42,6 +42,7 @@ interface NextMatch {
   venue?: string;
   city?: string;
   isLive?: boolean;
+  isFinished?: boolean;
   homeScore?: number;
   awayScore?: number;
   statusDetail?: string;
@@ -151,10 +152,21 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   // Don't show if not visible, loading, or no match data
   if (!isVisible || isLoading || !matchData?.hasMatch) return null;
 
+  // Determine gradient color based on match state
+  const getGradientClass = () => {
+    if (matchData.isLive) {
+      return 'from-green-900 via-green-700 to-green-900'; // Green for live
+    }
+    if (matchData.isFinished) {
+      return 'from-gray-700 via-gray-600 to-gray-700'; // Gray for finished
+    }
+    return 'from-red-900 via-red-700 to-red-900'; // Red for upcoming
+  };
+
   return (
     <div
       id="next-match-bar"
-      className={`bg-gradient-to-r ${matchData.isLive ? 'from-green-900 via-green-700 to-green-900' : 'from-red-900 via-red-700 to-red-900'} text-white shadow-lg ${className}`}
+      className={`bg-gradient-to-r ${getGradientClass()} text-white shadow-lg ${className}`}
     >
       <div className="relative">
         <div className="container-main relative z-10">
@@ -177,7 +189,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   <span className="text-xs font-bold text-white drop-shadow-lg truncate">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
-                  {matchData.isLive && (
+                  {(matchData.isLive || matchData.isFinished) && (
                     <span className="text-sm font-black text-white">
                       {matchData.homeScore}
                     </span>
@@ -185,17 +197,19 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 </div>
 
                 {/* Score/VS Badge */}
-                <div className="flex-shrink-0 bg-white text-red-600 px-2 py-0.5 rounded text-[10px] font-bold shadow-md">
+                <div className="flex-shrink-0 bg-white px-2 py-0.5 rounded text-[10px] font-bold shadow-md">
                   {matchData.isLive ? (
                     <span className="text-green-600 animate-pulse">● LIVE</span>
+                  ) : matchData.isFinished ? (
+                    <span className="text-gray-600">FT</span>
                   ) : (
-                    'VS'
+                    <span className="text-red-600">VS</span>
                   )}
                 </div>
 
                 {/* Away Team */}
                 <div className="flex items-center gap-1.5 min-w-0">
-                  {matchData.isLive && (
+                  {(matchData.isLive || matchData.isFinished) && (
                     <span className="text-sm font-black text-white">
                       {matchData.awayScore}
                     </span>
@@ -260,7 +274,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   <span className="text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
-                  {matchData.isLive && (
+                  {(matchData.isLive || matchData.isFinished) && (
                     <span className="text-2xl font-black text-white">
                       {matchData.homeScore}
                     </span>
@@ -271,6 +285,8 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 <div className="flex-shrink-0 bg-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
                   {matchData.isLive ? (
                     <span className="text-green-600 animate-pulse">● LIVE</span>
+                  ) : matchData.isFinished ? (
+                    <span className="text-gray-600">FT</span>
                   ) : (
                     <span className="text-red-600">VS</span>
                   )}
@@ -278,7 +294,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
                 {/* Away Team */}
                 <div className="flex items-center gap-3">
-                  {matchData.isLive && (
+                  {(matchData.isLive || matchData.isFinished) && (
                     <span className="text-2xl font-black text-white">
                       {matchData.awayScore}
                     </span>

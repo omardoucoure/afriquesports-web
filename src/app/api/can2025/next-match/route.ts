@@ -116,40 +116,80 @@ export async function GET() {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
 
-    if (!upcomingMatches || upcomingMatches.length === 0) {
+    if (upcomingMatches && upcomingMatches.length > 0) {
+      const nextMatch = upcomingMatches[0];
+      const competition = nextMatch.competitions[0];
+      const homeTeam = competition.competitors?.find((c: any) => c.homeAway === 'home')?.team;
+      const awayTeam = competition.competitors?.find((c: any) => c.homeAway === 'away')?.team;
+
       return NextResponse.json({
-        hasMatch: false,
-        message: 'No upcoming matches available'
+        hasMatch: true,
+        id: nextMatch.id,
+        competition: 'CAN 2025',
+        homeTeam: {
+          name: homeTeam?.displayName || homeTeam?.name || '',
+          code: homeTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(homeTeam?.displayName || '')}.png`,
+        },
+        awayTeam: {
+          name: awayTeam?.displayName || awayTeam?.name || '',
+          code: awayTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(awayTeam?.displayName || '')}.png`,
+        },
+        date: nextMatch.date,
+        venue: nextMatch.venue?.fullName || nextMatch.venue?.displayName || '',
+        city: nextMatch.venue?.address?.city || '',
+        isLive: false,
       });
     }
 
-    const nextMatch = upcomingMatches[0];
-    const competition = nextMatch.competitions[0];
-    const homeTeam = competition.competitors?.find((c: any) => c.homeAway === 'home')?.team;
-    const awayTeam = competition.competitors?.find((c: any) => c.homeAway === 'away')?.team;
+    // PRIORITY 3: Show most recent finished match (when no live or upcoming matches)
+    const finishedMatches = data.events?.filter((event: any) => {
+      const status = event.competitions?.[0]?.status?.type?.state;
+      return status === 'post';
+    }).sort((a: any, b: any) => {
+      // Sort by date descending (most recent first)
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
-    // Transform the data
-    const matchData = {
-      hasMatch: true,
-      id: nextMatch.id,
-      competition: 'CAN 2025',
-      homeTeam: {
-        name: homeTeam?.displayName || homeTeam?.name || '',
-        code: homeTeam?.abbreviation || '',
-        flag: `https://flagcdn.com/w80/${getCountryCode(homeTeam?.displayName || '')}.png`,
-      },
-      awayTeam: {
-        name: awayTeam?.displayName || awayTeam?.name || '',
-        code: awayTeam?.abbreviation || '',
-        flag: `https://flagcdn.com/w80/${getCountryCode(awayTeam?.displayName || '')}.png`,
-      },
-      date: nextMatch.date,
-      venue: nextMatch.venue?.fullName || nextMatch.venue?.displayName || '',
-      city: nextMatch.venue?.address?.city || '',
-      isLive: false,
-    };
+    if (finishedMatches && finishedMatches.length > 0) {
+      const recentMatch = finishedMatches[0];
+      const competition = recentMatch.competitions[0];
+      const homeCompetitor = competition.competitors?.find((c: any) => c.homeAway === 'home');
+      const awayCompetitor = competition.competitors?.find((c: any) => c.homeAway === 'away');
+      const homeTeam = homeCompetitor?.team;
+      const awayTeam = awayCompetitor?.team;
 
-    return NextResponse.json(matchData);
+      return NextResponse.json({
+        hasMatch: true,
+        id: recentMatch.id,
+        competition: 'CAN 2025',
+        homeTeam: {
+          name: homeTeam?.displayName || homeTeam?.name || '',
+          code: homeTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(homeTeam?.displayName || '')}.png`,
+        },
+        awayTeam: {
+          name: awayTeam?.displayName || awayTeam?.name || '',
+          code: awayTeam?.abbreviation || '',
+          flag: `https://flagcdn.com/w80/${getCountryCode(awayTeam?.displayName || '')}.png`,
+        },
+        date: recentMatch.date,
+        venue: recentMatch.venue?.fullName || recentMatch.venue?.displayName || '',
+        city: recentMatch.venue?.address?.city || '',
+        isLive: false,
+        isFinished: true,
+        homeScore: homeCompetitor?.score || 0,
+        awayScore: awayCompetitor?.score || 0,
+        statusDetail: competition.status?.type?.detail || 'Terminé',
+      });
+    }
+
+    // No matches found at all
+    return NextResponse.json({
+      hasMatch: false,
+      message: 'No matches available'
+    });
   } catch (error) {
     console.error('Error fetching next CAN 2025 match:', error);
     return NextResponse.json(
