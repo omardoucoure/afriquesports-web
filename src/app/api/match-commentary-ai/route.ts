@@ -201,6 +201,10 @@ export async function GET(request: Request) {
           prediction: preMatch.prediction,
           homeFormation: preMatch.home_formation || null,
           awayFormation: preMatch.away_formation || null,
+          homeLineup: preMatch.home_lineup || null,
+          awayLineup: preMatch.away_lineup || null,
+          homeSubstitutes: preMatch.home_substitutes || null,
+          awaySubstitutes: preMatch.away_substitutes || null,
           generatedAt: preMatch.created_at,
         };
       }

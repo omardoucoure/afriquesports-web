@@ -55,6 +55,10 @@ export async function GET(request: NextRequest) {
         prediction: data.prediction,
         homeFormation: data.home_formation || null,
         awayFormation: data.away_formation || null,
+        homeLineup: data.home_lineup || null,
+        awayLineup: data.away_lineup || null,
+        homeSubstitutes: data.home_substitutes || null,
+        awaySubstitutes: data.away_substitutes || null,
         generatedAt: data.created_at,
         updatedAt: data.updated_at,
       }
@@ -97,9 +101,9 @@ export async function POST(request: NextRequest) {
     }
 
     // At least one analysis field must be provided
-    if (!body.head_to_head && !body.recent_form && !body.key_players && !body.tactical_preview && !body.prediction && !body.home_formation && !body.away_formation) {
+    if (!body.head_to_head && !body.recent_form && !body.key_players && !body.tactical_preview && !body.prediction && !body.home_formation && !body.away_formation && !body.home_lineup && !body.away_lineup) {
       return NextResponse.json(
-        { error: 'At least one analysis field is required (head_to_head, recent_form, key_players, tactical_preview, prediction, home_formation, or away_formation)' },
+        { error: 'At least one analysis field is required (head_to_head, recent_form, key_players, tactical_preview, prediction, formations, or lineups)' },
         { status: 400 }
       );
     }
@@ -117,6 +121,10 @@ export async function POST(request: NextRequest) {
         prediction: body.prediction || null,
         home_formation: body.home_formation || null,
         away_formation: body.away_formation || null,
+        home_lineup: body.home_lineup || null,
+        away_lineup: body.away_lineup || null,
+        home_substitutes: body.home_substitutes || null,
+        away_substitutes: body.away_substitutes || null,
       }, {
         onConflict: 'match_id,locale',
         ignoreDuplicates: false,

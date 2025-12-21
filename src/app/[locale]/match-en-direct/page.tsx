@@ -40,6 +40,12 @@ interface Match {
   matchType?: string;
 }
 
+interface Player {
+  number: number;
+  name: string;
+  position: string;
+}
+
 interface MatchData {
   success: boolean;
   language: string;
@@ -53,6 +59,10 @@ interface MatchData {
     prediction?: string;
     homeFormation?: string;
     awayFormation?: string;
+    homeLineup?: Player[];
+    awayLineup?: Player[];
+    homeSubstitutes?: Player[];
+    awaySubstitutes?: Player[];
     generatedAt?: string;
   };
 }
@@ -123,66 +133,37 @@ export default function MatchEnDirectPage() {
     }
   };
 
-  // Mock lineup data (in production, fetch from API)
-  const mockLineup = {
+  // Build lineup data from AI scheduler (no mock data)
+  const hasLineupData = preMatchAnalysis?.homeLineup && preMatchAnalysis?.awayLineup;
+
+  const lineupData = hasLineupData ? {
     homeTeam: {
       name: getTeamName(match.teams.home.nameKey, match.teams.home.name),
       logo: match.teams.home.logo,
-      formation: preMatchAnalysis?.homeFormation || "4-3-3",
-      lineup: [
-        { number: 1, name: "Y. Bounou", position: "Gardien" },
-        { number: 2, name: "A. Hakimi", position: "Défenseur" },
-        { number: 5, name: "N. Aguerd", position: "Défenseur" },
-        { number: 6, name: "R. Saiss", position: "Défenseur" },
-        { number: 25, name: "Y. Attiyat Allah", position: "Défenseur" },
-        { number: 4, name: "S. Amrabat", position: "Milieu" },
-        { number: 8, name: "A. Ounahi", position: "Milieu" },
-        { number: 15, name: "S. Amallah", position: "Milieu" },
-        { number: 7, name: "H. Ziyech", position: "Attaquant" },
-        { number: 19, name: "Y. En-Nesyri", position: "Attaquant" },
-        { number: 17, name: "S. Boufal", position: "Attaquant" },
-      ],
-      substitutes: [
-        { number: 12, name: "M. El Kajoui", position: "Gardien" },
-        { number: 3, name: "A. Dari", position: "Défenseur" },
-        { number: 18, name: "A. El Khannouss", position: "Milieu" },
-      ],
+      formation: preMatchAnalysis.homeFormation || "4-3-3",
+      lineup: preMatchAnalysis.homeLineup!,
+      substitutes: preMatchAnalysis.homeSubstitutes || [],
     },
     awayTeam: {
       name: getTeamName(match.teams.away.nameKey, match.teams.away.name),
       logo: match.teams.away.logo,
-      formation: preMatchAnalysis?.awayFormation || "5-3-2",
-      lineup: [
-        { number: 16, name: "A. Djoco", position: "Gardien" },
-        { number: 4, name: "Y. M'Changama", position: "Défenseur" },
-        { number: 3, name: "K. Abdallah", position: "Défenseur" },
-        { number: 15, name: "L. Youssoufi", position: "Défenseur" },
-        { number: 12, name: "C. Youssouf", position: "Défenseur" },
-        { number: 14, name: "M. Mohamed", position: "Défenseur" },
-        { number: 8, name: "R. Maolida", position: "Milieu" },
-        { number: 10, name: "F. Selemani", position: "Milieu" },
-        { number: 6, name: "N. Bakari", position: "Milieu" },
-        { number: 11, name: "M. El Fardou", position: "Attaquant" },
-        { number: 9, name: "R. Ahmed", position: "Attaquant" },
-      ],
-      substitutes: [
-        { number: 1, name: "S. Ben", position: "Gardien" },
-        { number: 5, name: "A. Said", position: "Défenseur" },
-      ],
+      formation: preMatchAnalysis.awayFormation || "4-3-3",
+      lineup: preMatchAnalysis.awayLineup!,
+      substitutes: preMatchAnalysis.awaySubstitutes || [],
     },
-  };
+  } : null;
 
-  // Mock stats (in production, fetch from API)
-  const mockStats = {
-    possession: { home: 65, away: 35 },
-    shots: { home: 12, away: 6 },
-    shotsOnTarget: { home: 5, away: 2 },
-    corners: { home: 7, away: 3 },
-    fouls: { home: 9, away: 12 },
-    yellowCards: { home: 2, away: 3 },
+  // Stats data (will be populated from ESPN API when match is live)
+  const statsData = {
+    possession: { home: 0, away: 0 },
+    shots: { home: 0, away: 0 },
+    shotsOnTarget: { home: 0, away: 0 },
+    corners: { home: 0, away: 0 },
+    fouls: { home: 0, away: 0 },
+    yellowCards: { home: 0, away: 0 },
     redCards: { home: 0, away: 0 },
-    offsides: { home: 2, away: 4 },
-    passAccuracy: { home: 87, away: 73 },
+    offsides: { home: 0, away: 0 },
+    passAccuracy: { home: 0, away: 0 },
   };
 
   const currentMinute = match.status.toLowerCase().includes("finished") ? "FT" : match.statusDetail;
@@ -372,14 +353,26 @@ export default function MatchEnDirectPage() {
               {/* Lineups Tab */}
               {activeTab === 'lineups' && (
                 <div className="bg-white rounded-xl shadow-sm p-6">
-                  <MatchLineup homeTeam={mockLineup.homeTeam} awayTeam={mockLineup.awayTeam} />
+                  {lineupData ? (
+                    <MatchLineup homeTeam={lineupData.homeTeam} awayTeam={lineupData.awayTeam} />
+                  ) : (
+                    <div className="text-center py-12">
+                      <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                      <p className="text-gray-600 font-medium mb-2">
+                        {t("can2025.match.noDataYet")}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Les compositions seront disponibles 2 heures avant le match.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
               {/* Stats Tab */}
               {activeTab === 'stats' && (
                 <MatchStats
-                  stats={mockStats}
+                  stats={statsData}
                   homeTeamName={getTeamName(match.teams.home.nameKey, match.teams.home.name)}
                   awayTeamName={getTeamName(match.teams.away.nameKey, match.teams.away.name)}
                 />

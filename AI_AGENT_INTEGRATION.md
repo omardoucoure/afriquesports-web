@@ -135,7 +135,40 @@ curl -X POST https://www.afriquesports.net/api/can2025/prematch-analysis \
     "tactical_preview": "Le Maroc devrait dominer la possession (65%+) avec son 4-3-3 habituel. Les Comores joueront en contre avec un bloc bas 5-3-2. La clé: les centres de Hakimi contre la défense comorienne.",
     "prediction": "Maroc 2-0 Comores | Probabilités: Maroc 75%, Nul 18%, Comores 7%",
     "home_formation": "4-3-3",
-    "away_formation": "5-3-2"
+    "away_formation": "5-3-2",
+    "home_lineup": [
+      {"number": 1, "name": "Y. Bounou", "position": "Gardien"},
+      {"number": 2, "name": "A. Hakimi", "position": "Défenseur"},
+      {"number": 5, "name": "N. Aguerd", "position": "Défenseur"},
+      {"number": 6, "name": "R. Saiss", "position": "Défenseur"},
+      {"number": 25, "name": "Y. Attiyat Allah", "position": "Défenseur"},
+      {"number": 4, "name": "S. Amrabat", "position": "Milieu"},
+      {"number": 8, "name": "A. Ounahi", "position": "Milieu"},
+      {"number": 15, "name": "S. Amallah", "position": "Milieu"},
+      {"number": 7, "name": "H. Ziyech", "position": "Attaquant"},
+      {"number": 19, "name": "Y. En-Nesyri", "position": "Attaquant"},
+      {"number": 17, "name": "S. Boufal", "position": "Attaquant"}
+    ],
+    "away_lineup": [
+      {"number": 16, "name": "A. Djoco", "position": "Gardien"},
+      {"number": 4, "name": "Y. M'Changama", "position": "Défenseur"},
+      {"number": 3, "name": "K. Abdallah", "position": "Défenseur"},
+      {"number": 15, "name": "L. Youssoufi", "position": "Défenseur"},
+      {"number": 12, "name": "C. Youssouf", "position": "Défenseur"},
+      {"number": 14, "name": "M. Mohamed", "position": "Défenseur"},
+      {"number": 8, "name": "R. Maolida", "position": "Milieu"},
+      {"number": 10, "name": "F. Selemani", "position": "Milieu"},
+      {"number": 6, "name": "N. Bakari", "position": "Milieu"},
+      {"number": 11, "name": "M. El Fardou", "position": "Attaquant"},
+      {"number": 9, "name": "R. Ahmed", "position": "Attaquant"}
+    ],
+    "home_substitutes": [
+      {"number": 12, "name": "M. El Kajoui", "position": "Gardien"},
+      {"number": 3, "name": "A. Dari", "position": "Défenseur"}
+    ],
+    "away_substitutes": [
+      {"number": 1, "name": "S. Ben", "position": "Gardien"}
+    ]
   }'
 ```
 
@@ -148,15 +181,19 @@ curl -X POST https://www.afriquesports.net/api/can2025/prematch-analysis \
 
 ### Analysis Fields (At least 1 required)
 
-| Field | Type | Description | Character Range |
-|-------|------|-------------|-----------------|
+| Field | Type | Description | Character Range / Format |
+|-------|------|-------------|--------------------------|
 | `head_to_head` | string | Historical confrontation stats | 100-300 chars |
 | `recent_form` | string | Last 5 matches for each team | 100-300 chars |
 | `key_players` | string | Top 3-5 players to watch | 100-300 chars |
 | `tactical_preview` | string | Tactical analysis and formations | 150-400 chars |
 | `prediction` | string | Score prediction with probabilities | 50-150 chars |
-| `home_formation` | string | Expected formation for home team | 3-10 chars |
-| `away_formation` | string | Expected formation for away team | 3-10 chars |
+| `home_formation` | string | Expected formation for home team | 3-10 chars (e.g. "4-3-3") |
+| `away_formation` | string | Expected formation for away team | 3-10 chars (e.g. "5-3-2") |
+| `home_lineup` | array | **[NEW - REQUIRED]** Starting 11 for home team | JSON array of player objects |
+| `away_lineup` | array | **[NEW - REQUIRED]** Starting 11 for away team | JSON array of player objects |
+| `home_substitutes` | array | **[NEW]** Substitute players for home team | JSON array of player objects |
+| `away_substitutes` | array | **[NEW]** Substitute players for away team | JSON array of player objects |
 
 ### Content Guidelines
 
@@ -246,6 +283,67 @@ Example:
 ```
 
 The formations will be displayed as visual football pitches in the match page sidebar.
+
+#### Lineups (New - Required)
+
+**CRITICAL:** You MUST include complete lineups (compositions) for both teams. This is the most important data for users.
+
+Format: JSON array of player objects with `number`, `name`, and `position` fields.
+
+**Positions (use French):**
+- **Gardien** - Goalkeeper
+- **Défenseur** - Defender
+- **Milieu** - Midfielder
+- **Attaquant** - Forward/Striker
+
+Example:
+```json
+{
+  "home_lineup": [
+    {"number": 1, "name": "Y. Bounou", "position": "Gardien"},
+    {"number": 2, "name": "A. Hakimi", "position": "Défenseur"},
+    {"number": 5, "name": "N. Aguerd", "position": "Défenseur"},
+    {"number": 6, "name": "R. Saiss", "position": "Défenseur"},
+    {"number": 25, "name": "Y. Attiyat Allah", "position": "Défenseur"},
+    {"number": 4, "name": "S. Amrabat", "position": "Milieu"},
+    {"number": 8, "name": "A. Ounahi", "position": "Milieu"},
+    {"number": 15, "name": "S. Amallah", "position": "Milieu"},
+    {"number": 7, "name": "H. Ziyech", "position": "Attaquant"},
+    {"number": 19, "name": "Y. En-Nesyri", "position": "Attaquant"},
+    {"number": 17, "name": "S. Boufal", "position": "Attaquant"}
+  ],
+  "away_lineup": [
+    {"number": 16, "name": "A. Djoco", "position": "Gardien"},
+    {"number": 4, "name": "Y. M'Changama", "position": "Défenseur"},
+    {"number": 3, "name": "K. Abdallah", "position": "Défenseur"},
+    {"number": 15, "name": "L. Youssoufi", "position": "Défenseur"},
+    {"number": 12, "name": "C. Youssouf", "position": "Défenseur"},
+    {"number": 14, "name": "M. Mohamed", "position": "Défenseur"},
+    {"number": 8, "name": "R. Maolida", "position": "Milieu"},
+    {"number": 10, "name": "F. Selemani", "position": "Milieu"},
+    {"number": 6, "name": "N. Bakari", "position": "Milieu"},
+    {"number": 11, "name": "M. El Fardou", "position": "Attaquant"},
+    {"number": 9, "name": "R. Ahmed", "position": "Attaquant"}
+  ],
+  "home_substitutes": [
+    {"number": 12, "name": "M. El Kajoui", "position": "Gardien"},
+    {"number": 3, "name": "A. Dari", "position": "Défenseur"},
+    {"number": 18, "name": "A. El Khannouss", "position": "Milieu"}
+  ],
+  "away_substitutes": [
+    {"number": 1, "name": "S. Ben", "position": "Gardien"},
+    {"number": 5, "name": "A. Said", "position": "Défenseur"}
+  ]
+}
+```
+
+**How to get lineup data:**
+1. Use ESPN API: `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/summary?event={match_id}`
+2. Parse the `rosters` section which contains full lineup data
+3. Match player numbers with their positions based on the formation
+4. Ensure lineup has exactly 11 players (1 GK + 10 outfield)
+
+**Important:** The lineup data will be displayed on a visual football pitch and in list format. Without this data, users will see "No data available" message.
 
 ### Response
 
