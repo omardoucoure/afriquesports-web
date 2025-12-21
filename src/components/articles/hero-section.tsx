@@ -114,14 +114,14 @@ function FeaturedHeroCard({
   const articleUrl = `/${categorySlug}/${article.slug}`;
 
   return (
-    <article className="relative h-full overflow-hidden group bg-black rounded-lg">
+    <article className="relative h-full min-h-[400px] lg:min-h-[480px] overflow-hidden group bg-black rounded-lg">
       <Link href={articleUrl} className="block h-full">
         <Image
           src={imageUrl}
           alt={stripHtml(article.title.rendered)}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-contain object-center group-hover:scale-105 transition-transform duration-500"
+          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
           priority
         />
         {/* Gradient overlay - stronger dark gradient at bottom */}
@@ -247,41 +247,23 @@ export function HeroSection({
         </div>
       </div>
 
-      {/* Mobile: Show TV and flash feed below */}
-      <div className="lg:hidden space-y-6">
-        {/* Mobile Afrique Sports TV */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
-              {translations.latest}
-            </span>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {leftArticles.slice(0, 2).map((article, index) => (
-              <TrendingCard
-                key={article.id}
-                article={article}
-                index={index + 1}
-                priority={false}
-              />
-            ))}
-          </div>
+      {/* Mobile: Show TV articles only */}
+      <div className="lg:hidden mt-6">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
+            {translations.latest}
+          </span>
+          <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
         </div>
-
-        {/* Mobile flash feed */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
-              {translations.trending}
-            </span>
-            <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
-          </div>
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            {rightArticles.slice(0, 6).map((article) => (
-              <FlashFeedCard key={article.id} article={article} />
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-4">
+          {leftArticles.slice(0, 2).map((article, index) => (
+            <TrendingCard
+              key={article.id}
+              article={article}
+              index={index + 1}
+              priority={false}
+            />
+          ))}
         </div>
       </div>
     </div>
