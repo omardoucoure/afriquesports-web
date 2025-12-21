@@ -100,8 +100,6 @@
   }
 
   html {
-    /* Smooth scrolling */
-    scroll-behavior: smooth;
     /* Prevent font size adjustment on orientation change */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
