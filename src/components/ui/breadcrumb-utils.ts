@@ -53,30 +53,28 @@ export function generateBreadcrumbItems(
       return;
     }
 
-    // If this is the last segment and we have a title, use the title
+    // Skip the last segment if it's an article slug (not a category)
+    // Article slugs are the last segment when title is provided
     if (index === segments.length - 1 && title) {
-      items.push({
-        label: title,
-        href: currentPath,
-      });
-    } else {
-      // Get translated label based on slug
-      const mapping = slugToKey[segment];
-      let label = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
-
-      if (mapping && translations) {
-        if (mapping.namespace === "categories") {
-          label = translations.tCategories(mapping.key);
-        } else if (mapping.namespace === "countries") {
-          label = translations.tCountries(mapping.key);
-        }
-      }
-
-      items.push({
-        label,
-        href: currentPath,
-      });
+      return;
     }
+
+    // Get translated label based on slug
+    const mapping = slugToKey[segment];
+    let label = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+
+    if (mapping && translations) {
+      if (mapping.namespace === "categories") {
+        label = translations.tCategories(mapping.key);
+      } else if (mapping.namespace === "countries") {
+        label = translations.tCountries(mapping.key);
+      }
+    }
+
+    items.push({
+      label,
+      href: currentPath,
+    });
   });
 
   return items;
