@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
 import { IntlProvider } from "@/components/providers";
+import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import { LocaleModal } from "@/components/ui";
 import { locales, type Locale } from "@/i18n/config";
 
@@ -32,10 +33,12 @@ export default async function LocaleLayout({
 
   return (
     <div lang={locale} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen">
-      <IntlProvider locale={locale} messages={messages}>
-        {children}
-        <LocaleModal />
-      </IntlProvider>
+      <PostHogProvider>
+        <IntlProvider locale={locale} messages={messages}>
+          {children}
+          <LocaleModal />
+        </IntlProvider>
+      </PostHogProvider>
     </div>
   );
 }

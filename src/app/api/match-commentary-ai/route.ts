@@ -85,7 +85,14 @@ export async function GET(request: Request) {
     const eventId = event.id;
 
     // Transform ESPN data to our format
-    const matchData = {
+    const matchData: {
+      success: boolean;
+      language: string;
+      match: any;
+      commentary: any[];
+      preMatchAnalysis: any;
+      sources: any;
+    } = {
       success: true,
       language: locale,
       match: {

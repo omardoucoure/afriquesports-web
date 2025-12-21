@@ -17,6 +17,7 @@ interface Commentary {
   playerName?: string;
   playerImage?: string;
   isScoring: boolean;
+  source?: string;
 }
 
 interface Match {
