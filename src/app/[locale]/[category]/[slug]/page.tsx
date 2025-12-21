@@ -69,7 +69,12 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const { locale, category, slug } = await params;
 
   try {
-    const article = await DataFetcher.fetchPostBySlug(slug, locale);
+    let article = await DataFetcher.fetchPostBySlug(slug, locale);
+
+    // Fallback to French if article not found in requested locale
+    if (!article && locale !== "fr") {
+      article = await DataFetcher.fetchPostBySlug(slug, "fr");
+    }
 
     if (!article) {
       return {
@@ -289,10 +294,21 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const tCategories = await getTranslations("categories");
   const tCountries = await getTranslations("countries");
 
-  // Fetch the article
+  // Fetch the article - try requested locale first, fallback to French if not found
   let article;
+  let actualLocale = locale;
+
   try {
     article = await DataFetcher.fetchPostBySlug(slug, locale);
+
+    // If article not found in requested locale and locale is not French, try French fallback
+    if (!article && locale !== "fr") {
+      console.log(`Article not found in ${locale}, trying French fallback...`);
+      article = await DataFetcher.fetchPostBySlug(slug, "fr");
+      if (article) {
+        actualLocale = "fr";
+      }
+    }
   } catch (error) {
     console.error("Error fetching article:", error);
     notFound();
