@@ -36,6 +36,8 @@ export async function GET() {
       const pubDate = new Date(post.modified).toISOString();
       // Calculate priority based on freshness (for Bing/Yandex)
       const priority = post.publishDate ? calculatePriority(post.publishDate) : 0.9;
+      // Use actual title if available, otherwise fallback to formatted slug
+      const title = post.title || post.slug.replace(/-/g, " ");
 
       return `<url>
 <loc>${url}</loc>
@@ -47,7 +49,7 @@ export async function GET() {
 <news:language>fr</news:language>
 </news:publication>
 <news:publication_date>${pubDate}</news:publication_date>
-<news:title><![CDATA[${post.slug.replace(/-/g, " ")}]]></news:title>
+<news:title><![CDATA[${title}]]></news:title>
 </news:news>
 </url>`;
     });

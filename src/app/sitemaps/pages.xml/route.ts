@@ -14,7 +14,7 @@ export const runtime = "edge";
 export const revalidate = 86400;
 
 const SITE_URL = "https://www.afriquesports.net";
-const LOCALES = ["fr", "en", "es"];
+const LOCALES = ["fr", "en", "es", "ar"];
 
 // Static pages with their priority values
 // Priority: 1.0 = most important, 0.5 = least important (for Bing/Yandex)
@@ -61,6 +61,15 @@ ${hreflangs}
     // Spanish URL
     urlEntries.push(`<url>
 <loc>${SITE_URL}/es${page.path}</loc>
+<lastmod>${lastmod}</lastmod>
+<priority>${page.priority.toFixed(1)}</priority>
+${hreflangs}
+<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${page.path}" />
+</url>`);
+
+    // Arabic URL
+    urlEntries.push(`<url>
+<loc>${SITE_URL}/ar${page.path}</loc>
 <lastmod>${lastmod}</lastmod>
 <priority>${page.priority.toFixed(1)}</priority>
 ${hreflangs}

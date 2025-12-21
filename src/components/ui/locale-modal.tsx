@@ -9,6 +9,7 @@ const localeNames: Record<Locale, string> = {
   fr: "Français",
   en: "English",
   es: "Español",
+  ar: "العربية",
 };
 
 const localeMessages: Record<Locale, { title: string; message: string; stay: string; switch: string }> = {
@@ -29,6 +30,12 @@ const localeMessages: Record<Locale, { title: string; message: string; stay: str
     message: "Su navegador está configurado en español. ¿Le gustaría cambiar a español?",
     stay: "Quedarse en",
     switch: "Cambiar a",
+  },
+  ar: {
+    title: "تغيير اللغة؟",
+    message: "متصفحك مضبوط على العربية. هل تريد التبديل إلى العربية؟",
+    stay: "البقاء في",
+    switch: "التبديل إلى",
   },
 };
 

@@ -8,6 +8,7 @@ const localeNames: Record<Locale, string> = {
   fr: "FR",
   en: "EN",
   es: "ES",
+  ar: "عربي",
 };
 
 export function LanguageSwitcher() {

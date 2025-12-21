@@ -16,6 +16,7 @@ export interface SitemapPost {
   category: string;
   modified: string;
   publishDate?: string; // For calculating priority based on freshness
+  title?: string; // Article title for news sitemap
 }
 
 export interface SitemapCache {
@@ -115,6 +116,7 @@ async function fetchSitemapPosts(
     fr: "https://cms.realdemadrid.com/afriquesports",
     en: "https://cms.realdemadrid.com/afriquesports-en",
     es: "https://cms.realdemadrid.com/afriquesports-es",
+    ar: "https://cms.realdemadrid.com/afriquesports-ar",
   };
 
   const baseUrl = baseUrls[locale] || baseUrls.fr;
@@ -225,6 +227,7 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
     fr: "https://cms.realdemadrid.com/afriquesports",
     en: "https://cms.realdemadrid.com/afriquesports-en",
     es: "https://cms.realdemadrid.com/afriquesports-es",
+    ar: "https://cms.realdemadrid.com/afriquesports-ar",
   };
 
   const baseUrl = baseUrls[locale] || baseUrls.fr;
@@ -266,6 +269,7 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
           category,
           modified: post.date, // Use publish date for news sitemap
           publishDate: post.date, // For priority calculation
+          title: post.title?.rendered || post.title, // Include title for news sitemap
         });
       }
 

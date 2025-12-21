@@ -15,7 +15,7 @@ export const runtime = "edge";
 export const revalidate = 86400;
 
 const SITE_URL = "https://www.afriquesports.net";
-const LOCALES = ["fr", "en", "es"];
+const LOCALES = ["fr", "en", "es", "ar"];
 
 // Main category mappings
 const MAIN_CATEGORIES = [

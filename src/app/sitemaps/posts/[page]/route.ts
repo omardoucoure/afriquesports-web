@@ -54,6 +54,7 @@ export async function GET(
 <xhtml:link rel="alternate" hreflang="fr" href="${url}" />
 <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/en/${post.category}/${post.slug}" />
 <xhtml:link rel="alternate" hreflang="es" href="${SITE_URL}/es/${post.category}/${post.slug}" />
+<xhtml:link rel="alternate" hreflang="ar" href="${SITE_URL}/ar/${post.category}/${post.slug}" />
 <xhtml:link rel="alternate" hreflang="x-default" href="${url}" />
 </url>`;
     });
