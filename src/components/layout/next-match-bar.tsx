@@ -155,24 +155,81 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     >
       <div className="relative">
         <div className="container-main relative z-10">
-          <div className="flex items-center justify-between py-2 sm:py-3 px-2 sm:px-3 md:px-0 gap-1.5 sm:gap-2 md:gap-4">
-            {/* CAN 2025 Badge - Left */}
-            <div className="flex-shrink-0 flex items-center gap-1 sm:gap-2">
-              <span className="hidden sm:inline text-xs sm:text-sm md:text-base font-bold text-white uppercase tracking-wide drop-shadow-lg">
+          {/* Mobile Layout - Stacked */}
+          <div className="lg:hidden py-3 px-3">
+            {/* Top row: CAN 2025 Badge + Watch Button */}
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-white uppercase tracking-wide drop-shadow-lg">
                 ⚽ CAN 2025
               </span>
-              <span className="sm:hidden text-[10px] font-bold text-white drop-shadow-lg">
-                ⚽
+              <Link
+                href={getCommentaryUrl()}
+                className="flex items-center gap-1.5 bg-white hover:bg-white/95 text-red-600 font-bold px-3 py-1.5 rounded-lg transition-all shadow-md"
+              >
+                <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span className="text-xs uppercase tracking-tight whitespace-nowrap">{t("nextMatch.watchLive")}</span>
+              </Link>
+            </div>
+
+            {/* Bottom row: Teams */}
+            <div className="flex items-center justify-center gap-3">
+              {/* Home Team */}
+              <div className="flex items-center gap-2 flex-1 justify-end">
+                <span className="text-sm font-bold text-white drop-shadow-lg text-right">
+                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
+                </span>
+                <div className="relative w-9 h-7 overflow-hidden rounded-md border-2 border-white/30 shadow-lg flex-shrink-0">
+                  <Image
+                    src={matchData.homeTeam?.flag || ''}
+                    alt={matchData.homeTeam?.name || ''}
+                    fill
+                    className="object-cover"
+                    sizes="40px"
+                  />
+                </div>
+              </div>
+
+              {/* VS Badge */}
+              <div className="flex-shrink-0 bg-white text-red-600 px-2.5 py-1 rounded-lg text-xs font-bold shadow-md">
+                VS
+              </div>
+
+              {/* Away Team */}
+              <div className="flex items-center gap-2 flex-1 justify-start">
+                <div className="relative w-9 h-7 overflow-hidden rounded-md border-2 border-white/30 shadow-lg flex-shrink-0">
+                  <Image
+                    src={matchData.awayTeam?.flag || ''}
+                    alt={matchData.awayTeam?.name || ''}
+                    fill
+                    className="object-cover"
+                    sizes="40px"
+                  />
+                </div>
+                <span className="text-sm font-bold text-white drop-shadow-lg text-left">
+                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout - Horizontal */}
+          <div className="hidden lg:flex items-center justify-between py-3 px-0 gap-4">
+            {/* CAN 2025 Badge - Left */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <span className="text-base font-bold text-white uppercase tracking-wide drop-shadow-lg">
+                ⚽ CAN 2025
               </span>
             </div>
 
             {/* Match Info Section - Center */}
-            <div className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 min-w-0">
+            <div className="flex-1 flex items-center justify-center gap-4">
               {/* Teams Section */}
-              <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0">
+              <div className="flex items-center gap-4">
                 {/* Home Team */}
-                <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 min-w-0">
-                  <div className="relative w-6 h-5 sm:w-8 sm:h-6 md:w-10 md:h-8 overflow-hidden rounded border sm:border-2 border-white/30 shadow-lg flex-shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
                     <Image
                       src={matchData.homeTeam?.flag || ''}
                       alt={matchData.homeTeam?.name || ''}
@@ -181,22 +238,22 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                       sizes="40px"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-white drop-shadow-lg truncate">
+                  <span className="text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
                   </span>
                 </div>
 
                 {/* VS Badge */}
-                <div className="flex-shrink-0 bg-white text-red-600 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 md:py-1.5 rounded text-[10px] sm:text-xs md:text-sm font-bold shadow-md">
+                <div className="flex-shrink-0 bg-white text-red-600 px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
                   VS
                 </div>
 
                 {/* Away Team */}
-                <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 min-w-0">
-                  <span className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-white drop-shadow-lg truncate">
+                <div className="flex items-center gap-3">
+                  <span className="text-base font-bold text-white drop-shadow-lg">
                     {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
                   </span>
-                  <div className="relative w-6 h-5 sm:w-8 sm:h-6 md:w-10 md:h-8 overflow-hidden rounded border sm:border-2 border-white/30 shadow-lg flex-shrink-0">
+                  <div className="relative w-10 h-8 overflow-hidden rounded-md border-2 border-white/30 shadow-lg">
                     <Image
                       src={matchData.awayTeam?.flag || ''}
                       alt={matchData.awayTeam?.name || ''}
@@ -210,16 +267,15 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             </div>
 
             {/* Right Section - Watch Button */}
-            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
-              {/* Watch Match Button */}
+            <div className="flex items-center gap-2 flex-shrink-0">
               <Link
                 href={getCommentaryUrl()}
-                className="flex items-center gap-1 sm:gap-1.5 md:gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-1.5 sm:px-2.5 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
+                className="flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
-                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <span className="hidden xs:inline text-[10px] md:text-xs uppercase tracking-tight md:tracking-wide whitespace-nowrap">{t("nextMatch.watchLive")}</span>
+                <span className="text-xs uppercase tracking-wide whitespace-nowrap">{t("nextMatch.watchLive")}</span>
               </Link>
             </div>
           </div>
