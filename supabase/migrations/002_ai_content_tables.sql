@@ -118,8 +118,7 @@ CREATE TABLE IF NOT EXISTS trending_players (
   locale VARCHAR(2) NOT NULL,
   rank INTEGER,                                 -- Current rank (1-N)
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  CONSTRAINT unique_trending_player_day UNIQUE(player_name, locale, updated_at::DATE)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Indexes

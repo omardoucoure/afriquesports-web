@@ -214,6 +214,16 @@ const nextConfig: NextConfig = {
         hostname: "flagcdn.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "a.espncdn.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "s.espncdn.com",
+        pathname: "/**",
+      },
     ],
   },
 };
