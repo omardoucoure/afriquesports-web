@@ -8,6 +8,7 @@ import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb } from "@/components/ui";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { generateFaqJsonLd, generateSportsEventJsonLd, CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
+import { LiveMatchCommentary } from "@/components/can2025";
 
 // ISR: Revalidate every 60 seconds for fresh content
 export const revalidate = 60;
@@ -54,6 +55,28 @@ async function fetchTopScorers() {
     return await response.json();
   } catch (error) {
     console.error('Error fetching scorers:', error);
+    return null;
+  }
+}
+
+// Fetch live match from scoreboard API
+async function fetchLiveMatch() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/scoreboard`, {
+      next: { revalidate: 10 } // Revalidate every 10 seconds for live data
+    });
+    if (!response.ok) throw new Error('Failed to fetch scoreboard');
+    const data = await response.json();
+
+    // Find first live or recently completed match
+    const liveMatch = data.events?.find((event: any) => {
+      const status = event.competitions?.[0]?.status;
+      return status?.type?.name === 'STATUS_IN_PROGRESS' || status?.type?.state === 'in';
+    });
+
+    return liveMatch;
+  } catch (error) {
+    console.error('Error fetching live match:', error);
     return null;
   }
 }
@@ -199,13 +222,14 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
   const tNav = await getTranslations("nav");
 
   // Fetch data from APIs
-  const [standingsData, teamsData, scorersData, scheduleData] = await Promise.all([
+  const [standingsData, teamsData, scorersData, scheduleData, liveMatch] = await Promise.all([
     fetchStandings(),
     fetchTeams(),
     fetchTopScorers(),
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/schedule`, {
       next: { revalidate: 300 }
     }).then(res => res.json()).catch(() => null),
+    fetchLiveMatch(),
   ]);
 
   // Official CAN 2025 groups with team IDs from ESPN API
@@ -412,6 +436,50 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
             </svg>
           </div>
         </section>
+
+        {/* Live Match Commentary Section - AI-powered real-time updates */}
+        {liveMatch && (
+          <section className="container-main py-8 md:py-12">
+            <div className="max-w-4xl mx-auto">
+              {/* Match Header */}
+              <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6 mb-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
+                        <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        {locale === 'fr' ? 'EN DIRECT' : locale === 'es' ? 'EN VIVO' : 'LIVE'}
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        {liveMatch.competitions?.[0]?.status?.displayClock || ''}
+                      </span>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                      {liveMatch.competitions?.[0]?.competitors?.find((c: any) => c.homeAway === 'home')?.team?.displayName}
+                      {' vs '}
+                      {liveMatch.competitions?.[0]?.competitors?.find((c: any) => c.homeAway === 'away')?.team?.displayName}
+                    </h2>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl md:text-5xl font-bold text-[#04453f]">
+                      {liveMatch.competitions?.[0]?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}
+                      {' - '}
+                      {liveMatch.competitions?.[0]?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live Commentary Component */}
+              <LiveMatchCommentary
+                matchId={liveMatch.id}
+                locale={locale}
+                autoRefresh={true}
+                refreshInterval={10000}
+              />
+            </div>
+          </section>
+        )}
 
         {/* Groups Section - targeting "groupes CAN 2025" */}
         <section id="groupes" className="container-main py-12 md:py-16">

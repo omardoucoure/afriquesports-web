@@ -1,0 +1,324 @@
+/**
+ * AFCON Agent Monitor - Admin Styles
+ */
+
+/* Main container */
+.afcon-agent-monitor {
+    margin-top: 20px;
+}
+
+.afcon-agent-monitor h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.afcon-agent-monitor h1 .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Tab content */
+.afcon-agent-monitor .tab-content {
+    margin-top: 20px;
+}
+
+/* Dashboard Tab */
+.afcon-dashboard-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.afcon-dashboard-tab .afcon-logs-card {
+    grid-column: 1 / -1;
+}
+
+.afcon-status-card,
+.afcon-stats-card,
+.afcon-logs-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.afcon-status-card h2,
+.afcon-stats-card h2,
+.afcon-logs-card h2 {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Status indicator */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.running {
+    background: #46b450;
+    box-shadow: 0 0 8px #46b450;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.stopped {
+    background: #dc3232;
+}
+
+.status-dot.error {
+    background: #ffb900;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Status details */
+.status-details {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f0f0f1;
+    border-radius: 4px;
+}
+
+.status-details p {
+    margin: 5px 0;
+}
+
+/* Control buttons */
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.control-buttons button {
+    flex: 1;
+}
+
+/* Stats grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: #f0f0f1;
+    border-radius: 4px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2271b1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Log viewer */
+.log-viewer {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.log-viewer.mini {
+    max-height: 200px;
+}
+
+.log-viewer pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.log-viewer .no-logs {
+    color: #999;
+    text-align: center;
+    padding: 30px;
+}
+
+.log-viewer .loading {
+    color: #999;
+    text-align: center;
+    padding: 30px;
+}
+
+/* Logs Tab */
+.afcon-logs-tab {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.logs-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.logs-controls input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Statistics Tab */
+.afcon-statistics-tab {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.stats-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+/* Settings Tab */
+.afcon-settings-tab form {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.activity-log {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.activity-log table {
+    margin-top: 15px;
+}
+
+.activity-log .success {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.activity-log .error {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+/* Loading state */
+.button.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.button.loading:after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Notifications */
+.afcon-notice {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.afcon-notice.success {
+    background: #edfaee;
+    border-left: 4px solid #46b450;
+    color: #2f592f;
+}
+
+.afcon-notice.error {
+    background: #fef7f7;
+    border-left: 4px solid #dc3232;
+    color: #691212;
+}
+
+/* Test connection result */
+#test-result {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+#test-result.success {
+    color: #46b450;
+}
+
+#test-result.error {
+    color: #dc3232;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .afcon-dashboard-tab {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logs-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .logs-controls input[type="text"] {
+        width: 100%;
+    }
+}

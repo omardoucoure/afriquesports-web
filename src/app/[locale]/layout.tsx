@@ -27,10 +27,15 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  // Determine if locale uses RTL
+  const isRTL = locale === 'ar';
+
   return (
-    <IntlProvider locale={locale} messages={messages}>
-      {children}
-      <LocaleModal />
-    </IntlProvider>
+    <div lang={locale} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen">
+      <IntlProvider locale={locale} messages={messages}>
+        {children}
+        <LocaleModal />
+      </IntlProvider>
+    </div>
   );
 }

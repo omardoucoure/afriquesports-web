@@ -29,7 +29,7 @@ npm run lint     # Run ESLint
 
 ## WordPress source configuration
 
-- **Server:** LiteSpeed on DigitalOcean (165.232.149.230)
+- **Server:** LiteSpeed on DigitalOcean (159.223.103.16)
 - **CMS:** WordPress Multisite
 - **Database:** MySQL (wordpress/mod849_)
 - **Caching:** WP Rocket + LiteSpeed Cache

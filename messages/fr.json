@@ -356,5 +356,18 @@
       "substitutions": "Changements",
       "cards": "Cartons"
     }
+  },
+  "can2025": {
+    "liveCommentary": "Commentaires en direct",
+    "live": "EN DIRECT",
+    "lastUpdate": "Dernière mise à jour",
+    "loadingCommentary": "Chargement des commentaires...",
+    "errorLoadingCommentary": "Erreur lors du chargement des commentaires",
+    "tryAgain": "Réessayer",
+    "noCommentaryYet": "Aucun commentaire disponible pour le moment",
+    "checkBackDuringMatch": "Revenez pendant le match pour les commentaires en direct",
+    "goal": "BUT",
+    "events": "événements",
+    "aiGeneratedCommentary": "Commentaires générés par IA"
   }
 }

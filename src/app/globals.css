@@ -434,4 +434,140 @@
       padding-top: 150px;
     }
   }
+
+  /* ============================================================================
+     RTL (Right-to-Left) Support for Arabic
+     ============================================================================ */
+
+  /* Base RTL text alignment */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  /* Flex containers - reverse direction for RTL */
+  [dir="rtl"] .flex:not(.flex-col):not(.flex-col-reverse) {
+    flex-direction: row-reverse;
+  }
+
+  /* Grid gap adjustments - no changes needed, grid is symmetric */
+
+  /* Border directions for RTL */
+  [dir="rtl"] .border-l,
+  [dir="rtl"] .border-l-2,
+  [dir="rtl"] .border-l-4 {
+    border-left: 0;
+    border-right-width: inherit;
+  }
+
+  [dir="rtl"] .border-r,
+  [dir="rtl"] .border-r-2,
+  [dir="rtl"] .border-r-4 {
+    border-right: 0;
+    border-left-width: inherit;
+  }
+
+  /* Rounded corners for RTL */
+  [dir="rtl"] .rounded-l,
+  [dir="rtl"] .rounded-l-lg,
+  [dir="rtl"] .rounded-l-xl {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+
+  [dir="rtl"] .rounded-r,
+  [dir="rtl"] .rounded-r-lg,
+  [dir="rtl"] .rounded-r-xl {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+  }
+
+  /* Padding and margin adjustments for RTL */
+  [dir="rtl"] .pl-6 {
+    padding-left: 0;
+    padding-right: 1.5rem;
+  }
+
+  [dir="rtl"] .pr-6 {
+    padding-right: 0;
+    padding-left: 1.5rem;
+  }
+
+  [dir="rtl"] .ml-auto {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  [dir="rtl"] .mr-auto {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  /* Lists in RTL - bullets/numbers on the right */
+  [dir="rtl"] .article-content ul,
+  [dir="rtl"] ul {
+    padding-left: 0;
+    padding-right: 1.5rem;
+  }
+
+  [dir="rtl"] .article-content ol,
+  [dir="rtl"] ol {
+    padding-left: 0;
+    padding-right: 1.5rem;
+  }
+
+  /* Blockquotes in RTL */
+  [dir="rtl"] .article-content blockquote {
+    border-left: 0;
+    border-right: 4px solid #04453f;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  /* Text alignment in article content */
+  [dir="rtl"] .article-content {
+    text-align: right;
+  }
+
+  [dir="rtl"] .article-content h2,
+  [dir="rtl"] .article-content h3,
+  [dir="rtl"] .article-content h4 {
+    text-align: right;
+  }
+
+  /* Table alignment for RTL */
+  [dir="rtl"] .article-content th,
+  [dir="rtl"] .article-content td {
+    text-align: right;
+  }
+
+  /* Position adjustments for absolute elements in RTL */
+  [dir="rtl"] .absolute.left-3 {
+    left: auto;
+    right: 0.75rem;
+  }
+
+  [dir="rtl"] .absolute.right-3 {
+    right: auto;
+    left: 0.75rem;
+  }
+
+  /* Arabic-specific font rendering improvements */
+  [dir="rtl"] body,
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6,
+  [dir="rtl"] p,
+  [dir="rtl"] span,
+  [dir="rtl"] a {
+    /* Better rendering for Arabic script */
+    font-feature-settings: "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }

@@ -1,0 +1,12 @@
+{
+    "name": "afcon/agent-monitor",
+    "description": "WordPress plugin to monitor and control AFCON AI Agent on DigitalOcean",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.4",
+        "phpseclib/phpseclib": "^3.0"
+    },
+    "autoload": {
+        "classmap": ["includes/"]
+    }
+}

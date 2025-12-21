@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
-import { fr, enUS, es } from "date-fns/locale";
+import { fr, enUS, es, arSA } from "date-fns/locale";
 import type { WordPressPost } from "./data-fetcher";
 
 /**
@@ -35,6 +35,8 @@ function getDateLocale(locale: string) {
       return enUS;
     case "es":
       return es;
+    case "ar":
+      return arSA;
     default:
       return fr;
   }

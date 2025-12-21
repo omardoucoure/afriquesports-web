@@ -356,5 +356,18 @@
       "substitutions": "Substitutions",
       "cards": "Cards"
     }
+  },
+  "can2025": {
+    "liveCommentary": "Live Commentary",
+    "live": "LIVE",
+    "lastUpdate": "Last update",
+    "loadingCommentary": "Loading commentary...",
+    "errorLoadingCommentary": "Error loading commentary",
+    "tryAgain": "Try again",
+    "noCommentaryYet": "No commentary available yet",
+    "checkBackDuringMatch": "Check back during the match for live commentary",
+    "goal": "GOAL",
+    "events": "events",
+    "aiGeneratedCommentary": "AI-generated commentary"
   }
 }
