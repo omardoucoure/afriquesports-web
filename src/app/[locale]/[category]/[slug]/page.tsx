@@ -12,6 +12,7 @@ import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/compone
 import { CommentSection } from "@/components/comments";
 import { VisitTracker } from "@/components/tracking";
 import { DataFetcher } from "@/lib/data-fetcher";
+import { getTrendingPostsByRange } from "@/lib/supabase-db";
 import {
   formatDate,
   getRelativeDate,
@@ -277,13 +278,40 @@ async function RelatedArticles({ categorySlug, locale }: { categorySlug: string;
 }
 
 async function SidebarMostRead({ locale }: { locale: string }) {
+  const t = await getTranslations("home");
+
+  try {
+    // Fetch trending posts directly from database (last 7 days, limit 5) filtered by locale
+    const trending = await getTrendingPostsByRange(7, 5, locale);
+
+    if (trending && trending.length > 0) {
+      // Transform trending data to match article format for MostReadWidget
+      const trendingArticles = trending.map((item) => ({
+        id: parseInt(item.post_id as string),
+        slug: item.post_slug,
+        title: { rendered: item.post_title },
+        _embedded: item.post_image ? {
+          'wp:featuredmedia': [{ source_url: item.post_image }]
+        } : undefined,
+        link: `https://www.afriquesports.net/${item.post_category || 'football'}/${item.post_slug}`,
+        viewCount: Number(item.total_count || item.count || 0),
+        author: item.post_author || 'Afrique Sports',
+      }));
+
+      return <MostReadWidget articles={trendingArticles} title={t("mostRead")} />;
+    }
+  } catch (error) {
+    console.error('[SidebarMostRead] Error fetching trending posts:', error);
+  }
+
+  // Fallback: Show latest articles WITHOUT view counts
   const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
   }
 
-  return <MostReadWidget articles={articles} />;
+  return <MostReadWidget articles={articles} title={t("mostRead")} />;
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {

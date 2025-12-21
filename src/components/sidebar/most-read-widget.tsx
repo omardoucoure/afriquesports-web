@@ -72,7 +72,8 @@ export function MostReadWidget({
             ? getAuthorName(article as WordPressPost)
             : ((article as TrendingArticle).author || 'Afrique Sports');
           const articleTitle = stripHtml(article.title.rendered);
-          const viewCount = formatViewCount((article as TrendingArticle).viewCount);
+          // Only show view count for TrendingArticle (not WordPressPost)
+          const viewCount = 'viewCount' in article ? formatViewCount(article.viewCount) : null;
 
           return (
             <div

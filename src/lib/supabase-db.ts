@@ -120,12 +120,17 @@ export interface TrendingPost {
 // Get trending posts for a date range
 export async function getTrendingPostsByRange(days: number = 7, limit: number = 10, locale: string = 'fr'): Promise<TrendingPost[]> {
   const supabase = getClient();
-  if (!supabase) return [];
+  if (!supabase) {
+    console.log('[Supabase] ❌ No Supabase client - check environment variables');
+    return [];
+  }
 
   try {
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - days);
     const fromDate = dateFrom.toISOString().split('T')[0];
+
+    console.log(`[Supabase] Fetching trending posts (days=${days}, limit=${limit}, locale=${locale}, from=${fromDate})`);
 
     const { data, error } = await supabase
       .from('visits')
@@ -138,6 +143,11 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
     if (error) {
       console.error('[Supabase] Error fetching trending:', error);
       return [];
+    }
+
+    console.log(`[Supabase] Raw data from database: ${data?.length || 0} rows`);
+    if (data && data.length > 0) {
+      console.log('[Supabase] Sample data:', data[0]);
     }
 
     // Sum up counts for posts that appear on multiple days
@@ -154,7 +164,10 @@ export async function getTrendingPostsByRange(days: number = 7, limit: number = 
       .sort((a, b) => b.total_count - a.total_count)
       .slice(0, limit);
 
-    console.log('[Supabase] Trending posts fetched:', results.length);
+    console.log(`[Supabase] ✓ Trending posts fetched: ${results.length} unique posts`);
+    if (results.length > 0) {
+      console.log('[Supabase] Top trending post:', { title: results[0].post_title, views: results[0].total_count });
+    }
     return results;
   } catch (error) {
     console.error('[Supabase] Error in getTrendingPostsByRange:', error);

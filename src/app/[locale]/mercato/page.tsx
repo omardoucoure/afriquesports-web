@@ -5,6 +5,8 @@ import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
+import { getTrendingPostsByRange } from "@/lib/supabase-db";
+import { getTranslations } from "next-intl/server";
 
 // ISR: Revalidate mercato page every 60 seconds
 export const revalidate = 60;
@@ -120,17 +122,45 @@ async function MercatoArticles({ page }: { page: number }) {
   }
 }
 
-async function SidebarMostRead() {
-  const articles = await DataFetcher.fetchPosts({ per_page: "5" });
+async function SidebarMostRead({ locale }: { locale: string }) {
+  const t = await getTranslations("home");
+
+  try {
+    // Fetch trending posts directly from database (last 7 days, limit 5) filtered by locale
+    const trending = await getTrendingPostsByRange(7, 5, locale);
+
+    if (trending && trending.length > 0) {
+      // Transform trending data to match article format for MostReadWidget
+      const trendingArticles = trending.map((item) => ({
+        id: parseInt(item.post_id as string),
+        slug: item.post_slug,
+        title: { rendered: item.post_title },
+        _embedded: item.post_image ? {
+          'wp:featuredmedia': [{ source_url: item.post_image }]
+        } : undefined,
+        link: `https://www.afriquesports.net/${item.post_category || 'football'}/${item.post_slug}`,
+        viewCount: Number(item.total_count || item.count || 0),
+        author: item.post_author || 'Afrique Sports',
+      }));
+
+      return <MostReadWidget articles={trendingArticles} title={t("mostRead")} />;
+    }
+  } catch (error) {
+    console.error('[SidebarMostRead] Error fetching trending posts:', error);
+  }
+
+  // Fallback: Show latest articles WITHOUT view counts
+  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
   }
 
-  return <MostReadWidget articles={articles} />;
+  return <MostReadWidget articles={articles} title={t("mostRead")} />;
 }
 
-export default async function MercatoPage({ searchParams }: MercatoPageProps) {
+export default async function MercatoPage({ params, searchParams }: MercatoPageProps) {
+  const { locale } = await params;
   const { page: pageParam } = await searchParams;
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
@@ -169,7 +199,7 @@ export default async function MercatoPage({ searchParams }: MercatoPageProps) {
             <aside className="hidden lg:block w-80 flex-shrink-0">
               <div className="sticky top-20 space-y-6">
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
-                  <SidebarMostRead />
+                  <SidebarMostRead locale={locale} />
                 </Suspense>
                 <PlayersWidget />
               </div>
