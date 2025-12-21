@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTrendingPosts, getTrendingPostsByRange, initVisitsTable } from '@/lib/db';
+import { getTrendingPostsByRange } from '@/lib/supabase-db';
 
 export interface TrendingPost {
   post_id: string;
@@ -11,27 +11,13 @@ export interface TrendingPost {
   count: number;
 }
 
-// Initialize table on first request
-let tableInitialized = false;
-
 export async function GET(request: NextRequest) {
   try {
-    // Initialize table if not done yet
-    if (!tableInitialized) {
-      await initVisitsTable();
-      tableInitialized = true;
-    }
-
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get('limit') || '10', 10);
-    const days = searchParams.get('days'); // Optional: get trending over X days
+    const days = parseInt(searchParams.get('days') || '1', 10); // Default to today
 
-    let trending;
-    if (days) {
-      trending = await getTrendingPostsByRange(parseInt(days, 10), limit);
-    } else {
-      trending = await getTrendingPosts(limit);
-    }
+    const trending = await getTrendingPostsByRange(days, limit);
 
     return NextResponse.json({ trending });
   } catch (error) {
