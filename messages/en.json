@@ -175,6 +175,48 @@
     "teams": "24 qualified teams",
     "stadiums": "6 stadiums",
     "latestNews": "Latest AFCON 2025 news",
+    "edition": "35th edition",
+    "hero": {
+      "title": "AFCON 2025 Morocco",
+      "subtitle": "Africa Cup of Nations",
+      "location": "Morocco"
+    },
+    "stats": {
+      "groups": "Groups",
+      "matches": "Matches",
+      "stadiums": "Stadiums",
+      "days": "Days",
+      "teams": "teams"
+    },
+    "badges": {
+      "officialGroups": "Official groups",
+      "completeProgram": "Full schedule",
+      "tournamentStars": "⭐ Tournament stars",
+      "latestNews": "📰 Latest news",
+      "faq": "❓ FAQ"
+    },
+    "descriptions": {
+      "groups": "The 6 groups of the Africa Cup of Nations 2025",
+      "calendar": "All AFCON 2025 matches with schedules and venues",
+      "keyPlayers": "Top scorers and key players of AFCON 2025",
+      "latestNews": "All AFCON 2025 news: squads, transfers, matches and analysis",
+      "faq": "Everything you need to know about AFCON 2025"
+    },
+    "emptyStates": {
+      "noGroups": "Groups will be displayed soon.",
+      "noSchedule": "Schedule will be available soon.",
+      "noScorers": "Data will be available once the tournament starts."
+    },
+    "goalsLabel": "goals",
+    "calendarTitle": "Match schedule",
+    "keyPlayersTitle": "Key players to watch",
+    "favoritesReasons": {
+      "morocco": "Host country",
+      "senegal": "2022 Champion",
+      "egypt": "7x Champion",
+      "nigeria": "Super Eagles",
+      "ivoryCoast": "2023 Champion"
+    },
     "teamLists": "Team squads",
     "teamListsDescription": "Discover the complete list of players selected for AFCON 2025",
     "calendar": "Match schedule",

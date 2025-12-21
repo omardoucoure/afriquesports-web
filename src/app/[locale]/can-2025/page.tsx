@@ -349,15 +349,15 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                 <svg className="w-5 h-5 text-[#9DFF20]" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
-                <span className="text-white font-bold text-sm uppercase tracking-wide">35ème édition</span>
+                <span className="text-white font-bold text-sm uppercase tracking-wide">{t("edition")}</span>
               </div>
 
               {/* Main Title - H1 for SEO */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-                {locale === "fr" ? "CAN 2025 Maroc" : locale === "en" ? "AFCON 2025 Morocco" : "CAN 2025 Marruecos"}
+                {t("hero.title")}
               </h1>
               <p className="text-xl md:text-2xl text-white/90 mb-6">
-                {locale === "fr" ? "Coupe d'Afrique des Nations" : locale === "en" ? "Africa Cup of Nations" : "Copa Africana de Naciones"}
+                {t("hero.subtitle")}
               </p>
 
               {/* Tournament Info */}
@@ -373,13 +373,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="font-medium">{locale === "fr" ? "Maroc" : locale === "en" ? "Morocco" : "Marruecos"}</span>
+                  <span className="font-medium">{t("hero.location")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
-                  <span className="font-medium">24 {locale === "fr" ? "équipes" : locale === "en" ? "teams" : "equipos"}</span>
+                  <span className="font-medium">24 {t("stats.teams")}</span>
                 </div>
               </div>
 
@@ -387,19 +387,19 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                   <div className="text-3xl font-bold text-[#9DFF20] mb-1">6</div>
-                  <div className="text-sm text-white/80">{locale === "fr" ? "Groupes" : locale === "en" ? "Groups" : "Grupos"}</div>
+                  <div className="text-sm text-white/80">{t("stats.groups")}</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                   <div className="text-3xl font-bold text-[#9DFF20] mb-1">52</div>
-                  <div className="text-sm text-white/80">{locale === "fr" ? "Matchs" : locale === "en" ? "Matches" : "Partidos"}</div>
+                  <div className="text-sm text-white/80">{t("stats.matches")}</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                   <div className="text-3xl font-bold text-[#9DFF20] mb-1">6</div>
-                  <div className="text-sm text-white/80">{locale === "fr" ? "Stades" : locale === "en" ? "Stadiums" : "Estadios"}</div>
+                  <div className="text-sm text-white/80">{t("stats.stadiums")}</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                   <div className="text-3xl font-bold text-[#9DFF20] mb-1">29</div>
-                  <div className="text-sm text-white/80">{locale === "fr" ? "Jours" : locale === "en" ? "Days" : "Días"}</div>
+                  <div className="text-sm text-white/80">{t("stats.days")}</div>
                 </div>
               </div>
             </div>
@@ -417,13 +417,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         <section id="groupes" className="container-main py-12 md:py-16">
           <div className="text-center mb-8 md:mb-12">
             <div className="inline-block px-4 py-2 bg-[#04453f]/10 rounded-full mb-4">
-              <span className="text-[#04453f] font-bold text-sm uppercase tracking-wide">Groupes officiels</span>
+              <span className="text-[#04453f] font-bold text-sm uppercase tracking-wide">{t("badges.officialGroups")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               {t("groups")}
             </h2>
             <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              {t("groupsDescription")}
+              {t("descriptions.groups")}
             </p>
           </div>
 
@@ -447,7 +447,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                     <div className={`bg-gradient-to-br ${gradients[groupIdx % 6]} px-6 py-4`}>
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                          <span className="text-2xl font-black text-white">{groupName}</span>
+                          <span className="text-2xl font-bold text-white">{groupName}</span>
                         </div>
                         <h3 className="text-xl font-bold text-white">
                           Groupe {groupName}
@@ -507,7 +507,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                     <div className={`bg-gradient-to-br ${gradients[groupIdx % 6]} px-6 py-4`}>
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                          <span className="text-2xl font-black text-white">{group.abbreviation}</span>
+                          <span className="text-2xl font-bold text-white">{group.abbreviation}</span>
                         </div>
                         <h3 className="text-xl font-bold text-white">
                           Groupe {group.abbreviation}
@@ -546,9 +546,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           ) : (
             <div className="text-center py-12 bg-white rounded-lg">
               <p className="text-gray-500 text-lg">
-                {locale === "fr" ? "Les groupes seront affichés prochainement." :
-                 locale === "en" ? "Groups will be displayed soon." :
-                 "Los grupos se mostrarán pronto."}
+                {t("emptyStates.noGroups")}
               </p>
             </div>
           )}
@@ -559,13 +557,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           <div className="container-main">
             <div className="text-center mb-8 md:mb-12">
               <div className="inline-block px-4 py-2 bg-[#9DFF20]/20 rounded-full mb-4">
-                <span className="text-[#04453f] font-bold text-sm uppercase tracking-wide">Programme complet</span>
+                <span className="text-[#04453f] font-bold text-sm uppercase tracking-wide">{t("badges.completeProgram")}</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                {locale === "fr" ? "Calendrier des matchs" : locale === "en" ? "Match schedule" : "Calendario de partidos"}
+                {t("calendarTitle")}
               </h2>
               <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                {locale === "fr" ? "Tous les matchs de la CAN 2025 avec horaires et stades" : locale === "en" ? "All CAN 2025 matches with schedules and venues" : "Todos los partidos con horarios y estadios"}
+                {t("descriptions.calendar")}
               </p>
             </div>
 
@@ -596,7 +594,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                               })}
                             </span>
                           </div>
-                          <span className="text-lg font-black text-gray-900">
+                          <span className="text-lg font-bold text-gray-900">
                             {matchDate.toLocaleTimeString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
                               hour: '2-digit',
                               minute: '2-digit'
@@ -623,7 +621,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                               <span className="font-bold text-gray-900 text-base">{homeTeam?.displayName || homeTeam?.name}</span>
                             </div>
                             {status?.type?.completed && (
-                              <span className="text-2xl font-black text-gray-900 min-w-[2rem] text-right">
+                              <span className="text-2xl font-bold text-gray-900 min-w-[2rem] text-right">
                                 {competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}
                               </span>
                             )}
@@ -653,7 +651,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                               <span className="font-bold text-gray-900 text-base">{awayTeam?.displayName || awayTeam?.name}</span>
                             </div>
                             {status?.type?.completed && (
-                              <span className="text-2xl font-black text-gray-900 min-w-[2rem] text-right">
+                              <span className="text-2xl font-bold text-gray-900 min-w-[2rem] text-right">
                                 {competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}
                               </span>
                             )}
@@ -682,7 +680,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                               day: 'numeric'
                             })}
                           </span>
-                          <span className="text-xl font-black text-gray-900">
+                          <span className="text-xl font-bold text-gray-900">
                             {matchDate.toLocaleTimeString(locale === "fr" ? "fr-FR" : locale === "en" ? "en-US" : "es-ES", {
                               hour: '2-digit',
                               minute: '2-digit'
@@ -712,9 +710,9 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                           <div className="flex items-center justify-center min-w-[120px]">
                             {status?.type?.completed ? (
                               <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#04453f] to-[#345C00] rounded-xl">
-                                <span className="text-3xl font-black text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}</span>
-                                <span className="text-2xl font-black text-white/50">-</span>
-                                <span className="text-3xl font-black text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}</span>
+                                <span className="text-3xl font-bold text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'home')?.score || '0'}</span>
+                                <span className="text-2xl font-bold text-white/50">-</span>
+                                <span className="text-3xl font-bold text-white">{competition?.competitors?.find((c: any) => c.homeAway === 'away')?.score || '0'}</span>
                               </div>
                             ) : (
                               <span className="px-6 py-3 bg-gradient-to-r from-[#04453f] to-[#345C00] text-white text-sm font-bold rounded-xl uppercase tracking-wider">VS</span>
@@ -759,9 +757,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-lg text-gray-500 font-medium">
-                  {locale === "fr" ? "Le calendrier sera disponible prochainement." :
-                   locale === "en" ? "Schedule will be available soon." :
-                   "El calendario estará disponible pronto."}
+                  {t("emptyStates.noSchedule")}
                 </p>
               </div>
             )}
@@ -772,13 +768,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         <section id="joueurs" className="container-main py-12 md:py-16">
           <div className="text-center mb-8 md:mb-12">
             <div className="inline-block px-4 py-2 bg-orange-100 rounded-full mb-4">
-              <span className="text-orange-700 font-bold text-sm uppercase tracking-wide">⭐ Stars du tournoi</span>
+              <span className="text-orange-700 font-bold text-sm uppercase tracking-wide">{t("badges.tournamentStars")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               {t("keyPlayers.title")}
             </h2>
             <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              {locale === "fr" ? "Les meilleurs buteurs et joueurs clés de la CAN 2025" : locale === "en" ? "Top scorers and key players of AFCON 2025" : "Máximos goleadores y jugadores clave de la CAN 2025"}
+              {t("descriptions.keyPlayers")}
             </p>
           </div>
 
@@ -819,7 +815,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
                     )}
                     <p className="text-xs text-[#04453f] font-medium">{teamName}</p>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">{stats} {locale === "fr" ? "buts" : locale === "en" ? "goals" : "goles"}</p>
+                  <p className="text-xs text-gray-500 mt-1">{stats} {t("goalsLabel")}</p>
                 </div>
               );
             })}
@@ -827,7 +823,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
 
           {(!scorersData || !scorersData.categories?.length) && (
             <div className="text-center py-8">
-              <p className="text-gray-500">{scorersData?.message || locale === "fr" ? "Les données seront disponibles une fois le tournoi commencé." : locale === "en" ? "Data will be available once the tournament starts." : "Los datos estarán disponibles una vez que comience el torneo."}</p>
+              <p className="text-gray-500">{scorersData?.message || t("emptyStates.noScorers")}</p>
             </div>
           )}
         </section>
@@ -837,13 +833,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
           <div className="container-main">
             <div className="text-center mb-8 md:mb-12">
               <div className="inline-block px-4 py-2 bg-blue-100 rounded-full mb-4">
-                <span className="text-blue-700 font-bold text-sm uppercase tracking-wide">📰 Dernières infos</span>
+                <span className="text-blue-700 font-bold text-sm uppercase tracking-wide">{t("badges.latestNews")}</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
                 {t("latestNews")}
               </h2>
               <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                {locale === "fr" ? "Toute l'actualité de la CAN 2025 : listes, transferts, matchs et analyses" : locale === "en" ? "All AFCON 2025 news: squads, transfers, matches and analysis" : "Todas las noticias: listas, fichajes, partidos y análisis"}
+                {t("descriptions.latestNews")}
               </p>
             </div>
 
@@ -866,13 +862,13 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         <section id="faq" className="container-main py-12 md:py-16">
           <div className="text-center mb-8 md:mb-12">
             <div className="inline-block px-4 py-2 bg-purple-100 rounded-full mb-4">
-              <span className="text-purple-700 font-bold text-sm uppercase tracking-wide">❓ Questions fréquentes</span>
+              <span className="text-purple-700 font-bold text-sm uppercase tracking-wide">{t("badges.faq")}</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               {t("faq.title")}
             </h2>
             <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              {locale === "fr" ? "Tout ce que vous devez savoir sur la CAN 2025" : locale === "en" ? "Everything you need to know about AFCON 2025" : "Todo lo que necesitas saber sobre la CAN 2025"}
+              {t("descriptions.faq")}
             </p>
           </div>
 
@@ -903,7 +899,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
         <section className="bg-gradient-to-r from-[#022a27] to-[#04453f] py-12 md:py-16">
           <div className="container-main">
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
                 {t("favorites")}
               </h2>
               <p className="text-base md:text-lg text-white/80">{t("favoritesDescription")}</p>
@@ -911,11 +907,11 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
               {[
-                { name: "Maroc", reason: locale === "fr" ? "Pays hôte" : locale === "en" ? "Host country" : "País anfitrión", odds: "3.50" },
-                { name: "Sénégal", reason: locale === "fr" ? "Champion 2022" : locale === "en" ? "2022 Champion" : "Campeón 2022", odds: "5.00" },
-                { name: "Égypte", reason: locale === "fr" ? "7x Champion" : locale === "en" ? "7x Champion" : "7 veces campeón", odds: "6.00" },
-                { name: "Nigeria", reason: locale === "fr" ? "Super Eagles" : "Super Eagles", odds: "5.50" },
-                { name: "Côte d'Ivoire", reason: locale === "fr" ? "Champion 2023" : locale === "en" ? "2023 Champion" : "Campeón 2023", odds: "7.00" },
+                { name: "Maroc", reason: t("favoritesReasons.morocco"), odds: "3.50" },
+                { name: "Sénégal", reason: t("favoritesReasons.senegal"), odds: "5.00" },
+                { name: "Égypte", reason: t("favoritesReasons.egypt"), odds: "6.00" },
+                { name: "Nigeria", reason: t("favoritesReasons.nigeria"), odds: "5.50" },
+                { name: "Côte d'Ivoire", reason: t("favoritesReasons.ivoryCoast"), odds: "7.00" },
               ].map((team) => (
                 <div key={team.name} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center hover:bg-white/20 transition-colors">
                   <h3 className="font-bold text-white text-lg mb-1">{team.name}</h3>

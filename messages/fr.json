@@ -175,6 +175,48 @@
     "teams": "24 équipes qualifiées",
     "stadiums": "6 stades",
     "latestNews": "Dernières actualités CAN 2025",
+    "edition": "35ème édition",
+    "hero": {
+      "title": "CAN 2025 Maroc",
+      "subtitle": "Coupe d'Afrique des Nations",
+      "location": "Maroc"
+    },
+    "stats": {
+      "groups": "Groupes",
+      "matches": "Matchs",
+      "stadiums": "Stades",
+      "days": "Jours",
+      "teams": "équipes"
+    },
+    "badges": {
+      "officialGroups": "Groupes officiels",
+      "completeProgram": "Programme complet",
+      "tournamentStars": "⭐ Stars du tournoi",
+      "latestNews": "📰 Dernières infos",
+      "faq": "❓ Questions fréquentes"
+    },
+    "descriptions": {
+      "groups": "Les 6 groupes de la Coupe d'Afrique des Nations 2025",
+      "calendar": "Tous les matchs de la CAN 2025 avec horaires et stades",
+      "keyPlayers": "Les meilleurs buteurs et joueurs clés de la CAN 2025",
+      "latestNews": "Toute l'actualité de la CAN 2025 : listes, transferts, matchs et analyses",
+      "faq": "Tout ce que vous devez savoir sur la CAN 2025"
+    },
+    "emptyStates": {
+      "noGroups": "Les groupes seront affichés prochainement.",
+      "noSchedule": "Le calendrier sera disponible prochainement.",
+      "noScorers": "Les données seront disponibles une fois le tournoi commencé."
+    },
+    "goalsLabel": "buts",
+    "calendarTitle": "Calendrier des matchs",
+    "keyPlayersTitle": "Joueurs clés à suivre",
+    "favoritesReasons": {
+      "morocco": "Pays hôte",
+      "senegal": "Champion 2022",
+      "egypt": "7x Champion",
+      "nigeria": "Super Eagles",
+      "ivoryCoast": "Champion 2023"
+    },
     "teamLists": "Listes des équipes",
     "teamListsDescription": "Découvrez la liste complète des joueurs sélectionnés pour la CAN 2025",
     "calendar": "Calendrier des matchs",
