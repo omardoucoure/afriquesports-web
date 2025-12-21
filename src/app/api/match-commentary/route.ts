@@ -1,9 +1,175 @@
 import { NextResponse } from "next/server";
 
-// Mock data for CAN 2025 match commentary
-// In production, this would fetch from a real API
+// Map ESPN team names to translation keys
+const teamNameMap: Record<string, string> = {
+  "Morocco": "morocco",
+  "Comoros": "comoros",
+  "Mali": "mali",
+  "South Africa": "southAfrica",
+  "Zambia": "zambia",
+  "Egypt": "egypt",
+  "Angola": "angola",
+  "Zimbabwe": "zimbabwe",
+  "Senegal": "senegal",
+  "Cameroon": "cameroon",
+  "DR Congo": "drCongo",
+  "Guinea": "guinea",
+  "Tunisia": "tunisia",
+  "Tanzania": "tanzania",
+  "Mauritania": "mauritania",
+  "Gambia": "gambia",
+  "Ivory Coast": "ivoryCoast",
+  "Gabon": "gabon",
+  "Equatorial Guinea": "equatorialGuinea",
+  "Mozambique": "mozambique",
+  "Nigeria": "nigeria",
+  "Ghana": "ghana",
+  "Benin": "benin",
+  "Botswana": "botswana",
+  "Algeria": "algeria",
+  "Burkina Faso": "burkinaFaso",
+  "Cape Verde": "capeVerde",
+  "Sudan": "sudan",
+  "Uganda": "uganda",
+};
+
+// Fetch live AFCON match data from ESPN API
 export async function GET() {
-  const mockMatchData = {
+  try {
+    // Fetch current matches from ESPN API
+    const scoreboardResponse = await fetch(
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard",
+      { next: { revalidate: 30 } } // Cache for 30 seconds
+    );
+
+    if (!scoreboardResponse.ok) {
+      throw new Error("Failed to fetch scoreboard from ESPN");
+    }
+
+    const scoreboardData = await scoreboardResponse.json();
+
+    // Get the first event (match)
+    const events = scoreboardData.events || [];
+    if (events.length === 0) {
+      // No matches available, return empty state
+      return NextResponse.json({
+        success: false,
+        error: "No matches available",
+        match: null,
+        commentary: [],
+      });
+    }
+
+    // Get the first match (or you can filter for live matches)
+    const event = events[0];
+    const competition = event.competitions?.[0];
+
+    if (!competition) {
+      throw new Error("No competition data available");
+    }
+
+    const homeTeam = competition.competitors.find((c: any) => c.homeAway === "home");
+    const awayTeam = competition.competitors.find((c: any) => c.homeAway === "away");
+
+    // Fetch match details and play-by-play
+    const eventId = event.id;
+    const playByPlayResponse = await fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/playbyplay?event=${eventId}`,
+      { next: { revalidate: 30 } }
+    );
+
+    let playByPlayData: any = null;
+    if (playByPlayResponse.ok) {
+      playByPlayData = await playByPlayResponse.json();
+    }
+
+    // Transform ESPN data to our format
+    const matchData = {
+      success: true,
+      language: "fr",
+      match: {
+        eventId: event.id,
+        teams: {
+          home: {
+            name: homeTeam.team.displayName,
+            nameKey: teamNameMap[homeTeam.team.displayName] || homeTeam.team.displayName.toLowerCase(),
+            logo: homeTeam.team.logo || `https://flagcdn.com/w80/${homeTeam.team.abbreviation.toLowerCase()}.png`,
+          },
+          away: {
+            name: awayTeam.team.displayName,
+            nameKey: teamNameMap[awayTeam.team.displayName] || awayTeam.team.displayName.toLowerCase(),
+            logo: awayTeam.team.logo || `https://flagcdn.com/w80/${awayTeam.team.abbreviation.toLowerCase()}.png`,
+          },
+        },
+        score: {
+          home: parseInt(homeTeam.score) || 0,
+          away: parseInt(awayTeam.score) || 0,
+        },
+        status: competition.status.type.description || "Scheduled",
+        statusDetail: competition.status.displayClock || "0'",
+        date: competition.date,
+        competition: scoreboardData.leagues?.[0]?.name || "CAN 2025",
+        venue: competition.venue?.fullName || "",
+        city: competition.venue?.address?.city || "",
+        matchType: competition.status.type.state === "post" ? "recent" : "upcoming",
+      },
+      commentary: [],
+      sources: {
+        espn: `https://www.espn.com/soccer/match/_/gameId/${eventId}`,
+      },
+    };
+
+    // Process play-by-play data if available
+    if (playByPlayData && playByPlayData.plays) {
+      matchData.commentary = playByPlayData.plays
+        .map((play: any) => ({
+          time: play.clock?.displayValue || play.period?.displayValue || "0'",
+          timeSeconds: play.clock?.value || 0,
+          text: play.text || "",
+          type: play.type?.text?.toLowerCase().replace(/\s+/g, "_") || "commentary",
+          team: play.team?.displayName || "",
+          icon: getIconForPlayType(play.type?.text || ""),
+          playerName: play.participants?.[0]?.athlete?.displayName || "",
+          playerImage: play.participants?.[0]?.athlete?.headshot?.href || "",
+          isScoring: play.scoringPlay || false,
+        }))
+        .reverse(); // Reverse to show most recent first
+    }
+
+    return NextResponse.json(matchData);
+  } catch (error) {
+    console.error("Error fetching match data:", error);
+
+    // Return fallback data
+    return NextResponse.json({
+      success: false,
+      error: "Failed to fetch match data",
+      match: null,
+      commentary: [],
+    });
+  }
+}
+
+// Helper function to get icon for play type
+function getIconForPlayType(type: string): string {
+  const typeLower = type.toLowerCase();
+
+  if (typeLower.includes("goal")) return "⚽";
+  if (typeLower.includes("yellow")) return "🟨";
+  if (typeLower.includes("red")) return "🟥";
+  if (typeLower.includes("substitution")) return "🔄";
+  if (typeLower.includes("corner")) return "🚩";
+  if (typeLower.includes("shot")) return "🎯";
+  if (typeLower.includes("foul")) return "⚠️";
+  if (typeLower.includes("var")) return "📺";
+  if (typeLower.includes("whistle") || typeLower.includes("end") || typeLower.includes("start")) return "🏁";
+
+  return "⚽";
+}
+
+// OLD MOCK DATA BELOW - KEPT FOR REFERENCE BUT NOT USED
+/*
+const mockMatchData = {
     success: true,
     language: "fr",
     match: {
@@ -220,3 +386,4 @@ export async function GET() {
 
   return NextResponse.json(mockMatchData);
 }
+*/
