@@ -158,7 +158,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
       return 'from-green-900 via-green-700 to-green-900'; // Green for live
     }
     if (matchData.isFinished) {
-      return 'from-gray-700 via-gray-600 to-gray-700'; // Gray for finished
+      return 'from-yellow-700 via-yellow-600 to-yellow-700'; // Yellow for finished
     }
     return 'from-red-900 via-red-700 to-red-900'; // Red for upcoming
   };
