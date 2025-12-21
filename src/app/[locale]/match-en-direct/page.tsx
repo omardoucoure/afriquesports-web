@@ -70,7 +70,8 @@ export default function MatchEnDirectPage() {
   useEffect(() => {
     const fetchMatchData = async () => {
       try {
-        const response = await fetch("/api/match-commentary");
+        const locale = window.location.pathname.split('/')[1] || 'fr';
+        const response = await fetch(`/api/match-commentary-ai?locale=${locale}`);
         const data = await response.json();
         setMatchData(data);
 
@@ -464,24 +465,35 @@ export default function MatchEnDirectPage() {
 
               {/* Commentary Timeline */}
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                  <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#04453f]" />
-                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
-                    {t("matchCommentary.commentaryTitle")}
-                  </h2>
+                <div className="flex items-center justify-between mb-6 sm:mb-8">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#04453f]" />
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+                      {t("matchCommentary.commentaryTitle")}
+                    </h2>
+                  </div>
+                  {commentary.length > 0 && commentary[0]?.source === 'ai' && (
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full text-xs font-medium shadow-sm">
+                      <span className="animate-pulse">🤖</span>
+                      <span>AI-Powered</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Show message if no commentary available */}
                 {filteredCommentaries.length === 0 ? (
                   <div className="text-center py-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                      <Clock className="h-8 w-8 text-gray-400" />
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 mb-4">
+                      <Clock className="h-8 w-8 text-purple-600" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {t("matchCommentary.notStarted")}
+                      {match.matchType === 'upcoming' ? '🤖 AI Pre-Match Analysis Coming Soon' : t("matchCommentary.notStarted")}
                     </h3>
                     <p className="text-sm text-gray-600 max-w-md mx-auto">
-                      {t("matchCommentary.notStartedDescription")}
+                      {match.matchType === 'upcoming'
+                        ? 'Our AI will generate in-depth pre-match analysis including head-to-head history, recent form, and tactical preview 2 hours before kickoff.'
+                        : t("matchCommentary.notStartedDescription")
+                      }
                     </p>
                   </div>
                 ) : (
