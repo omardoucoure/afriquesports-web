@@ -66,7 +66,7 @@ export default function MatchPageClient({
         <div className="flex items-center justify-center gap-4 mb-6 py-4">
           <div className="flex flex-col items-center">
             <img
-              src={homeTeam.team.logo}
+              src={homeTeam.team.logos?.[0]?.href || homeTeam.team.logo || '/images/team-placeholder.png'}
               alt={homeTeam.team.displayName}
               className="w-12 h-12 md:w-16 md:h-16 object-contain"
             />
@@ -77,7 +77,7 @@ export default function MatchPageClient({
           <span className="text-2xl md:text-3xl font-bold text-gray-400">VS</span>
           <div className="flex flex-col items-center">
             <img
-              src={awayTeam.team.logo}
+              src={awayTeam.team.logos?.[0]?.href || awayTeam.team.logo || '/images/team-placeholder.png'}
               alt={awayTeam.team.displayName}
               className="w-12 h-12 md:w-16 md:h-16 object-contain"
             />
@@ -126,9 +126,9 @@ export default function MatchPageClient({
             {/* Home Team */}
             <div className="flex flex-col items-center flex-1">
               <img
-                src={homeTeam.team.logo}
+                src={homeTeam.team.logos?.[0]?.href || homeTeam.team.logo || '/images/team-placeholder.png'}
                 alt={homeTeam.team.displayName}
-                className="w-20 h-20 mb-3"
+                className="w-20 h-20 mb-3 object-contain"
               />
               <h1 className="text-xl font-bold text-gray-900 text-center">
                 {homeTeam.team.displayName}
@@ -156,9 +156,9 @@ export default function MatchPageClient({
             {/* Away Team */}
             <div className="flex flex-col items-center flex-1">
               <img
-                src={awayTeam.team.logo}
+                src={awayTeam.team.logos?.[0]?.href || awayTeam.team.logo || '/images/team-placeholder.png'}
                 alt={awayTeam.team.displayName}
-                className="w-20 h-20 mb-3"
+                className="w-20 h-20 mb-3 object-contain"
               />
               <h1 className="text-xl font-bold text-gray-900 text-center">
                 {awayTeam.team.displayName}

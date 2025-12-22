@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { MobileNav } from "./mobile-nav";
 import { MobileBottomNav } from "./mobile-bottom-nav";
@@ -51,12 +52,16 @@ function AfricaBorder({ position }: { position: 'top' | 'bottom' }) {
 }
 
 export function Header() {
+  const pathname = usePathname();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const tNav = useTranslations("nav");
   const tCountries = useTranslations("countries");
   const tCommon = useTranslations("common");
+
+  // Hide NextMatchBar on match pages
+  const isMatchPage = pathname?.includes('/match/');
 
   // Build navigation with translated labels
   const navigation = navigationConfig.map((item) => ({
@@ -201,8 +206,8 @@ export function Header() {
           </div>
         </div>
 
-        {/* CAN 2025 Next Match Banner */}
-        <NextMatchBar />
+        {/* CAN 2025 Next Match Banner - Hidden on match pages */}
+        {!isMatchPage && <NextMatchBar />}
 
       </header>
 
