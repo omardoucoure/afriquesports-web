@@ -31,8 +31,8 @@ export default function MatchPageClient({
   const status = matchDataRaw.header.status;
   const venue = competition.venue;
 
-  const isLive = status.type.state === 'in';
-  const isCompleted = status.type.completed;
+  const isLive = status?.type?.state === 'in';
+  const isCompleted = status?.type?.completed || false;
 
   // Poll for updates every 15 seconds during live matches
   const { data: liveData } = useSWR(
@@ -122,7 +122,7 @@ export default function MatchPageClient({
                   {awayTeam.score || '0'}
                 </span>
               </div>
-              {isLive && status.displayClock && (
+              {isLive && status?.displayClock && (
                 <span className="mt-2 text-sm font-medium text-primary-dark">
                   {status.displayClock}
                 </span>

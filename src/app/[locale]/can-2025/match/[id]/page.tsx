@@ -86,9 +86,9 @@ export async function generateMetadata({
   const homeScore = homeTeam.score || 0;
   const awayScore = awayTeam.score || 0;
 
-  // Determine match status
-  const isLive = status.type.state === 'in';
-  const isCompleted = status.type.completed;
+  // Determine match status (handle null status)
+  const isLive = status?.type?.state === 'in';
+  const isCompleted = status?.type?.completed || false;
   const isUpcoming = !isLive && !isCompleted;
 
   // Dynamic title based on match status
