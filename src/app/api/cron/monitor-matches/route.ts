@@ -22,7 +22,7 @@ import { createClient } from '@supabase/supabase-js';
  * No manual intervention required!
  */
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const maxDuration = 300; // 5 minutes max
 
 const supabase = createClient(

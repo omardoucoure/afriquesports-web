@@ -21,7 +21,8 @@ import { getGoogleIndexingAPI } from '@/lib/google-indexing';
  * }
  */
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
+export const maxDuration = 300; // 5 minutes max
 
 export async function GET(request: Request) {
   try {
