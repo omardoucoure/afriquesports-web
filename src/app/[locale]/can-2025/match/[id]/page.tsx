@@ -188,42 +188,48 @@ export default async function MatchPage({
   params: Promise<{ id: string; locale: string }>;
 }) {
   const { id, locale } = await params;
-  const t = await getTranslations({ locale });
 
-  // Fetch match data and commentary in parallel
-  const [matchDataRaw, commentary] = await Promise.all([
-    getMatchData(id),
-    getMatchCommentary(id, locale)
-  ]);
+  try {
+    const t = await getTranslations({ locale });
 
-  if (!matchDataRaw || !matchDataRaw.header) {
-    notFound();
+    // Fetch match data and commentary in parallel
+    const [matchDataRaw, commentary] = await Promise.all([
+      getMatchData(id),
+      getMatchCommentary(id, locale)
+    ]);
+
+    if (!matchDataRaw || !matchDataRaw.header) {
+      notFound();
+    }
+
+    // Convert ESPN data to MatchData format
+    const matchData: MatchData = espnToMatchData(matchDataRaw.header, commentary);
+
+    // Generate comprehensive schema markup
+    const schema = generateMatchSchemas(matchData, locale);
+
+    return (
+      <>
+        {/* Inject JSON-LD schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+
+        {/* Client component for live updates and rendering */}
+        <MatchPageClient
+          initialMatchData={matchData}
+          matchDataRaw={matchDataRaw}
+          commentary={commentary}
+          locale={locale}
+          matchId={id}
+        />
+      </>
+    );
+  } catch (error) {
+    console.error('Error in MatchPage:', error);
+    throw error;
   }
-
-  // Convert ESPN data to MatchData format
-  const matchData: MatchData = espnToMatchData(matchDataRaw.header, commentary);
-
-  // Generate comprehensive schema markup
-  const schema = generateMatchSchemas(matchData, locale);
-
-  return (
-    <>
-      {/* Inject JSON-LD schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
-
-      {/* Client component for live updates and rendering */}
-      <MatchPageClient
-        initialMatchData={matchData}
-        matchDataRaw={matchDataRaw}
-        commentary={commentary}
-        locale={locale}
-        matchId={id}
-      />
-    </>
-  );
 }
 
 /**
