@@ -215,7 +215,7 @@ export default function MatchPageClient({
         )}
 
         {/* No Commentary Available */}
-        {!currentCommentary || currentCommentary.length === 0 && (
+        {(!currentCommentary || currentCommentary.length === 0) && (
           <div className="bg-white rounded-lg shadow-sm p-12 text-center">
             <p className="text-gray-500">
               {isLive
