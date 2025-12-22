@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { generateMatchSchemas, espnToMatchData, MatchData } from '@/lib/match-schema';
 import MatchPageClient from '@/components/match/MatchPageClient';
+import { Header, Footer } from '@/components/layout';
+import { Breadcrumb } from '@/components/ui';
 
 const SITE_URL = "https://www.afriquesports.net";
 
@@ -208,6 +210,18 @@ export default async function MatchPage({
     // Generate comprehensive schema markup
     const schema = generateMatchSchemas(matchData, locale);
 
+    // Extract team info for breadcrumb
+    const competition = matchDataRaw.header.competitions[0];
+    const homeTeam = competition.competitors[0];
+    const awayTeam = competition.competitors[1];
+    const matchTitle = `${homeTeam.team.displayName} vs ${awayTeam.team.displayName}`;
+
+    // Breadcrumb items
+    const breadcrumbItems = [
+      { label: 'CAN 2025', href: `/${locale}/can-2025` },
+      { label: matchTitle, href: `/${locale}/can-2025/match/${id}` }
+    ];
+
     return (
       <>
         {/* Inject JSON-LD schema */}
@@ -216,14 +230,24 @@ export default async function MatchPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
 
-        {/* Client component for live updates and rendering */}
-        <MatchPageClient
-          initialMatchData={matchData}
-          matchDataRaw={matchDataRaw}
-          commentary={commentary}
-          locale={locale}
-          matchId={id}
-        />
+        <Header />
+
+        <main className="min-h-screen bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 py-6">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+
+          {/* Client component for live updates and rendering */}
+          <MatchPageClient
+            initialMatchData={matchData}
+            matchDataRaw={matchDataRaw}
+            commentary={commentary}
+            locale={locale}
+            matchId={id}
+          />
+        </main>
+
+        <Footer />
       </>
     );
   } catch (error) {

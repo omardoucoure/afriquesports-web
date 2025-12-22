@@ -61,8 +61,32 @@ export default function MatchPageClient({
   }, [isLive]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto px-4 pb-8">
+        {/* Team Flags Banner */}
+        <div className="flex items-center justify-center gap-4 mb-6 py-4">
+          <div className="flex flex-col items-center">
+            <img
+              src={homeTeam.team.logo}
+              alt={homeTeam.team.displayName}
+              className="w-12 h-12 md:w-16 md:h-16 object-contain"
+            />
+            <span className="text-xs md:text-sm font-medium text-gray-600 mt-2">
+              {homeTeam.team.abbreviation || homeTeam.team.displayName}
+            </span>
+          </div>
+          <span className="text-2xl md:text-3xl font-bold text-gray-400">VS</span>
+          <div className="flex flex-col items-center">
+            <img
+              src={awayTeam.team.logo}
+              alt={awayTeam.team.displayName}
+              className="w-12 h-12 md:w-16 md:h-16 object-contain"
+            />
+            <span className="text-xs md:text-sm font-medium text-gray-600 mt-2">
+              {awayTeam.team.abbreviation || awayTeam.team.displayName}
+            </span>
+          </div>
+        </div>
+
         {/* Match Header with Score */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           {/* Status Badge */}
@@ -224,7 +248,6 @@ export default function MatchPageClient({
             </p>
           </div>
         )}
-      </div>
     </div>
   );
 }
