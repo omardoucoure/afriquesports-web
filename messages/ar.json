@@ -276,6 +276,12 @@
     "label": "المباراة القادمة",
     "liveNow": "مباشر الآن",
     "watchLive": "شاهد المباراة",
+    "watchNow": "شاهد الآن",
+    "followMatch": "تابع المباراة",
+    "finished": "انتهت",
+    "startsIn": "تبدأ في {hours}س {minutes}د",
+    "startsInMinutes": "تبدأ في {minutes}د",
+    "startsInDays": "خلال {days} يوم",
     "countdown": {
       "days": "يوم",
       "hours": "ساعة",

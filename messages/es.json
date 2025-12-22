@@ -275,6 +275,12 @@
     "label": "Próximo partido",
     "liveNow": "EN VIVO",
     "watchLive": "Ver",
+    "watchNow": "Ver ahora",
+    "followMatch": "Seguir partido",
+    "finished": "Finalizado",
+    "startsIn": "Comienza en {hours}h {minutes}m",
+    "startsInMinutes": "Comienza en {minutes}m",
+    "startsInDays": "En {days} día(s)",
     "countdown": {
       "days": "d",
       "hours": "h",

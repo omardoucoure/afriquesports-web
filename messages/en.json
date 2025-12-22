@@ -275,6 +275,12 @@
     "label": "Next match",
     "liveNow": "LIVE",
     "watchLive": "Watch",
+    "watchNow": "Watch now",
+    "followMatch": "Follow match",
+    "finished": "Finished",
+    "startsIn": "Starts in {hours}h {minutes}m",
+    "startsInMinutes": "Starts in {minutes}m",
+    "startsInDays": "In {days} day(s)",
     "countdown": {
       "days": "d",
       "hours": "h",

@@ -276,6 +276,12 @@
     "label": "Prochain match",
     "liveNow": "EN DIRECT",
     "watchLive": "Voir le match",
+    "watchNow": "Voir maintenant",
+    "followMatch": "Suivre le match",
+    "finished": "Terminé",
+    "startsIn": "Débute dans {hours}h {minutes}m",
+    "startsInMinutes": "Débute dans {minutes}m",
+    "startsInDays": "Dans {days} jour(s)",
     "countdown": {
       "days": "j",
       "hours": "h",
