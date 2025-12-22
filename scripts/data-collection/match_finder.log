@@ -1,0 +1,22 @@
+INFO:__main__:🔍 Searching for CAN 2025 match URLs...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/CAN/...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/can/page-calendrier-resultats...
+INFO:__main__:  ✓ Found: /Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:
+✅ Found 1 total match URLs
+INFO:__main__:
+📋 Checking 1 matches for commentary...
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:  ✓ Maroc - Comores, le résumé du match
+INFO:__main__:    Highlights: 13, Total events: 18
+INFO:__main__:    Fully commented: False
+INFO:__main__:
+======================================================================
+INFO:__main__:SUMMARY
+INFO:__main__:======================================================================
+INFO:__main__:Total matches found: 1
+INFO:__main__:Fully commented: 0
+INFO:__main__:Highlights only: 0
+INFO:__main__:Upcoming: 0
+INFO:__main__:
+💾 Saved to: data/lequipe_commented_matches.json

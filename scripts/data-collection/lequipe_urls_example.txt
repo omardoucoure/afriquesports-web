@@ -1,0 +1,24 @@
+# L'Équipe Match URLs for Data Collection
+# Add one URL per line. Remove the '#' symbol before URLs.
+# Target: 50+ match URLs to collect 1200+ commentary examples
+
+# Example URL from user's reference:
+https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+
+# To find more URLs:
+# 1. Visit https://www.lequipe.fr/Football/
+# 2. Navigate to recent match reports
+# 3. Look for "match-direct" pages with live commentary
+# 4. Copy URLs and add them below
+
+# CAN 2025 matches
+# https://www.lequipe.fr/Football/match-direct/can/2025/...
+
+# Ligue 1 matches
+# https://www.lequipe.fr/Football/match-direct/ligue-1/2024/...
+
+# Champions League matches
+# https://www.lequipe.fr/Football/match-direct/champions-league/2024/...
+
+# African club competitions
+# https://www.lequipe.fr/Football/match-direct/ligue-champions-afrique/...

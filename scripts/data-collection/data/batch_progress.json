@@ -1,0 +1,2297 @@
+[
+  {
+    "source": "lequipe",
+    "time": "90'+3",
+    "text": "Les Comores affronteront la Zambie lors de leur prochaine sortie, vendredi prochain (18h30) à Casablanca. Ils finiront face au Mali, lundi 29 décembre (20h).",
+    "event_type": "red_card",
+    "scraped_at": "2025-12-21T23:59:22.787100",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+2",
+    "text": "Le Maroc disputera son prochain match contre le Mali, vendredi prochain à Rabat (21h). Puis il affrontera la Zambie, le lundi 29 décembre (20h).",
+    "event_type": "red_card",
+    "scraped_at": "2025-12-21T23:59:22.787113",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'",
+    "text": "Il y aura au moins 4 minutes de temps additionnel.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787125",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'",
+    "text": "Derrière un coup franc botté par Selemani, Soilihi plonge au deuxième poteau et propulse sa tête à côté à gauche du but défendu par Bounou.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787130",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "88'",
+    "text": "Suite à un nouveau corner exécuté côté gauche, El-Yamiq se signale avec une reprise en pivot du pied gauche. Qui file largement au-delà du cadre comorien...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787137",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Salah-Eddine, auteur d'un très bon match sur le flanc gauche, délivre un centre appliqué sortant du pied gauche. Toibibou repousse de la tête.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787143",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "85'",
+    "text": "Servi sur une passe venant du côté gauche, El-Kaabi se jette mais ne parvient pas à reprendre comme il l'espère.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787150",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "84'",
+    "text": "Le Maroc a remporté la CAN une fois dans son histoire. C'était en 1976 en finissant en tête d'une poule finale (2 victoires, 1 nul) devant la Guinée, le Nigeria et l'Egypte. C'est la dernière fois que cette formule a été utilisée.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787158",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "82'",
+    "text": "M'Changama est remplacé par Maolida.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787163",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "80'",
+    "text": "108e nation au classement FIFA, les Comores participent à la CAN pour la deuxième fois. En 2021, ils avaient été en 8es de finale, éliminés par le Cameroun (1-2).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787172",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "79'",
+    "text": "Youssouf est remplacé par Bourhane.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787178",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "79'",
+    "text": "Toibibou est remplacé par M'Dahoma.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787184",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "78'",
+    "text": "El-Yamiq, auteur d'un pied en avant dangereux sur M'Changama.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787192",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Ovationné par l'enceinte, Diaz, auteur du premier but, est remplacé par En-Nesyri.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787197",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Saibari est remplacé par Masina.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787204",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Attaquant de l'Olympiakos, El-Kaabi vient d'inscrire son 31e but en 60 sélections. Il dirige le Maroc vers une probable victoire désormais.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787209",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "74'",
+    "text": "El-Kaabi est signalé hors-jeu à son tour sur le flanc droit.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787219",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "73'",
+    "text": "La pluie tombe à nouveau de manière très forte. Comme au début du match, un déluge s'abat sur l'enceinte de Rabat.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787223",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "67'",
+    "text": "M'Changama place une tentative du gauche qui file juste au-dessus.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787234",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "67'",
+    "text": "Youssouf est remplacé par Bakari.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787243",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "67'",
+    "text": "Kari est remplacé par Abdallah.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787250",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "65'",
+    "text": "Puis Rahimi est remplacé par El-Kaabi.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787257",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "64'",
+    "text": "Double changement marocian. Ounahi est remplacé par Ezzalzouli.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-21T23:59:22.787263",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "61'",
+    "text": "Diaz est au coup franc côté droit. Le ballon ricoche et Ounahi écrase sa reprise du pied droit. C'est un peu la panique au sein de la surface comorienne mais les Coelacanthes s'en sortent.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787275",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "61'",
+    "text": "19 centres à 0 en faveur du Maroc.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787280",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "57'",
+    "text": "Brahim Diaz a inscrit son 9e but en 16 sélections avec le Maroc.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787287",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "53'",
+    "text": "Derrièr un centre brossé et appliqué de Saibari, côté gauche, Mazraoui arrive lancé au deuxième poteau et rate sa reprise au grand dam du public marocain.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787298",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "48'",
+    "text": "L'enceinte de la capitale marocaine a cru à l'ouverture du score tant espérée. Sur la gauche, Salah-Eddine enroule un joli centre que vient couper El Aynaoui au premier poteau. La reprise de l'ancien Lensois échoue au ras du poteau gauche !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787309",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "48'",
+    "text": "Mohamed commet la faute sur Ounahi qui grimace.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787314",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "47'",
+    "text": "Aucun changement n'a été effectué par les deux entraîneurs. On est donc reparti avec les vingt-deux mêmes acteurs.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-21T23:59:22.787320",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+5",
+    "text": "Pandor est soigné et parvient finalement à continuer la rencontre.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787332",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+3",
+    "text": "Diaz après son geste dangereux et maladroit sur le gardien de but des Comores, Pandor.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-21T23:59:22.787338",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+3",
+    "text": "Soilihi rate le ballon en voulant remettre en retrait vers son gardien, victime ensuite d'un tacle appuyé de B. Diaz, déterminé à se montrer décisif avant la pause.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787346",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+2",
+    "text": "La pluie retombe de façon nourrie sur l'enceinte de Rabat.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787352",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'",
+    "text": "Temps additionnel : 6 minutes.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787359",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "44'",
+    "text": "M. Ndala indique que B. Diaz a touché le ballon de la main au sein de la surface de réparation des Comores. Les Coelacanthes vont donc pouvoir se dégager.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787365",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "42'",
+    "text": "B. Diaz s'écroule à gauche de la surface de réparation comorienne au contact de Z. Youssouf. M. Ndala ne bronche pas.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787374",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "42'",
+    "text": "Le onze du Maroc pour rappel : Bounou - Mazraoui, El-Yamiq, Aguerd, Salah-Eddine - Ounahi, Amrabat, El Aynaoui - Diaz, Rahimi, Saibari.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787380",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "40'",
+    "text": "A noter que la pluie s'est arrêtée.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787386",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "39'",
+    "text": "Amrabat barre le passage à M'Changama et se fait logiquement réprimander par l'arbitre de ce match d'ouverture qui ne s'est pas encore décanté.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787392",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "38'",
+    "text": "Décalé par Diaz, pas suffisamment bien à son goût, Aguerd envoie, du gauche, son coup franc des 25 mètres dans les nuages... Le défenseur de l'OM peste.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787399",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "36'",
+    "text": "Kari, qui a déstabilisé Saibari.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787405",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "35'",
+    "text": "Selemani accroche Mazraoui de manière irrégulière et se fait rappeler à l'ordre par M. Ndala. La prochaine fois, le numéro 7 comorien aura droit à un carton jaune.",
+    "event_type": "yellow_card",
+    "scraped_at": "2025-12-21T23:59:22.787411",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "34'",
+    "text": "El-Yamiq et Said se percutent dans le rond central. Le défenseur marocain met du temps à se relever mais ça va.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787417",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "32'",
+    "text": "Kari fait parler sa taille et repousse d'une puissante tête un nouveau centre marocain issu du flanc gauche.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787424",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "30'",
+    "text": "Saibari accélère côté gauche et opte pour une tentative du pied droit en direction du côté opposé. Le numéro 11 marocain n'insuffle pas assez d'effet enroulé dans son ballon qui échoue nettement à côté.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787431",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "29'",
+    "text": "Ounahi se charge du coup franc. Une tête comorienne présente dans le mur à deux détourne en corner, lequel ne donne rien d'intéressant.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787437",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "28'",
+    "text": "Côté gauche, tout près de la surface comorienne, Z. Youssouf accroche Salah-Eddine, ce qui offre un bon coup franc au Maroc.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787444",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "26'",
+    "text": "Le Maroc domine copieusement mais se heurte pour le moment au bloc solide et très regroupé des Comores qui évoluent en 5-4-1.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787450",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "24'",
+    "text": "Duel de numéros 10. Diaz est sanctionné après avoir accroché M'Changama.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787456",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "22'",
+    "text": "En jambes sur le flanc droit, Mazraoui propose un excellent centre enroulé du pied droit. Toibibou repousse d'une tête puissante.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787462",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "20'",
+    "text": "Saïd est signalé hors-jeu tardivement.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787467",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "18'",
+    "text": "Saïss est blessé et doit quitter le terrain. Le capitaine marocain pleure et sort tête basse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787478",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "16'",
+    "text": "Il y a déjà eu 11 attaques marocaines, contre 3 aux Comores.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787485",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "15'",
+    "text": "Saïss est blessé et se fait soigner.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787491",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "13'",
+    "text": "Le Maroc vient de manquer une belle occasion de prendre les devants rapidement dans ce match d'ouverture. Il a néanmoins vite repris le contrôle du ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787498",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "8'",
+    "text": "B. Diaz s'arrache à droite de la surface pour essayer de s'emparer du ballon mais le ballon rebondit sur le joueur du Real Madrid et sort en faveur des Comores.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787511",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "5'",
+    "text": "Mazraoui propose un premier centre depuis le flanc droit. C'est repoussé par une tête comorienne.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787517",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "4'",
+    "text": "Dans une ambiance assourdissante, le Maroc s'est évidemment emparé du contrôle du ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787523",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "1'",
+    "text": "L'attaquant comorien Saïd est déjà signalé hors-jeu.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:59:22.787529",
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+4",
+    "text": "Meulensteen, coupable d'une faute sur Rodriguez.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.535956",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+3",
+    "text": "Moreira est lui remplacé par Karabec.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.535971",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+3",
+    "text": "Tolisso est remplacé par Gomes Rodriguez.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.535979",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+2",
+    "text": "Et derrière c'est Descamps qui s'interpose sur un tir cadré mais trop mou de Twigt.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.535986",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'",
+    "text": "Il y aura 4 minutes de temps additionnel.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.535995",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "87'",
+    "text": "De Busser préserve le suspense !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536003",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Épuisé après un gros match, Satriano est remplacé par Abner Vinicius pour cette fin de rencontre.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536010",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "85'",
+    "text": "Servi par Tolisso à l'entrée de la surface, Sulc se met en position de frappe et enchaine vite mais il est finalement contré.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536022",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "83'",
+    "text": "Les joueurs lyonnais sont fatigués et beaucoup demandent à sortir... Mais Fonseca tarde à faire des changements, encore une fois.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:00:25.536028",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "81'",
+    "text": "Superbe intervention de Kramer, pris de vitesse dans son dos par Sulc sur la passe de Satriano, mais le défenseur néerlandais est décisif sur son intervention.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536036",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "80'",
+    "text": "Go Ahead Eagles prend tous les risques avec la sortie d'un défenseur centrale, Van Zwam, remplacé par un attaquant, Stokkers.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536042",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "79'",
+    "text": "Ce n'est pas un match qui va rassurer l'OL, même si les 3 points se rapprochent minute après minute. Le contenu est très insuffisant.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536050",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "78'",
+    "text": "Niakhaté s'interpose devant Edvardsen, pour empêcher l'ailier suédois de déborder. Heureusement que le Sénégalais est solide dans les duels ce soir...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536057",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Très discret depuis la pause, Merah est remplacé par De Carvalho pour soldifier un peu un entrejeu qui est en train de prendre l'eau.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536063",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "75'",
+    "text": "Go Ahead Eagles est encore dangereux, avec une récupération haute et Suray qui tente sa chance du droit de 25m mais ça passe nettement à côté.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536071",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "74'",
+    "text": "Corner à suivre pour les Néerlandais, après un gros tacle de Niakhaté sur un bon centre de James... L'OL subit !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536077",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "72'",
+    "text": "Maitland-Niles rate le break !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536082",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "71'",
+    "text": "L'OL est en train de jouer à se faire peur et les Néerlandais ont de plus en plus d'espaces pour se montrer dangereux... Pour l'instant, ça tient sur la \"maladresse\" de Go Ahead Eagles dans le dernier geste.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536090",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "70'",
+    "text": "Bien servi par Tolisso dans la surface, Moreira est devancé par Deijl, qui concède le corner. Sur celui-ci, le Portugais tente une volée compliquée, qui file largement au-dessus.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536097",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "69'",
+    "text": "3e changement pour les Néerlandais avec Linthorst remplacé par Twigt.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:00:25.536102",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "66'",
+    "text": "Excellent retour défensif de Satriano, qui a sprinté sur 50m après un corner pour venir arrêter le contre néerlandais emmené par Edvardsen. L'Uruguayen est irréprochable dans l'état d'esprit ce soir et est l'un des meilleurs Lyonnais.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536115",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "63'",
+    "text": "Go Ahead Eagles cherche toujours à bien relancer proprement mais ça reste trop stérile, ça ne va pas assez vite vers l'avant, et ce n'est pas dangereux. Mais c'est beau à voir.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536122",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "61'",
+    "text": "Niakhaté casse deux lignes avec une passe plein axe vers Morton, qui trouve Satriano dans la surface. Mais le contrôle de l'Uruguayen n'est pas bon et il perd le ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536128",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "60'",
+    "text": "Touché à la cuisse, Adelgaard est lui remplacé par Breum. Un choix résolument offensif.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536134",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "60'",
+    "text": "Double changement pour les Néerlandais avec Goudmijn remplacé par Edvardsen.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:00:25.536141",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "59'",
+    "text": "Tolisso plonge encore dans le dos de la défense mais Van Zwam intervient bien dans les airs devant le capitaine lyonnais.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536148",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "57'",
+    "text": "Superbe mouvement lyonnais à l'entrée de la surface avec un trio à une touche de balle entre Merah, Sulc et Tolisso mais Maitland-Niles rate complètement son centre et gâche ce beau mouvement.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536155",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "55'",
+    "text": "Oh le manque de spontanéité de Sulc... Bien servi dans la surface par une aile de pigeon de Satriano, le Tchèque préfère contrôler alors que la volée s'imposait et il laisse la possibilité à Kramer d'intervenir.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536162",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "54'",
+    "text": "L'OL remet de l'intensité et tente de hausser le rythme pour se mettre à l'abri. C'est un peu mieux.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536168",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "52'",
+    "text": "Satriano reste au sol après un choc avec De Busser, qui s'était imposé des poings dans les airs. Mais l'attaquant de l'OL se relève.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536178",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "51'",
+    "text": "36% de duels gagnés seulement par les joueurs de Fonseca... Ça montre bien les insuffisances du soir de l'OL.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536185",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "48'",
+    "text": "Sulc oublie Maitland-Niles sur la droite pour lancer Moreira sur la gauche mais le Portugais est signalé en position de hors-jeu.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536194",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "47'",
+    "text": "Les Lyonnais ont du mal à revenir de la pause et multiplient les pertes de balle.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536200",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "46'",
+    "text": "C'est reparti au Groupama Stadium !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536205",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+1",
+    "text": "Go Ahead Eagles tente de relancer proprement mais la remise en une touche de Smit est un peu ambitieuse et Niakhaté intercepte.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536216",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'",
+    "text": "Il y aura 2 minutes de temps additionnel.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536221",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "44'",
+    "text": "Superbe percussion de Sulc, qui profite d'une passe en une touche de Moreira au départ avant d'accélérer plein axe. Il s'appuie sur Tolisso à l'entrée de la surface mais la remise du capitaine lyonnais est un peu trop forte.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536229",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "42'",
+    "text": "56% de possession pour l'OL ; 44% pour les Néerlandais.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536234",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "40'",
+    "text": "Il ne se passe absolument plus rien.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536240",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "37'",
+    "text": "Les joueurs de Fonseca se sont un peu arrêtés de jouer depuis un quart d'heure, même si on sent une certaine maitrise globale des évènements. Pas franchement un bon match jusqu'ici...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536247",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "35'",
+    "text": "Lyon ne fait quand même pas preuve d'une grande sérénité lorsque les Néerlandais se rapprochent de la surface de réparation de Descamps...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536254",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "33'",
+    "text": "Mata, coupable d'avoir donné un coup de coude à Smit dans le duel aérien. Logique.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536260",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "32'",
+    "text": "Lancé en profondeur par Niakhaté, Tolisso est bien pris par Van Zwam et commet une faute sur le défenseur néerlandais.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536267",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "31'",
+    "text": "Il y a de plus en plus d'espaces et l'OL serait inspiré de faire le break...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536273",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "30'",
+    "text": "Go Ahead Eagles n'hésite pas presser haut, allant chercher la première relance lyonnaise vers la surface de Descamps mais l'OL s'en sort sans trop de difficulté grâce à sa qualité technique et aux largesses du pressing néerlandais.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536280",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "28'",
+    "text": "Excellent début de rencontre de Satriano, très juste dans ses remises, qui n'hésite pas à décrocher pour aérer le jeu à l'opposé. Pour l'instant, c'est un vrai bon match de la part de l'Uruguayen.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536285",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "27'",
+    "text": "53% de possession et 6 tirs (5 cadrés) pour Lyon ; 47%, de possession et 2 tirs (1) pour Go Ahead Eagles.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536291",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "25'",
+    "text": "L'arbitre laisse pas mal jouer dans cette première demi-heure et c'est un arbitrage qui favorise un peu plus l'OL, plus solide dans les duels. Même si Lyon joue un peu au ralenti...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536297",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "23'",
+    "text": "James s'écroule dans la surface au duel avec Maitland-Niles et réclame un pénalty mais Mr. Xhaja ne bronche pas. A juste titre, car il n'y avait rien.",
+    "event_type": "penalty",
+    "scraped_at": "2025-12-22T00:00:25.536304",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "22'",
+    "text": "Le poteau sauve Go Ahead Eagles !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536310",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "21'",
+    "text": "A l'exception du but encaissé, parfaitement évitable, l'OL n'est pas du tout mis en danger dans cette entame de match. Ils se sont fait punir vraiment tout seuls...",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536315",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "18'",
+    "text": "Go Ahead Eagles manque peut-être de qualité individuelle mais propose du jeu et ressort proprement de l'arrière. C'est une équipe séduisante.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536321",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "17'",
+    "text": "L'OL a marqué 13 buts cette saison en Ligue Europa grâce à ... 9 joueurs différents. C'est énorme.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536325",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "15'",
+    "text": "C'est opération portes ouvertes dans la défense néerlandaise, qui n'arrive pas du tout à empêcher l'OL de la transpercer sur chaque offensive. Il va falloir qu'ils changent quelque chose pour éviter une lourde défaite...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536333",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "12'",
+    "text": "Il s'agit du premier but européen de la saison pour Pavel Sulc, et il fait du bien à l'OL, qui n'a pas douté bien longtemps.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536340",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "10'",
+    "text": "Sur un centre lointain de Mata, Tolisso s'impose dans les airs et cadre sa tête, obligeant De Busser à dévier le ballon au-dessus de sa barre transervale.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536350",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "9'",
+    "text": "Avec cette égalisation, Go Ahead Eagles reprend son plan initial, à savoir défendre très bas avec un bloc solide, sans réellement presser avant les 20 derniers mètres.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536357",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "7'",
+    "text": "C'est le 3e but européen de la saison pour Milan Smit, après son doublé inscrit face au Panathinaikos.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536361",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "4'",
+    "text": "C'est le 2e but de la saison en Europa League pour Alfonso Moreira.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:00:25.536369",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "2'",
+    "text": "Lyon évolue bien 3-5-2 avec Moreira et Maitland-Niles sur les côtés, Tolisso et Merah légèrement au-dessus de Morton au milieu et un duo Sulc-Satriano en attaque.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536379",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "1'",
+    "text": "C'est parti au Groupama Stadium !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:00:25.536388",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+7",
+    "text": "Toujours zéro point pour les Niçois !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447810",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+6",
+    "text": "Et Franck Haise prend un avertissement dans sa zone technique.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447823",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+5",
+    "text": "Les joueurs niçois demandent une main sur un corner. L'arbitre indique une sortie de but.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.447828",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+4",
+    "text": "Bon retour défensif de Diop dans les pieds de Moscardo, qui partait en contre.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447835",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+3",
+    "text": "Kevin Carlos est signalé hors-jeu !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447841",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+2",
+    "text": "Le corner frappé par Clauss ne donne finalement rien.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447847",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+2",
+    "text": "Corner bien trouvé par les Niçois, auteurs d'un joli mouvement collectif sur la droite.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447853",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'",
+    "text": "Il y aura 6 minutes de temps additionnel !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447858",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "89'",
+    "text": "Sur un ballon renvoyé plein axe par la défense portugaise, Bard lâche une puissante frappe du gauche. Sa tentative passe à côté !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447865",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "88'",
+    "text": "Et un adjoint niçois prend un avertissement.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447871",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Navarro, coupable d'un tirage de maillot.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447877",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Mendy, coupable d'un geste de colère sur Moutinho.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447884",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Le buteur du soir Victor est remplacé par Moscardo.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.447889",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Il reste une poignée de minutes aux Aiglons pour espérer revenir à la marque et ainsi prendre leur premier point en Ligue Europa.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447897",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "84'",
+    "text": "Kevin Carlos est signalé hors-jeu ! L'attaquant niçois était en position illicite sur un superbe centre de Louchet.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447904",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "82'",
+    "text": "Les trois changements ont tous été copieusement sifflés par le public niçois.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.447912",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "81'",
+    "text": "Abdul Samed est remplacé par Vanhoutte.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447918",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "81'",
+    "text": "Jansson est remplacé par Clauss.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447925",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "81'",
+    "text": "Triple changement à Nice : Abdi est remplacé par Mendy.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.447932",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "79'",
+    "text": "Abdul Samed, coupable d'une semelle dangereuse sur Pau Victor.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447939",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "78'",
+    "text": "Sur un contre, Cho puis Carlos sont bloqués par la défense portugaise.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447949",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Changement à Braga : El-Ouazzani, en vue sur le front de l'attaque, est remplacé par Navarro.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.447955",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "75'",
+    "text": "A la limite du hors-jeu, Cho est bien servi et réalise un mauvais contrôle qui ne lui permet pas de pouvoir bien enchaîner. Hornicek parvient à prendre le ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447963",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "74'",
+    "text": "Les Aiglons comptent 8 tirs (3 cadrés) contre 7 frappes adverses (3 cadrées).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447969",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "72'",
+    "text": "Les joueurs de Braga reprennent pied sur le ballon et pénètrent dans la moitié de terrain niçoise.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447975",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "69'",
+    "text": "Et Nguene est remplacé par Cho.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.447981",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "69'",
+    "text": "Double changement à Nice : Ndombele est remplacé par Diop.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.447987",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "68'",
+    "text": "Des changements se préparent côté niçois.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.447994",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "67'",
+    "text": "Sur la gauche, Abdi veut servir un partenaire mais son centre est trop appuyé. Les Aiglons sont volontaires mais aussi trop imprécis jusqu'à présent.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448001",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "66'",
+    "text": "Abdi est signalé hors-jeu sur la gauche !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448006",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "65'",
+    "text": "Corner en faveur des Aiglons qui montrent plus d'envie depuis plusieurs instants !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448015",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "63'",
+    "text": "La possession est nettement à l'avantage de Braga : 66% - 34%.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448021",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "60'",
+    "text": "Carvalho est remplacé par Lagerbielke.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448027",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "60'",
+    "text": "Lelo est remplacé par Martinez.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448034",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "60'",
+    "text": "Triple changement à Braga : Grillitsch est remplacé par Moutinho",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.448040",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "58'",
+    "text": "Des changements se préparent côté portugais.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.448050",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "57'",
+    "text": "Lelo s'excuse après une mauvaise passe. Les Niçois peuvent repartir de l'avant !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448056",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "56'",
+    "text": "Le jeu reprend enfin ses droits sur le terrain.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448061",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "54'",
+    "text": "Hornicek est blessé ! Le gardien reste au sol et se touche l'épaule. Les soigneurs sont appelés.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448070",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "52'",
+    "text": "Corner en faveur de Braga qui réagit bien au pressing niçois en se montrant dangereux. Le corner est bien repoussé au premier poteau.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448080",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "50'",
+    "text": "Les Aiglons mettent davantage d'intensité et de détermination dans ce début de seconde période. Le bloc niçois est d'ailleurs plus haut sur le terrain.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.448088",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "48'",
+    "text": "A noter que plusieurs remplaçants niçois sont partis à l'échauffement en bord terrain.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448097",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "46'",
+    "text": "Aucun changement n'a été effectué à la pause !",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:01:30.448102",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'",
+    "text": "Il y aura 3 minutes de temps additionnel !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448113",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'",
+    "text": "Gouveia, coupable d'une contestation trop véhémente sur l'arbitre.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448119",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "44'",
+    "text": "Sur le corner de Louchet, Hornicek est victime d'une poussette. Braga peut se dégager !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448126",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "44'",
+    "text": "Corner à suivre pour les Niçois qui connaissent un petit temps-fort.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448133",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "42'",
+    "text": "Les visiteurs sont en gestion dans cette fin de première période. Ils font tourner le ballon sans grande opposition.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448139",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "40'",
+    "text": "Sur la droite, Gouveia veut adresser un centre à Kevin Carlos mais son ballon est dévié. Hornicek s'en empare sans difficulté.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448145",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "39'",
+    "text": "Victor est blessé ! Le milieu reste au sol quelques instants après avoir pris un coup au genou.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448151",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "37'",
+    "text": "Peprah Oppong, qui a commis une grosse faute sur Pau Victor dans le rond central.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448158",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "34'",
+    "text": "Gouveia est blessé ! Le latéral niçois a pris un coup involontaire au visage.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448171",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "33'",
+    "text": "La possession est toujours à l'avantage de Braga : 65% - 35%.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448177",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "31'",
+    "text": "Les Aiglons ont décidément bien du mal à se montrer dangereux dans cette rencontre. Ils subissent même les évènements et sont trop éloignés entre eux sur le rectangle vert.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448184",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "29'",
+    "text": "Les supporters de Braga donnent de la voix dans le parcage visiteurs de l'Allianz Riviera.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448190",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "27'",
+    "text": "Abdi a retrouvé ses coéquipiers sur le terrain.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448200",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "26'",
+    "text": "Abdi est blessé ! Le joueur niçois reste au sol après avoir subi une semelle de Bard dans un duel.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448206",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "25'",
+    "text": "Ndombélé provoque bien et parvient à dribbler un adversaire avant de perdre le ballon dans la surface adverse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448213",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "23'",
+    "text": "A noter que Nice compte 1 tir (non-cadré) contre 3 frappes portugaises (1 cadrée).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448218",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "21'",
+    "text": "Le corner portugais ne donne rien : les Niçois se dégagent sans difficulté.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448224",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "20'",
+    "text": "Bonne couverture de Bard qui offre un corner à Braga.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448230",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "16'",
+    "text": "Jansson est signalé hors-jeu !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448238",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "16'",
+    "text": "La possession est largement à l'avantage de Braga : 65% - 35%.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448244",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "14'",
+    "text": "Le corner est dégagé au premier poteau par Louchet.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448253",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "13'",
+    "text": "Première alerte sur le but niçois avec cette frappe d'Horta contrée en corner. Joli mouvement collectif des Portugais !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.448257",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "11'",
+    "text": "Victor hérite du ballon et progresse avant de vouloir décaler Horta sur la gauche. C'est raté : sortie de but pour Nice.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.448262",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "9'",
+    "text": "Un peu plus de 3.000 personnes sont présentes ce soir à l'Allianz Riviera.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448270",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "8'",
+    "text": "Louchet se charge de frapper le coup de pied arrêté mais cela ne donne rien. Braga se défend bien !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448276",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "7'",
+    "text": "Coup franc à venir pour l'OGC Nice, sur la gauche aux 25 mètres.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448282",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "6'",
+    "text": "Sur la droite, Gomez veut alerter un partenaire dans la profondeur mais sa transversale est trop appuyée. Sortie de but pour les Aiglons !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.448286",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "5'",
+    "text": "Début de match bien peu animé : les visiteurs ont la possession et font tourner le ballon.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:01:30.448290",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "3'",
+    "text": "En l'absence de la Populaire Sud ce soir, on entend les 400 supporters portugais présents dans le parcage visiteurs.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448296",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "2'",
+    "text": "Premier coup franc de la partie, en faveur de Braga. C'est frappé par Lelo mais c'est écarté par Louchet, sur la trajectoire. Nice peut se dégager.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448302",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "1'",
+    "text": "Les Aiglons évoluent dans leurs couleurs traditionnelles (rouge et noir) ce soir. Les joueurs de Braga portent quant à eux une tenue blanche.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:01:30.448310",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+7",
+    "text": "Terrible désillusion pour Lille",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121514",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+6",
+    "text": "Belle intervention de Smith sur Tiago Santos qui partait en contre-attaque.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121531",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+5",
+    "text": "Sanches est à terre et se plaint de la cheville après un choc avec un Lillois. Le jeu est pour l'instant arrêté, le temps que le joueur suisse quitte le terrain.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121539",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+4",
+    "text": "Depuis le couloir gauche, Mbappé essaye de centrer, mais sa passe est complètement manquée et termine derrière le but !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121546",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'+3",
+    "text": "Coup-franc intéressant pour le LOSC. Ozer monte !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121552",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "90'",
+    "text": "Il y aura quatre minutes de temps additionnel dans cette deuxième période.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121573",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "88'",
+    "text": "Lille jette ses dernières forces dans la bataille pour arracher le point du match nul. En face, Berne défend dur, empêchant la progression des Lillois.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121580",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "86'",
+    "text": "Belle protection de balle de Benjamin André pour gagner le six-mètres devant Sanches. Sortie de but pour le LOSC !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121584",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "85'",
+    "text": "Un point sur le calendrier européen des deux équipes",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121590",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "84'",
+    "text": "Meunier est remplacé par Santos (Lille).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121597",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "84'",
+    "text": "Janko est remplacé par Andrews (Berne).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121605",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "84'",
+    "text": "Bédia est remplacé par Zoukrou (Berne).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121612",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "82'",
+    "text": "Bentaleb tente de trouver des solutions pour aller de l'avant, mais le milieu est à la peine face au bloc suisse. Au plus grand désespoir de Brun Génésio qui s'agace dans sa zone technique.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121621",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "80'",
+    "text": "Berne ne propose plus rien. Les Suisses se contentent de défendre !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121627",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "78'",
+    "text": "Bédia stoppe sa course. L'attaquant suisse est signalé hors-jeu !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121633",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Haraldsson est remplacé par Bentaleb (Lille).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121638",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "76'",
+    "text": "Virginius est remplacé par Smith (Berne).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121646",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "75'",
+    "text": "Virginius est à terre. L'ex-Lillois se plaint de la cuisse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121654",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "74'",
+    "text": "Sahraoui tente d'y aller tout seul dans la défense adverse, mais le milieu du LOSC est stoppé dans sa timide progression.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121661",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "72'",
+    "text": "Pech est remplacé par Cordova (Berne).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121667",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "72'",
+    "text": "Males, le buteur du soir, est remplacé par Sanches (Berne).",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121672",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "70'",
+    "text": "Lille a la possession du ballon, mais les Lillois n'arrive pas à en faire bon usage face à une défense suisse bien en place.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121681",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "68'",
+    "text": "Giroud est remplacé par Diaoune (Lille).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121687",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "68'",
+    "text": "Correia est remplacé par Mbappé (Lille).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121694",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "68'",
+    "text": "Mukau est remplacé par Sahraoui (Lille).",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121701",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "68'",
+    "text": "Depuis l'entrée de la surface, Hadjam s'essaye du pied gauche, mais son tir passe largement à côté du but de Lille.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121706",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "67'",
+    "text": "Un triple changement se prépare du côté du LOSC.",
+    "event_type": "substitution",
+    "scraped_at": "2025-12-22T00:02:33.121712",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "66'",
+    "text": "Le match se durcit. A hauteur de la ligne médiane, Haraldsson se rend coupable d'un croche-pied sur Males.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121719",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "64'",
+    "text": "Après quelques soins, Giroud peut reprendre sa place en attaque.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121725",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "63'",
+    "text": "Giroud est à terre et se plaint du visage à la suite d'un coup de coude d'un joueur suisse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121731",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "57'",
+    "text": "Males est trouvé dans le coin droit de la surface des Dogues. L'ailier de Berne centre devant le but en direction de Bedia, mais sa passe est trop profonde !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121744",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "53'",
+    "text": "Lille a bien failli concéder un deuxième penalty ! Pech tente de contrôler le ballon, dans le rebond, la balle vient toucher le bras de Benjamin André. M. van der Eijk ne bronche pas...",
+    "event_type": "penalty",
+    "scraped_at": "2025-12-22T00:02:33.121754",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "51'",
+    "text": "Benjamin André trouve Perraud en profondeur dans le couloir gauche. Perraud tente de centrer directement devant le but, mais le latéral lillois manque complètement son centre.",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121759",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "49'",
+    "text": "C'est chaud devant le but lillois !",
+    "event_type": "goal",
+    "scraped_at": "2025-12-22T00:02:33.121763",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "47'",
+    "text": "Les Young Boys Berne mettent directement la pression aux Lillois pour récupérer le ballon le plus haut possible. Lille s'apprête à souffrir dans cette deuxième période...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121771",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+2",
+    "text": "Lille réduit à 10, mais toujours dans le coup !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121780",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'+1",
+    "text": "Giroud est signalé hors-jeu. Dommage pour le LOSC qui a récolté un corner après cette tête de Giroud à la suite d'un centre de Perraud.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121788",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "45'",
+    "text": "Il y aura deux minutes de temps additionnel dans cette première période.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121808",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "41'",
+    "text": "Berne monopolise le ballon dans la moitié de terrain du LOSC. Lauper envoie une belle passe lobée dans la surface, mais Ozer intervient pour repousser le ballon des deux poings. Lille est en souffrance dans ces dernières minutes de la première période...",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121819",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "37'",
+    "text": "Malgré l'infériorité numérique, le LOSC produit du jeu, mais perd trop rapidement le ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121828",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "35'",
+    "text": "Ozer repousse le penalty de Bedia !",
+    "event_type": "penalty",
+    "scraped_at": "2025-12-22T00:02:33.121834",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "33'",
+    "text": "Giroud, coupable de protestations envers l'arbitre !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121842",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "30'",
+    "text": "Bouaddi trouve Perraud en profondeur, mais le latéral lillois rate son contrôle. Pas de regrets, le défenseur des Dogues est signalé en position de hors-jeu.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121854",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "28'",
+    "text": "Meunier déborde côté droit et centre en retrait, Benjamin André reprend le ballon du pied gauche. Son puissant tir est repoussé par Benito !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121861",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "26'",
+    "text": "La tête de Benjamin André hors cadre",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121867",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "25'",
+    "text": "Lille obtient son premier corner de la partie.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121874",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "24'",
+    "text": "Depuis le couloir gauche, Raveloson envoie une passe dans la surface vers Bedia, mais Ngoy intervient pour dégager le ballon.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121880",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "22'",
+    "text": "Berne enchaine les passes dans son camp pour faire sortir le bloc lillois. Une mission compliquée pour les Suisses, la défense du LOSC étant bien en place.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121887",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "20'",
+    "text": "Il n'y a pas un grand rythme dans cette partie. Les deux équipes sont prudentes et s'observent.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121893",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "17'",
+    "text": "Males tente de trouver Bedia en profondeur, mais Mbemba stoppe cette action avec une belle intervention.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121903",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "16'",
+    "text": "Félix Correia intercepte le ballon au milieu de terrain et fonce en contre-attaque. Malheureusement pour lui, il est dépossédé du ballon à cause du bon retour de Janko en défense. Le LOSC a manqué de communication sur ce coup !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121910",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "14'",
+    "text": "Berne est retranché dans son camp. Les Suisses subissent les assauts des Dogues, pour l'instant trop brouillons dans les 30 derniers mètres.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121917",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "12'",
+    "text": "Virginius s'échappe dans le couloir gauche avant de chuter à la suite d'un contact avec Ngoy à l'entrée de la surface. M. van der Eijk ne bronche pas !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121924",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "10'",
+    "text": "Première phase de possession de Berne dans le camp du LOSC. Virginius tente de s'introduire dans la défense, mais l'ex-lillois est refoulé par Meunier.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121931",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "9'",
+    "text": "Le LOSC est bien en place sur ces premières minutes. Les Lillois enchainent les passes pour trouver l'ouverture dans la défense suisse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121942",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "8'",
+    "text": "Belle sortie de camp du LOSC qui a multiplié les passes pour contourner le bloc suisse. Le ballon arrive jusqu'à Mukau qui tente sa chance depuis les abords de la surface. Son tir est contré par la défense !",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121949",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "6'",
+    "text": "Mukau est victime de son excès d'engagement à hauteur de la ligne médiane. Coup-franc pour Berne.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121955",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "3'",
+    "text": "Depuis son couloir droit, Meunier adresse un centre dans la surface. Le ballon est dégagé par la défense de Berne.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121965",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "2'",
+    "text": "La première possession de cette rencontre est pour le LOSC. Les défenseurs lillois tentent de faire sortir le bloc suisse.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121971",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  },
+  {
+    "source": "lequipe",
+    "time": "1'",
+    "text": "À noter que les Young Boys Berne évoluent dans leurs couleurs traditionnelles : jaune et noir. Les joueurs du LOSC sont quant à eux parés de blanc.",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-22T00:02:33.121978",
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "method": "text"
+  }
+]

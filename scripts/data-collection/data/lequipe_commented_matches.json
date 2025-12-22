@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748",
+    "title": "Maroc - Comores, le résumé du match",
+    "is_commented": true,
+    "is_fully_commented": true,
+    "highlights_count": 13,
+    "total_events": 90,
+    "status": "finished"
+  },
+  {
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739",
+    "title": "OL - Go Ahead Eagles : L'OL se fait peur mais reste leader",
+    "is_commented": true,
+    "is_fully_commented": true,
+    "highlights_count": 19,
+    "total_events": 81,
+    "status": "finished"
+  },
+  {
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727",
+    "title": "Nice - Braga, le résumé du match",
+    "is_commented": true,
+    "is_fully_commented": true,
+    "highlights_count": 13,
+    "total_events": 100,
+    "status": "finished"
+  },
+  {
+    "url": "https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731",
+    "title": "Young Boys Berne - Lille : Terrible désillusion pour Lille à Berne",
+    "is_commented": true,
+    "is_fully_commented": true,
+    "highlights_count": 10,
+    "total_events": 85,
+    "status": "finished"
+  }
+]

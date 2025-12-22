@@ -1,0 +1,11 @@
+[
+  {
+    "source": "rmc",
+    "time": "84'",
+    "text": "(84') N. Mouaddeb\n\nM. Boumaaoui",
+    "event_type": "commentary",
+    "scraped_at": "2025-12-21T23:06:35.354197",
+    "url": "https://rmcsport.bfmtv.com/football/coupe-de-france/direct-coupe-de-france-suivez-l-entree-en-lice-de-l-om-face-a-bourg-peronnas-en-live_LS-202512210210.html",
+    "method": "timestamp_divs"
+  }
+]

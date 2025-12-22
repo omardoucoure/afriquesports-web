@@ -1,0 +1,132 @@
+/Users/omardoucoure/Documents/Afrique Sports/afriquesports-web/scripts/data-collection/scrapers/lequipe_finished_match_scraper.py:204: SyntaxWarning: "\{" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\{"? A raw string is also an option.
+  const matches = text.match(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g);
+INFO:__main__:📂 Loading matches from data/lequipe_commented_matches.json
+INFO:__main__:✅ Found 4 fully commented matches to scrape
+INFO:__main__:
+======================================================================
+INFO:__main__:MATCH 1/4: Maroc - Comores, le résumé du match
+INFO:__main__:======================================================================
+INFO:scrapers.lequipe_finished_match_scraper:🎯 Scraping L'Équipe: https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:scrapers.lequipe_finished_match_scraper:📄 Loading page...
+INFO:scrapers.lequipe_finished_match_scraper:🍪 Dismissing cookie popup...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found cookie button: [class*="consent"] button
+INFO:scrapers.lequipe_finished_match_scraper:🔘 Looking for 'show all commentary' button...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found 'show only highlights' toggle, clicking to show ALL...
+INFO:scrapers.lequipe_finished_match_scraper:✅ Clicked! Should now show all commentary
+INFO:scrapers.lequipe_finished_match_scraper:📜 Scrolling to load all commentary...
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 1/20 - height: 9045px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 2/20 - height: 11901px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 3/20 - height: 14940px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 4/20 - height: 17287px
+INFO:scrapers.lequipe_finished_match_scraper:✓ Finished scrolling after 5 attempts
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Looking for embedded JSON data...
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Extracting from rendered DOM...
+INFO:scrapers.lequipe_finished_match_scraper:  Found 90 CommentsLive__event elements
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Parsing visible text...
+INFO:scrapers.lequipe_finished_match_scraper:📸 Debug files saved
+INFO:scrapers.lequipe_finished_match_scraper:✅ Extracted 60 unique entries
+INFO:__main__:✅ Scraped 60 entries
+INFO:__main__:⏳ Waiting 5 seconds before next match...
+INFO:__main__:
+======================================================================
+INFO:__main__:MATCH 2/4: OL - Go Ahead Eagles : L'OL se fait peur mais reste leader
+INFO:__main__:======================================================================
+INFO:scrapers.lequipe_finished_match_scraper:🎯 Scraping L'Équipe: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739
+INFO:scrapers.lequipe_finished_match_scraper:📄 Loading page...
+INFO:scrapers.lequipe_finished_match_scraper:🍪 Dismissing cookie popup...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found cookie button: [class*="consent"] button
+INFO:scrapers.lequipe_finished_match_scraper:🔘 Looking for 'show all commentary' button...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found 'show only highlights' toggle, clicking to show ALL...
+INFO:scrapers.lequipe_finished_match_scraper:✅ Clicked! Should now show all commentary
+INFO:scrapers.lequipe_finished_match_scraper:📜 Scrolling to load all commentary...
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 1/20 - height: 8990px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 2/20 - height: 11813px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 3/20 - height: 15109px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 4/20 - height: 16284px
+INFO:scrapers.lequipe_finished_match_scraper:✓ Finished scrolling after 5 attempts
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Looking for embedded JSON data...
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Extracting from rendered DOM...
+INFO:scrapers.lequipe_finished_match_scraper:  Found 81 CommentsLive__event elements
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Parsing visible text...
+INFO:scrapers.lequipe_finished_match_scraper:📸 Debug files saved
+INFO:scrapers.lequipe_finished_match_scraper:✅ Extracted 61 unique entries
+INFO:__main__:✅ Scraped 61 entries
+INFO:__main__:⏳ Waiting 5 seconds before next match...
+INFO:__main__:
+======================================================================
+INFO:__main__:MATCH 3/4: Nice - Braga, le résumé du match
+INFO:__main__:======================================================================
+INFO:scrapers.lequipe_finished_match_scraper:🎯 Scraping L'Équipe: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727
+INFO:scrapers.lequipe_finished_match_scraper:📄 Loading page...
+INFO:scrapers.lequipe_finished_match_scraper:🍪 Dismissing cookie popup...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found cookie button: [class*="consent"] button
+INFO:scrapers.lequipe_finished_match_scraper:🔘 Looking for 'show all commentary' button...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found 'show only highlights' toggle, clicking to show ALL...
+INFO:scrapers.lequipe_finished_match_scraper:✅ Clicked! Should now show all commentary
+INFO:scrapers.lequipe_finished_match_scraper:📜 Scrolling to load all commentary...
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 1/20 - height: 8458px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 2/20 - height: 11367px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 3/20 - height: 14387px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 4/20 - height: 16889px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 5/20 - height: 17942px
+INFO:scrapers.lequipe_finished_match_scraper:✓ Finished scrolling after 6 attempts
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Looking for embedded JSON data...
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Extracting from rendered DOM...
+INFO:scrapers.lequipe_finished_match_scraper:  Found 100 CommentsLive__event elements
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Parsing visible text...
+INFO:scrapers.lequipe_finished_match_scraper:📸 Debug files saved
+INFO:scrapers.lequipe_finished_match_scraper:✅ Extracted 74 unique entries
+INFO:__main__:✅ Scraped 74 entries
+INFO:__main__:⏳ Waiting 5 seconds before next match...
+INFO:__main__:
+======================================================================
+INFO:__main__:MATCH 4/4: Young Boys Berne - Lille : Terrible désillusion pour Lille à Berne
+INFO:__main__:======================================================================
+INFO:scrapers.lequipe_finished_match_scraper:🎯 Scraping L'Équipe: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731
+INFO:scrapers.lequipe_finished_match_scraper:📄 Loading page...
+INFO:scrapers.lequipe_finished_match_scraper:🍪 Dismissing cookie popup...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found cookie button: [class*="consent"] button
+INFO:scrapers.lequipe_finished_match_scraper:🔘 Looking for 'show all commentary' button...
+INFO:scrapers.lequipe_finished_match_scraper:✓ Found 'show only highlights' toggle, clicking to show ALL...
+INFO:scrapers.lequipe_finished_match_scraper:✅ Clicked! Should now show all commentary
+INFO:scrapers.lequipe_finished_match_scraper:📜 Scrolling to load all commentary...
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 1/20 - height: 9348px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 2/20 - height: 12966px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 3/20 - height: 16126px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 4/20 - height: 19285px
+INFO:scrapers.lequipe_finished_match_scraper:  Scroll 5/20 - height: 19569px
+INFO:scrapers.lequipe_finished_match_scraper:✓ Finished scrolling after 6 attempts
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Looking for embedded JSON data...
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Extracting from rendered DOM...
+INFO:scrapers.lequipe_finished_match_scraper:  Found 85 CommentsLive__event elements
+INFO:scrapers.lequipe_finished_match_scraper:🔍 Parsing visible text...
+INFO:scrapers.lequipe_finished_match_scraper:📸 Debug files saved
+INFO:scrapers.lequipe_finished_match_scraper:✅ Extracted 60 unique entries
+INFO:__main__:✅ Scraped 60 entries
+INFO:__main__:
+======================================================================
+INFO:__main__:BATCH SCRAPING COMPLETE
+INFO:__main__:======================================================================
+INFO:__main__:✅ Total commentary entries: 255
+INFO:__main__:
+📊 By source:
+INFO:__main__:   lequipe: 255
+INFO:__main__:
+📊 By event type:
+INFO:__main__:   commentary: 209
+INFO:__main__:   goal: 26
+INFO:__main__:   substitution: 14
+INFO:__main__:   penalty: 3
+INFO:__main__:   red_card: 2
+INFO:__main__:   yellow_card: 1
+INFO:__main__:
+💾 Saved to: data/training_commentary.json
+INFO:__main__:
+======================================================================
+INFO:__main__:NEXT STEPS
+INFO:__main__:======================================================================
+INFO:__main__:1. Review quality: python quality_filter.py
+INFO:__main__:2. Export to JSONL: python export_to_jsonl.py
+INFO:__main__:3. Upload to Google Colab for fine-tuning
+INFO:__main__:======================================================================
+

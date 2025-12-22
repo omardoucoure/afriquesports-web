@@ -1,0 +1,119 @@
+/Users/omardoucoure/Documents/Afrique Sports/afriquesports-web/scripts/data-collection/scrapers/lequipe_finished_match_scraper.py:152: SyntaxWarning: "\{" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\{"? A raw string is also an option.
+  const matches = text.match(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g);
+INFO:__main__:🎯 Scraping L'Équipe: https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:📄 Loading page...
+INFO:__main__:🔘 Looking for 'show all' button...
+INFO:__main__:✓ Found 'show all' button, clicking...
+WARNING:__main__:Could not find/click show all button: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div data-v-534aed4e="" class="Cmp__policyContent">…</div> from <div data-v-1807f786="" class="CmpContainer">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div data-v-1807f786="" class="CmpContainer__overlay"></div> from <div data-v-1807f786="" class="CmpContainer">…</div> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div data-v-6352141a="" class="Header__content layout layout--full">…</div> from <header id="header" class="Header" data-v-6352141a="">…</header> subtree intercepts pointer events
+  14 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-534aed4e="" class="Cmp__policyContent">…</div> from <div data-v-1807f786="" class="CmpContainer">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-1807f786="" class="CmpContainer__overlay"></div> from <div data-v-1807f786="" class="CmpContainer">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-6352141a="" class="Header__content layout layout--full">…</div> from <header id="header" class="Header" data-v-6352141a="">…</header> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-v-6352141a="" class="Header__content layout layout--full">…</div> from <header id="header" class="Header" data-v-6352141a="">…</header> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div data-v-534aed4e="" class="Cmp__policyContent">…</div> from <div data-v-1807f786="" class="CmpContainer">…</div> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+INFO:__main__:🔍 Looking for embedded JSON data...
+INFO:__main__:🔍 Extracting from rendered DOM...
+INFO:__main__:  Found 36 CommentsLive__event elements
+INFO:__main__:🔍 Parsing visible text...
+INFO:__main__:📸 Debug files saved
+INFO:__main__:✅ Extracted 27 unique entries
+
+======================================================================
+SCRAPING RESULTS
+======================================================================
+
+✅ Extracted 27 commentary entries
+
+📊 Extraction methods:
+   text: 27
+
+📝 Sample (first 10):
+
+1. 90'+3 - red_card [text]
+   Les Comores affronteront la Zambie lors de leur prochaine sortie, vendredi prochain (18h30) à Casablanca. Ils finiront f...
+
+2. 90'+2 - red_card [text]
+   Le Maroc disputera son prochain match contre le Mali, vendredi prochain à Rabat (21h). Puis il affrontera la Zambie, le ...
+
+3. 90' - commentary [text]
+   Il y aura au moins 4 minutes de temps additionnel.
+
+4. 90' - goal [text]
+   Derrière un coup franc botté par Selemani, Soilihi plonge au deuxième poteau et propulse sa tête à côté à gauche du but ...
+
+5. 88' - commentary [text]
+   Suite à un nouveau corner exécuté côté gauche, El-Yamiq se signale avec une reprise en pivot du pied gauche. Qui file la...
+
+6. 86' - commentary [text]
+   Salah-Eddine, auteur d'un très bon match sur le flanc gauche, délivre un centre appliqué sortant du pied gauche. Toibibo...
+
+7. 85' - commentary [text]
+   Servi sur une passe venant du côté gauche, El-Kaabi se jette mais ne parvient pas à reprendre comme il l'espère.
+
+8. 84' - commentary [text]
+   Le Maroc a remporté la CAN une fois dans son histoire. C'était en 1976 en finissant en tête d'une poule finale (2 victoi...
+
+9. 82' - commentary [text]
+   M'Changama est remplacé par Maolida.
+
+10. 80' - commentary [text]
+   108e nation au classement FIFA, les Comores participent à la CAN pour la deuxième fois. En 2021, ils avaient été en 8es ...
+
+💾 Saved to: data/lequipe_scraped.json
+📸 Debug: data/lequipe_debug.png, data/lequipe_page.html, data/lequipe_text.txt
+
+======================================================================
+

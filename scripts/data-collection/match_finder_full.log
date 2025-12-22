@@ -1,0 +1,101 @@
+INFO:__main__:🔍 Searching for football match URLs across competitions...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/CAN/...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/can/page-calendrier-resultats...
+INFO:__main__:  ✓ Found: /Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/Ligue-1/page-calendrier-resultats...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/ligue-1-2/page-calendrier-resultats...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/ligue-des-champions/page-calendrier-resultats...
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/ligue-europa/page-calendrier-resultats...
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/dinamo-zagreb-betis-seville-live/685723
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/ferencvaros-glasgow-rangers-live/685724
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/ludogorets-razgrad-paok-salonique-live/685725
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fc-midtjylland-racing-genk-live/685726
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/sturm-graz-etoile-rouge-belgrade-live/685728
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fc-utrecht-nottingham-forest-live/685729
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/vfb-stuttgart-maccabi-tel-aviv-live/685730
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fc-bale-aston-villa-live/685732
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/brann-bergen-fenerbahce-live/685733
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/celta-vigo-bologne-live/685734
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/celtic-glasgow-as-rome-live/685735
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fc-porto-malmo-ff-live/685736
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fcsb-feyenoord-rotterdam-live/685737
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/fribourg-rb-salzbourg-live/685738
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739
+INFO:__main__:  ✓ Found: /Football/match-direct/ligue-europa/2025-2026/panathinaikos-viktoria-plzen-live/685740
+INFO:__main__:📄 Loading https://www.lequipe.fr/Football/coupe-du-monde/page-calendrier-resultats...
+INFO:__main__:
+✅ Found 19 total match URLs
+INFO:__main__:
+📋 Checking 19 matches for commentary...
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:  ✓ Maroc - Comores, le résumé du match
+INFO:__main__:    Highlights: 13, Total events: 90
+INFO:__main__:    Fully commented: True
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/brann-bergen-fenerbahce-live/685733
+INFO:__main__:  ⚠️  Brann Bergen - Fenerbahçe, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/celta-vigo-bologne-live/685734
+INFO:__main__:  ⚠️  Celta Vigo - Bologne, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/celtic-glasgow-as-rome-live/685735
+INFO:__main__:  ⚠️  Celtic Glasgow - AS Rome, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/dinamo-zagreb-betis-seville-live/685723
+INFO:__main__:  ⚠️  Dinamo Zagreb - Betis Séville, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fc-bale-aston-villa-live/685732
+INFO:__main__:  ⚠️  FC Bâle - Aston Villa, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fc-midtjylland-racing-genk-live/685726
+INFO:__main__:  ⚠️  FC Midtjylland - Racing Genk, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fc-porto-malmo-ff-live/685736
+INFO:__main__:  ⚠️  FC Porto - Malmö FF, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fc-utrecht-nottingham-forest-live/685729
+INFO:__main__:  ⚠️  FC Utrecht - Nottingham Forest, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fcsb-feyenoord-rotterdam-live/685737
+INFO:__main__:  ⚠️  FCSB - Feyenoord Rotterdam, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/ferencvaros-glasgow-rangers-live/685724
+INFO:__main__:  ⚠️  Ferencvaros - Glasgow Rangers, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/fribourg-rb-salzbourg-live/685738
+INFO:__main__:  ⚠️  Fribourg - RB Salzbourg, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/ludogorets-razgrad-paok-salonique-live/685725
+INFO:__main__:  ⚠️  Ludogorets Razgrad - PAOK Salonique, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739
+INFO:__main__:  ✓ OL - Go Ahead Eagles : L'OL se fait peur mais reste leader
+INFO:__main__:    Highlights: 19, Total events: 81
+INFO:__main__:    Fully commented: True
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727
+INFO:__main__:  ✓ Nice - Braga, le résumé du match
+INFO:__main__:    Highlights: 13, Total events: 100
+INFO:__main__:    Fully commented: True
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/panathinaikos-viktoria-plzen-live/685740
+INFO:__main__:  ⚠️  Panathinaïkos - Viktoria Plzen, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/sturm-graz-etoile-rouge-belgrade-live/685728
+INFO:__main__:  ⚠️  Sturm Graz - Etoile Rouge Belgrade, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/vfb-stuttgart-maccabi-tel-aviv-live/685730
+INFO:__main__:  ⚠️  VfB Stuttgart - Maccabi Tel-Aviv, le résumé du match - highlights_only
+INFO:__main__:🔍 Checking: https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731
+INFO:__main__:  ✓ Young Boys Berne - Lille : Terrible désillusion pour Lille à Berne
+INFO:__main__:    Highlights: 10, Total events: 85
+INFO:__main__:    Fully commented: True
+INFO:__main__:
+======================================================================
+INFO:__main__:SUMMARY
+INFO:__main__:======================================================================
+INFO:__main__:Total matches found: 19
+INFO:__main__:Fully commented: 4
+INFO:__main__:Highlights only: 15
+INFO:__main__:Upcoming: 0
+INFO:__main__:
+✅ FULLY COMMENTED MATCHES:
+INFO:__main__:1. Maroc - Comores, le résumé du match
+INFO:__main__:   https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+INFO:__main__:   Events: 90
+INFO:__main__:2. OL - Go Ahead Eagles : L'OL se fait peur mais reste leader
+INFO:__main__:   https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/lyon-go-ahead-eagles-live/685739
+INFO:__main__:   Events: 81
+INFO:__main__:3. Nice - Braga, le résumé du match
+INFO:__main__:   https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/nice-braga-live/685727
+INFO:__main__:   Events: 100
+INFO:__main__:4. Young Boys Berne - Lille : Terrible désillusion pour Lille à Berne
+INFO:__main__:   https://www.lequipe.fr/Football/match-direct/ligue-europa/2025-2026/young-boys-berne-lille-live/685731
+INFO:__main__:   Events: 85
+INFO:__main__:
+💾 Saved to: data/lequipe_commented_matches.json

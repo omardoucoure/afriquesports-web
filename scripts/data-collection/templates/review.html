@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Commentary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-info {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .stats-mini {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .commentary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .commentary-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .meta-value {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .quality-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .quality-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .commentary-text {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .editable-text {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            line-height: 1.8;
+            display: none;
+        }
+
+        .editable-text:focus {
+            outline: none;
+            border-color: #5568d3;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #218838;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #c82333;
+        }
+
+        .btn-edit {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #138496;
+        }
+
+        .btn-save {
+            background: #ffc107;
+            color: #333;
+            display: none;
+        }
+
+        .btn-save:hover {
+            background: #e0a800;
+        }
+
+        .keyboard-hint {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="progress-info">
+                <span id="current-index">{{ stats.current_index }}</span> / {{ stats.total }}
+            </div>
+            <div class="stats-mini">
+                <div class="stat-item">
+                    <span>✓ <span id="approved-count">{{ stats.approved }}</span></span>
+                </div>
+                <div class="stat-item">
+                    <span>✗ <span id="rejected-count">{{ stats.rejected }}</span></span>
+                </div>
+                <div class="stat-item">
+                    <span>📊 <span id="approval-rate">{{ stats.approval_rate }}</span></span>
+                </div>
+            </div>
+        </div>
+
+        {% if current %}
+        <div class="commentary-card" id="commentary-card">
+            <div class="commentary-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Source</div>
+                    <div class="meta-value">{{ current.source|upper }}</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Time</div>
+                    <div class="meta-value">{{ current.time }}</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Event Type</div>
+                    <div class="meta-value">{{ current.event_type }}</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Auto Quality Check</div>
+                    <div class="meta-value">
+                        {% if current.auto_quality_check %}
+                            <span class="quality-badge quality-pass">✓ PASS</span>
+                        {% else %}
+                            <span class="quality-badge quality-fail">✗ FAIL</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="commentary-text" id="commentary-display">
+                {{ current.text }}
+            </div>
+
+            <textarea class="editable-text" id="commentary-edit">{{ current.text }}</textarea>
+
+            <div class="actions">
+                <button class="btn btn-approve" onclick="approve()" id="btn-approve">
+                    <span>✓</span> Approve (A)
+                </button>
+                <button class="btn btn-edit" onclick="toggleEdit()" id="btn-edit">
+                    <span>✎</span> Edit (E)
+                </button>
+                <button class="btn btn-save" onclick="saveEdit()" id="btn-save">
+                    <span>💾</span> Save Edit
+                </button>
+                <button class="btn btn-reject" onclick="reject()" id="btn-reject">
+                    <span>✗</span> Reject (R)
+                </button>
+            </div>
+        </div>
+
+        <div class="keyboard-hint">
+            ⌨️ Keyboard shortcuts: A (Approve) | R (Reject) | E (Edit) | Esc (Cancel edit)
+        </div>
+        {% else %}
+        <div class="loading">
+            No commentary to review
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let currentIndex = {{ stats.current_index }} - 1;
+        let isEditMode = false;
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key === 'a' || e.key === 'A') {
+                approve();
+            } else if (e.key === 'r' || e.key === 'R') {
+                reject();
+            } else if (e.key === 'e' || e.key === 'E') {
+                toggleEdit();
+            } else if (e.key === 'Escape') {
+                cancelEdit();
+            }
+        });
+
+        function approve() {
+            if (isEditMode) return;
+
+            fetch('/api/approve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ index: currentIndex })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    updateStats('approved');
+                    loadNext(data.next_index);
+                }
+            });
+        }
+
+        function reject() {
+            if (isEditMode) return;
+
+            fetch('/api/reject', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ index: currentIndex, reason: 'Manual review' })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    updateStats('rejected');
+                    loadNext(data.next_index);
+                }
+            });
+        }
+
+        function toggleEdit() {
+            isEditMode = !isEditMode;
+            document.getElementById('commentary-display').style.display = isEditMode ? 'none' : 'block';
+            document.getElementById('commentary-edit').style.display = isEditMode ? 'block' : 'none';
+            document.getElementById('btn-save').style.display = isEditMode ? 'flex' : 'none';
+            document.getElementById('btn-approve').style.display = isEditMode ? 'none' : 'flex';
+            document.getElementById('btn-reject').style.display = isEditMode ? 'none' : 'flex';
+
+            if (isEditMode) {
+                document.getElementById('commentary-edit').focus();
+            }
+        }
+
+        function cancelEdit() {
+            if (isEditMode) {
+                toggleEdit();
+            }
+        }
+
+        function saveEdit() {
+            const editedText = document.getElementById('commentary-edit').value.trim();
+
+            if (!editedText) {
+                alert('Text cannot be empty');
+                return;
+            }
+
+            fetch('/api/edit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ index: currentIndex, text: editedText })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    updateStats('approved');
+                    loadNext(data.next_index);
+                }
+            });
+        }
+
+        function updateStats(action) {
+            if (action === 'approved') {
+                const count = parseInt(document.getElementById('approved-count').textContent);
+                document.getElementById('approved-count').textContent = count + 1;
+            } else if (action === 'rejected') {
+                const count = parseInt(document.getElementById('rejected-count').textContent);
+                document.getElementById('rejected-count').textContent = count + 1;
+            }
+
+            // Update approval rate
+            const approved = parseInt(document.getElementById('approved-count').textContent);
+            const rejected = parseInt(document.getElementById('rejected-count').textContent);
+            const total = approved + rejected;
+            const rate = (approved / total * 100).toFixed(1);
+            document.getElementById('approval-rate').textContent = rate + '%';
+        }
+
+        function loadNext(nextIndex) {
+            currentIndex = nextIndex;
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
