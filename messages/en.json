@@ -407,7 +407,10 @@
       "analysis": "Analysis",
       "liveCommentary": "Live commentary",
       "events": "events",
-      "noDataYet": "Match data will be available soon"
+      "noDataYet": "Match data will be available soon",
+      "live": "LIVE",
+      "viewers": "viewers",
+      "waitingForCommentary": "Waiting for live commentary..."
     }
   }
 }

@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -104,15 +105,8 @@ export default async function MatchDetailPage({
 }: {
   params: { id: string; locale: string };
 }) {
-  const t = await getTranslations({ locale });
-  const [matchHistory, matchInfo] = await Promise.all([
-    getMatchHistory(id, locale),
-    getMatchInfo(id),
-  ]);
-
-  if (!matchInfo) {
-    notFound();
-  }
+  // 301 Redirect to new unified URL pattern
+  redirect(`/${locale}/can-2025/match/${id}`);
 
   const competition = matchInfo.competitions[0];
   const homeTeam = competition.competitors[0];

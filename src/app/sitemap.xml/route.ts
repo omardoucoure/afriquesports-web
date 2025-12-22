@@ -50,6 +50,9 @@ export async function GET() {
   // CAN 2025 special sitemap (high priority content)
   sitemaps.push(`<sitemap><loc>${SITE_URL}/sitemaps/can-2025.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`);
 
+  // CAN 2025 matches sitemap (live match pages)
+  sitemaps.push(`<sitemap><loc>${SITE_URL}/sitemaps/can2025-matches.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`);
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="${SITE_URL}/sitemap.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

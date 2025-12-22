@@ -407,7 +407,10 @@
       "analysis": "Análisis",
       "liveCommentary": "Comentarios en vivo",
       "events": "eventos",
-      "noDataYet": "Los datos del partido estarán disponibles pronto"
+      "noDataYet": "Los datos del partido estarán disponibles pronto",
+      "live": "EN VIVO",
+      "viewers": "espectadores",
+      "waitingForCommentary": "Esperando comentarios en vivo..."
     }
   }
 }

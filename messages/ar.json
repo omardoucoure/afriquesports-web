@@ -362,5 +362,42 @@
       "substitutions": "تبديلات",
       "cards": "بطاقات"
     }
+  },
+  "can2025": {
+    "match": {
+      "preMatchAnalysis": "تحليل ما قبل المباراة",
+      "liveCommentary": "تعليقات مباشرة",
+      "events": "أحداث",
+      "noDataYet": "ستتوفر بيانات المباراة قريباً",
+      "matchReport": "تقرير المباراة",
+      "keyMoments": "لحظات رئيسية",
+      "analysis": "تحليل",
+      "headToHead": "المواجهات المباشرة",
+      "recentForm": "الأداء الأخير",
+      "keyPlayers": "لاعبون رئيسيون",
+      "tacticalPreview": "نظرة تكتيكية",
+      "prediction": "التوقعات",
+      "waitingForCommentary": "في انتظار التعليقات المباشرة..."
+    },
+    "results": {
+      "finished": "انتهت"
+    }
+  },
+  "match": {
+    "preMatchAnalysis": "تحليل ما قبل المباراة",
+    "liveCommentary": "تعليقات مباشرة",
+    "events": "أحداث",
+    "noDataYet": "ستتوفر بيانات المباراة قريباً",
+    "matchReport": "تقرير المباراة",
+    "keyMoments": "لحظات رئيسية",
+    "analysis": "تحليل",
+    "headToHead": "المواجهات المباشرة",
+    "recentForm": "الأداء الأخير",
+    "keyPlayers": "لاعبون رئيسيون",
+    "tacticalPreview": "نظرة تكتيكية",
+    "prediction": "التوقعات",
+    "live": "مباشر",
+    "viewers": "المشاهدون",
+    "waitingForCommentary": "في انتظار التعليقات المباشرة..."
   }
 }
