@@ -97,16 +97,19 @@ export async function GET() {
         ? new Date(match.date).toISOString()
         : new Date().toISOString();
 
+      // In production, French (default locale) has no prefix due to localePrefix: "as-needed"
+      const frenchUrl = `${SITE_URL}/can-2025/match/${matchId}`;
+
       return `
     <url>
-      <loc>${SITE_URL}/fr/can-2025/match/${matchId}</loc>
+      <loc>${frenchUrl}</loc>
       <lastmod>${lastmod}</lastmod>
       <changefreq>${changefreq}</changefreq>
       <priority>${priority.toFixed(1)}</priority>
       <xhtml:link
         rel="alternate"
         hreflang="fr"
-        href="${SITE_URL}/fr/can-2025/match/${matchId}" />
+        href="${frenchUrl}" />
       <xhtml:link
         rel="alternate"
         hreflang="en"
@@ -122,7 +125,7 @@ export async function GET() {
       <xhtml:link
         rel="alternate"
         hreflang="x-default"
-        href="${SITE_URL}/fr/can-2025/match/${matchId}" />
+        href="${frenchUrl}" />
     </url>`;
     }).join('');
 

@@ -117,8 +117,12 @@ export async function generateMetadata({
     description = `Suivez ${homeTeam.team.displayName} contre ${awayTeam.team.displayName} pour la CAN 2025. Analyses d'avant-match, compositions probables et prédictions.`;
   }
 
-  // Canonical URL (always French version)
-  const canonicalUrl = `${SITE_URL}/fr/can-2025/match/${id}`;
+  // Canonical URL (French at root in production, /fr in dev)
+  const isDev = process.env.NODE_ENV === 'development';
+  const frenchUrl = isDev
+    ? `${SITE_URL}/fr/can-2025/match/${id}`
+    : `${SITE_URL}/can-2025/match/${id}`; // No /fr prefix in production
+  const canonicalUrl = frenchUrl;
 
   // OG Image URL (dynamic with match data)
   const ogImageUrl = `${SITE_URL}/api/og-match?id=${id}&locale=${locale}`;
@@ -129,7 +133,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        'fr-FR': `${SITE_URL}/fr/can-2025/match/${id}`,
+        'fr-FR': frenchUrl,
         'en-US': `${SITE_URL}/en/can-2025/match/${id}`,
         'es-ES': `${SITE_URL}/es/can-2025/match/${id}`,
         'ar-SA': `${SITE_URL}/ar/can-2025/match/${id}`,

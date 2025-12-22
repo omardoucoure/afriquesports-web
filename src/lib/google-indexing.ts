@@ -145,7 +145,10 @@ export class GoogleIndexingAPI {
    * Notify Google about a match page going live
    */
   async notifyMatchLive(matchId: string, locale: string = 'fr'): Promise<boolean> {
-    const url = `${SITE_URL}/${locale}/can-2025/match/${matchId}`;
+    // In production, French (default locale) has no prefix due to localePrefix: "as-needed"
+    const isDev = process.env.NODE_ENV === 'development';
+    const localePrefix = (locale === 'fr' && !isDev) ? '' : `/${locale}`;
+    const url = `${SITE_URL}${localePrefix}/can-2025/match/${matchId}`;
     return this.notifyUpdate(url);
   }
 
