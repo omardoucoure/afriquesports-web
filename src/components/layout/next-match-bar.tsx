@@ -394,21 +394,14 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               </div>
             </div>
 
-            {/* Right: Venue + CTA */}
+            {/* Right: City + CTA */}
             <div className="flex items-center gap-4 flex-shrink-0">
-              {/* Venue */}
-              {(matchData.venue || matchData.city) && (
-                <div className="flex flex-col gap-0.5 text-right">
-                  {matchData.venue && (
-                    <span className="text-xs text-white/90 font-medium">
-                      📍 {matchData.venue}
-                    </span>
-                  )}
-                  {matchData.city && (
-                    <span className="text-xs text-white/70">
-                      {matchData.city}
-                    </span>
-                  )}
+              {/* City only */}
+              {matchData.city && (
+                <div className="text-right">
+                  <span className="text-xs text-white/90 font-medium">
+                    📍 {matchData.city}
+                  </span>
                 </div>
               )}
 
