@@ -21,6 +21,10 @@ export function LanguageSwitcher() {
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
+    // Save to cookie for middleware to read (1 year expiry)
+    const maxAge = 365 * 24 * 60 * 60; // 1 year in seconds
+    document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
+
     // Use next-intl's router.replace with locale option
     // This properly handles the locale switching without manual path manipulation
     router.replace(pathname, { locale: newLocale });

@@ -72,10 +72,19 @@ export function LocaleModal() {
     }
   }, [currentLocale]);
 
+  const saveLocalePreference = (locale: Locale) => {
+    // Save to localStorage for client-side
+    localStorage.setItem("locale-preference", locale);
+    localStorage.setItem("locale-preference-dismissed", "true");
+
+    // Save to cookie for middleware to read (1 year expiry)
+    const maxAge = 365 * 24 * 60 * 60; // 1 year in seconds
+    document.cookie = `locale-preference=${locale}; path=/; max-age=${maxAge}; SameSite=Lax`;
+  };
+
   const handleStay = () => {
     // Save current locale as preference
-    localStorage.setItem("locale-preference", currentLocale);
-    localStorage.setItem("locale-preference-dismissed", "true");
+    saveLocalePreference(currentLocale);
     setShowModal(false);
   };
 
@@ -83,8 +92,7 @@ export function LocaleModal() {
     if (!detectedLocale) return;
 
     // Save detected locale as preference
-    localStorage.setItem("locale-preference", detectedLocale);
-    localStorage.setItem("locale-preference-dismissed", "true");
+    saveLocalePreference(detectedLocale);
 
     setShowModal(false);
 
