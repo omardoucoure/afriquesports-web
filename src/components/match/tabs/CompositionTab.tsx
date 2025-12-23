@@ -74,7 +74,7 @@ export function CompositionTab({ matchData }: CompositionTabProps) {
     let playerIndex = 0;
     const yPositions = [75, 55, 35, 15]; // Defenders, midfielders, forwards
 
-    formationLines.forEach((playersInLine, lineIndex) => {
+    formationLines.forEach((playersInLine: number, lineIndex: number) => {
       const yPos = yPositions[lineIndex] || 50;
       const spacing = 100 / (playersInLine + 1);
 
