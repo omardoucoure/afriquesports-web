@@ -38,13 +38,13 @@ export async function recordVisit(data: {
   const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
   try {
-    // Check if visit exists for today and this locale
+    // Use UPSERT to handle race conditions atomically
+    // First, try to increment existing record
     const { data: existing, error: selectError } = await supabase
       .from('visits')
       .select('id, count')
       .eq('post_id', postId)
       .eq('visit_date', visitDate)
-      .eq('post_locale', postLocale)
       .maybeSingle();
 
     if (selectError) {
@@ -72,10 +72,10 @@ export async function recordVisit(data: {
       console.log('[Supabase] Visit count updated:', updated);
       return updated as { id: number; count: number };
     } else {
-      // Insert new visit
+      // Insert new visit - use upsert to handle race conditions
       const { data: inserted, error: insertError } = await supabase
         .from('visits')
-        .insert({
+        .upsert({
           post_id: postId,
           post_slug: postSlug,
           post_title: postTitle,
@@ -86,11 +86,27 @@ export async function recordVisit(data: {
           post_locale: postLocale,
           visit_date: visitDate,
           count: 1
+        }, {
+          onConflict: 'post_id,visit_date',
+          ignoreDuplicates: false
         })
         .select('id, count')
         .single();
 
       if (insertError) {
+        // If still duplicate (race condition), fetch the existing record
+        if (insertError.code === '23505') {
+          console.log('[Supabase] Duplicate detected, fetching existing record');
+          const { data: refetched } = await supabase
+            .from('visits')
+            .select('id, count')
+            .eq('post_id', postId)
+            .eq('visit_date', visitDate)
+            .single();
+
+          return refetched as { id: number; count: number } || null;
+        }
+
         console.error('[Supabase] Error inserting visit:', insertError);
         return null;
       }
