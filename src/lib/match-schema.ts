@@ -203,7 +203,22 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
       "@type": "SportsEvent",
       "name": "Africa Cup of Nations 2025",
       "alternateName": "AFCON 2025",
-      "url": `${SITE_URL}/${locale}/can-2025`
+      "url": `${SITE_URL}/${locale}/can-2025`,
+      "startDate": "2025-12-21T00:00:00Z",
+      "endDate": "2026-01-18T00:00:00Z",
+      "location": {
+        "@type": "Country",
+        "name": "Morocco",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "MA"
+        }
+      },
+      "organizer": {
+        "@type": "SportsOrganization",
+        "name": "Confederation of African Football",
+        "url": "https://www.cafonline.com"
+      }
     }
   };
 
