@@ -29,6 +29,8 @@ const PRE_MATCH_HOURS = 24; // Generate pre-match analysis 24 hours before
 
 // YouTube channel where all CAN 2025 matches are streamed
 const YOUTUBE_CHANNEL_URL = process.env.YOUTUBE_CHANNEL_URL || 'https://www.youtube.com/@afriquesports/live';
+// Default video ID for all CAN 2025 matches (if set, skip scraping)
+const DEFAULT_VIDEO_ID = process.env.DEFAULT_YOUTUBE_VIDEO_ID || null;
 
 // Track processed matches
 const processedMatches = new Set();
@@ -371,6 +373,16 @@ async function scrapeYouTubeLiveStream() {
  * Search YouTube for live stream (with fallback to scraping)
  */
 async function findYouTubeLiveStream(match) {
+  // If default video ID is set, use it directly
+  if (DEFAULT_VIDEO_ID) {
+    console.log(`   📺 Using configured video ID: ${DEFAULT_VIDEO_ID}`);
+    return {
+      videoId: DEFAULT_VIDEO_ID,
+      title: `${match.homeTeam} vs ${match.awayTeam} - CAN 2025 LIVE`,
+      channel: 'Afrique Sports'
+    };
+  }
+
   // Try YouTube API if available
   if (YOUTUBE_API_KEY) {
     try {
