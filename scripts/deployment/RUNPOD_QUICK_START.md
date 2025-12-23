@@ -1,12 +1,23 @@
 # RunPod Quick Start Guide
 
+## ✅ Current Status (Updated: 2025-12-23)
+
+**vLLM Server is RUNNING and TESTED!**
+- Model: Llama 3.1 70B (quantized, 38GB)
+- Endpoint: http://194.68.245.75:8000/v1
+- API Key: `afrique-sports-70b-working`
+- Model loaded: 37.12 GB in GPU memory
+- French commentary: ✅ Tested and working
+
 ## Your Pod Details
 - **Pod Name:** eager_gray_crane
 - **Pod ID:** wfl4o3ns1tizo1
 - **GPU:** NVIDIA A40 (48GB VRAM)
 - **Cost:** $0.41/hour (only while running)
+- **Network Volume:** Omar (50GB at /workspace)
 - **SSH:** `ssh runpod` (configured in ~/.ssh/config)
-- **Direct SSH:** `ssh root@194.68.245.75 -p 22061 -i ~/.ssh/id_ed25519`
+- **Direct SSH:** `ssh root@194.68.245.75 -p 22027 -i ~/.ssh/id_ed25519`
+- **Public IP:** 194.68.245.75
 
 ## Step 1: Connect to Pod
 
@@ -75,6 +86,8 @@ Example output: `194.68.245.75`
 
 ## Step 6: Configure DigitalOcean Agent
 
+✅ **vLLM Server is Running!** Tested and confirmed working on 2025-12-23.
+
 On your **DigitalOcean server** (159.223.103.16), update the agent configuration:
 
 ```bash
@@ -85,10 +98,16 @@ nano .env
 
 Add these lines:
 ```bash
-# GPU Server (RunPod)
+# GPU Server (RunPod) - Llama 3.1 70B Quantized
 VLLM_BASE_URL=http://194.68.245.75:8000/v1
-VLLM_API_KEY=afrique-sports-local-key-XXXXXXXXX  # From Step 3
+VLLM_API_KEY=afrique-sports-70b-working
 VLLM_MODEL=llama-3.1-70b
+```
+
+**Test endpoint:**
+```bash
+curl http://194.68.245.75:8000/v1/models \
+  -H "Authorization: Bearer afrique-sports-70b-working"
 ```
 
 ## Cost Management
