@@ -61,6 +61,30 @@ async function getMatchCommentary(matchId: string, locale: string): Promise<any[
 }
 
 /**
+ * Fetch YouTube stream for match
+ */
+async function getYouTubeStream(matchId: string): Promise<string | null> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/match-youtube-stream?match_id=${matchId}`,
+      {
+        next: { revalidate: 60 } // Cache for 1 minute
+      }
+    );
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    return data.stream?.youtube_video_id || null;
+  } catch (error) {
+    console.error('Error fetching YouTube stream:', error);
+    return null;
+  }
+}
+
+/**
  * Generate dynamic metadata for SEO
  */
 export async function generateMetadata({
@@ -194,14 +218,20 @@ export default async function MatchPage({
   try {
     const t = await getTranslations({ locale });
 
-    // Fetch match data and commentary in parallel
-    const [matchDataRaw, commentary] = await Promise.all([
+    // Fetch match data, commentary, and YouTube stream in parallel
+    const [matchDataRaw, commentary, youtubeStream] = await Promise.all([
       getMatchData(id),
-      getMatchCommentary(id, locale)
+      getMatchCommentary(id, locale),
+      getYouTubeStream(id)
     ]);
 
     if (!matchDataRaw || !matchDataRaw.header) {
       notFound();
+    }
+
+    // Add YouTube stream to match data
+    if (youtubeStream) {
+      matchDataRaw.youtubeStream = youtubeStream;
     }
 
     // Convert ESPN data to MatchData format

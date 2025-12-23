@@ -11,8 +11,9 @@ export function VideoTab({ matchData }: VideoTabProps) {
 
   const videos = matchData.videos || [];
   const highlights = matchData.highlights || [];
+  const liveStream = matchData.liveStream || matchData.youtubeStream;
 
-  const hasVideos = videos.length > 0 || highlights.length > 0;
+  const hasVideos = videos.length > 0 || highlights.length > 0 || liveStream;
 
   if (!hasVideos) {
     return (
@@ -26,6 +27,32 @@ export function VideoTab({ matchData }: VideoTabProps) {
 
   return (
     <div className="space-y-4">
+      {/* Live Stream */}
+      {liveStream && (
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-2 py-1 bg-red-600 rounded-full">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              </span>
+              <span className="text-[10px] font-bold uppercase text-white tracking-wider">EN DIRECT</span>
+            </div>
+            <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
+              {t('liveStream') || 'Diffusion en direct'}
+            </h4>
+          </div>
+          <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden">
+            <iframe
+              src={`https://www.youtube.com/embed/${liveStream}?autoplay=1&mute=0`}
+              title="Live Stream"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+        </div>
+      )}
       {/* Highlights */}
       {highlights.length > 0 && (
         <div className="space-y-2">
