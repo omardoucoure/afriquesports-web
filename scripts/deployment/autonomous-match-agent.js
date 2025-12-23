@@ -557,10 +557,21 @@ async function processKeyEvents(matchId, keyEvents, homeTeam, awayTeam) {
       const assist = event.participants?.[1]?.athlete?.displayName || null;
 
       // Determine which team scored based on text content
+      // Text format: "Goal! Tunisia 1, Uganda 0. Ellyes Skhiri (Tunisia)..."
       let team = 'home';
       let teamName = homeTeam.name;
 
-      if (text.includes(awayTeam.name) && text.indexOf(awayTeam.name) < text.indexOf(scorer)) {
+      // Check if scorer's team name appears in parentheses (more reliable)
+      const scorerTeamMatch = text.match(new RegExp(`${scorer}\\s*\\(([^)]+)\\)`));
+      if (scorerTeamMatch) {
+        const scorerTeamName = scorerTeamMatch[1];
+        if (scorerTeamName.includes(awayTeam.name) || scorerTeamName.includes(awayTeam.abbreviation)) {
+          team = 'away';
+          teamName = awayTeam.name;
+        }
+      }
+      // Fallback: check if away team appears first in the text
+      else if (text.indexOf(awayTeam.name) > -1 && text.indexOf(homeTeam.name) > text.indexOf(awayTeam.name)) {
         team = 'away';
         teamName = awayTeam.name;
       }
