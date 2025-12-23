@@ -17,6 +17,7 @@ const TEAM_TO_FLAG: Record<string, string> = {
   'Burkina Faso': 'bf',
   'South Africa': 'za',
   'DR Congo': 'cd',
+  'Congo DR': 'cd',
   'Guinea': 'gn',
   'Zambia': 'zm',
   'Cape Verde': 'cv',

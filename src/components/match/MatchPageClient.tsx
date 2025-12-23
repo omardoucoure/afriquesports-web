@@ -30,6 +30,8 @@ export default function MatchPageClient({
   const tEvents = useTranslations('can2025.match.eventTypes');
   const [viewers, setViewers] = useState(Math.floor(Math.random() * 5000) + 1000);
   const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('stats');
+  const [homeLogoError, setHomeLogoError] = useState(false);
+  const [awayLogoError, setAwayLogoError] = useState(false);
 
   const competition = matchDataRaw.header.competitions[0];
   const homeTeam = competition.competitors[0];
@@ -378,21 +380,12 @@ export default function MatchPageClient({
                 <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
-                    {homeTeam.team.logos?.[0]?.href ? (
+                    {homeTeam.team.logos?.[0]?.href && !homeLogoError ? (
                       <img
                         src={homeTeam.team.logos[0].href}
                         alt={homeTeam.team.displayName}
                         className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const parent = e.currentTarget.parentElement;
-                          if (parent && !parent.querySelector('.flag-fallback')) {
-                            const fallback = document.createElement('div');
-                            fallback.className = 'flag-fallback relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl';
-                            fallback.textContent = (homeTeam.team.abbreviation || homeTeam.team.displayName.slice(0, 3)).toUpperCase();
-                            parent.appendChild(fallback);
-                          }
-                        }}
+                        onError={() => setHomeLogoError(true)}
                       />
                     ) : (
                       <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
@@ -488,21 +481,12 @@ export default function MatchPageClient({
                   </div>
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
-                    {awayTeam.team.logos?.[0]?.href ? (
+                    {awayTeam.team.logos?.[0]?.href && !awayLogoError ? (
                       <img
                         src={awayTeam.team.logos[0].href}
                         alt={awayTeam.team.displayName}
                         className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const parent = e.currentTarget.parentElement;
-                          if (parent && !parent.querySelector('.flag-fallback')) {
-                            const fallback = document.createElement('div');
-                            fallback.className = 'flag-fallback relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl';
-                            fallback.textContent = (awayTeam.team.abbreviation || awayTeam.team.displayName.slice(0, 3)).toUpperCase();
-                            parent.appendChild(fallback);
-                          }
-                        }}
+                        onError={() => setAwayLogoError(true)}
                       />
                     ) : (
                       <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
