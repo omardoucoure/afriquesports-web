@@ -450,6 +450,8 @@
       "eventTypes": {
         "goal": "GOL",
         "goalBadge": "¡GOL!",
+        "general": "Comentario",
+        "matchStart": "Inicio del partido",
         "fullTime": "Final",
         "halfTime": "Descanso",
         "kickOff": "Saque inicial",
@@ -465,6 +467,7 @@
         "shotOnTarget": "Tiro a puerta",
         "penaltyMissed": "Penalti fallado",
         "penaltyAwarded": "Penalti",
+        "missedChance": "Ocasión perdida",
         "dangerousAttack": "Ataque peligroso",
         "injury": "Lesión",
         "possession": "Posesión"

@@ -451,6 +451,8 @@
       "eventTypes": {
         "goal": "BUT",
         "goalBadge": "BUT !",
+        "general": "Commentaire",
+        "matchStart": "Début du match",
         "fullTime": "Fin du match",
         "halfTime": "Mi-temps",
         "kickOff": "Coup d'envoi",
@@ -466,6 +468,7 @@
         "shotOnTarget": "Tir cadré",
         "penaltyMissed": "Penalty raté",
         "penaltyAwarded": "Penalty",
+        "missedChance": "Occasion manquée",
         "dangerousAttack": "Attaque dangereuse",
         "injury": "Blessure",
         "possession": "Possession"

@@ -450,6 +450,8 @@
       "eventTypes": {
         "goal": "GOAL",
         "goalBadge": "GOAL!",
+        "general": "Commentary",
+        "matchStart": "Match Start",
         "fullTime": "Full Time",
         "halfTime": "Half Time",
         "kickOff": "Kick Off",
@@ -465,6 +467,7 @@
         "shotOnTarget": "Shot on Target",
         "penaltyMissed": "Penalty Missed",
         "penaltyAwarded": "Penalty",
+        "missedChance": "Missed Chance",
         "dangerousAttack": "Attack",
         "injury": "Injury",
         "possession": "Possession"
