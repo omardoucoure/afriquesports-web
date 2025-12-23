@@ -1,0 +1,29 @@
+[Unit]
+Description=Afrique Sports Live Commentary Agent
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/afrique-sports-commentary
+ExecStart=/usr/bin/node /opt/afrique-sports-commentary/live-commentary-agent.js
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/afrique-sports-commentary.log
+StandardError=append:/var/log/afrique-sports-commentary-error.log
+
+# Environment variables
+Environment="NODE_ENV=production"
+Environment="VLLM_BASE_URL=http://194.68.245.75:8000/v1"
+Environment="VLLM_API_KEY=afrique-sports-70b-working"
+Environment="VLLM_MODEL=llama-3.1-70b"
+Environment="NEXT_PUBLIC_SITE_URL=https://www.afriquesports.net"
+Environment="CHECK_INTERVAL_SECONDS=60"
+Environment="COMMENTARY_INTERVAL_MINUTES=5"
+
+# Load webhook secret from environment file
+EnvironmentFile=/opt/afrique-sports-commentary/.env
+
+[Install]
+WantedBy=multi-user.target
