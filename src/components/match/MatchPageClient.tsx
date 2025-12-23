@@ -68,11 +68,11 @@ export default function MatchPageClient({
   const goalScorers = {
     home: currentCommentary
       .filter((event: any) => event.is_scoring && event.team === 'home')
-      .map((event: any) => event.scorer)
+      .map((event: any) => event.player_name)
       .filter(Boolean),
     away: currentCommentary
       .filter((event: any) => event.is_scoring && event.team === 'away')
-      .map((event: any) => event.scorer)
+      .map((event: any) => event.player_name)
       .filter(Boolean)
   };
 
