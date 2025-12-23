@@ -221,7 +221,9 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
 
   // Add goal scorers as performers
   if (match.commentary && match.commentary.length > 0) {
-    const goalScorers = match.commentary
+    // Process goals in reverse order (newest first) to prioritize correct team attribution
+    const goalScorers = [...match.commentary]
+      .reverse()
       .filter(event => event.is_scoring && event.player_name)
       .map(event => {
         // Determine team from text if team field is missing
@@ -247,7 +249,7 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
         };
       });
 
-    // Get unique scorers
+    // Get unique scorers by name (keeps first occurrence, which is now the most recent/correct)
     const uniqueScorers = Array.from(
       new Map(goalScorers.map(scorer => [scorer.name, scorer])).values()
     );
