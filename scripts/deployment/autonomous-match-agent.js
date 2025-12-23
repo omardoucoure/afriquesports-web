@@ -324,7 +324,68 @@ async function postCommentary(matchId, commentary, type = 'general', isScoring =
 }
 
 /**
- * Scrape YouTube channel page to find CAN 2025 live stream
+ * Search YouTube using Data API v3 for live streams
+ */
+async function searchYouTubeWithAPI() {
+  if (!YOUTUBE_API_KEY) {
+    console.log('   ⚠️  No YouTube API key configured');
+    return null;
+  }
+
+  try {
+    // Search for live broadcasts on Afrique Sports channel
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCtTx4ZA0kCZ5jQ0xYhmwouA&eventType=live&type=video&key=${YOUTUBE_API_KEY}&maxResults=10`;
+
+    const data = await fetchJSON(searchUrl);
+
+    if (!data.items || data.items.length === 0) {
+      console.log('   ⚠️  No live streams found on channel');
+      return null;
+    }
+
+    // Look for CAN 2025 related streams
+    const can2025Keywords = ['CAN 2025', 'CAN2025', 'AFCON 2025', 'Tunisie', 'Tunisia', 'Ouganda', 'Uganda', 'CAN 25', 'CAN'];
+
+    for (const item of data.items) {
+      const videoId = item.id.videoId;
+      const title = item.snippet.title;
+
+      // Check if title contains CAN 2025 keywords
+      const isCAN2025 = can2025Keywords.some(keyword =>
+        title.toUpperCase().includes(keyword.toUpperCase())
+      );
+
+      if (isCAN2025) {
+        console.log(`   🎯 Found CAN 2025 live stream via API: ${title}`);
+        return {
+          videoId,
+          title,
+          channel: 'Afrique Sports'
+        };
+      }
+    }
+
+    // Fallback to first live stream
+    if (data.items.length > 0) {
+      const videoId = data.items[0].id.videoId;
+      const title = data.items[0].snippet.title;
+      console.log(`   📺 Using first live stream: ${title}`);
+      return {
+        videoId,
+        title,
+        channel: 'Afrique Sports'
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error('[ERROR] YouTube API search failed:', error.message);
+    return null;
+  }
+}
+
+/**
+ * Scrape YouTube channel page to find CAN 2025 live stream (fallback)
  */
 async function scrapeYouTubeLiveStream() {
   return new Promise((resolve, reject) => {
@@ -333,40 +394,43 @@ async function scrapeYouTubeLiveStream() {
       res.on('data', chunk => html += chunk);
       res.on('end', () => {
         try {
-          // Find all video IDs and titles in the page
-          const videoMatches = [...html.matchAll(/"videoId":"([a-zA-Z0-9_-]{11})"[^}]*?"title":{"runs":\[{"text":"([^"]+)"/g)];
+          // Extract all video IDs
+          const videoIds = [...html.matchAll(/"videoId":"([a-zA-Z0-9_-]{11})"/g)].map(m => m[1]);
 
-          // Look for CAN 2025 related streams
-          const can2025Keywords = ['CAN 2025', 'CAN2025', 'AFCON 2025', 'Tunisie', 'Tunisia', 'Ouganda', 'Uganda', 'CAN 25'];
+          // Extract video titles from simpleText
+          const titleMatches = [...html.matchAll(/"text":"([^"]*(?:CAN|Tunisie|Tunisia|Ouganda|Uganda|LIVE)[^"]*)"/gi)];
 
-          for (const match of videoMatches) {
-            const videoId = match[1];
-            const title = match[2];
+          // Look for CAN 2025 related keywords
+          const can2025Keywords = ['CAN 2025', 'CAN2025', 'AFCON 2025', 'Tunisie', 'Tunisia', 'Ouganda', 'Uganda', 'CAN'];
 
-            // Check if title contains CAN 2025 keywords
-            const isCAN2025 = can2025Keywords.some(keyword =>
+          for (const titleMatch of titleMatches) {
+            const title = titleMatch[1];
+
+            // Check if title contains CAN keywords and LIVE
+            const isCAN = can2025Keywords.some(keyword =>
               title.toUpperCase().includes(keyword.toUpperCase())
             );
 
-            if (isCAN2025 && title.toUpperCase().includes('LIVE')) {
-              console.log(`   🎯 Found CAN 2025 live stream: ${title}`);
-              resolve({
-                videoId,
-                title,
-                channel: 'Afrique Sports'
-              });
-              return;
+            if (isCAN && title.toUpperCase().includes('LIVE')) {
+              // Use the first video ID found (likely the live stream)
+              if (videoIds.length > 0) {
+                console.log(`   🎯 Found CAN live stream via scraping: ${title}`);
+                resolve({
+                  videoId: videoIds[0],
+                  title,
+                  channel: 'Afrique Sports'
+                });
+                return;
+              }
             }
           }
 
-          // Fallback: use first video if no CAN 2025 match found
-          if (videoMatches.length > 0) {
-            const videoId = videoMatches[0][1];
-            const title = videoMatches[0][2];
-            console.log(`   📺 Using first available stream: ${title}`);
+          // Fallback: use first video if no CAN match found
+          if (videoIds.length > 0) {
+            console.log(`   📺 Using first available video ID: ${videoIds[0]}`);
             resolve({
-              videoId,
-              title,
+              videoId: videoIds[0],
+              title: 'Live stream',
               channel: 'Afrique Sports'
             });
           } else {
@@ -385,15 +449,26 @@ async function scrapeYouTubeLiveStream() {
 }
 
 /**
- * Search YouTube for live stream (scrape Afrique Sports channel)
+ * Search YouTube for live stream (YouTube API + scraping fallback)
  */
 async function findYouTubeLiveStream(match) {
-  // Scrape YouTube channel page for CAN 2025 live stream
+  // Try YouTube API first
+  if (YOUTUBE_API_KEY) {
+    console.log(`   🔍 Searching Afrique Sports channel via YouTube API...`);
+    const apiStream = await searchYouTubeWithAPI();
+
+    if (apiStream) {
+      console.log(`   ✅ Found live stream via API: ${apiStream.videoId}`);
+      return apiStream;
+    }
+  }
+
+  // Fallback to scraping YouTube channel page
   console.log(`   🔍 Scraping Afrique Sports channel for CAN 2025 live stream...`);
   const scrapedStream = await scrapeYouTubeLiveStream();
 
   if (scrapedStream) {
-    console.log(`   ✅ Found live stream: ${scrapedStream.videoId}`);
+    console.log(`   ✅ Found live stream via scraping: ${scrapedStream.videoId}`);
     return scrapedStream;
   }
 
