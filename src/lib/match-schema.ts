@@ -223,10 +223,29 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
   if (match.commentary && match.commentary.length > 0) {
     const goalScorers = match.commentary
       .filter(event => event.is_scoring && event.player_name)
-      .map(event => ({
-        name: event.player_name!,
-        team: event.team === 'home' ? match.homeTeam.name : match.awayTeam.name
-      }));
+      .map(event => {
+        // Determine team from text if team field is missing
+        let teamName: string;
+        if (event.team === 'home') {
+          teamName = match.homeTeam.name;
+        } else if (event.team === 'away') {
+          teamName = match.awayTeam.name;
+        } else {
+          // Fallback: parse team from commentary text
+          const text = event.text || '';
+          if (text.includes(match.homeTeam.name)) {
+            teamName = match.homeTeam.name;
+          } else if (text.includes(match.awayTeam.name)) {
+            teamName = match.awayTeam.name;
+          } else {
+            teamName = match.homeTeam.name; // Default to home team
+          }
+        }
+        return {
+          name: event.player_name!,
+          team: teamName
+        };
+      });
 
     // Get unique scorers
     const uniqueScorers = Array.from(
