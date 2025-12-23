@@ -28,9 +28,7 @@ const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 const PRE_MATCH_HOURS = 24; // Generate pre-match analysis 24 hours before
 
 // YouTube channel where all CAN 2025 matches are streamed
-const YOUTUBE_CHANNEL_URL = process.env.YOUTUBE_CHANNEL_URL || 'https://www.youtube.com/@afriquesports/live';
-// Default video ID for all CAN 2025 matches (if set, skip scraping)
-const DEFAULT_VIDEO_ID = process.env.DEFAULT_YOUTUBE_VIDEO_ID || null;
+const YOUTUBE_CHANNEL_URL = process.env.YOUTUBE_CHANNEL_URL || 'https://www.youtube.com/@afriquesports/streams';
 
 // Track processed matches
 const processedMatches = new Set();
@@ -326,7 +324,7 @@ async function postCommentary(matchId, commentary, type = 'general', isScoring =
 }
 
 /**
- * Scrape YouTube channel page to find current live stream
+ * Scrape YouTube channel page to find CAN 2025 live stream
  */
 async function scrapeYouTubeLiveStream() {
   return new Promise((resolve, reject) => {
@@ -335,24 +333,41 @@ async function scrapeYouTubeLiveStream() {
       res.on('data', chunk => html += chunk);
       res.on('end', () => {
         try {
-          // Extract video ID from YouTube's HTML
-          // Look for patterns like: "videoId":"VIDEO_ID_HERE"
-          const videoIdMatch = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
-          if (videoIdMatch && videoIdMatch[1]) {
-            const videoId = videoIdMatch[1];
+          // Find all video IDs and titles in the page
+          const videoMatches = [...html.matchAll(/"videoId":"([a-zA-Z0-9_-]{11})"[^}]*?"title":{"runs":\[{"text":"([^"]+)"/g)];
 
-            // Extract title if available
-            const titleMatch = html.match(/"title":{"runs":\[{"text":"([^"]+)"/);
-            const title = titleMatch ? titleMatch[1] : 'CAN 2025 Live';
+          // Look for CAN 2025 related streams
+          const can2025Keywords = ['CAN 2025', 'CAN2025', 'AFCON 2025', 'Tunisie', 'Tunisia', 'Ouganda', 'Uganda', 'CAN 25'];
 
-            // Extract channel name
-            const channelMatch = html.match(/"ownerChannelName":"([^"]+)"/);
-            const channel = channelMatch ? channelMatch[1] : 'Afrique Sports';
+          for (const match of videoMatches) {
+            const videoId = match[1];
+            const title = match[2];
 
+            // Check if title contains CAN 2025 keywords
+            const isCAN2025 = can2025Keywords.some(keyword =>
+              title.toUpperCase().includes(keyword.toUpperCase())
+            );
+
+            if (isCAN2025 && title.toUpperCase().includes('LIVE')) {
+              console.log(`   🎯 Found CAN 2025 live stream: ${title}`);
+              resolve({
+                videoId,
+                title,
+                channel: 'Afrique Sports'
+              });
+              return;
+            }
+          }
+
+          // Fallback: use first video if no CAN 2025 match found
+          if (videoMatches.length > 0) {
+            const videoId = videoMatches[0][1];
+            const title = videoMatches[0][2];
+            console.log(`   📺 Using first available stream: ${title}`);
             resolve({
               videoId,
               title,
-              channel
+              channel: 'Afrique Sports'
             });
           } else {
             resolve(null);
@@ -370,42 +385,11 @@ async function scrapeYouTubeLiveStream() {
 }
 
 /**
- * Search YouTube for live stream (with fallback to scraping)
+ * Search YouTube for live stream (scrape Afrique Sports channel)
  */
 async function findYouTubeLiveStream(match) {
-  // If default video ID is set, use it directly
-  if (DEFAULT_VIDEO_ID) {
-    console.log(`   📺 Using configured video ID: ${DEFAULT_VIDEO_ID}`);
-    return {
-      videoId: DEFAULT_VIDEO_ID,
-      title: `${match.homeTeam} vs ${match.awayTeam} - CAN 2025 LIVE`,
-      channel: 'Afrique Sports'
-    };
-  }
-
-  // Try YouTube API if available
-  if (YOUTUBE_API_KEY) {
-    try {
-      const query = `${match.homeTeam} ${match.awayTeam} live CAN 2025`;
-      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}&maxResults=3`;
-
-      const data = await fetchJSON(url);
-
-      if (data.items && data.items.length > 0) {
-        const stream = data.items[0];
-        return {
-          videoId: stream.id.videoId,
-          title: stream.snippet.title,
-          channel: stream.snippet.channelTitle
-        };
-      }
-    } catch (error) {
-      console.error('[ERROR] YouTube API search failed:', error.message);
-    }
-  }
-
-  // Fallback: Scrape YouTube channel page for current live stream
-  console.log(`   🔍 Scraping YouTube channel for current live stream...`);
+  // Scrape YouTube channel page for CAN 2025 live stream
+  console.log(`   🔍 Scraping Afrique Sports channel for CAN 2025 live stream...`);
   const scrapedStream = await scrapeYouTubeLiveStream();
 
   if (scrapedStream) {
@@ -413,7 +397,7 @@ async function findYouTubeLiveStream(match) {
     return scrapedStream;
   }
 
-  console.log(`   ⚠️  No live stream found on YouTube channel`);
+  console.log(`   ⚠️  No live stream found on Afrique Sports channel`);
   return null;
 }
 
