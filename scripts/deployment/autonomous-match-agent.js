@@ -281,7 +281,7 @@ Génère UN commentaire de match professionnel en français (2-3 phrases) basé 
 /**
  * Post commentary to database
  */
-async function postCommentary(matchId, commentary, type = 'general', isScoring = false) {
+async function postCommentary(matchId, commentary, type = 'general', isScoring = false, team = null, scorer = null) {
   try {
     const eventId = `auto_${matchId}_${Date.now()}`;
 
@@ -293,7 +293,9 @@ async function postCommentary(matchId, commentary, type = 'general', isScoring =
       locale: 'fr',
       text: commentary,
       type,
-      icon: type === 'preMatch' ? '📋' : type === 'general' ? '⚽' : '📺',
+      team: team,
+      player_name: scorer,
+      icon: type === 'goal' ? '⚽' : type === 'preMatch' ? '📋' : type === 'yellowCard' ? '🟨' : type === 'redCard' ? '🟥' : '📺',
       is_scoring: isScoring,
       confidence: 0.90
     };
@@ -498,7 +500,7 @@ async function processPreMatch(match) {
 }
 
 /**
- * Get match details from API
+ * Get match details and key events from API
  */
 async function getMatchDetails(matchId) {
   try {
@@ -513,18 +515,100 @@ async function getMatchDetails(matchId) {
     return {
       homeTeam: {
         name: competitors[0].team.displayName,
+        abbreviation: competitors[0].team.abbreviation,
         score: competitors[0].score || 0
       },
       awayTeam: {
         name: competitors[1].team.displayName,
+        abbreviation: competitors[1].team.abbreviation,
         score: competitors[1].score || 0
       },
       status: data.header.status,
-      minute: data.header.status?.displayClock || null
+      minute: data.header.status?.displayClock || null,
+      keyEvents: data.keyEvents || []
     };
   } catch (error) {
     console.error('[ERROR] Failed to get match details:', error.message);
     return null;
+  }
+}
+
+/**
+ * Process key events (goals, cards, etc.) and post commentary
+ */
+async function processKeyEvents(matchId, keyEvents, homeTeam, awayTeam) {
+  if (!keyEvents || keyEvents.length === 0) return;
+
+  for (const event of keyEvents) {
+    const eventId = `espn_event_${matchId}_${event.id || Date.now()}`;
+    const eventKey = `event_${eventId}`;
+
+    // Skip if already posted
+    if (processedMatches.has(eventKey)) continue;
+
+    const eventType = event.type?.text || '';
+    const minute = event.clock?.displayValue || '';
+    const text = event.text || '';
+
+    // Process goals
+    if (eventType.toLowerCase().includes('goal') && !eventType.toLowerCase().includes('own goal')) {
+      // Extract scorer from participants
+      const scorer = event.participants?.[0]?.athlete?.displayName || 'Unknown';
+      const assist = event.participants?.[1]?.athlete?.displayName || null;
+
+      // Determine which team scored based on text content
+      let team = 'home';
+      let teamName = homeTeam.name;
+
+      if (text.includes(awayTeam.name) && text.indexOf(awayTeam.name) < text.indexOf(scorer)) {
+        team = 'away';
+        teamName = awayTeam.name;
+      }
+
+      // Generate goal commentary in French
+      let commentary = `⚽ BUT ! ${teamName} ${team === 'home' ? homeTeam.score : awayTeam.score} - ${team === 'home' ? awayTeam.score : homeTeam.score} ${team === 'home' ? awayTeam.name : homeTeam.name}. ${scorer} marque pour ${teamName} !`;
+
+      if (assist) {
+        commentary += ` Passe décisive de ${assist}.`;
+      }
+
+      // Post goal event
+      const success = await postCommentary(
+        matchId,
+        commentary,
+        'goal',
+        true, // is_scoring
+        team,
+        scorer
+      );
+
+      if (success) {
+        processedMatches.add(eventKey);
+        console.log(`   ⚽ Goal posted: ${scorer} (${minute})`);
+      }
+    }
+    // Process yellow cards
+    else if (eventType.toLowerCase().includes('yellow card')) {
+      const player = event.participants?.[0]?.athlete?.displayName || 'Unknown';
+      const commentary = `🟨 Carton jaune pour ${player} à la ${minute}.`;
+
+      const success = await postCommentary(matchId, commentary, 'yellowCard', false);
+      if (success) {
+        processedMatches.add(eventKey);
+        console.log(`   🟨 Yellow card posted: ${player}`);
+      }
+    }
+    // Process red cards
+    else if (eventType.toLowerCase().includes('red card')) {
+      const player = event.participants?.[0]?.athlete?.displayName || 'Unknown';
+      const commentary = `🟥 Carton rouge ! ${player} est expulsé à la ${minute} !`;
+
+      const success = await postCommentary(matchId, commentary, 'redCard', false);
+      if (success) {
+        processedMatches.add(eventKey);
+        console.log(`   🟥 Red card posted: ${player}`);
+      }
+    }
   }
 }
 
@@ -553,6 +637,11 @@ async function processLiveMatch(match) {
     await postCommentary(match.id, startCommentary, 'matchStart', false);
     processedMatches.add(matchKey);
     console.log(`   ✅ Match start event posted`);
+  }
+
+  // Process key events (goals, cards, etc.)
+  if (details && details.keyEvents) {
+    await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
   // Find YouTube stream automatically
