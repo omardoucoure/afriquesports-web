@@ -378,11 +378,27 @@ export default function MatchPageClient({
                 <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
-                    <img
-                      src={homeTeam.team.logos?.[0]?.href || '/images/team-placeholder.png'}
-                      alt={homeTeam.team.displayName}
-                      className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
-                    />
+                    {homeTeam.team.logos?.[0]?.href ? (
+                      <img
+                        src={homeTeam.team.logos[0].href}
+                        alt={homeTeam.team.displayName}
+                        className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const parent = e.currentTarget.parentElement;
+                          if (parent && !parent.querySelector('.flag-fallback')) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'flag-fallback relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl';
+                            fallback.textContent = (homeTeam.team.abbreviation || homeTeam.team.displayName.slice(0, 3)).toUpperCase();
+                            parent.appendChild(fallback);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
+                        {(homeTeam.team.abbreviation || homeTeam.team.displayName.slice(0, 3)).toUpperCase()}
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h1 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-white truncate drop-shadow-md">
@@ -472,11 +488,27 @@ export default function MatchPageClient({
                   </div>
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
-                    <img
-                      src={awayTeam.team.logos?.[0]?.href || '/images/team-placeholder.png'}
-                      alt={awayTeam.team.displayName}
-                      className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
-                    />
+                    {awayTeam.team.logos?.[0]?.href ? (
+                      <img
+                        src={awayTeam.team.logos[0].href}
+                        alt={awayTeam.team.displayName}
+                        className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const parent = e.currentTarget.parentElement;
+                          if (parent && !parent.querySelector('.flag-fallback')) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'flag-fallback relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl';
+                            fallback.textContent = (awayTeam.team.abbreviation || awayTeam.team.displayName.slice(0, 3)).toUpperCase();
+                            parent.appendChild(fallback);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
+                        {(awayTeam.team.abbreviation || awayTeam.team.displayName.slice(0, 3)).toUpperCase()}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
