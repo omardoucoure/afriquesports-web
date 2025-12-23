@@ -29,7 +29,7 @@ export default function MatchPageClient({
   const t = useTranslations('can2025.match');
   const tEvents = useTranslations('can2025.match.eventTypes');
   const [viewers, setViewers] = useState(0); // Initialize with 0 to prevent hydration error
-  const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('stats');
+  const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('video'); // Default to video tab
   const [homeLogoError, setHomeLogoError] = useState(false);
   const [awayLogoError, setAwayLogoError] = useState(false);
 
