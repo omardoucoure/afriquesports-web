@@ -27,12 +27,22 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    const competition = data.header.competitions[0];
-    const homeTeam = competition.competitors[0];
-    const awayTeam = competition.competitors[1];
-    const status = data.header.status;
 
-    const isLive = status.type.state === 'in';
+    // Validate data structure
+    if (!data?.header?.competitions?.[0]) {
+      return new Response('Invalid match data', { status: 500 });
+    }
+
+    const competition = data.header.competitions[0];
+    const homeTeam = competition.competitors?.[0];
+    const awayTeam = competition.competitors?.[1];
+
+    if (!homeTeam || !awayTeam) {
+      return new Response('Invalid competitor data', { status: 500 });
+    }
+
+    const status = data.header.status;
+    const isLive = status?.type?.state === 'in';
     const homeScore = homeTeam.score || 0;
     const awayScore = awayTeam.score || 0;
 

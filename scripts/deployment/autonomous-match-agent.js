@@ -27,6 +27,13 @@ const VLLM_MODEL = process.env.VLLM_MODEL || 'llama-3.1-70b';
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 const PRE_MATCH_HOURS = 24; // Generate pre-match analysis 24 hours before
 
+// DEFAULT YOUTUBE STREAM - All CAN 2025 matches stream here
+const DEFAULT_YOUTUBE_STREAM = {
+  videoId: process.env.DEFAULT_YOUTUBE_VIDEO_ID || '8MrwyO-WsRY',
+  channel: process.env.DEFAULT_YOUTUBE_CHANNEL || 'Afrique Sports',
+  title: 'CAN 2025 LIVE Stream'
+};
+
 // Track processed matches
 const processedMatches = new Set();
 const activeStreams = new Map();
@@ -440,17 +447,74 @@ async function processPreMatch(match) {
 }
 
 /**
+ * Get match details from API
+ */
+async function getMatchDetails(matchId) {
+  try {
+    const url = `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/summary?event=${matchId}`;
+    const data = await fetchJSON(url);
+
+    if (!data.header) return null;
+
+    const competition = data.header.competitions[0];
+    const competitors = competition.competitors;
+
+    return {
+      homeTeam: {
+        name: competitors[0].team.displayName,
+        score: competitors[0].score || 0
+      },
+      awayTeam: {
+        name: competitors[1].team.displayName,
+        score: competitors[1].score || 0
+      },
+      status: data.header.status,
+      minute: data.header.status?.displayClock || null
+    };
+  } catch (error) {
+    console.error('[ERROR] Failed to get match details:', error.message);
+    return null;
+  }
+}
+
+/**
  * Process live match
  */
 async function processLiveMatch(match) {
   console.log(`\n🔴 PROCESSING LIVE MATCH`);
   console.log(`   Match: ${match.homeTeam} vs ${match.awayTeam}`);
 
+  // Check if this is the first time processing this live match
+  const matchKey = `live_${match.id}`;
+  const isFirstProcessing = !processedMatches.has(matchKey);
+
+  // Get detailed match info
+  const details = await getMatchDetails(match.id);
+
+  if (details && details.minute) {
+    console.log(`   ⏱️  Current minute: ${details.minute}`);
+    console.log(`   📊 Score: ${details.homeTeam.score} - ${details.awayTeam.score}`);
+  }
+
+  // Post match start event (only once)
+  if (isFirstProcessing) {
+    const startCommentary = `🎬 Le match commence ! ${match.homeTeam} affronte ${match.awayTeam} pour la CAN 2025. Suivez le match en direct avec nos commentaires !`;
+    await postCommentary(match.id, startCommentary, 'matchStart', false);
+    processedMatches.add(matchKey);
+    console.log(`   ✅ Match start event posted`);
+  }
+
   // Find YouTube stream automatically
   const stream = await findYouTubeLiveStream(match);
 
   if (!stream) {
     console.log(`   ⚠️  No YouTube live stream found`);
+
+    // Still generate commentary based on match details if available
+    if (details && details.minute) {
+      const minuteCommentary = `${details.minute} - Le match est en cours. Score actuel : ${details.homeTeam.name} ${details.homeTeam.score} - ${details.awayTeam.score} ${details.awayTeam.name}.`;
+      await postCommentary(match.id, minuteCommentary, 'general', false);
+    }
     return;
   }
 
@@ -466,6 +530,12 @@ async function processLiveMatch(match) {
 
   if (chatMessages.length === 0) {
     console.log(`   ⚠️  No chat messages available`);
+
+    // Generate commentary based on match state
+    if (details && details.minute) {
+      const stateCommentary = `⚽ ${details.minute} - Match en cours à ${details.homeTeam.score}-${details.awayTeam.score}. L'action est intense sur le terrain !`;
+      await postCommentary(match.id, stateCommentary, 'general', false);
+    }
     return;
   }
 
@@ -473,8 +543,9 @@ async function processLiveMatch(match) {
   const relevantMessages = chatMessages.filter(msg => {
     const text = msg.message.toLowerCase();
     return text.length > 20 ||
-           text.includes('goal') || text.includes('but') ||
-           text.includes('penalty') || text.includes('card');
+           text.includes('goal') || text.includes('but') || text.includes('gol') ||
+           text.includes('penalty') || text.includes('card') ||
+           text.includes('red') || text.includes('yellow');
   }).slice(0, 10);
 
   if (relevantMessages.length === 0) {
@@ -493,13 +564,20 @@ async function processLiveMatch(match) {
 
   console.log(`   💬 Generated: "${commentary.substring(0, 60)}..."`);
 
+  // Detect if this is a goal from chat sentiment
+  const isGoal = relevantMessages.some(m => {
+    const text = m.message.toLowerCase();
+    return text.includes('goal') || text.includes('but') || text.includes('gol') || text.includes('⚽');
+  });
+
   // Post to database
-  await postCommentary(match.id, commentary, 'general', false);
+  await postCommentary(match.id, commentary, isGoal ? 'goal' : 'general', isGoal);
 
   // Track stream
   activeStreams.set(match.id, {
     videoId: stream.videoId,
-    lastUpdate: Date.now()
+    lastUpdate: Date.now(),
+    lastMinute: details?.minute
   });
 }
 
