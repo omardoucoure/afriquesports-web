@@ -87,8 +87,8 @@ const countrySubcategories = [
 const nextConfig: NextConfig = {
   // Performance optimizations
   compress: true, // Enable gzip/brotli compression
-  swcMinify: true, // Use faster SWC minification
   productionBrowserSourceMaps: false, // Disable source maps in production
+  // Note: SWC minification is enabled by default in Next.js 16+
 
   // Experimental Next.js 15 optimizations
   experimental: {

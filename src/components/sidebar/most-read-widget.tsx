@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
+import { useAnalytics } from "@/hooks/use-analytics";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
 // Simplified article type for trending posts from our database
@@ -40,6 +41,7 @@ export function MostReadWidget({
   articles,
   maxArticles = 3,
 }: MostReadWidgetProps) {
+  const { trackWidgetClick } = useAnalytics();
   const displayArticles = articles.slice(0, maxArticles);
 
   if (!displayArticles.length) {
@@ -48,6 +50,19 @@ export function MostReadWidget({
 
   // Only use translation hook if no title prop is provided
   const displayTitle = title || "Les Plus Lus";
+
+  // Handle widget click tracking
+  const handleArticleClick = (article: WordPressPost | TrendingArticle, position: number) => {
+    const articleTitle = stripHtml(article.title.rendered);
+
+    trackWidgetClick({
+      widgetType: 'most_read',
+      itemId: article.id.toString(),
+      itemTitle: articleTitle,
+      position: position + 1, // 1-indexed position
+      widgetLocation: 'sidebar',
+    });
+  };
 
   return (
     <div>
@@ -80,7 +95,11 @@ export function MostReadWidget({
               key={article.id}
               className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group"
             >
-              <Link href={articleUrl} className="flex gap-4 p-3">
+              <Link
+                href={articleUrl}
+                className="flex gap-4 p-3"
+                onClick={() => handleArticleClick(article, index)}
+              >
                 {/* Left: Image with rank badge */}
                 <div className="relative flex-shrink-0 w-32 h-32">
                   <Image

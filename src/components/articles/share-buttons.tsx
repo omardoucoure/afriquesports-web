@@ -2,24 +2,48 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 interface ShareButtonsProps {
   url: string;
   title: string;
+  articleId?: string;
 }
 
-export function ShareButtons({ url, title }: ShareButtonsProps) {
+export function ShareButtons({ url, title, articleId }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const tArticle = useTranslations("article");
   const tCommon = useTranslations("common");
+  const { trackSocialShare } = useAnalytics();
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+
+      // Track copy link
+      if (articleId) {
+        trackSocialShare({
+          articleId,
+          articleTitle: title,
+          platform: 'copy',
+          shareUrl: url,
+        });
+      }
     } catch (err) {
       console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleShare = (platform: 'facebook' | 'twitter' | 'whatsapp' | 'telegram') => {
+    if (articleId) {
+      trackSocialShare({
+        articleId,
+        articleTitle: title,
+        platform,
+        shareUrl: url,
+      });
     }
   };
 
@@ -32,6 +56,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => handleShare('facebook')}
         className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center bg-[#1877F2] text-white rounded-full hover:opacity-80 transition-opacity active:scale-95"
         aria-label={`${tArticle("shareOn")} ${tArticle("facebook")}`}
       >
@@ -45,6 +70,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => handleShare('twitter')}
         className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity active:scale-95"
         aria-label={`${tArticle("shareOn")} ${tArticle("twitter")}`}
       >
@@ -58,6 +84,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         href={`https://wa.me/?text=${encodeURIComponent(title + " " + url)}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => handleShare('whatsapp')}
         className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center bg-[#25D366] text-white rounded-full hover:opacity-80 transition-opacity active:scale-95"
         aria-label={`${tArticle("shareOn")} ${tArticle("whatsapp")}`}
       >
@@ -71,6 +98,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         href={`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => handleShare('telegram')}
         className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity active:scale-95"
         aria-label={`${tArticle("shareOn")} Telegram`}
       >

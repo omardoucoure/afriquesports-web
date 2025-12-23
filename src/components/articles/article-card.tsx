@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl, getAuthorName } from "@/lib/utils";
+import { useAnalytics } from "@/hooks/use-analytics";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
 interface ArticleCardProps {
@@ -14,6 +15,8 @@ interface ArticleCardProps {
   showDate?: boolean;
   showCategory?: boolean;
   locale?: string;
+  position?: number;
+  section?: "hero" | "latest" | "featured" | "related" | "most-read" | "category" | "search";
 }
 
 export function ArticleCard({
@@ -24,19 +27,34 @@ export function ArticleCard({
   showDate = true,
   showCategory = true,
   locale = "fr",
+  position = 0,
+  section = "latest",
 }: ArticleCardProps) {
   const tCommon = useTranslations("common");
+  const { trackArticleClick } = useAnalytics();
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryLabel = getCategoryLabel(article);
   const articleUrl = getArticleUrl(article);
   const formattedDate = formatDate(article.date, locale);
   const authorName = getAuthorName(article);
 
+  // Track article click
+  const handleClick = () => {
+    trackArticleClick({
+      articleId: article.id.toString(),
+      articleTitle: article.title.rendered.replace(/<[^>]*>/g, ''), // Strip HTML tags
+      articleCategory: categoryLabel || 'uncategorized',
+      variant,
+      position,
+      section,
+    });
+  };
+
   // Default vertical card
   if (variant === "default") {
     return (
       <article className="group bg-white rounded overflow-hidden">
-        <Link href={articleUrl} className="block">
+        <Link href={articleUrl} className="block" onClick={handleClick}>
           {/* Image */}
           <div className="relative aspect-video overflow-hidden">
             {imageUrl ? (
@@ -89,7 +107,7 @@ export function ArticleCard({
   if (variant === "compact") {
     return (
       <article className="group flex gap-3">
-        <Link href={articleUrl} className="flex-shrink-0">
+        <Link href={articleUrl} className="flex-shrink-0" onClick={handleClick}>
           <div className="relative w-20 h-20 rounded overflow-hidden">
             {imageUrl ? (
               <Image
@@ -105,7 +123,7 @@ export function ArticleCard({
           </div>
         </Link>
         <div className="flex-1 min-w-0">
-          <Link href={articleUrl}>
+          <Link href={articleUrl} onClick={handleClick}>
             <h4
               className="title-card text-sm group-hover:text-[#022a27] transition-colors"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
@@ -130,7 +148,7 @@ export function ArticleCard({
   if (variant === "horizontal") {
     return (
       <article className="group bg-white rounded overflow-hidden">
-        <Link href={articleUrl} className="flex flex-col sm:flex-row">
+        <Link href={articleUrl} className="flex flex-col sm:flex-row" onClick={handleClick}>
           {/* Image */}
           <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden">
             {imageUrl ? (

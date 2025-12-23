@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useAnalytics } from "@/hooks/use-analytics";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 
 // Code splitting: Lazy load heavy components that aren't needed for initial render
@@ -78,6 +79,37 @@ export function Header() {
   const tNav = useTranslations("nav");
   const tCountries = useTranslations("countries");
   const tCommon = useTranslations("common");
+  const { trackNavigation, track } = useAnalytics();
+
+  // Navigation click handlers
+  const handleLogoClick = () => {
+    trackNavigation({
+      targetType: 'logo',
+      linkText: 'Afrique Sports',
+      linkUrl: '/',
+    });
+  };
+
+  const handleCategoryClick = (label: string, href: string, isSubcategory = false) => {
+    trackNavigation({
+      targetType: isSubcategory ? 'subcategory' : 'category',
+      linkText: label,
+      linkUrl: href,
+      category: isSubcategory ? undefined : label,
+      subcategory: isSubcategory ? label : undefined,
+    });
+  };
+
+  const handleSearchClick = () => {
+    setIsSearchOpen(true);
+  };
+
+  const handleMobileNavToggle = (isOpen: boolean) => {
+    setIsMobileNavOpen(isOpen);
+    track(isOpen ? 'Navigation_Open_Menu' : 'Navigation_Close_Menu', {
+      menu_type: 'mobile',
+    });
+  };
 
   // Hide NextMatchBar on match pages
   const isMatchPage = pathname?.includes('/match/');
@@ -123,7 +155,7 @@ export function Header() {
           <div className="container-main relative z-20">
             <div className="flex items-center justify-between h-14 md:h-16">
               {/* Logo */}
-              <Link href="/" className="flex-shrink-0">
+              <Link href="/" className="flex-shrink-0" onClick={handleLogoClick}>
                 <Image
                   src="/logo.jpg"
                   alt="Afrique Sports"
@@ -148,6 +180,7 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
+                        onClick={() => handleCategoryClick(item.label, item.href)}
                         className={`px-3 py-2 text-xs lg:text-sm font-bold text-white hover:text-[#9DFF20] transition-colors tracking-wide inline-flex items-center ${item.children ? 'pb-4' : ''}`}
                       >
                         {item.label}
@@ -175,6 +208,7 @@ export function Header() {
                             <Link
                               key={child.href}
                               href={child.href}
+                              onClick={() => handleCategoryClick(child.label, child.href, true)}
                               className="block px-4 py-2 text-sm font-medium text-white hover:bg-[#04453f] hover:text-[#9DFF20] transition-colors"
                             >
                               {child.label}
@@ -201,7 +235,7 @@ export function Header() {
 
                 {/* Search button */}
                 <button
-                  onClick={() => setIsSearchOpen(true)}
+                  onClick={handleSearchClick}
                   className="p-2 text-white hover:text-[#9DFF20] transition-colors"
                   aria-label={tCommon("search")}
                 >
@@ -231,12 +265,12 @@ export function Header() {
       </header>
 
       {/* Mobile bottom navigation */}
-      <MobileBottomNav onMenuClick={() => setIsMobileNavOpen(true)} />
+      <MobileBottomNav onMenuClick={() => handleMobileNavToggle(true)} />
 
       {/* Mobile navigation drawer */}
       <MobileNav
         isOpen={isMobileNavOpen}
-        onClose={() => setIsMobileNavOpen(false)}
+        onClose={() => handleMobileNavToggle(false)}
         navigation={navigation}
       />
 

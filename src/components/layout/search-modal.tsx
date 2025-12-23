@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -12,13 +13,17 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const { trackSearchOpen, trackSearchSubmit, trackSearchPopularTerm } = useAnalytics();
 
-  // Focus input when modal opens
+  // Focus input when modal opens and track search modal open
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
+
+      // Track search modal opened
+      trackSearchOpen('header');
     }
-  }, [isOpen]);
+  }, [isOpen, trackSearchOpen]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -44,10 +49,29 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
+      // Track search submission
+      trackSearchSubmit({
+        query: query.trim(),
+        resultsCount: 0, // Will be updated on search results page
+        source: 'modal',
+      });
+
       router.push(`/search?q=${encodeURIComponent(query.trim())}`);
       onClose();
       setQuery("");
     }
+  };
+
+  const handlePopularTermClick = (term: string, position: number) => {
+    // Track popular term click
+    trackSearchPopularTerm({
+      term,
+      position,
+    });
+
+    setQuery(term);
+    router.push(`/search?q=${encodeURIComponent(term)}`);
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -131,15 +155,11 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   "Mercato",
                   "Sénégal",
                   "Maroc",
-                ].map((term) => (
+                ].map((term, index) => (
                   <button
                     key={term}
                     type="button"
-                    onClick={() => {
-                      setQuery(term);
-                      router.push(`/search?q=${encodeURIComponent(term)}`);
-                      onClose();
-                    }}
+                    onClick={() => handlePopularTermClick(term, index + 1)}
                     className="px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-full hover:bg-[#04453f] hover:text-[#022a27] transition-colors"
                   >
                     {term}
