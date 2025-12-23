@@ -27,12 +27,8 @@ const VLLM_MODEL = process.env.VLLM_MODEL || 'llama-3.1-70b';
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 const PRE_MATCH_HOURS = 24; // Generate pre-match analysis 24 hours before
 
-// DEFAULT YOUTUBE STREAM - All CAN 2025 matches stream here
-const DEFAULT_YOUTUBE_STREAM = {
-  videoId: process.env.DEFAULT_YOUTUBE_VIDEO_ID || '8MrwyO-WsRY',
-  channel: process.env.DEFAULT_YOUTUBE_CHANNEL || 'Afrique Sports',
-  title: 'CAN 2025 LIVE Stream'
-};
+// YouTube channel where all CAN 2025 matches are streamed
+const YOUTUBE_CHANNEL_URL = process.env.YOUTUBE_CHANNEL_URL || 'https://www.youtube.com/@afriquesports/live';
 
 // Track processed matches
 const processedMatches = new Set();
@@ -326,29 +322,84 @@ async function postCommentary(matchId, commentary, type = 'general', isScoring =
 }
 
 /**
- * Search YouTube for live stream
+ * Scrape YouTube channel page to find current live stream
+ */
+async function scrapeYouTubeLiveStream() {
+  return new Promise((resolve, reject) => {
+    https.get(YOUTUBE_CHANNEL_URL, (res) => {
+      let html = '';
+      res.on('data', chunk => html += chunk);
+      res.on('end', () => {
+        try {
+          // Extract video ID from YouTube's HTML
+          // Look for patterns like: "videoId":"VIDEO_ID_HERE"
+          const videoIdMatch = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
+          if (videoIdMatch && videoIdMatch[1]) {
+            const videoId = videoIdMatch[1];
+
+            // Extract title if available
+            const titleMatch = html.match(/"title":{"runs":\[{"text":"([^"]+)"/);
+            const title = titleMatch ? titleMatch[1] : 'CAN 2025 Live';
+
+            // Extract channel name
+            const channelMatch = html.match(/"ownerChannelName":"([^"]+)"/);
+            const channel = channelMatch ? channelMatch[1] : 'Afrique Sports';
+
+            resolve({
+              videoId,
+              title,
+              channel
+            });
+          } else {
+            resolve(null);
+          }
+        } catch (error) {
+          console.error('[ERROR] Failed to parse YouTube HTML:', error.message);
+          resolve(null);
+        }
+      });
+    }).on('error', (error) => {
+      console.error('[ERROR] Failed to fetch YouTube page:', error.message);
+      resolve(null);
+    });
+  });
+}
+
+/**
+ * Search YouTube for live stream (with fallback to scraping)
  */
 async function findYouTubeLiveStream(match) {
-  if (!YOUTUBE_API_KEY) return null;
+  // Try YouTube API if available
+  if (YOUTUBE_API_KEY) {
+    try {
+      const query = `${match.homeTeam} ${match.awayTeam} live CAN 2025`;
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}&maxResults=3`;
 
-  try {
-    const query = `${match.homeTeam} ${match.awayTeam} live CAN 2025`;
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}&maxResults=3`;
+      const data = await fetchJSON(url);
 
-    const data = await fetchJSON(url);
-
-    if (data.items && data.items.length > 0) {
-      const stream = data.items[0];
-      return {
-        videoId: stream.id.videoId,
-        title: stream.snippet.title,
-        channel: stream.snippet.channelTitle
-      };
+      if (data.items && data.items.length > 0) {
+        const stream = data.items[0];
+        return {
+          videoId: stream.id.videoId,
+          title: stream.snippet.title,
+          channel: stream.snippet.channelTitle
+        };
+      }
+    } catch (error) {
+      console.error('[ERROR] YouTube API search failed:', error.message);
     }
-  } catch (error) {
-    console.error('[ERROR] YouTube search failed:', error.message);
   }
 
+  // Fallback: Scrape YouTube channel page for current live stream
+  console.log(`   🔍 Scraping YouTube channel for current live stream...`);
+  const scrapedStream = await scrapeYouTubeLiveStream();
+
+  if (scrapedStream) {
+    console.log(`   ✅ Found live stream: ${scrapedStream.videoId}`);
+    return scrapedStream;
+  }
+
+  console.log(`   ⚠️  No live stream found on YouTube channel`);
   return null;
 }
 
