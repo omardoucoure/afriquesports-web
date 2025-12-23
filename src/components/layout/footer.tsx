@@ -30,6 +30,7 @@ const footerLinksConfig = {
     { label: "Riyad Mahrez", href: "/joueur/riyad-mahrez" },
   ],
   legal: [
+    { labelKey: "about", href: "/a-propos" },
     { labelKey: "contact", href: "/contact" },
     { labelKey: "privacy", href: "/confidentialite" },
   ],

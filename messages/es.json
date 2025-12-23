@@ -30,6 +30,7 @@
     "mercato": "Fichajes",
     "videos": "Vídeos",
     "rankings": "Clasificaciones",
+    "about": "Acerca de",
     "contact": "Contacto",
     "privacy": "Privacidad"
   },
@@ -473,6 +474,41 @@
         "injury": "Lesión",
         "possession": "Posesión"
       }
+    }
+  },
+  "about": {
+    "title": "Acerca de nosotros",
+    "subtitle": "Tu fuente confiable de noticias de fútbol africano",
+    "mission": {
+      "title": "Nuestra misión",
+      "description": "Afrique Sports es el medio líder para todas las noticias de fútbol africano. Desde nuestra base en Dakar, Senegal, cubrimos la CAN 2025, campeonatos africanos, traspasos y seguimos a las estrellas africanas en todo el mundo.",
+      "description2": "Nuestra misión es proporcionar información de calidad, rápida y confiable sobre el fútbol africano. Nos comprometemos a destacar el talento del continente y celebrar la pasión del fútbol africano."
+    },
+    "values": {
+      "title": "Nuestros valores",
+      "quality": "Calidad",
+      "qualityDesc": "Contenido verificado e información confiable",
+      "speed": "Velocidad",
+      "speedDesc": "Noticias en tiempo real",
+      "coverage": "Cobertura completa",
+      "coverageDesc": "Todo el fútbol africano"
+    },
+    "team": {
+      "title": "Nuestro equipo",
+      "description": "Un equipo apasionado de periodistas y expertos en fútbol africano, con sede en Dakar y en todo el continente.",
+      "editorial": "Editorial",
+      "editorialDesc": "Dirección editorial y gestión de contenidos",
+      "journalists": "Periodistas",
+      "journalistsDesc": "Reporteros en el campo en toda África",
+      "analysts": "Analistas",
+      "analystsDesc": "Expertos tácticos y estadísticos"
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "location": "Ubicación",
+      "phone": "Teléfono",
+      "email": "Email",
+      "social": "Redes sociales"
     }
   }
 }

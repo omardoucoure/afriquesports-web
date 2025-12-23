@@ -30,6 +30,7 @@
     "mercato": "Transfers",
     "videos": "Videos",
     "rankings": "Rankings",
+    "about": "About",
     "contact": "Contact",
     "privacy": "Privacy"
   },
@@ -473,6 +474,41 @@
         "injury": "Injury",
         "possession": "Possession"
       }
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Your trusted source for African football news",
+    "mission": {
+      "title": "Our mission",
+      "description": "Afrique Sports is the leading media for all African football news. From our base in Dakar, Senegal, we cover AFCON 2025, African championships, transfers, and follow African stars around the world.",
+      "description2": "Our mission is to provide quality, fast and reliable information on African football. We are committed to highlighting the talent of the continent and celebrating the passion of African football."
+    },
+    "values": {
+      "title": "Our values",
+      "quality": "Quality",
+      "qualityDesc": "Verified content and reliable information",
+      "speed": "Speed",
+      "speedDesc": "Real-time news",
+      "coverage": "Complete coverage",
+      "coverageDesc": "All of African football"
+    },
+    "team": {
+      "title": "Our team",
+      "description": "A passionate team of journalists and African football experts, based in Dakar and across the continent.",
+      "editorial": "Editorial",
+      "editorialDesc": "Editorial management and content management",
+      "journalists": "Journalists",
+      "journalistsDesc": "Field reporters across Africa",
+      "analysts": "Analysts",
+      "analystsDesc": "Tactical experts and statisticians"
+    },
+    "contact": {
+      "title": "Contact us",
+      "location": "Location",
+      "phone": "Phone",
+      "email": "Email",
+      "social": "Social media"
     }
   }
 }

@@ -30,6 +30,7 @@
     "mercato": "Mercato",
     "videos": "Vidéos",
     "rankings": "Classements",
+    "about": "À propos",
     "contact": "Contact",
     "privacy": "Confidentialité"
   },
@@ -474,6 +475,41 @@
         "injury": "Blessure",
         "possession": "Possession"
       }
+    }
+  },
+  "about": {
+    "title": "À propos de nous",
+    "subtitle": "Votre source de confiance pour l'actualité du football africain",
+    "mission": {
+      "title": "Notre mission",
+      "description": "Afrique Sports est le média de référence pour toute l'actualité du football africain. Depuis notre base à Dakar, Sénégal, nous couvrons la CAN 2025, les championnats africains, les transferts, et suivons les stars africaines à travers le monde.",
+      "description2": "Notre mission est de fournir une information de qualité, rapide et fiable sur le football africain. Nous nous engageons à mettre en lumière les talents du continent et à célébrer la passion du football africain."
+    },
+    "values": {
+      "title": "Nos valeurs",
+      "quality": "Qualité",
+      "qualityDesc": "Des contenus vérifiés et une information fiable",
+      "speed": "Rapidité",
+      "speedDesc": "Les actualités en temps réel",
+      "coverage": "Couverture complète",
+      "coverageDesc": "Toute l'Afrique du football"
+    },
+    "team": {
+      "title": "Notre équipe",
+      "description": "Une équipe passionnée de journalistes et d'experts du football africain, basée à Dakar et à travers le continent.",
+      "editorial": "Rédaction",
+      "editorialDesc": "Direction éditoriale et gestion des contenus",
+      "journalists": "Journalistes",
+      "journalistsDesc": "Reporters sur le terrain à travers l'Afrique",
+      "analysts": "Analystes",
+      "analystsDesc": "Experts tactiques et statisticiens"
+    },
+    "contact": {
+      "title": "Contactez-nous",
+      "location": "Localisation",
+      "phone": "Téléphone",
+      "email": "Email",
+      "social": "Réseaux sociaux"
     }
   }
 }
