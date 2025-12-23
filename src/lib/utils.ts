@@ -97,7 +97,7 @@ export function getFeaturedImageUrl(
   }
 
   // Default placeholder
-  return "/images/placeholder.jpg";
+  return "/images/placeholder.svg";
 }
 
 /**
@@ -108,7 +108,7 @@ export function getOptimizedImageUrl(
   width: number = 800,
   quality: number = 80
 ): string {
-  if (!url) return "/images/placeholder.jpg";
+  if (!url) return "/images/placeholder.svg";
 
   // If it's a WordPress image, add resize parameters
   if (url.includes("wp-content") || url.includes("i0.wp.com")) {

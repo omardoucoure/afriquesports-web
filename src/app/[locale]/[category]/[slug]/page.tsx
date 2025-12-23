@@ -11,6 +11,7 @@ import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { CommentSection } from "@/components/comments";
 import { VisitTracker } from "@/components/tracking";
+import { InArticleAd, SidebarAd } from "@/components/ads";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/supabase-db";
 import {
@@ -368,6 +369,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <>
+      {/* Google AdSense */}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
+
       <ArticleJsonLd
         title={title}
         description={description}
@@ -443,8 +452,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     </span>
                   </div>
 
+                  {/* Ad #1 - Top In-Article Ad */}
+                  <InArticleAd adSlot="1161079715" position="top" />
+
                   {/* Featured image - with padding and rounded corners */}
-                  {imageUrl && imageUrl !== "/images/placeholder.jpg" && (
+                  {imageUrl && imageUrl !== "/images/placeholder.svg" && (
                     <div className="relative w-full aspect-[16/9] mb-6 rounded-lg sm:rounded-xl overflow-hidden">
                       <Image
                         src={imageUrl}
@@ -462,10 +474,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <ShareButtons url={articleUrl} title={title} />
                   </div>
 
+                  {/* Ad #2 - Middle In-Article Ad (Create this ad unit in AdSense) */}
+                  <InArticleAd adSlot="1161079715" position="middle" />
+
                   {/* Article content with enhanced embed handling */}
                   <div className="mt-6 overflow-visible">
                     <ArticleContent content={article.content.rendered} />
                   </div>
+
+                  {/* Ad #3 - Bottom In-Article Ad (Create this ad unit in AdSense) */}
+                  <InArticleAd adSlot="1161079715" position="bottom" />
 
                   {/* Bottom share buttons for mobile */}
                   <div className="mt-8 pt-6 border-t border-gray-200 lg:hidden">
@@ -489,6 +507,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             {/* Sidebar - hidden on mobile */}
             <aside className="hidden lg:block w-[340px] flex-shrink-0 space-y-6">
+              {/* Sidebar Ad - Sticky (Create separate display ad unit in AdSense for better tracking) */}
+              <SidebarAd adSlot="1161079715" sticky={true} />
+
               {/* Most read */}
               <div className="sticky top-20">
                 <Suspense fallback={<MostReadWidgetSkeleton />}>

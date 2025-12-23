@@ -67,7 +67,7 @@ export function MostReadWidget({
             : `/${(article as TrendingArticle).link?.split('/').slice(-2, -1)[0] || 'football'}/${article.slug}`;
           const imageUrl = isFullPost
             ? getFeaturedImageUrl(article as WordPressPost, "medium")
-            : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.jpg');
+            : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.svg');
           const authorName = isFullPost
             ? getAuthorName(article as WordPressPost)
             : ((article as TrendingArticle).author || 'Afrique Sports');
