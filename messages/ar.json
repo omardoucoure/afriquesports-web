@@ -368,6 +368,7 @@
     "match": {
       "preMatchAnalysis": "تحليل ما قبل المباراة",
       "liveCommentary": "تعليقات مباشرة",
+      "liveStream": "بث مباشر",
       "events": "أحداث",
       "noDataYet": "ستتوفر بيانات المباراة قريباً",
       "matchReport": "تقرير المباراة",
