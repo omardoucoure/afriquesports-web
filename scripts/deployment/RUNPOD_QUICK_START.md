@@ -2,9 +2,11 @@
 
 ## Your Pod Details
 - **Pod Name:** eager_gray_crane
+- **Pod ID:** wfl4o3ns1tizo1
 - **GPU:** NVIDIA A40 (48GB VRAM)
 - **Cost:** $0.41/hour (only while running)
-- **SSH:** `ssh root@194.68.245.75 -p 22061`
+- **SSH:** `ssh runpod` (configured in ~/.ssh/config)
+- **Direct SSH:** `ssh root@194.68.245.75 -p 22061 -i ~/.ssh/id_ed25519`
 
 ## Step 1: Connect to Pod
 
