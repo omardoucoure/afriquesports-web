@@ -28,7 +28,7 @@ export default function MatchPageClient({
 }: MatchPageClientProps) {
   const t = useTranslations('can2025.match');
   const tEvents = useTranslations('can2025.match.eventTypes');
-  const [viewers, setViewers] = useState(Math.floor(Math.random() * 5000) + 1000);
+  const [viewers, setViewers] = useState(0); // Initialize with 0 to prevent hydration error
   const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('stats');
   const [homeLogoError, setHomeLogoError] = useState(false);
   const [awayLogoError, setAwayLogoError] = useState(false);
@@ -41,6 +41,11 @@ export default function MatchPageClient({
 
   const isLive = status?.type?.state === 'in';
   const isCompleted = status?.type?.completed || false;
+
+  // Initialize viewer count on client side only (prevents hydration error)
+  useEffect(() => {
+    setViewers(Math.floor(Math.random() * 5000) + 1000);
+  }, []);
 
   // Poll for updates every 15 seconds during live matches
   const { data: liveData } = useSWR(
@@ -73,7 +78,7 @@ export default function MatchPageClient({
 
   // Simulate viewer count changes for live matches
   useEffect(() => {
-    if (!isLive) return;
+    if (!isLive || viewers === 0) return; // Wait until viewers is initialized
 
     const interval = setInterval(() => {
       setViewers(prev => {
@@ -83,7 +88,7 @@ export default function MatchPageClient({
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [isLive]);
+  }, [isLive, viewers]);
 
   const tabs = [
     { id: 'stats' as const, labelKey: 'statistics', icon: '📊' },
