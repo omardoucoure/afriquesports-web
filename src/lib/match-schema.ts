@@ -40,6 +40,8 @@ export interface MatchData {
     icon: string;
     timestamp: string;
     is_scoring: boolean;
+    player_name?: string;
+    team?: 'home' | 'away';
   }>;
   featuredImage?: string;
   lastModified?: string;
@@ -215,6 +217,32 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
         "addressCountry": match.venue.country
       }
     };
+  }
+
+  // Add goal scorers as performers
+  if (match.commentary && match.commentary.length > 0) {
+    const goalScorers = match.commentary
+      .filter(event => event.is_scoring && event.player_name)
+      .map(event => ({
+        name: event.player_name!,
+        team: event.team === 'home' ? match.homeTeam.name : match.awayTeam.name
+      }));
+
+    // Get unique scorers
+    const uniqueScorers = Array.from(
+      new Map(goalScorers.map(scorer => [scorer.name, scorer])).values()
+    );
+
+    if (uniqueScorers.length > 0) {
+      sportsEvent.performer = uniqueScorers.map(scorer => ({
+        "@type": "Person",
+        "name": scorer.name,
+        "memberOf": {
+          "@type": "SportsTeam",
+          "name": scorer.team
+        }
+      }));
+    }
   }
 
   // Add end date if match is completed
