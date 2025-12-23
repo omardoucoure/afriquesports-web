@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { espnToMatchData } from '@/lib/match-schema';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 /**
  * Live match update API for client-side polling
@@ -36,20 +41,21 @@ export async function GET(request: Request) {
 
     const espnData = await espnResponse.json();
 
-    // Fetch latest commentary from Supabase
+    // Fetch latest commentary directly from Supabase
     let commentary = [];
     try {
-      const commentaryResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/live-commentary?match_id=${matchId}&locale=${locale}`,
-        {
-          next: { revalidate: 0 },
-          cache: 'no-store'
-        }
-      );
+      const { data, error } = await supabase
+        .from('match_commentary_ai')
+        .select('*')
+        .eq('match_id', matchId)
+        .eq('locale', locale)
+        .order('time_seconds', { ascending: false })
+        .limit(50);
 
-      if (commentaryResponse.ok) {
-        const commentaryData = await commentaryResponse.json();
-        commentary = commentaryData.commentary || [];
+      if (!error && data) {
+        commentary = data;
+      } else if (error) {
+        console.error('Supabase error fetching commentary:', error);
       }
     } catch (error) {
       console.error('Error fetching commentary:', error);
