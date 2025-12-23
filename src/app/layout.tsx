@@ -1,9 +1,22 @@
 import type { Metadata, Viewport } from "next";
+import Script from 'next/script';
+import { Rubik } from 'next/font/google';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, Clarity } from "@/components/analytics";
 import { generateOrganizationJsonLd } from "@/lib/seo";
 import "./globals.css";
+
+// Optimize Rubik font loading with next/font
+const rubik = Rubik({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-rubik',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
+  adjustFontFallback: true, // Prevents CLS
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -115,7 +128,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning className={rubik.variable}>
       <head>
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -126,13 +139,7 @@ export default function RootLayout({
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
-        {/* Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* Preload critical local font */}
         <link
           rel="preload"
           href="/fonts/ProductSans-Regular.ttf"
@@ -141,26 +148,34 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
+        {/* Resource hints for critical third-party origins */}
+        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
+        <link rel="dns-prefetch" href="https://cms.realdemadrid.com" />
+
         {/* Organization Schema - appears on all pages */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-
-        {/* Grow.me Analytics */}
-        <script
-          data-grow-initializer=""
-          dangerouslySetInnerHTML={{
-            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTplZTc0NGMyZC0xMzlmLTQxMjItYWZiNy1hZDI5MTAwNDIwYjA=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`
-          }}
-        />
       </head>
-      <body className="antialiased min-h-screen" style={{ fontFamily: "'Product Sans', 'Rubik', system-ui, sans-serif" }}>
+      <body className={`${rubik.className} antialiased min-h-screen`} style={{ fontFamily: "'Product Sans', var(--font-rubik), system-ui, sans-serif" }}>
         {children}
         <GoogleAnalytics />
         <Clarity />
         <Analytics />
         <SpeedInsights />
+
+        {/* Grow.me Analytics - Deferred to lazyOnload for better performance */}
+        <Script
+          id="grow-me-analytics"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTplZTc0NGMyZC0xMzlmLTQxMjItYWZiNy1hZDI5MTAwNDIwYjA=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`
+          }}
+        />
       </body>
     </html>
   );

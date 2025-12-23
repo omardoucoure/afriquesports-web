@@ -85,6 +85,21 @@ const countrySubcategories = [
 ];
 
 const nextConfig: NextConfig = {
+  // Performance optimizations
+  compress: true, // Enable gzip/brotli compression
+  swcMinify: true, // Use faster SWC minification
+  productionBrowserSourceMaps: false, // Disable source maps in production
+
+  // Experimental Next.js 15 optimizations
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns',
+      '@supabase/supabase-js',
+    ],
+    webpackBuildWorker: true, // Faster builds with webpack workers
+  },
+
   async redirects() {
     return [
       // Redirect /foot to /football (legacy URL fix)
@@ -143,6 +158,10 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    formats: ['image/avif', 'image/webp'], // Modern formats for 30-50% size reduction
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 31536000, // 1 year cache for images
     remotePatterns: [
       {
         protocol: "https",
