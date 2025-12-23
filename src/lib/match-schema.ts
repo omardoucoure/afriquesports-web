@@ -221,35 +221,49 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
 
   // Add goal scorers as performers
   if (match.commentary && match.commentary.length > 0) {
-    // Process goals in reverse order (newest first) to prioritize correct team attribution
-    const goalScorers = [...match.commentary]
-      .reverse()
+    const goalScorers = match.commentary
       .filter(event => event.is_scoring && event.player_name)
       .map(event => {
-        // Determine team from text if team field is missing
+        // Parse team from commentary text (more reliable than team field)
+        const text = event.text || '';
         let teamName: string;
-        if (event.team === 'home') {
-          teamName = match.homeTeam.name;
-        } else if (event.team === 'away') {
-          teamName = match.awayTeam.name;
+
+        // Look for "marque pour [Team]" pattern
+        const marqueMatch = text.match(/marque pour ([^!.]+)/i);
+        if (marqueMatch) {
+          const teamInText = marqueMatch[1].trim();
+          if (teamInText === match.homeTeam.name) {
+            teamName = match.homeTeam.name;
+          } else if (teamInText === match.awayTeam.name) {
+            teamName = match.awayTeam.name;
+          } else {
+            // Fallback to checking text contains
+            teamName = text.includes(match.homeTeam.name)
+              ? match.homeTeam.name
+              : match.awayTeam.name;
+          }
         } else {
-          // Fallback: parse team from commentary text
-          const text = event.text || '';
-          if (text.includes(match.homeTeam.name)) {
+          // No "marque pour" pattern, use team field or text contains
+          if (event.team === 'home') {
+            teamName = match.homeTeam.name;
+          } else if (event.team === 'away') {
+            teamName = match.awayTeam.name;
+          } else if (text.includes(match.homeTeam.name)) {
             teamName = match.homeTeam.name;
           } else if (text.includes(match.awayTeam.name)) {
             teamName = match.awayTeam.name;
           } else {
-            teamName = match.homeTeam.name; // Default to home team
+            teamName = match.homeTeam.name; // Default
           }
         }
+
         return {
           name: event.player_name!,
           team: teamName
         };
       });
 
-    // Get unique scorers by name (keeps first occurrence, which is now the most recent/correct)
+    // Get unique scorers by name
     const uniqueScorers = Array.from(
       new Map(goalScorers.map(scorer => [scorer.name, scorer])).values()
     );
