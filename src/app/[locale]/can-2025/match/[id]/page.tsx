@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { createClient } from '@supabase/supabase-js';
 import { generateMatchSchemas, espnToMatchData, MatchData } from '@/lib/match-schema';
 import MatchPageClient from '@/components/match/MatchPageClient';
 import { Header, Footer } from '@/components/layout';
@@ -10,6 +11,11 @@ const SITE_URL = "https://www.afriquesports.net";
 
 // ISR with 15-second revalidation for real-time updates
 export const revalidate = 15;
+
+// Supabase client for server-side queries
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 /**
  * Fetch match data from ESPN API
@@ -37,23 +43,24 @@ async function getMatchData(matchId: string): Promise<any | null> {
 }
 
 /**
- * Fetch live commentary from Supabase
+ * Fetch live commentary directly from Supabase
  */
 async function getMatchCommentary(matchId: string, locale: string): Promise<any[]> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/live-commentary?match_id=${matchId}&locale=${locale}`,
-      {
-        next: { revalidate: 15 }
-      }
-    );
+    const { data, error } = await supabase
+      .from('match_commentary_ai')
+      .select('*')
+      .eq('match_id', matchId)
+      .eq('locale', locale)
+      .order('time_seconds', { ascending: false })
+      .limit(50);
 
-    if (!response.ok) {
+    if (error) {
+      console.error('Supabase error fetching commentary:', error);
       return [];
     }
 
-    const data = await response.json();
-    return data.commentary || [];
+    return data || [];
   } catch (error) {
     console.error('Error fetching commentary:', error);
     return [];
@@ -61,23 +68,22 @@ async function getMatchCommentary(matchId: string, locale: string): Promise<any[
 }
 
 /**
- * Fetch YouTube stream for match
+ * Fetch YouTube stream directly from Supabase
  */
 async function getYouTubeStream(matchId: string): Promise<string | null> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/match-youtube-stream?match_id=${matchId}`,
-      {
-        next: { revalidate: 60 } // Cache for 1 minute
-      }
-    );
+    const { data, error } = await supabase
+      .from('match_youtube_streams')
+      .select('youtube_video_id')
+      .eq('match_id', matchId)
+      .eq('is_live', true)
+      .single();
 
-    if (!response.ok) {
+    if (error || !data) {
       return null;
     }
 
-    const data = await response.json();
-    return data.stream?.youtube_video_id || null;
+    return data.youtube_video_id;
   } catch (error) {
     console.error('Error fetching YouTube stream:', error);
     return null;
