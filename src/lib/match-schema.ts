@@ -163,6 +163,7 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
     "sport": "Football",
     "startDate": match.date,
     "eventStatus": eventStatus,
+    "image": `${SITE_URL}/api/og-match?id=${match.id}&locale=${locale}`,
     "homeTeam": {
       "@type": "SportsTeam",
       "name": match.homeTeam.name,
@@ -206,7 +207,7 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
     }
   };
 
-  // Add venue if available
+  // Add venue (required by Google for SportsEvent)
   if (match.venue) {
     sportsEvent.location = {
       "@type": "StadiumOrArena",
@@ -215,6 +216,17 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
         "@type": "PostalAddress",
         "addressLocality": match.venue.city,
         "addressCountry": match.venue.country
+      }
+    };
+  } else {
+    // Default location for AFCON 2025 (hosted in Morocco)
+    sportsEvent.location = {
+      "@type": "StadiumOrArena",
+      "name": "AFCON 2025 Stadium",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Morocco",
+        "addressCountry": "MA"
       }
     };
   }
