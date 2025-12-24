@@ -456,9 +456,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   {/* Ad #1 - Top In-Article Ad */}
                   <InArticleAd adSlot="1161079715" position="top" />
 
-                  {/* Featured image - with padding and rounded corners */}
+                  {/* Featured image - Hidden on mobile for LCP optimization, visible for crawlers & desktop */}
                   {imageUrl && imageUrl !== "/images/placeholder.svg" && (
-                    <div className="relative w-full aspect-[16/9] mb-6 rounded-lg sm:rounded-xl overflow-hidden">
+                    <div className="relative w-full aspect-[16/9] mb-6 rounded-lg sm:rounded-xl overflow-hidden hidden md:block">
                       <Image
                         src={imageUrl}
                         alt={title}

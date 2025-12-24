@@ -55,8 +55,8 @@ export function ArticleCard({
     return (
       <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="block" onClick={handleClick}>
-          {/* Image */}
-          <div className="relative aspect-video overflow-hidden">
+          {/* Image - Hidden on mobile for LCP optimization, visible for crawlers & desktop */}
+          <div className="relative aspect-video overflow-hidden hidden md:block">
             {imageUrl ? (
               <Image
                 src={imageUrl}
@@ -82,6 +82,13 @@ export function ArticleCard({
 
           {/* Content */}
           <div className="p-4">
+            {/* Mobile-only category badge */}
+            {showCategory && categoryLabel && (
+              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded md:hidden">
+                {categoryLabel}
+              </span>
+            )}
+
             <h3
               className="title-card group-hover:text-[#022a27] transition-colors"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}
@@ -149,8 +156,8 @@ export function ArticleCard({
     return (
       <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="flex flex-col sm:flex-row" onClick={handleClick}>
-          {/* Image */}
-          <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden">
+          {/* Image - Hidden on mobile for LCP optimization */}
+          <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden hidden md:block">
             {imageUrl ? (
               <Image
                 src={imageUrl}
@@ -176,6 +183,13 @@ export function ArticleCard({
 
           {/* Content */}
           <div className="flex-1 p-4 sm:p-5 flex flex-col justify-center">
+            {/* Mobile-only category badge */}
+            {showCategory && categoryLabel && (
+              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded md:hidden">
+                {categoryLabel}
+              </span>
+            )}
+
             <h3
               className="title-article text-lg group-hover:text-[#022a27]"
               dangerouslySetInnerHTML={{ __html: article.title.rendered }}

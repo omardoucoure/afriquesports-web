@@ -70,7 +70,8 @@ function TrendingCard({
   return (
     <article className="group">
       <Link href={articleUrl} className="block">
-        <div className="relative aspect-[16/10] overflow-hidden mb-2 rounded-lg">
+        {/* Image - Hidden on mobile for LCP optimization */}
+        <div className="relative aspect-[16/10] overflow-hidden mb-2 rounded-lg hidden md:block">
           <Image
             src={imageUrl}
             alt={stripHtml(article.title.rendered)}
@@ -219,9 +220,9 @@ export function HeroSection({
         </div>
       </div>
 
-      {/* Center - Featured article */}
-      <div className="lg:col-span-6 lg:flex lg:flex-col">
-        <div className="hidden lg:flex items-center gap-2 mb-4">
+      {/* Center - Featured article - Hidden on mobile for LCP optimization */}
+      <div className="hidden lg:flex lg:col-span-6 lg:flex-col">
+        <div className="flex items-center gap-2 mb-4">
           <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
             À LA UNE
           </span>

@@ -36,7 +36,7 @@ export default async function LocaleLayout({
 
   return (
     <div lang={locale} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen">
-      <AnalyticsProvider>
+      <AnalyticsProvider locale={locale}>
         <PostHogProvider>
           <IntlProvider locale={locale} messages={messages}>
             {children}
