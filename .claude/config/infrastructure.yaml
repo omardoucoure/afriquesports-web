@@ -11,8 +11,9 @@ runpod:
   vllm:
     port: 8000
     endpoint: http://194.68.245.75:8000/v1
-    api_key: afrique-sports-70b-working
-    model: meta-llama/Meta-Llama-3.1-70B-Instruct
+    api_key: none
+    model: Qwen/Qwen2.5-7B-Instruct
+    served_model_name: qwen2.5-7b
   fine_tuning:
     framework: axolotl
     training_data: scripts/data-collection/data/afcon2025_training.jsonl
