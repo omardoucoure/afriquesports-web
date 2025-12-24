@@ -24,14 +24,14 @@ echo "📡 RunPod Server ($RUNPOD_IP)"
 echo "----------------------------"
 
 # Check SSH
-if timeout 5 ssh -p "$SSH_PORT" -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@"$RUNPOD_IP" "echo 'SSH OK'" >/dev/null 2>&1; then
+if ssh -p "$SSH_PORT" -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@"$RUNPOD_IP" "echo 'SSH OK'" >/dev/null 2>&1; then
     echo "  SSH: ✅ Connected (port $SSH_PORT)"
 else
     echo "  SSH: ❌ Connection failed (port $SSH_PORT)"
 fi
 
 # Check vLLM
-if timeout 5 curl -s "$VLLM_ENDPOINT/models" >/dev/null 2>&1; then
+if curl -s --connect-timeout 5 "$VLLM_ENDPOINT/models" >/dev/null 2>&1; then
     echo "  vLLM: ✅ Running (port $VLLM_PORT)"
 else
     echo "  vLLM: ❌ Not responding (port $VLLM_PORT)"
@@ -42,13 +42,13 @@ echo "🖥️  DigitalOcean Server ($DO_IP)"
 echo "----------------------------"
 
 # Check DigitalOcean agents
-if timeout 5 ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@"$DO_IP" "systemctl is-active afrique-sports-commentary.service" >/dev/null 2>&1; then
+if ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@"$DO_IP" "systemctl is-active afrique-sports-commentary.service" >/dev/null 2>&1; then
     echo "  Live Commentary Agent: ✅ Running"
 else
     echo "  Live Commentary Agent: ❌ Stopped"
 fi
 
-if timeout 5 ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no root@"$DO_IP" "systemctl is-active autonomous-agent.service" >/dev/null 2>&1; then
+if ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@"$DO_IP" "systemctl is-active autonomous-agent.service" >/dev/null 2>&1; then
     echo "  Autonomous Agent: ✅ Running"
 else
     echo "  Autonomous Agent: ❌ Stopped"
@@ -59,7 +59,8 @@ echo "💾 Database"
 echo "----------------------------"
 DATABASE_URL=$(grep -A 5 "^database:" "$CONFIG" | grep "url:" | awk '{print $2}')
 
-if timeout 5 curl -s "$DATABASE_URL" >/dev/null 2>&1; then
+# Test Supabase REST API endpoint
+if curl -s --connect-timeout 5 "$DATABASE_URL/rest/v1/" -H "apikey: test" 2>&1 | grep -q "Invalid API key"; then
     echo "  Supabase: ✅ Connected"
 else
     echo "  Supabase: ❌ Connection failed"
