@@ -13,6 +13,7 @@ interface MatchPageClientProps {
   initialMatchData: MatchData;
   matchDataRaw: any;
   commentary: any[];
+  preMatchAnalysis: any;
   locale: string;
   matchId: string;
 }
@@ -23,6 +24,7 @@ export default function MatchPageClient({
   initialMatchData,
   matchDataRaw,
   commentary: initialCommentary,
+  preMatchAnalysis,
   locale,
   matchId
 }: MatchPageClientProps) {
@@ -371,13 +373,53 @@ export default function MatchPageClient({
           </div>
 
           {/* Pre-match Analysis / Post-match Report (below commentary on mobile) */}
-          {!isLive && !isCompleted && matchDataRaw.analysis && (
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+          {!isLive && !isCompleted && preMatchAnalysis && (
+            <div className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-sm border border-gray-100 mt-4 sm:mt-6">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
                 📊 {t('preMatchAnalysis')}
+                <span className="text-xs font-normal text-white bg-primary px-2 py-0.5 rounded-full">AI</span>
               </h3>
-              <div className="prose max-w-none text-gray-700">
-                <p>{matchDataRaw.analysis.preview}</p>
+              <div className="space-y-4 text-sm sm:text-base">
+                {preMatchAnalysis.head_to_head && (
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-1.5">
+                      🔄 Face-à-face
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">{preMatchAnalysis.head_to_head}</p>
+                  </div>
+                )}
+                {preMatchAnalysis.recent_form && (
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-1.5">
+                      📈 Forme récente
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">{preMatchAnalysis.recent_form}</p>
+                  </div>
+                )}
+                {preMatchAnalysis.key_players && (
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-1.5">
+                      ⭐ Joueurs clés
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">{preMatchAnalysis.key_players}</p>
+                  </div>
+                )}
+                {preMatchAnalysis.tactical_preview && (
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-1.5">
+                      🎯 Aperçu tactique
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">{preMatchAnalysis.tactical_preview}</p>
+                  </div>
+                )}
+                {preMatchAnalysis.prediction && (
+                  <div className="bg-gradient-to-r from-primary/5 to-primary-dark/5 p-3 sm:p-4 rounded-lg border-l-4 border-primary">
+                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-1.5">
+                      🔮 Prédiction
+                    </h4>
+                    <p className="text-gray-900 font-medium leading-relaxed">{preMatchAnalysis.prediction}</p>
+                  </div>
+                )}
               </div>
             </div>
           )}

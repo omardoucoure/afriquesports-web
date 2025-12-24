@@ -91,6 +91,29 @@ async function getYouTubeStream(matchId: string): Promise<string | null> {
 }
 
 /**
+ * Fetch pre-match analysis directly from Supabase
+ */
+async function getPreMatchAnalysis(matchId: string, locale: string): Promise<any | null> {
+  try {
+    const { data, error } = await supabase
+      .from('match_prematch_analysis')
+      .select('*')
+      .eq('match_id', matchId)
+      .eq('locale', locale)
+      .single();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching pre-match analysis:', error);
+    return null;
+  }
+}
+
+/**
  * Generate dynamic metadata for SEO
  */
 export async function generateMetadata({
@@ -224,11 +247,12 @@ export default async function MatchPage({
   try {
     const t = await getTranslations({ locale });
 
-    // Fetch match data, commentary, and YouTube stream in parallel
-    const [matchDataRaw, commentary, youtubeStream] = await Promise.all([
+    // Fetch match data, commentary, YouTube stream, and pre-match analysis in parallel
+    const [matchDataRaw, commentary, youtubeStream, preMatchAnalysis] = await Promise.all([
       getMatchData(id),
       getMatchCommentary(id, locale),
-      getYouTubeStream(id)
+      getYouTubeStream(id),
+      getPreMatchAnalysis(id, locale)
     ]);
 
     if (!matchDataRaw || !matchDataRaw.header) {
@@ -278,6 +302,7 @@ export default async function MatchPage({
             initialMatchData={matchData}
             matchDataRaw={matchDataRaw}
             commentary={commentary}
+            preMatchAnalysis={preMatchAnalysis}
             locale={locale}
             matchId={id}
           />
