@@ -8,7 +8,6 @@
 'use client'
 
 import { useEffect, ReactNode } from 'react'
-import { useLocale } from 'next-intl'
 import { getAnalyticsManager } from '@/lib/analytics'
 import { PostHogProvider } from '@/lib/analytics/providers/posthog-provider'
 import { GoogleAnalyticsProvider } from '@/lib/analytics/providers/google-analytics-provider'
@@ -17,10 +16,10 @@ import { ConsentManager } from '@/lib/analytics/utils/consent'
 
 interface AnalyticsProviderProps {
   children: ReactNode
+  locale: string
 }
 
-export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
-  const locale = useLocale()
+export function AnalyticsProvider({ children, locale }: AnalyticsProviderProps) {
 
   useEffect(() => {
     // Get analytics manager instance
