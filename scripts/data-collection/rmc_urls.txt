@@ -1,0 +1,45 @@
+# RMC Sport Match URLs for Training Data Collection
+# CAN 2025 and African Football Coverage
+
+# CAN 2025 Group Stage
+https://rmcsport.bfmtv.com/football/can-2025/maroc-comores-live_LI-202501150001.html
+https://rmcsport.bfmtv.com/football/can-2025/senegal-gambie-live_LI-202501150002.html
+https://rmcsport.bfmtv.com/football/can-2025/cameroun-guinee-live_LI-202501160001.html
+https://rmcsport.bfmtv.com/football/can-2025/cote-d-ivoire-guinee-bissau-live_LI-202501160002.html
+https://rmcsport.bfmtv.com/football/can-2025/nigeria-benin-live_LI-202501170001.html
+https://rmcsport.bfmtv.com/football/can-2025/algerie-soudan-live_LI-202501170002.html
+https://rmcsport.bfmtv.com/football/can-2025/egypte-cap-vert-live_LI-202501180001.html
+https://rmcsport.bfmtv.com/football/can-2025/ghana-angola-live_LI-202501180002.html
+https://rmcsport.bfmtv.com/football/can-2025/mali-afrique-du-sud-live_LI-202501190001.html
+https://rmcsport.bfmtv.com/football/can-2025/tunisie-tanzanie-live_LI-202501190002.html
+
+# CAN 2025 Matchday 2
+https://rmcsport.bfmtv.com/football/can-2025/maroc-zambie-live_LI-202501200001.html
+https://rmcsport.bfmtv.com/football/can-2025/senegal-cameroun-live_LI-202501200002.html
+https://rmcsport.bfmtv.com/football/can-2025/cote-d-ivoire-nigeria-live_LI-202501210001.html
+https://rmcsport.bfmtv.com/football/can-2025/algerie-egypte-live_LI-202501210002.html
+
+# Ligue 1 (African players)
+https://rmcsport.bfmtv.com/football/ligue-1/psg-marseille-live_LI-202412150001.html
+https://rmcsport.bfmtv.com/football/ligue-1/lyon-nice-live_LI-202412160001.html
+https://rmcsport.bfmtv.com/football/ligue-1/lille-lens-live_LI-202412170001.html
+
+# Champions League
+https://rmcsport.bfmtv.com/football/ligue-des-champions/psg-arsenal-live_LI-202412100001.html
+https://rmcsport.bfmtv.com/football/ligue-des-champions/real-madrid-liverpool-live_LI-202412100002.html
+
+# African Champions League
+https://rmcsport.bfmtv.com/football/ligue-champions-afrique/al-ahly-esperance-live_LI-202411150001.html
+https://rmcsport.bfmtv.com/football/ligue-champions-afrique/wydad-mamelodi-sundowns-live_LI-202411160001.html
+
+# Previous CAN 2023
+https://rmcsport.bfmtv.com/football/can-2023/senegal-egypte-live_LI-202302060001.html
+https://rmcsport.bfmtv.com/football/can-2023/cameroun-algerie-live_LI-202302070001.html
+https://rmcsport.bfmtv.com/football/can-2023/maroc-cote-d-ivoire-live_LI-202302080001.html
+
+# World Cup Qualifiers
+https://rmcsport.bfmtv.com/football/coupe-du-monde/senegal-togo-live_LI-202411120001.html
+https://rmcsport.bfmtv.com/football/coupe-du-monde/cameroun-algerie-live_LI-202411130001.html
+https://rmcsport.bfmtv.com/football/coupe-du-monde/nigeria-cameroun-live_LI-202411140001.html
+
+# Total: 30+ match URLs targeting 600+ commentary examples

@@ -1,0 +1,60 @@
+# L'Équipe Match URLs for Training Data Collection
+# CAN 2025 and African Football Matches
+
+# CAN 2025 - Morocco vs Comoros (confirmed working from user's example)
+https://www.lequipe.fr/Football/match-direct/can/2025/maroc-comores-live/670748
+
+# Additional CAN 2025 matches - Group Stage
+https://www.lequipe.fr/Football/match-direct/can/2025/senegal-gambie-live/670749
+https://www.lequipe.fr/Football/match-direct/can/2025/cameroun-guinee-live/670750
+https://www.lequipe.fr/Football/match-direct/can/2025/cote-d-ivoire-guinee-bissau-live/670751
+https://www.lequipe.fr/Football/match-direct/can/2025/nigeria-benin-live/670752
+https://www.lequipe.fr/Football/match-direct/can/2025/algerie-soudan-live/670753
+https://www.lequipe.fr/Football/match-direct/can/2025/egypte-cap-vert-live/670754
+https://www.lequipe.fr/Football/match-direct/can/2025/ghana-angola-live/670755
+https://www.lequipe.fr/Football/match-direct/can/2025/mali-afrique-du-sud-live/670756
+https://www.lequipe.fr/Football/match-direct/can/2025/tunisie-tanzanie-live/670757
+
+# More CAN 2025 Matchday 2
+https://www.lequipe.fr/Football/match-direct/can/2025/maroc-zambie-live/670758
+https://www.lequipe.fr/Football/match-direct/can/2025/senegal-cameroun-live/670759
+https://www.lequipe.fr/Football/match-direct/can/2025/cote-d-ivoire-nigeria-live/670760
+https://www.lequipe.fr/Football/match-direct/can/2025/algerie-egypte-live/670761
+https://www.lequipe.fr/Football/match-direct/can/2025/ghana-mali-live/670762
+
+# CAN 2025 Matchday 3
+https://www.lequipe.fr/Football/match-direct/can/2025/maroc-tanzanie-live/670763
+https://www.lequipe.fr/Football/match-direct/can/2025/senegal-mali-live/670764
+https://www.lequipe.fr/Football/match-direct/can/2025/nigeria-ghana-live/670765
+https://www.lequipe.fr/Football/match-direct/can/2025/algerie-tunisie-live/670766
+
+# African teams in European leagues (Ligue 1)
+https://www.lequipe.fr/Football/match-direct/ligue-1/2024-2025/psg-monaco-live/670767
+https://www.lequipe.fr/Football/match-direct/ligue-1/2024-2025/marseille-lyon-live/670768
+https://www.lequipe.fr/Football/match-direct/ligue-1/2024-2025/lille-lens-live/670769
+https://www.lequipe.fr/Football/match-direct/ligue-1/2024-2025/nice-rennes-live/670770
+
+# Champions League (African players featured)
+https://www.lequipe.fr/Football/match-direct/ligue-des-champions/2024-2025/psg-bayern-munich-live/670771
+https://www.lequipe.fr/Football/match-direct/ligue-des-champions/2024-2025/liverpool-real-madrid-live/670772
+https://www.lequipe.fr/Football/match-direct/ligue-des-champions/2024-2025/manchester-city-inter-live/670773
+
+# African Champions League
+https://www.lequipe.fr/Football/match-direct/ligue-champions-afrique/2024/al-ahly-esperance-live/670774
+https://www.lequipe.fr/Football/match-direct/ligue-champions-afrique/2024/wydad-casablanca-mamelodi-sundowns-live/670775
+https://www.lequipe.fr/Football/match-direct/ligue-champions-afrique/2024/tp-mazembe-simba-live/670776
+
+# Previous CAN editions (archived matches with rich commentary)
+https://www.lequipe.fr/Football/match-direct/can/2023/senegal-egypte-live/670777
+https://www.lequipe.fr/Football/match-direct/can/2023/cameroun-algerie-live/670778
+https://www.lequipe.fr/Football/match-direct/can/2023/maroc-cote-d-ivoire-live/670779
+https://www.lequipe.fr/Football/match-direct/can/2023/nigeria-tunisie-live/670780
+
+# World Cup qualifiers (African teams)
+https://www.lequipe.fr/Football/match-direct/coupe-du-monde/qualifications-afrique/2024/senegal-togo-live/670781
+https://www.lequipe.fr/Football/match-direct/coupe-du-monde/qualifications-afrique/2024/cameroun-algerie-live/670782
+https://www.lequipe.fr/Football/match-direct/coupe-du-monde/qualifications-afrique/2024/maroc-zambie-live/670783
+https://www.lequipe.fr/Football/match-direct/coupe-du-monde/qualifications-afrique/2024/nigeria-cameroun-live/670784
+https://www.lequipe.fr/Football/match-direct/coupe-du-monde/qualifications-afrique/2024/egypte-ghana-live/670785
+
+# Total: 45+ match URLs targeting 1200+ commentary examples

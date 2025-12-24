@@ -1,0 +1,110 @@
+# Axolotl Configuration for AFCON 2025 Commentary Fine-Tuning
+# Base Model: Llama 3.1 70B
+# Dataset: 2000 AFCON commentary examples
+
+# Base model configuration
+base_model: meta-llama/Llama-3.1-70B-Instruct
+model_type: LlamaForCausalLM
+tokenizer_type: AutoTokenizer
+
+# Dataset configuration
+datasets:
+  - path: /workspace/training_data/afcon2025_training.jsonl
+    type: chat_template
+    chat_template: llama3
+    field_messages: messages
+    message_field_role: role
+    message_field_content: content
+
+# LoRA configuration (efficient fine-tuning)
+adapter: lora
+lora_r: 32
+lora_alpha: 64
+lora_dropout: 0.05
+lora_target_linear: true
+lora_fan_in_fan_out: false
+lora_modules_to_save:
+  - embed_tokens
+  - lm_head
+
+# Sequence and batching
+sequence_len: 2048
+sample_packing: true
+pad_to_sequence_len: true
+
+# Batch size and gradient accumulation
+# For 4x A100 80GB GPUs
+micro_batch_size: 2
+gradient_accumulation_steps: 4
+eval_batch_size: 2
+
+# Learning rate and optimization
+learning_rate: 2.0e-5
+lr_scheduler: cosine
+num_epochs: 3
+warmup_steps: 100
+
+# Optimizer
+optimizer: adamw_torch
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.95
+adam_epsilon: 1.0e-8
+
+# Mixed precision training
+bf16: auto
+fp16: false
+tf32: true
+
+# DeepSpeed configuration for multi-GPU
+deepspeed: /workspace/ds_config.json
+
+# Gradient checkpointing (memory efficiency)
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+
+# Logging and evaluation
+logging_steps: 10
+eval_steps: 100
+save_steps: 100
+save_total_limit: 3
+
+# Output directory
+output_dir: /workspace/finetuned_model
+
+# Weights & Biases (optional - set to null to disable)
+wandb_project: afrique-sports-afcon2025
+wandb_entity: null
+wandb_run_id: null
+wandb_log_model: false
+
+# Flash Attention optimization
+flash_attention: true
+sdp_attention: false
+
+# Special tokens
+special_tokens:
+  pad_token: "<|end_of_text|>"
+
+# Model uploading (optional)
+hub_model_id: null
+push_to_hub: false
+
+# Early stopping (optional)
+early_stopping_patience: null
+
+# Evaluation strategy
+eval_strategy: steps
+save_strategy: steps
+
+# Additional optimizations
+group_by_length: false
+load_in_8bit: false
+load_in_4bit: false
+
+# Training stability
+max_grad_norm: 1.0
+
+# Debug mode (set to true for more verbose output)
+debug: false
