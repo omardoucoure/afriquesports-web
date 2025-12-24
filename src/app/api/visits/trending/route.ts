@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTrendingPostsByRange } from '@/lib/supabase-db';
+import { getTrendingPostsByRange } from '@/lib/mysql-db';
 
 export interface TrendingPost {
   post_id: string;

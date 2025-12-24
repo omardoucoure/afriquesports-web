@@ -8,7 +8,7 @@ import { Breadcrumb, Pagination } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
-import { getTrendingPostsByRange } from "@/lib/supabase-db";
+import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
 // ISR: Revalidate category pages every 60 seconds

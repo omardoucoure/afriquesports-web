@@ -5,7 +5,7 @@ import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
-import { getTrendingPostsByRange } from "@/lib/supabase-db";
+import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { getTranslations } from "next-intl/server";
 
 // ISR: Revalidate mercato page every 60 seconds

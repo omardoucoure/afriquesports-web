@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { recordVisit } from '@/lib/supabase-db';
+import { recordVisit } from '@/lib/mysql-db';
 
 // Force Node.js runtime for database operations
 export const runtime = 'nodejs';

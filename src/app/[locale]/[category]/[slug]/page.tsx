@@ -14,7 +14,7 @@ import { CommentSection } from "@/components/comments/comment-section-dynamic";
 import { VisitTracker } from "@/components/tracking";
 import { InArticleAd, SidebarAd } from "@/components/ads";
 import { DataFetcher } from "@/lib/data-fetcher";
-import { getTrendingPostsByRange } from "@/lib/supabase-db";
+import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import {
   formatDate,
   getRelativeDate,
