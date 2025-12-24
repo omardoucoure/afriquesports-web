@@ -5,9 +5,11 @@ runpod:
   pod_id: wfl4o3ns1tizo1
   pod_name: eager_gray_crane
   ip: 194.68.245.75
-  ssh_port: 22046
+  ssh_port: 22149  # Dynamic - use runpodctl to get current port
   ssh_key: ~/.ssh/id_ed25519
   ssh_user: root
+  ssh_method: runpodctl  # Use: runpodctl ssh connect wfl4o3ns1tizo1
+  auto_start_script: /workspace/start_vllm.sh  # Runs on pod startup (SSH + vLLM)
   vllm:
     port: 8000
     endpoint: http://194.68.245.75:8000/v1

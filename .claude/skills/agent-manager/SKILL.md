@@ -32,18 +32,27 @@ Shows status of:
 
 ### Connect to RunPod
 
-```bash
-# Read config first
-RUNPOD_IP=$(grep -A 10 "^runpod:" .claude/config/infrastructure.yaml | grep "ip:" | awk '{print $2}')
-SSH_PORT=$(grep -A 10 "^runpod:" .claude/config/infrastructure.yaml | grep "ssh_port:" | awk '{print $2}')
+**✅ Recommended Method: Use RunPodCTL** (handles dynamic ports automatically)
 
-# Connect
-ssh -p $SSH_PORT root@$RUNPOD_IP
+```bash
+# Get SSH connection command (automatically finds current port)
+runpodctl ssh connect wfl4o3ns1tizo1
+
+# Or get the command and connect directly
+$(runpodctl ssh connect wfl4o3ns1tizo1)
 ```
 
-Or use the SSH config alias:
+**Alternative: Direct SSH** (requires manual port updates)
+
 ```bash
-ssh runpod  # Configured in ~/.ssh/config
+# Get current pod ID
+POD_ID=$(grep -A 10 "^runpod:" .claude/config/infrastructure.yaml | grep "pod_id:" | awk '{print $2}')
+
+# Get SSH command from runpodctl
+SSH_CMD=$(runpodctl ssh connect $POD_ID)
+
+# Connect
+$SSH_CMD
 ```
 
 ### Start vLLM Server

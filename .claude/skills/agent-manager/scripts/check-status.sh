@@ -14,8 +14,8 @@ if [ ! -f "$CONFIG" ]; then
 fi
 
 # Parse YAML (simple grep-based parsing)
+POD_ID=$(grep -A 10 "^runpod:" "$CONFIG" | grep "pod_id:" | awk '{print $2}')
 RUNPOD_IP=$(grep -A 10 "^runpod:" "$CONFIG" | grep "ip:" | awk '{print $2}')
-SSH_PORT=$(grep -A 10 "^runpod:" "$CONFIG" | grep "ssh_port:" | awk '{print $2}')
 VLLM_PORT=$(grep -A 10 "vllm:" "$CONFIG" | grep "port:" | awk '{print $2}')
 VLLM_ENDPOINT=$(grep -A 10 "vllm:" "$CONFIG" | grep "endpoint:" | awk '{print $2}')
 DO_IP=$(grep -A 10 "^digitalocean:" "$CONFIG" | grep "ip:" | awk '{print $2}')
@@ -23,11 +23,17 @@ DO_IP=$(grep -A 10 "^digitalocean:" "$CONFIG" | grep "ip:" | awk '{print $2}')
 echo "📡 RunPod Server ($RUNPOD_IP)"
 echo "----------------------------"
 
-# Check SSH
-if ssh -p "$SSH_PORT" -o ConnectTimeout=10 -o StrictHostKeyChecking=no root@"$RUNPOD_IP" "echo 'SSH OK'" >/dev/null 2>&1; then
-    echo "  SSH: ✅ Connected (port $SSH_PORT)"
+# Check SSH using runpodctl (handles dynamic ports)
+if command -v runpodctl >/dev/null 2>&1; then
+    SSH_CMD=$(runpodctl ssh connect "$POD_ID" 2>/dev/null)
+    if [ -n "$SSH_CMD" ] && $SSH_CMD -o ConnectTimeout=10 -o StrictHostKeyChecking=no "echo 'SSH OK'" >/dev/null 2>&1; then
+        SSH_PORT=$(echo "$SSH_CMD" | grep -o "\-p [0-9]*" | awk '{print $2}')
+        echo "  SSH: ✅ Connected (port $SSH_PORT via runpodctl)"
+    else
+        echo "  SSH: ❌ Connection failed (use: runpodctl ssh connect $POD_ID)"
+    fi
 else
-    echo "  SSH: ❌ Connection failed (port $SSH_PORT)"
+    echo "  SSH: ⚠️  runpodctl not installed (install: brew install runpod/runpodctl/runpodctl)"
 fi
 
 # Check vLLM
