@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DataFetcher } from "@/lib/data-fetcher";
 
+// Force dynamic rendering since this route uses searchParams
+export const dynamic = 'force-dynamic';
+
 // Revalidate every 10 minutes as fallback
 // Primary updates via on-demand revalidation from WordPress webhook
 export const revalidate = 600;
