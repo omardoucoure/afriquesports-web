@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl, getAuthorName } from "@/lib/utils";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useIsDesktop } from "@/hooks/use-media-query";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
 interface ArticleCardProps {
@@ -32,6 +33,7 @@ export function ArticleCard({
 }: ArticleCardProps) {
   const tCommon = useTranslations("common");
   const { trackArticleClick } = useAnalytics();
+  const isDesktop = useIsDesktop();
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryLabel = getCategoryLabel(article);
   const articleUrl = getArticleUrl(article);
@@ -55,36 +57,38 @@ export function ArticleCard({
     return (
       <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="block" onClick={handleClick}>
-          {/* Image - Hidden on mobile for LCP optimization, visible for crawlers & desktop */}
-          <div className="relative aspect-video overflow-hidden hidden md:block">
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={article.title.rendered}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                priority={priority}
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
-              </div>
-            )}
+          {/* Image - Only rendered on desktop for LCP optimization */}
+          {isDesktop && (
+            <div className="relative aspect-video overflow-hidden">
+              {imageUrl ? (
+                <Image
+                  src={imageUrl}
+                  alt={article.title.rendered}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  priority={priority}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
+                </div>
+              )}
 
-            {/* Category badge */}
-            {showCategory && categoryLabel && (
-              <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
-                {categoryLabel}
-              </span>
-            )}
-          </div>
+              {/* Category badge */}
+              {showCategory && categoryLabel && (
+                <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
+                  {categoryLabel}
+                </span>
+              )}
+            </div>
+          )}
 
           {/* Content */}
           <div className="p-4">
-            {/* Mobile-only category badge */}
-            {showCategory && categoryLabel && (
-              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded md:hidden">
+            {/* Mobile-only category badge (when image not shown) */}
+            {!isDesktop && showCategory && categoryLabel && (
+              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
                 {categoryLabel}
               </span>
             )}
@@ -156,36 +160,38 @@ export function ArticleCard({
     return (
       <article className="group bg-white rounded overflow-hidden">
         <Link href={articleUrl} className="flex flex-col sm:flex-row" onClick={handleClick}>
-          {/* Image - Hidden on mobile for LCP optimization */}
-          <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden hidden md:block">
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={article.title.rendered}
-                fill
-                sizes="(max-width: 640px) 100vw, 40vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                priority={priority}
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
-              </div>
-            )}
+          {/* Image - Only rendered on desktop for LCP optimization */}
+          {isDesktop && (
+            <div className="relative sm:w-2/5 aspect-video sm:aspect-auto overflow-hidden">
+              {imageUrl ? (
+                <Image
+                  src={imageUrl}
+                  alt={article.title.rendered}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  priority={priority}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
+                </div>
+              )}
 
-            {/* Category badge */}
-            {showCategory && categoryLabel && (
-              <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
-                {categoryLabel}
-              </span>
-            )}
-          </div>
+              {/* Category badge */}
+              {showCategory && categoryLabel && (
+                <span className="absolute top-3 left-3 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
+                  {categoryLabel}
+                </span>
+              )}
+            </div>
+          )}
 
           {/* Content */}
           <div className="flex-1 p-4 sm:p-5 flex flex-col justify-center">
-            {/* Mobile-only category badge */}
-            {showCategory && categoryLabel && (
-              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded md:hidden">
+            {/* Mobile-only category badge (when image not shown) */}
+            {!isDesktop && showCategory && categoryLabel && (
+              <span className="inline-block mb-2 px-2 py-1 bg-[#04453f] text-white text-xs font-semibold rounded">
                 {categoryLabel}
               </span>
             )}

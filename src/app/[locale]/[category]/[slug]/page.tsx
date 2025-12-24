@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Script from "next/script";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton, ArticleContent } from "@/components/articles";
+import { ArticleFeaturedImage } from "@/components/articles/article-featured-image";
 import { ShareButtons } from "@/components/articles/share-buttons-dynamic";
 import { Breadcrumb } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
@@ -456,18 +456,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   {/* Ad #1 - Top In-Article Ad */}
                   <InArticleAd adSlot="1161079715" position="top" />
 
-                  {/* Featured image - Hidden on mobile for LCP optimization, visible for crawlers & desktop */}
+                  {/* Featured image - Only rendered on desktop for LCP optimization */}
                   {imageUrl && imageUrl !== "/images/placeholder.svg" && (
-                    <div className="relative w-full aspect-[16/9] mb-6 rounded-lg sm:rounded-xl overflow-hidden hidden md:block">
-                      <Image
-                        src={imageUrl}
-                        alt={title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 800px"
-                        className="object-cover"
-                        priority
-                      />
-                    </div>
+                    <ArticleFeaturedImage imageUrl={imageUrl} title={title} priority />
                   )}
 
                   {/* Social share buttons */}

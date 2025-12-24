@@ -8,7 +8,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint",
-    "test:performance": "node scripts/test-performance.js"
+    "test:performance": "node scripts/test-performance.js",
+    "test:articles": "node scripts/test-articles.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.88.0",
