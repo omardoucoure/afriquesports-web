@@ -1,0 +1,52 @@
+# Afrique Sports Infrastructure Configuration
+# This file is git-tracked and persists across Claude Code sessions
+
+runpod:
+  pod_id: wfl4o3ns1tizo1
+  pod_name: eager_gray_crane
+  ip: 194.68.245.75
+  ssh_port: 22046
+  ssh_key: ~/.ssh/id_ed25519
+  ssh_user: root
+  vllm:
+    port: 8000
+    endpoint: http://194.68.245.75:8000/v1
+    api_key: afrique-sports-70b-working
+    model: meta-llama/Meta-Llama-3.1-70B-Instruct
+  fine_tuning:
+    framework: axolotl
+    training_data: scripts/data-collection/data/afcon2025_training.jsonl
+    config: scripts/data-collection/axolotl_config.yaml
+    examples: 2000
+    lora_r: 32
+    lora_alpha: 64
+
+digitalocean:
+  ip: 159.223.103.16
+  ssh_port: 22
+  ssh_user: root
+  agents:
+    - name: live-commentary
+      service: afrique-sports-commentary.service
+      script: /opt/afrique-sports-commentary/live-commentary-agent.js
+    - name: autonomous-match
+      service: autonomous-agent.service
+      script: /opt/afrique-sports-commentary/autonomous-match-agent.js
+    - name: youtube-commentary
+      script: /opt/afrique-sports-commentary/youtube-commentary-agent.js
+
+database:
+  provider: supabase
+  url: https://kcarlszocimdxmzmljve.supabase.co
+  tables:
+    - match_commentary_ai
+    - match_prematch_analysis
+    - can_2025_youtube_streams
+
+api:
+  base_url: https://www.afriquesports.net
+  webhook_secret_env: AI_AGENT_WEBHOOK_SECRET
+  endpoints:
+    - /api/can2025/live-commentary
+    - /api/can2025/prematch-analysis
+    - /api/can2025/youtube-stream
