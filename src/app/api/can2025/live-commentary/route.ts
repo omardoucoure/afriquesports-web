@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+import { insertMatchCommentary, getMatchCommentary } from '@/lib/mysql-match-db';
 
 // POST - Publish live commentary (webhook from AI agent)
 export async function POST(request: NextRequest) {
@@ -41,37 +37,29 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Insert live commentary event
-    const { data, error } = await supabase
-      .from('match_commentary_ai')
-      .insert({
-        match_id: body.match_id,
-        event_id: body.event_id,
-        time: body.time,
-        time_seconds: body.time_seconds,
-        locale: body.locale,
-        text: body.text,
-        type: body.type,
-        team: body.team || null,
-        player_name: body.player_name || null,
-        player_image: body.player_image || null,
-        icon: body.icon || '⚽',
-        is_scoring: body.is_scoring || false,
-        confidence: body.confidence || 0.9,
-      })
-      .select()
-      .single();
+    // Insert live commentary event into MySQL
+    const success = await insertMatchCommentary({
+      match_id: body.match_id,
+      event_id: body.event_id,
+      competition: body.competition || 'CAN',
+      time: body.time,
+      time_seconds: body.time_seconds,
+      locale: body.locale,
+      text: body.text,
+      type: body.type,
+      team: body.team || undefined,
+      player_name: body.player_name || undefined,
+      player_image: body.player_image || undefined,
+      icon: body.icon || '⚽',
+      is_scoring: body.is_scoring || false,
+      confidence: body.confidence || 0.9,
+    });
 
-    if (error) {
-      if (error.code === '23505') {
-        return NextResponse.json(
-          { error: 'Duplicate event_id. Commentary already exists.' },
-          { status: 409 }
-        );
-      }
-
-      console.error('Supabase error:', error);
-      throw error;
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Failed to insert commentary (possibly duplicate)' },
+        { status: 500 }
+      );
     }
 
     // Trigger revalidation
@@ -84,10 +72,8 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Commentary published successfully',
       data: {
-        id: data.id,
-        match_id: data.match_id,
-        event_id: data.event_id,
-        created_at: data.created_at,
+        match_id: body.match_id,
+        event_id: body.event_id,
       }
     });
 
@@ -116,23 +102,16 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('match_commentary_ai')
-      .select('*')
-      .eq('match_id', matchId)
-      .eq('locale', locale)
-      .order('time_seconds', { ascending: false })
-      .limit(limit);
+    const data = await getMatchCommentary(matchId, locale);
 
-    if (error) {
-      throw error;
-    }
+    // Apply limit
+    const limitedData = data.slice(0, limit);
 
     return NextResponse.json({
       success: true,
       matchId,
       locale,
-      commentary: data || []
+      commentary: limitedData
     });
 
   } catch (error) {

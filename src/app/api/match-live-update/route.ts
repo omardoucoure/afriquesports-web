@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { espnToMatchData } from '@/lib/match-schema';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+import { getMatchCommentary } from '@/lib/mysql-match-db';
 
 /**
  * Live match update API for client-side polling
@@ -41,21 +37,13 @@ export async function GET(request: Request) {
 
     const espnData = await espnResponse.json();
 
-    // Fetch latest commentary directly from Supabase
-    let commentary = [];
+    // Fetch latest commentary from MySQL
+    let commentary: any[] = [];
     try {
-      const { data, error } = await supabase
-        .from('match_commentary_ai')
-        .select('*')
-        .eq('match_id', matchId)
-        .eq('locale', locale)
-        .order('time_seconds', { ascending: false })
-        .limit(50);
-
-      if (!error && data) {
-        commentary = data;
-      } else if (error) {
-        console.error('Supabase error fetching commentary:', error);
+      const data = await getMatchCommentary(matchId, locale);
+      if (data) {
+        // Limit to 50 most recent items
+        commentary = data.slice(0, 50);
       }
     } catch (error) {
       console.error('Error fetching commentary:', error);

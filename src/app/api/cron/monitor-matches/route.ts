@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { getGoogleIndexingAPI } from '@/lib/google-indexing';
-import { createClient } from '@supabase/supabase-js';
+import { getAllMatchStates, upsertMatchState, type MatchState as MySQLMatchState } from '@/lib/mysql-match-db';
 
 /**
  * Automatic Match Monitoring Cron Job
@@ -10,7 +10,7 @@ import { createClient } from '@supabase/supabase-js';
  *
  * What it does:
  * 1. Fetches all CAN 2025 matches from ESPN API
- * 2. Compares with stored match states in Supabase
+ * 2. Compares with stored match states in MySQL
  * 3. Detects changes:
  *    - Status change (scheduled → live → completed)
  *    - Score updates
@@ -25,53 +25,47 @@ import { createClient } from '@supabase/supabase-js';
 export const runtime = 'nodejs';
 export const maxDuration = 300; // 5 minutes max
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 interface MatchState {
   match_id: string;
-  status: string;
+  status: 'scheduled' | 'live' | 'completed';
+  home_team?: string;
+  away_team?: string;
   home_score: number;
   away_score: number;
-  last_indexed_at?: string;
-  last_checked_at: string;
+  last_indexed_at?: Date | null;
+  last_checked_at?: Date;
 }
 
 async function getStoredMatchStates(): Promise<Map<string, MatchState>> {
-  const { data, error } = await supabase
-    .from('match_states')
-    .select('*');
-
-  if (error) {
-    console.error('Error fetching match states:', error);
-    return new Map();
-  }
-
+  const states = await getAllMatchStates();
   const statesMap = new Map<string, MatchState>();
-  data?.forEach(state => {
-    statesMap.set(state.match_id, state);
+  states.forEach(state => {
+    statesMap.set(state.match_id, {
+      match_id: state.match_id,
+      status: state.status,
+      home_team: state.home_team,
+      away_team: state.away_team,
+      home_score: state.home_score || 0,
+      away_score: state.away_score || 0,
+      last_indexed_at: state.last_indexed_at,
+      last_checked_at: state.last_checked_at,
+    });
   });
-
   return statesMap;
 }
 
-async function updateMatchState(matchId: string, state: Partial<MatchState>) {
-  const { error } = await supabase
-    .from('match_states')
-    .upsert({
-      match_id: matchId,
-      ...state,
-      last_checked_at: new Date().toISOString()
-    });
-
-  if (error) {
-    console.error(`Error updating match state for ${matchId}:`, error);
-  }
+async function updateMatchState(matchId: string, state: Partial<MatchState>, shouldIndex: boolean = false) {
+  await upsertMatchState({
+    match_id: matchId,
+    status: state.status || 'scheduled',
+    home_team: state.home_team,
+    away_team: state.away_team,
+    home_score: state.home_score || 0,
+    away_score: state.away_score || 0,
+  }, shouldIndex);
 }
 
-function getMatchStatus(espnMatch: any): string {
+function getMatchStatus(espnMatch: any): 'scheduled' | 'live' | 'completed' {
   const status = espnMatch.status?.type;
   if (status?.completed) return 'completed';
   if (status?.state === 'in') return 'live';
@@ -177,13 +171,12 @@ export async function GET(request: Request) {
           }
         }
 
-        // 3. Update stored state
+        // 3. Update stored state (mark as indexed)
         await updateMatchState(matchId, {
           status: currentStatus,
           home_score: homeScore,
           away_score: awayScore,
-          last_indexed_at: new Date().toISOString()
-        });
+        }, true); // shouldIndex = true
 
         // Rate limiting: pause between API calls
         await new Promise(resolve => setTimeout(resolve, 300));

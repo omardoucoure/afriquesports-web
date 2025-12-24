@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { getMatchCommentary, getPreMatchAnalysis } from "@/lib/mysql-match-db";
 
 // Map ESPN team names to translation keys
 const teamNameMap: Record<string, string> = {
@@ -128,14 +124,9 @@ export async function GET(request: Request) {
       },
     };
 
-    // If match is live or completed, fetch AI commentary from Supabase
+    // If match is live or completed, fetch AI commentary from MySQL
     if (matchStatus === 'in' || matchStatus === 'post') {
-      const { data: aiCommentary } = await supabase
-        .from('match_commentary_ai')
-        .select('*')
-        .eq('match_id', eventId)
-        .eq('locale', locale)
-        .order('time_seconds', { ascending: false });
+      const aiCommentary = await getMatchCommentary(eventId, locale);
 
       if (aiCommentary && aiCommentary.length > 0) {
         // Convert AI commentary to expected format
@@ -185,12 +176,7 @@ export async function GET(request: Request) {
 
     // If match hasn't started, fetch pre-match analysis
     if (matchStatus === 'pre') {
-      const { data: preMatch } = await supabase
-        .from('match_prematch_analysis')
-        .select('*')
-        .eq('match_id', eventId)
-        .eq('locale', locale)
-        .single();
+      const preMatch = await getPreMatchAnalysis(eventId, locale);
 
       if (preMatch) {
         matchData.preMatchAnalysis = {
@@ -199,12 +185,12 @@ export async function GET(request: Request) {
           keyPlayers: preMatch.key_players,
           tacticalPreview: preMatch.tactical_preview,
           prediction: preMatch.prediction,
-          homeFormation: preMatch.home_formation || null,
-          awayFormation: preMatch.away_formation || null,
-          homeLineup: preMatch.home_lineup || null,
-          awayLineup: preMatch.away_lineup || null,
-          homeSubstitutes: preMatch.home_substitutes || null,
-          awaySubstitutes: preMatch.away_substitutes || null,
+          homeFormation: preMatch.home_formation,
+          awayFormation: preMatch.away_formation,
+          homeLineup: preMatch.home_lineup,
+          awayLineup: preMatch.away_lineup,
+          homeSubstitutes: preMatch.home_substitutes,
+          awaySubstitutes: preMatch.away_substitutes,
           generatedAt: preMatch.created_at,
         };
       }

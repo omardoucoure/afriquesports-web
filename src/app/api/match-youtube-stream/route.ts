@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+import { getYouTubeStream, upsertYouTubeStream, deleteYouTubeStream } from '@/lib/mysql-match-db';
 
 // GET - Fetch YouTube stream for a match
 export async function GET(request: NextRequest) {
@@ -18,15 +14,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('match_youtube_streams')
-      .select('*')
-      .eq('match_id', matchId)
-      .single();
-
-    if (error && error.code !== 'PGRST116') { // PGRST116 = not found
-      throw error;
-    }
+    const data = await getYouTubeStream(matchId);
 
     return NextResponse.json({
       success: true,
@@ -57,30 +45,32 @@ export async function POST(request: NextRequest) {
     }
 
     // Upsert the stream
-    const { data, error } = await supabase
-      .from('match_youtube_streams')
-      .upsert({
-        match_id: body.match_id,
-        youtube_video_id: body.youtube_video_id,
-        channel_name: body.channel_name || null,
-        video_title: body.video_title || null,
-        is_live: body.is_live !== undefined ? body.is_live : true,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'match_id'
-      })
-      .select()
-      .single();
+    const youtube_url = `https://www.youtube.com/watch?v=${body.youtube_video_id}`;
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
+    const success = await upsertYouTubeStream({
+      match_id: body.match_id,
+      competition: body.competition || 'CAN',
+      youtube_url,
+      video_id: body.youtube_video_id,
+      stream_title: body.video_title || body.channel_name || null,
+      is_live: body.is_live !== undefined ? body.is_live : true,
+      viewer_count: body.viewer_count || 0,
+    });
+
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Failed to set YouTube stream' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
       success: true,
       message: 'YouTube stream set successfully',
-      data
+      data: {
+        match_id: body.match_id,
+        video_id: body.youtube_video_id,
+      }
     });
 
   } catch (error: any) {
@@ -105,13 +95,13 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const { error } = await supabase
-      .from('match_youtube_streams')
-      .delete()
-      .eq('match_id', matchId);
+    const success = await deleteYouTubeStream(matchId);
 
-    if (error) {
-      throw error;
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Failed to delete YouTube stream' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({

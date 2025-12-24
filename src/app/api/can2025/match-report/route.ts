@@ -1,17 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase client
-function getSupabaseClient() {
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase credentials');
-  }
-
-  return createClient(supabaseUrl, supabaseKey);
-}
+import { getMatchReport, upsertMatchReport } from '@/lib/mysql-match-db';
 
 /**
  * GET /api/can2025/match-report
@@ -36,38 +24,22 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const supabase = getSupabaseClient();
+    // Fetch report from MySQL
+    const data = await getMatchReport(matchId, locale);
 
-    // Fetch report from Supabase
-    const { data, error } = await supabase
-      .from('match_reports_ai')
-      .select('*')
-      .eq('match_id', matchId)
-      .eq('locale', locale)
-      .single();
-
-    if (error) {
-      // No report found
-      if (error.code === 'PGRST116') {
-        return NextResponse.json({
-          success: true,
-          matchId,
-          locale,
-          report: null,
-          message: 'Report not yet available'
-        }, {
-          headers: {
-            // Cache "no report" for 2 minutes (report might be generated soon)
-            'Cache-Control': 's-maxage=120, stale-while-revalidate=60'
-          }
-        });
-      }
-
-      console.error('[Match Report API] Supabase error:', error);
-      return NextResponse.json(
-        { error: 'Database query failed', details: error.message },
-        { status: 500 }
-      );
+    if (!data) {
+      return NextResponse.json({
+        success: true,
+        matchId,
+        locale,
+        report: null,
+        message: 'Report not yet available'
+      }, {
+        headers: {
+          // Cache "no report" for 2 minutes (report might be generated soon)
+          'Cache-Control': 's-maxage=120, stale-while-revalidate=60'
+        }
+      });
     }
 
     return NextResponse.json({
@@ -154,32 +126,25 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const supabase = getSupabaseClient();
-
     // Insert or update report (upsert on unique constraint)
-    const { data, error } = await supabase
-      .from('match_reports_ai')
-      .upsert({
-        match_id: body.match_id,
-        locale: body.locale,
-        title: body.title,
-        summary: body.summary,
-        key_moments: body.key_moments || null,
-        player_ratings: body.player_ratings || null,
-        statistics: body.statistics || null,
-        analysis: body.analysis || null,
-        published_to_wp: body.published_to_wp || false,
-        wp_post_id: body.wp_post_id || null
-      }, {
-        onConflict: 'match_id,locale'
-      })
-      .select()
-      .single();
+    const success = await upsertMatchReport({
+      match_id: body.match_id,
+      locale: body.locale,
+      competition: body.competition || 'CAN',
+      title: body.title,
+      summary: body.summary,
+      key_moments: body.key_moments,
+      player_ratings: body.player_ratings,
+      statistics: body.statistics,
+      analysis: body.analysis,
+      published_to_wp: body.published_to_wp || false,
+      wp_post_id: body.wp_post_id,
+    });
 
-    if (error) {
-      console.error('[Match Report API] Insert error:', error);
+    if (!success) {
+      console.error('[Match Report API] Insert error');
       return NextResponse.json(
-        { error: 'Failed to publish report', details: error.message },
+        { error: 'Failed to publish report' },
         { status: 500 }
       );
     }
@@ -192,7 +157,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data,
+      data: {
+        match_id: body.match_id,
+        locale: body.locale,
+      },
       message: 'Match report published successfully'
     });
 

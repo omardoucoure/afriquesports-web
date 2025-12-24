@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getPreMatchAnalysis, getMatchCommentary, getMatchReport } from '@/lib/mysql-match-db';
 
 /**
  * GET /api/can2025/match-history
@@ -28,42 +23,22 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch all historical data in parallel
-    const [preMatchRes, commentaryRes, reportRes] = await Promise.all([
-      // Pre-match analysis
-      supabase
-        .from('match_prematch_analysis')
-        .select('*')
-        .eq('match_id', matchId)
-        .eq('locale', locale)
-        .single(),
-
-      // Live commentary (all events)
-      supabase
-        .from('match_commentary_ai')
-        .select('*')
-        .eq('match_id', matchId)
-        .eq('locale', locale)
-        .order('time_seconds', { ascending: false }),
-
-      // Post-match report
-      supabase
-        .from('match_reports_ai')
-        .select('*')
-        .eq('match_id', matchId)
-        .eq('locale', locale)
-        .single(),
+    const [preMatch, commentary, report] = await Promise.all([
+      getPreMatchAnalysis(matchId, locale),
+      getMatchCommentary(matchId, locale),
+      getMatchReport(matchId, locale),
     ]);
 
     return NextResponse.json({
       match_id: matchId,
       locale,
-      pre_match: preMatchRes.data || null,
-      live_commentary: commentaryRes.data || [],
-      post_match_report: reportRes.data || null,
-      has_pre_match: !!preMatchRes.data,
-      has_live_commentary: (commentaryRes.data?.length || 0) > 0,
-      has_post_match_report: !!reportRes.data,
-      total_events: commentaryRes.data?.length || 0,
+      pre_match: preMatch || null,
+      live_commentary: commentary || [],
+      post_match_report: report || null,
+      has_pre_match: !!preMatch,
+      has_live_commentary: (commentary?.length || 0) > 0,
+      has_post_match_report: !!report,
+      total_events: commentary?.length || 0,
     });
 
   } catch (error) {

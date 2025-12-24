@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+import { getPreMatchAnalysis, upsertPreMatchAnalysis } from '@/lib/mysql-match-db';
 
 // GET - Fetch pre-match analysis for a specific match
 export async function GET(request: NextRequest) {
@@ -20,16 +16,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('match_prematch_analysis')
-      .select('*')
-      .eq('match_id', matchId)
-      .eq('locale', locale)
-      .single();
-
-    if (error && error.code !== 'PGRST116') { // PGRST116 = not found
-      throw error;
-    }
+    const data = await getPreMatchAnalysis(matchId, locale);
 
     if (!data) {
       return NextResponse.json(
@@ -53,12 +40,12 @@ export async function GET(request: NextRequest) {
         keyPlayers: data.key_players,
         tacticalPreview: data.tactical_preview,
         prediction: data.prediction,
-        homeFormation: data.home_formation || null,
-        awayFormation: data.away_formation || null,
-        homeLineup: data.home_lineup || null,
-        awayLineup: data.away_lineup || null,
-        homeSubstitutes: data.home_substitutes || null,
-        awaySubstitutes: data.away_substitutes || null,
+        homeFormation: data.home_formation,
+        awayFormation: data.away_formation,
+        homeLineup: data.home_lineup,
+        awayLineup: data.away_lineup,
+        homeSubstitutes: data.home_substitutes,
+        awaySubstitutes: data.away_substitutes,
         generatedAt: data.created_at,
         updatedAt: data.updated_at,
       }
@@ -109,32 +96,31 @@ export async function POST(request: NextRequest) {
     }
 
     // Upsert pre-match analysis (update if exists, insert if not)
-    const { data, error } = await supabase
-      .from('match_prematch_analysis')
-      .upsert({
-        match_id: body.match_id,
-        locale: body.locale,
-        head_to_head: body.head_to_head || null,
-        recent_form: body.recent_form || null,
-        key_players: body.key_players || null,
-        tactical_preview: body.tactical_preview || null,
-        prediction: body.prediction || null,
-        home_formation: body.home_formation || null,
-        away_formation: body.away_formation || null,
-        home_lineup: body.home_lineup || null,
-        away_lineup: body.away_lineup || null,
-        home_substitutes: body.home_substitutes || null,
-        away_substitutes: body.away_substitutes || null,
-      }, {
-        onConflict: 'match_id,locale',
-        ignoreDuplicates: false,
-      })
-      .select()
-      .single();
+    const success = await upsertPreMatchAnalysis({
+      match_id: body.match_id,
+      locale: body.locale,
+      home_team: body.home_team || '',
+      away_team: body.away_team || '',
+      competition: body.competition || 'CAN',
+      head_to_head: body.head_to_head,
+      recent_form: body.recent_form,
+      key_players: body.key_players,
+      tactical_preview: body.tactical_preview,
+      prediction: body.prediction,
+      home_formation: body.home_formation,
+      away_formation: body.away_formation,
+      home_lineup: body.home_lineup,
+      away_lineup: body.away_lineup,
+      home_substitutes: body.home_substitutes,
+      away_substitutes: body.away_substitutes,
+      confidence_score: body.confidence_score,
+    });
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Failed to save pre-match analysis' },
+        { status: 500 }
+      );
     }
 
     // Trigger ISR revalidation for the live match page
@@ -170,27 +156,15 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Pre-match analysis published successfully',
       data: {
-        id: data.id,
-        match_id: data.match_id,
-        locale: data.locale,
-        created_at: data.created_at,
-        updated_at: data.updated_at,
+        match_id: body.match_id,
+        locale: body.locale,
       }
     });
 
   } catch (error: any) {
     console.error('Error publishing pre-match analysis:', error);
-
-    // Handle unique constraint violations (duplicate)
-    if (error.code === '23505') {
-      return NextResponse.json(
-        { error: 'Pre-match analysis already exists for this match and locale. Use PUT to update.' },
-        { status: 409 }
-      );
-    }
-
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error.message },
       { status: 500 }
     );
   }
