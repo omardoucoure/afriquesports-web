@@ -13,6 +13,7 @@ import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/compone
 import { CommentSection } from "@/components/comments/comment-section-dynamic";
 import { VisitTracker } from "@/components/tracking";
 import { InArticleAd, SidebarAd } from "@/components/ads";
+import { ADSENSE_CONFIG } from "@/lib/ad-config";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import {
@@ -453,8 +454,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     </span>
                   </div>
 
-                  {/* Ad #1 - Top In-Article Ad */}
-                  <InArticleAd adSlot="1161079715" position="top" />
+                  {/* Ad #1 - Top In-Article Ad - Highest RPM position */}
+                  <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_TOP} position="top" />
 
                   {/* Featured image - Only rendered on desktop for LCP optimization */}
                   {imageUrl && imageUrl !== "/images/placeholder.svg" && (
@@ -466,16 +467,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <ShareButtons url={articleUrl} title={title} />
                   </div>
 
-                  {/* Ad #2 - Middle In-Article Ad (Create this ad unit in AdSense) */}
-                  <InArticleAd adSlot="1161079715" position="middle" />
+                  {/* Ad #2 - Middle In-Article Ad - Good RPM position */}
+                  <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_MIDDLE} position="middle" />
 
                   {/* Article content with enhanced embed handling */}
                   <div className="mt-6 overflow-visible">
                     <ArticleContent content={article.content.rendered} />
                   </div>
 
-                  {/* Ad #3 - Bottom In-Article Ad (Create this ad unit in AdSense) */}
-                  <InArticleAd adSlot="1161079715" position="bottom" />
+                  {/* Ad #3 - Bottom In-Article Ad - Standard RPM position */}
+                  <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_BOTTOM} position="bottom" />
 
                   {/* Bottom share buttons for mobile */}
                   <div className="mt-8 pt-6 border-t border-gray-200 lg:hidden">
@@ -499,8 +500,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             {/* Sidebar - hidden on mobile */}
             <aside className="hidden lg:block w-[340px] flex-shrink-0 space-y-6">
-              {/* Sidebar Ad - Sticky (Create separate display ad unit in AdSense for better tracking) */}
-              <SidebarAd adSlot="1161079715" sticky={true} />
+              {/* Sidebar Ad - Sticky - Desktop high-value position */}
+              <SidebarAd adSlot={ADSENSE_CONFIG.AD_SLOTS.SIDEBAR_STICKY} sticky={true} />
 
               {/* Most read */}
               <div className="sticky top-20">

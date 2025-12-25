@@ -156,7 +156,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cms.realdemadrid.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
 
-        {/* Google AdSense */}
+        {/* Google AdSense with Auto ads support */}
+        {/* IMPORTANT: Enable Auto ads in AdSense dashboard (Ads > Auto ads) for 10-15% revenue boost */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
