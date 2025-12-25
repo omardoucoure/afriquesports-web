@@ -1,37 +1,36 @@
 /**
- * Google AdSense Configuration
+ * Google AdSense Configuration - Afrique Sports
  *
- * IMPORTANT: Update these slot IDs in your AdSense dashboard
+ * Ad units configured from existing AdSense account:
+ * - Article Top: "Grosse baniere" (Display)
+ * - Article Middle: "In article AS Sports" (In-article)
+ * - Article Bottom: "Le long" (Display)
+ * - Sidebar: "Afrique Sports Long" (Display)
  *
- * How to create ad units:
- * 1. Go to https://www.google.com/adsense
- * 2. Click "Ads" → "By ad unit" → "Display ads"
- * 3. Create 4 separate ad units with these names:
- *    - Article Top In-Content (Responsive)
- *    - Article Middle In-Content (In-article format)
- *    - Article Bottom In-Content (In-article format)
- *    - Sidebar Sticky Desktop (300x600 or responsive)
- * 4. Copy each ad unit's data-ad-slot value
- * 5. Replace the placeholder IDs below with your actual slot IDs
+ * Updated: December 25, 2024
  */
 
 export const ADSENSE_CONFIG = {
   // Your AdSense publisher ID
   CLIENT_ID: 'ca-pub-4765538302983367',
 
-  // Ad slot IDs - REPLACE THESE with your actual slot IDs from AdSense
+  // Ad slot IDs - Using existing Afrique Sports ad units
   AD_SLOTS: {
     // Top in-article ad - Highest RPM position (above content)
-    ARTICLE_TOP: '2345678901',  // REPLACE: Create "Article Top In-Content" ad unit
+    // AdSense Unit: "Grosse baniere" (Display)
+    ARTICLE_TOP: '5662618775',
 
     // Middle in-article ad - Good RPM position (middle of content)
-    ARTICLE_MIDDLE: '3456789012',  // REPLACE: Create "Article Middle In-Content" ad unit
+    // AdSense Unit: "In article AS Sports" (In-article format - optimized for content)
+    ARTICLE_MIDDLE: '1161079715',
 
     // Bottom in-article ad - Standard RPM position (end of content)
-    ARTICLE_BOTTOM: '4567890123',  // REPLACE: Create "Article Bottom In-Content" ad unit
+    // AdSense Unit: "Le long" (Display)
+    ARTICLE_BOTTOM: '7473300649',
 
     // Sidebar ad - Desktop only, high-value position
-    SIDEBAR_STICKY: '5678901234',  // REPLACE: Create "Sidebar Sticky Desktop" ad unit
+    // AdSense Unit: "Afrique Sports Long" (Display)
+    SIDEBAR_STICKY: '6118232665',
   },
 
   // Enable Auto ads for additional revenue (10-15% increase)
