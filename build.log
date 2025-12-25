@@ -10,18 +10,18 @@
 
  ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
    Creating an optimized production build ...
- ✓ Compiled successfully in 8.1s
+ ✓ Compiled successfully in 8.8s
    Running TypeScript ...
 Failed to compile.
 
-./src/lib/analytics.ts:127:7
-Type error: Object literal may only specify known properties, and 'preference' does not exist in type 'Partial<EventProperties>'.
+./src/app/api/can2025/live-commentary/route.ts:105:35
+Type error: Cannot find name 'supabase'.
 
-[0m [90m 125 |[39m     [90m// Generic track for preferences (no specific event defined)[39m
- [90m 126 |[39m     manager[33m.[39mtrack([32m'User_Preference_Changed'[39m[33m,[39m {
-[31m[1m>[22m[39m[90m 127 |[39m       preference[33m:[39m preference[33m,[39m
- [90m     |[39m       [31m[1m^[22m[39m
- [90m 128 |[39m       value[33m:[39m value[33m,[39m
- [90m 129 |[39m     })
- [90m 130 |[39m   }[33m,[39m[0m
+[0m [90m 103 |[39m     }
+ [90m 104 |[39m
+[31m[1m>[22m[39m[90m 105 |[39m     [36mconst[39m { data[33m,[39m error } [33m=[39m [36mawait[39m supabase
+ [90m     |[39m                                   [31m[1m^[22m[39m
+ [90m 106 |[39m       [33m.[39m[36mfrom[39m([32m'match_commentary_ai'[39m)
+ [90m 107 |[39m       [33m.[39mselect([32m'*'[39m)
+ [90m 108 |[39m       [33m.[39meq([32m'match_id'[39m[33m,[39m matchId)[0m
 Next.js build worker exited with code: 1 and signal: null
