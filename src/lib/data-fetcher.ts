@@ -110,6 +110,7 @@ const RETRY_DELAY_MS = 1000;
 
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
+  403, 429, // Add 403 (Forbidden) and 429 (Rate Limit) for Cloudflare
   520, 521, 522, 523, 524, 525, 526, 527, 530, 502, 503, 504,
 ];
 
@@ -226,24 +227,41 @@ export class DataFetcher {
       ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
       headers: {
         Accept: "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
         "Accept-Charset": "utf-8",
         "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Referer": "https://cms.realdemadrid.com/afriquesports/",
         "Origin": "https://cms.realdemadrid.com",
+        "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"macOS"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
         ...options?.headers,
       },
     };
 
-    // Use retry wrapper for WordPress API calls (handles 520 errors)
-    const response = await this.fetchWithRetry(fullUrl, fetchOptions);
+    try {
+      // Use retry wrapper for WordPress API calls (handles 520 errors)
+      const response = await this.fetchWithRetry(fullUrl, fetchOptions);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.status}`);
+      if (!response.ok) {
+        // Log the error but don't expose sensitive details
+        console.error(`[DataFetcher] Failed to fetch posts: ${response.status} from ${fullUrl}`);
+        throw new Error(`Failed to fetch posts: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data as WordPressPost[];
+    } catch (error) {
+      console.error(`[DataFetcher] Error in fetchPosts:`, error);
+      // Re-throw to allow calling code to handle it
+      throw error;
     }
-
-    const data = await response.json();
-    return data as WordPressPost[];
   }
 
   /**
@@ -254,17 +272,24 @@ export class DataFetcher {
     locale?: string,
     options?: FetchOptions
   ): Promise<WordPressPost | null> {
-    const posts = await this.fetchPosts(
-      {
-        slug,
-        locale: locale || "fr",
-        per_page: "1",
-        _embed: "true",
-      },
-      options
-    );
+    try {
+      const posts = await this.fetchPosts(
+        {
+          slug,
+          locale: locale || "fr",
+          per_page: "1",
+          _embed: "true",
+        },
+        options
+      );
 
-    return posts.length > 0 ? posts[0] : null;
+      return posts.length > 0 ? posts[0] : null;
+    } catch (error) {
+      console.error(`[DataFetcher] Error fetching post by slug "${slug}":`, error);
+      // Return null instead of throwing to prevent 500 errors
+      // The calling code should handle null gracefully (show 404 page)
+      return null;
+    }
   }
 
   /**
