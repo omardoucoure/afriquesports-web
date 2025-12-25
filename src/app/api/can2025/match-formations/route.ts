@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
       .from('match_prematch_analysis')
       .select('match_id, home_formation, away_formation, home_lineup, away_lineup, home_coach, away_coach')
       .eq('match_id', matchId)
+      .eq('locale', 'fr') // Match the locale used when saving formations
       .single();
 
     if (error) {
@@ -100,6 +101,7 @@ export async function POST(request: NextRequest) {
       .from('match_prematch_analysis')
       .upsert({
         match_id,
+        locale: 'fr', // Default locale for autonomous agent formations
         home_formation,
         away_formation,
         home_lineup: home_lineup || [],
@@ -108,7 +110,7 @@ export async function POST(request: NextRequest) {
         away_coach: away_coach || null,
         updated_at: new Date().toISOString()
       }, {
-        onConflict: 'match_id'
+        onConflict: 'match_id,locale'
       })
       .select()
       .single();

@@ -5,7 +5,7 @@ runpod:
   pod_id: wfl4o3ns1tizo1
   pod_name: eager_gray_crane
   ip: 194.68.245.75
-  ssh_port: 22050  # Dynamic - use runpodctl to get current port
+  ssh_port: 22164  # Dynamic - use runpodctl to get current port
   ssh_key: ~/.ssh/id_ed25519
   ssh_user: root
   ssh_method: runpodctl  # Use: runpodctl ssh connect wfl4o3ns1tizo1
@@ -13,8 +13,8 @@ runpod:
   vllm:
     port: 8000
     internal_endpoint: http://localhost:8000/v1  # From within pod
-    external_port: 22051  # TCP port mapping (verified working)
-    endpoint: http://194.68.245.75:22051/v1  # External access endpoint
+    external_port: 22165  # TCP port mapping (updated 2025-12-25)
+    endpoint: http://194.68.245.75:22165/v1  # External access endpoint
     api_key: none
     model: Qwen/Qwen2.5-7B-Instruct
     served_model_name: qwen2.5-7b
