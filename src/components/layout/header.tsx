@@ -53,6 +53,7 @@ const navigationConfig: NavItem[] = [
   },
   { labelKey: "europe", href: "/category/europe" },
   { labelKey: "can2025", href: "/can-2025" },
+  { labelKey: "matches", href: "/matches" },
   { labelKey: "mercato", href: "/mercato" },
   { labelKey: "videos", href: "/category/youtube" },
   { labelKey: "rankings", href: "/classements" },
@@ -120,6 +121,7 @@ export function Header() {
            item.labelKey === "africa" ? tNav("africa").toUpperCase() :
            item.labelKey === "europe" ? tNav("europe").toUpperCase() :
            item.labelKey === "can2025" ? tNav("can2025").toUpperCase() :
+           item.labelKey === "matches" ? tNav("matches").toUpperCase() :
            item.labelKey === "mercato" ? tNav("mercato").toUpperCase() :
            item.labelKey === "videos" ? tNav("videos").toUpperCase() :
            item.labelKey === "rankings" ? tNav("rankings").toUpperCase() : item.labelKey,

@@ -27,6 +27,7 @@
     "africa": "Afrique",
     "europe": "Europe",
     "can2025": "CAN 2025",
+    "matches": "Matchs",
     "mercato": "Mercato",
     "videos": "Vidéos",
     "rankings": "Classements",
@@ -511,5 +512,18 @@
       "email": "Email",
       "social": "Réseaux sociaux"
     }
+  },
+  "matchesPage": {
+    "badge": "Matchs commentés",
+    "title": "Tous les matchs commentés",
+    "description": "Découvrez tous les matchs avec commentaires en direct générés par intelligence artificielle",
+    "live": "EN DIRECT",
+    "finished": "Terminé",
+    "scheduled": "À venir",
+    "preMatch": "Analyse pré-match",
+    "comments": "commentaires",
+    "totalMatches": "Total des matchs",
+    "noMatches": "Aucun match commenté disponible pour le moment",
+    "error": "Erreur lors du chargement des matchs"
   }
 }
