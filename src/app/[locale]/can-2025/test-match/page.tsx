@@ -1,51 +1,46 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
 
-async function getTestMatchCommentaries() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.afriquesports.net'}/api/can2025/live-commentary?match_id=test-brazil-france-2006`,
-      { cache: 'no-store' } // Always fetch fresh data
-    );
+import { useEffect, useState } from 'react';
 
-    if (!response.ok) {
-      return [];
+export default function TestMatchPage() {
+  const [commentaries, setCommentaries] = useState<any[]>([]);
+  const [matchData, setMatchData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch match data
+        const matchRes = await fetch('/api/can2025/test-match');
+        const matchJson = await matchRes.json();
+        setMatchData(matchJson.events?.[0] || null);
+
+        // Fetch commentaries
+        const commRes = await fetch('/api/can2025/live-commentary?match_id=test-brazil-france-2006');
+        const commJson = await commRes.json();
+        setCommentaries(commJson.commentary || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    const data = await response.json();
-    return data.commentary || [];
-  } catch (error) {
-    console.error('Error fetching test match commentaries:', error);
-    return [];
-  }
-}
+    fetchData();
 
-async function getTestMatchData() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.afriquesports.net'}/api/can2025/test-match`,
-      { cache: 'no-store' }
+    // Auto-refresh every 10 seconds
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <div className="text-4xl mb-4">⏳</div>
+        <p>Chargement...</p>
+      </div>
     );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    const data = await response.json();
-    return data.events?.[0] || null;
-  } catch (error) {
-    console.error('Error fetching test match data:', error);
-    return null;
   }
-}
-
-export default async function TestMatchPage({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
-  const t = await getTranslations('can2025');
-  const commentaries = await getTestMatchCommentaries();
-  const matchData = await getTestMatchData();
 
   if (!matchData) {
     return (
@@ -59,7 +54,7 @@ export default async function TestMatchPage({
   const homeTeam = matchData.competitions[0].competitors[0].team.displayName;
   const awayTeam = matchData.competitions[0].competitors[1].team.displayName;
   const homeScore = matchData.competitions[0].competitors[0].score;
-  const awayScore = matchData.competitions[0].competitors[1].team.score;
+  const awayScore = matchData.competitions[0].competitors[1].score;
   const status = matchData.status.type.description;
   const clock = matchData.status.displayClock;
 
