@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Script from 'next/script';
 import useSWR from 'swr';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { MatchData } from '@/lib/match-schema';
 import { useTranslations } from 'next-intl';
 import { CompositionTab } from './tabs/CompositionTab';
@@ -347,9 +349,11 @@ export default function MatchPageClient({
                           </span>
                         )}
                       </div>
-                      <p className={`text-sm sm:text-base leading-relaxed ${event.is_scoring ? 'text-gray-900 font-semibold' : 'text-gray-900'}`}>
-                        {event.text}
-                      </p>
+                      <div className={`text-sm sm:text-base leading-relaxed prose prose-sm max-w-none ${event.is_scoring ? 'text-gray-900 font-semibold' : 'text-gray-900'}`}>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {event.text}
+                        </ReactMarkdown>
+                      </div>
                       {event.tweet && (
                         <div className="mt-2 p-2 sm:p-3 bg-white/80 rounded-lg border border-gray-200">
                           <div className="flex items-start gap-2">
