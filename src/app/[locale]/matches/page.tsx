@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Header, Footer } from '@/components/layout';
 import { useTranslations } from 'next-intl';
@@ -20,7 +21,9 @@ interface Match {
   first_commented: string;
 }
 
-export default function MatchesPage({ params }: { params: { locale: string } }) {
+export default function MatchesPage() {
+  const params = useParams();
+  const locale = params.locale as string;
   const t = useTranslations('matchesPage');
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
@@ -129,7 +132,7 @@ export default function MatchesPage({ params }: { params: { locale: string } }) 
                       <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                         {getStatusBadge(match.status)}
                         <span className="text-xs text-gray-500">
-                          {new Date(match.date).toLocaleDateString(params.locale === 'fr' ? 'fr-FR' : params.locale === 'en' ? 'en-US' : 'es-ES', {
+                          {new Date(match.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-US' : 'es-ES', {
                             month: 'short',
                             day: 'numeric',
                             year: 'numeric'
@@ -169,13 +172,13 @@ export default function MatchesPage({ params }: { params: { locale: string } }) 
                       {/* Date */}
                       <div className="flex flex-col items-center justify-center min-w-[100px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
                         <span className="text-xs font-bold text-gray-500 uppercase mb-1">
-                          {new Date(match.date).toLocaleDateString(params.locale === 'fr' ? 'fr-FR' : params.locale === 'en' ? 'en-US' : 'es-ES', {
+                          {new Date(match.date).toLocaleDateString(locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-US' : 'es-ES', {
                             month: 'short',
                             day: 'numeric'
                           })}
                         </span>
                         <span className="text-sm font-bold text-gray-900">
-                          {new Date(match.date).toLocaleTimeString(params.locale === 'fr' ? 'fr-FR' : params.locale === 'en' ? 'en-US' : 'es-ES', {
+                          {new Date(match.date).toLocaleTimeString(locale === 'fr' ? 'fr-FR' : locale === 'en' ? 'en-US' : 'es-ES', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}
