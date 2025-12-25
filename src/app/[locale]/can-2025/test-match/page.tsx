@@ -51,16 +51,18 @@ export default function TestMatchPage() {
     );
   }
 
-  const homeTeam = matchData.competitions[0].competitors[0].team.displayName;
-  const awayTeam = matchData.competitions[0].competitors[1].team.displayName;
-  const homeScore = matchData.competitions[0].competitors[0].score;
-  const awayScore = matchData.competitions[0].competitors[1].score;
+  const homeCompetitor = matchData.competitions[0].competitors[0];
+  const awayCompetitor = matchData.competitions[0].competitors[1];
+  const homeTeam = homeCompetitor.team.displayName;
+  const awayTeam = awayCompetitor.team.displayName;
+  const homeScore = homeCompetitor.score;
+  const awayScore = awayCompetitor.score;
   const status = matchData.status.type.description;
   const clock = matchData.status.displayClock;
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Match Header */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <div className="text-center mb-4">
@@ -98,54 +100,108 @@ export default function TestMatchPage() {
           </div>
         </div>
 
-        {/* Commentaries */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">
-              Commentaires en Direct
-            </h2>
-            <div className="text-sm text-gray-600">
-              {commentaries.length} {commentaries.length === 1 ? 'commentaire' : 'commentaires'}
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Commentaries - Left Side (2/3) */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">
+                  Commentaires en Direct
+                </h2>
+                <div className="text-sm text-gray-600">
+                  {commentaries.length} {commentaries.length === 1 ? 'commentaire' : 'commentaires'}
+                </div>
+              </div>
+
+              {commentaries.length === 0 ? (
+                <div className="text-center py-12 text-gray-500">
+                  <div className="text-4xl mb-4">⏳</div>
+                  <p>En attente des commentaires...</p>
+                  <p className="text-sm mt-2">L'agent autonome génère des commentaires toutes les 15 secondes</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {commentaries.map((comment: any, index: number) => (
+                    <div
+                      key={comment.id}
+                      className={`border-l-4 pl-4 py-3 ${
+                        comment.is_scoring
+                          ? 'border-[#9DFF20] bg-green-50'
+                          : 'border-gray-300 bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="text-2xl">{comment.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-bold text-sm text-gray-700">
+                              {comment.time}
+                            </span>
+                            {comment.type && (
+                              <span className="text-xs bg-gray-200 px-2 py-1 rounded">
+                                {comment.type}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-gray-800">{comment.text}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {commentaries.length === 0 ? (
-            <div className="text-center py-12 text-gray-500">
-              <div className="text-4xl mb-4">⏳</div>
-              <p>En attente des commentaires...</p>
-              <p className="text-sm mt-2">L'agent autonome génère des commentaires toutes les 15 secondes</p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {commentaries.map((comment: any, index: number) => (
-                <div
-                  key={comment.id}
-                  className={`border-l-4 pl-4 py-3 ${
-                    comment.is_scoring
-                      ? 'border-[#9DFF20] bg-green-50'
-                      : 'border-gray-300 bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="text-2xl">{comment.icon}</div>
+          {/* Team Formations - Right Side (1/3) */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Home Team Formation */}
+            <div className="bg-white rounded-lg shadow-lg p-4">
+              <h3 className="text-lg font-bold mb-3 text-center border-b pb-2">
+                {homeTeam} ({homeCompetitor.formation})
+              </h3>
+              <div className="space-y-2">
+                {homeCompetitor.lineup.starters.map((player: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-sm">
+                    <span className="w-8 h-8 bg-[#345C00] text-white rounded-full flex items-center justify-center font-bold text-xs">
+                      {player.number}
+                    </span>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-sm text-gray-700">
-                          {comment.time}
-                        </span>
-                        {comment.type && (
-                          <span className="text-xs bg-gray-200 px-2 py-1 rounded">
-                            {comment.type}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-gray-800">{comment.text}</p>
+                      <div className="font-semibold">{player.name}</div>
+                      <div className="text-xs text-gray-500">{player.position}</div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div className="mt-3 pt-3 border-t text-center text-sm text-gray-600">
+                <span className="font-semibold">Coach:</span> {homeCompetitor.lineup.coach}
+              </div>
             </div>
-          )}
+
+            {/* Away Team Formation */}
+            <div className="bg-white rounded-lg shadow-lg p-4">
+              <h3 className="text-lg font-bold mb-3 text-center border-b pb-2">
+                {awayTeam} ({awayCompetitor.formation})
+              </h3>
+              <div className="space-y-2">
+                {awayCompetitor.lineup.starters.map((player: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-sm">
+                    <span className="w-8 h-8 bg-[#0055a4] text-white rounded-full flex items-center justify-center font-bold text-xs">
+                      {player.number}
+                    </span>
+                    <div className="flex-1">
+                      <div className="font-semibold">{player.name}</div>
+                      <div className="text-xs text-gray-500">{player.position}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 pt-3 border-t text-center text-sm text-gray-600">
+                <span className="font-semibold">Coach:</span> {awayCompetitor.lineup.coach}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Auto-refresh notice */}
