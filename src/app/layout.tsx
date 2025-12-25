@@ -154,6 +154,14 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
         <link rel="dns-prefetch" href="https://cms.realdemadrid.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
+          crossOrigin="anonymous"
+        />
 
         {/* Organization Schema - appears on all pages */}
         <script
