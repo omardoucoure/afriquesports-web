@@ -83,24 +83,7 @@ export async function GET(request: NextRequest) {
                   ]
                 },
                 score: '0',
-                statistics: [],
-                formation: '4-4-2',
-                lineup: {
-                  starters: [
-                    { position: 'GK', name: 'Dida', number: '1' },
-                    { position: 'RB', name: 'Cafu', number: '2' },
-                    { position: 'CB', name: 'Lúcio', number: '3' },
-                    { position: 'CB', name: 'Juan', number: '4' },
-                    { position: 'LB', name: 'Roberto Carlos', number: '6' },
-                    { position: 'RM', name: 'Emerson', number: '5' },
-                    { position: 'CM', name: 'Zé Roberto', number: '15' },
-                    { position: 'CM', name: 'Kaká', number: '10' },
-                    { position: 'LM', name: 'Ronaldinho', number: '11' },
-                    { position: 'ST', name: 'Ronaldo', number: '9' },
-                    { position: 'ST', name: 'Adriano', number: '18' }
-                  ],
-                  coach: 'Carlos Alberto Parreira'
-                }
+                statistics: []
               },
               {
                 id: 'test-france',
@@ -130,24 +113,7 @@ export async function GET(request: NextRequest) {
                   ]
                 },
                 score: '1',
-                statistics: [],
-                formation: '4-5-1',
-                lineup: {
-                  starters: [
-                    { position: 'GK', name: 'Barthez', number: '16' },
-                    { position: 'RB', name: 'Sagnol', number: '19' },
-                    { position: 'CB', name: 'Thuram', number: '15' },
-                    { position: 'CB', name: 'Gallas', number: '5' },
-                    { position: 'LB', name: 'Abidal', number: '3' },
-                    { position: 'RM', name: 'Ribéry', number: '22' },
-                    { position: 'CM', name: 'Makelele', number: '6' },
-                    { position: 'CM', name: 'Vieira', number: '4' },
-                    { position: 'CAM', name: 'Zidane', number: '10' },
-                    { position: 'LM', name: 'Malouda', number: '7' },
-                    { position: 'ST', name: 'Henry', number: '12' }
-                  ],
-                  coach: 'Raymond Domenech'
-                }
+                statistics: []
               }
             ],
             notes: [],
