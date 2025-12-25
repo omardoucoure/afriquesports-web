@@ -17,13 +17,13 @@ interface CAN2025PageProps {
   params: Promise<{ locale: string }>;
 }
 
-// Fetch CAN 2025 standings from API
+// Fetch CAN 2025 standings from ESPN API directly
 async function fetchStandings() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/standings`, {
+    const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/standings', {
       next: { revalidate: 300 }
     });
-    if (!response.ok) throw new Error('Failed to fetch standings');
+    if (!response.ok) return null;
     return await response.json();
   } catch (error) {
     console.error('Error fetching standings:', error);
@@ -31,13 +31,13 @@ async function fetchStandings() {
   }
 }
 
-// Fetch CAN 2025 teams from API
+// Fetch CAN 2025 teams from ESPN API directly
 async function fetchTeams() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/teams`, {
+    const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/teams', {
       next: { revalidate: 3600 }
     });
-    if (!response.ok) throw new Error('Failed to fetch teams');
+    if (!response.ok) return null;
     return await response.json();
   } catch (error) {
     console.error('Error fetching teams:', error);
@@ -45,27 +45,29 @@ async function fetchTeams() {
   }
 }
 
-// Fetch CAN 2025 top scorers from API
+// Fetch CAN 2025 top scorers from ESPN API directly
 async function fetchTopScorers() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/scorers`, {
+    const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/leaders', {
       next: { revalidate: 300 }
     });
-    if (!response.ok) throw new Error('Failed to fetch scorers');
-    return await response.json();
+    if (!response.ok) return null;
+    const data = await response.json();
+    // Extract scorers from leaders endpoint
+    return data?.categories?.find((cat: any) => cat.name === 'scoring')?.leaders || [];
   } catch (error) {
     console.error('Error fetching scorers:', error);
     return null;
   }
 }
 
-// Fetch live match from scoreboard API
+// Fetch live match from ESPN scoreboard API directly
 async function fetchLiveMatch() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/scoreboard`, {
+    const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard', {
       next: { revalidate: 10 } // Revalidate every 10 seconds for live data
     });
-    if (!response.ok) throw new Error('Failed to fetch scoreboard');
+    if (!response.ok) return null;
     const data = await response.json();
 
     // Find first live or recently completed match
