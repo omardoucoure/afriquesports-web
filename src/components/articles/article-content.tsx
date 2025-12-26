@@ -27,6 +27,36 @@ export function ArticleContent({ content }: ArticleContentProps) {
   useEffect(() => {
     if (!contentRef.current) return;
 
+    // Convert standalone Twitter/X URLs to blockquotes
+    const twitterUrlPattern = /https?:\/\/(twitter\.com|x\.com)\/[^\s<]+\/status\/\d+/gi;
+    const paragraphs = contentRef.current.querySelectorAll("p");
+
+    paragraphs.forEach((p) => {
+      const text = p.textContent || "";
+      const match = text.match(twitterUrlPattern);
+
+      if (match && match.length > 0) {
+        const tweetUrl = match[0].trim();
+
+        // Check if URL is standalone (not part of a link already)
+        if (!p.querySelector(`a[href="${tweetUrl}"]`) && !p.querySelector('blockquote')) {
+          // Create Twitter embed blockquote
+          const blockquote = document.createElement("blockquote");
+          blockquote.className = "twitter-tweet";
+          blockquote.setAttribute("data-conversation", "none");
+          blockquote.setAttribute("data-theme", "light");
+
+          const link = document.createElement("a");
+          link.href = tweetUrl;
+          link.textContent = "View Tweet";
+          blockquote.appendChild(link);
+
+          // Replace paragraph with blockquote
+          p.replaceWith(blockquote);
+        }
+      }
+    });
+
     // Find blockquotes that contain Twitter links and add twitter-tweet class
     const blockquotes = contentRef.current.querySelectorAll("blockquote");
     blockquotes.forEach((blockquote) => {
@@ -36,6 +66,7 @@ export function ArticleContent({ content }: ArticleContentProps) {
       if ((hasTwitterLink || hasPicTwitter) && !blockquote.classList.contains("twitter-tweet")) {
         blockquote.classList.add("twitter-tweet");
         blockquote.setAttribute("data-conversation", "none");
+        blockquote.setAttribute("data-theme", "light");
       }
     });
 
