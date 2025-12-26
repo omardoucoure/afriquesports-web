@@ -37,29 +37,28 @@ export const dynamicParams = true;
 // Other pages will be generated on-demand with ISR
 export async function generateStaticParams() {
   try {
-    // Fetch only 10 latest articles to avoid Cloudflare 522 errors during build
-    const articles = await DataFetcher.fetchPosts({ per_page: "10" });
+    // Fetch only 10 latest French articles to avoid Cloudflare 522 errors during build
+    // EN/ES articles will be generated on-demand via dynamicParams
+    const articles = await DataFetcher.fetchPosts({ per_page: "10", locale: "fr" });
 
     if (!articles || articles.length === 0) {
       return [];
     }
 
-    // Generate params for all locales to fix 404 errors on English/Spanish URLs
-    const locales = ['fr', 'en', 'es'];
+    // Only generate params for French locale (where articles exist)
+    // Other locales use fallback mechanism in the page component
     const params = [];
 
-    for (const locale of locales) {
-      for (const article of articles) {
-        // Extract category slug from the article link
-        const linkParts = article.link.replace("https://www.afriquesports.net/", "").split("/");
-        const category = linkParts[0] || "football";
+    for (const article of articles) {
+      // Extract category slug from the article link
+      const linkParts = article.link.replace("https://www.afriquesports.net/", "").replace("https://cms.realdemadrid.com/afriquesports/", "").split("/");
+      const category = linkParts[0] || "football";
 
-        params.push({
-          locale,
-          category,
-          slug: article.slug,
-        });
-      }
+      params.push({
+        locale: "fr",
+        category,
+        slug: article.slug,
+      });
     }
 
     return params;
