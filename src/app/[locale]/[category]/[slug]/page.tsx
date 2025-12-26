@@ -30,42 +30,16 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
 
-// Enable dynamic params (pages not in generateStaticParams will be generated on-demand)
+// Enable dynamic params - all article pages generated on-demand with ISR
+// This avoids build-time WordPress API calls that cause Cloudflare 522 errors
 export const dynamicParams = true;
 
-// Pre-generate only the most recent 10 articles to avoid build timeouts
-// Other pages will be generated on-demand with ISR
+// Skip static generation at build time - generate all pages on-demand
+// Pages are cached with ISR (60s revalidation) after first request
 export async function generateStaticParams() {
-  try {
-    // Fetch only 10 latest French articles to avoid Cloudflare 522 errors during build
-    // EN/ES articles will be generated on-demand via dynamicParams
-    const articles = await DataFetcher.fetchPosts({ per_page: "10", locale: "fr" });
-
-    if (!articles || articles.length === 0) {
-      return [];
-    }
-
-    // Only generate params for French locale (where articles exist)
-    // Other locales use fallback mechanism in the page component
-    const params = [];
-
-    for (const article of articles) {
-      // Extract category slug from the article link
-      const linkParts = article.link.replace("https://www.afriquesports.net/", "").replace("https://cms.realdemadrid.com/afriquesports/", "").split("/");
-      const category = linkParts[0] || "football";
-
-      params.push({
-        locale: "fr",
-        category,
-        slug: article.slug,
-      });
-    }
-
-    return params;
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
+  // Return empty array to skip pre-generation
+  // All article pages will be generated on first request with ISR caching
+  return [];
 }
 
 interface ArticlePageProps {
