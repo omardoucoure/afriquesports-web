@@ -27,10 +27,11 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// ISR: Revalidate every 60 seconds
-export const revalidate = 60;
+// Force dynamic rendering to avoid DYNAMIC_SERVER_USAGE errors
+// Pages use dynamic features (cookies/headers) from next-intl and analytics
+export const dynamic = 'force-dynamic';
 
-// Enable dynamic params - all article pages generated on-demand with ISR
+// Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
 export const dynamicParams = true;
 
