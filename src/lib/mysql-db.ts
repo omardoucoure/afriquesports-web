@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise';
+import { unstable_cache } from 'next/cache';
 
 let pool: mysql.Pool | null = null;
 
@@ -102,8 +103,8 @@ export interface TrendingPost {
   total_count: number;
 }
 
-// Get trending posts for a date range
-export async function getTrendingPostsByRange(
+// Internal function to fetch trending posts (not cached)
+async function _getTrendingPostsByRange(
   days: number = 7,
   limit: number = 10,
   locale: string = 'fr'
@@ -164,6 +165,19 @@ export async function getTrendingPostsByRange(
     return [];
   }
 }
+
+// Cached version - revalidates every 30 minutes
+// This prevents database hammering from high-traffic pages
+export const getTrendingPostsByRange = unstable_cache(
+  async (days: number = 7, limit: number = 10, locale: string = 'fr') => {
+    return await _getTrendingPostsByRange(days, limit, locale);
+  },
+  ['trending-posts'], // Cache key
+  {
+    revalidate: 1800, // 30 minutes cache
+    tags: ['trending-posts'],
+  }
+);
 
 // Close the connection pool (useful for graceful shutdown)
 export async function closePool(): Promise<void> {
