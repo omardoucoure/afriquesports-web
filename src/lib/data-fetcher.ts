@@ -112,7 +112,9 @@ const FETCH_TIMEOUT_MS = 30000; // Increased to 30 seconds to reduce retries dur
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
   403, 429, // Add 403 (Forbidden) and 429 (Rate Limit) for Cloudflare
-  520, 521, 522, 523, 524, 525, 526, 527, 530, 502, 503, 504,
+  500, // Internal Server Error (transient overload)
+  502, 503, 504, // Gateway errors
+  520, 521, 522, 523, 524, 525, 526, 527, 530, // Cloudflare errors
 ];
 
 // Category ID cache - maps slug to ID for common categories
