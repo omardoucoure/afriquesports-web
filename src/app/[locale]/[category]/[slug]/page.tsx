@@ -30,11 +30,15 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 // ISR: Revalidate every 60 seconds
 export const revalidate = 60;
 
-// Pre-generate popular articles at build time for all locales
+// Enable dynamic params (pages not in generateStaticParams will be generated on-demand)
+export const dynamicParams = true;
+
+// Pre-generate only the most recent 10 articles to avoid build timeouts
+// Other pages will be generated on-demand with ISR
 export async function generateStaticParams() {
   try {
-    // Fetch the latest 50 articles to pre-generate
-    const articles = await DataFetcher.fetchPosts({ per_page: "50" });
+    // Fetch only 10 latest articles to avoid Cloudflare 522 errors during build
+    const articles = await DataFetcher.fetchPosts({ per_page: "10" });
 
     if (!articles || articles.length === 0) {
       return [];

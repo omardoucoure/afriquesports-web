@@ -8,20 +8,680 @@
      · optimizePackageImports
      ✓ webpackBuildWorker
 
- ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
    Creating an optimized production build ...
- ✓ Compiled successfully in 8.8s
+ ✓ Compiled successfully in 8.2s
    Running TypeScript ...
-Failed to compile.
-
-./src/app/api/can2025/live-commentary/route.ts:105:35
-Type error: Cannot find name 'supabase'.
-
-[0m [90m 103 |[39m     }
- [90m 104 |[39m
-[31m[1m>[22m[39m[90m 105 |[39m     [36mconst[39m { data[33m,[39m error } [33m=[39m [36mawait[39m supabase
- [90m     |[39m                                   [31m[1m^[22m[39m
- [90m 106 |[39m       [33m.[39m[36mfrom[39m([32m'match_commentary_ai'[39m)
- [90m 107 |[39m       [33m.[39mselect([32m'*'[39m)
- [90m 108 |[39m       [33m.[39meq([32m'match_id'[39m[33m,[39m matchId)[0m
-Next.js build worker exited with code: 1 and signal: null
+   Collecting page data using 7 workers ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages using 7 workers (0/256) ...
+   Generating static pages using 7 workers (64/256) 
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-une-tres-bonne-nouvelle-pour-le-senegal-a-24h-du-choc-face-a-la-rdc (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-la-caf-prend-une-decision-de-taille-pour (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-maroc-et-mali-saffrontent-dans-un-choc-de-af-1766694614155 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-rigobert-song-optimiste-apres-le-succes-face-au-gabon-et-se-lache-sur-la-cote-divoire (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/real-madrid-la-sortie-cash-de-sergio-ramos-sur-kylian-mbappe (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/nabil-djellit-surprend-et-balance-apres-la-victoire-du-cameroun-sur-le-gabon (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/amad-diallo-ouvre-le-score-face-la-mozambique-video (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091 (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-lalerte-del-hadji-diouf-qui-secoue-le-senegal-cela-doit-nous-servir-de-lecon (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire (attempt 1 of 3) because it took more than 60 seconds. Retrying again shortly.
+   Generating static pages using 7 workers (87/256) 
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=real-madrid-la-sortie-cash-de-sergio-ramos-sur-kylian-mbappe&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=nabil-djellit-surprend-et-balance-apres-la-victoire-du-cameroun-sur-le-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lalerte-del-hadji-diouf-qui-secoue-le-senegal-cela-doit-nous-servir-de-lecon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-une-tres-bonne-nouvelle-pour-le-senegal-a-24h-du-choc-face-a-la-rdc&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-maroc-et-mali-saffrontent-dans-un-choc-de-af-1766694614155&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=amad-diallo-ouvre-le-score-face-la-mozambique-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=real-madrid-la-sortie-cash-de-sergio-ramos-sur-kylian-mbappe&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=nabil-djellit-surprend-et-balance-apres-la-victoire-du-cameroun-sur-le-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lalerte-del-hadji-diouf-qui-secoue-le-senegal-cela-doit-nous-servir-de-lecon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-une-tres-bonne-nouvelle-pour-le-senegal-a-24h-du-choc-face-a-la-rdc&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-maroc-et-mali-saffrontent-dans-un-choc-de-af-1766694614155&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=amad-diallo-ouvre-le-score-face-la-mozambique-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-la-caf-prend-une-decision-de-taille-pour": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=real-madrid-la-sortie-cash-de-sergio-ramos-sur-kylian-mbappe&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "real-madrid-la-sortie-cash-de-sergio-ramos-sur-kylian-mbappe": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=nabil-djellit-surprend-et-balance-apres-la-victoire-du-cameroun-sur-le-gabon&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "nabil-djellit-surprend-et-balance-apres-la-victoire-du-cameroun-sur-le-gabon": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-lalerte-del-hadji-diouf-qui-secoue-le-senegal-cela-doit-nous-servir-de-lecon&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-lalerte-del-hadji-diouf-qui-secoue-le-senegal-cela-doit-nous-servir-de-lecon": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-une-tres-bonne-nouvelle-pour-le-senegal-a-24h-du-choc-face-a-la-rdc&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-une-tres-bonne-nouvelle-pour-le-senegal-a-24h-du-choc-face-a-la-rdc": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-maroc-et-mali-saffrontent-dans-un-choc-de-af-1766694614155&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-maroc-et-mali-saffrontent-dans-un-choc-de-af-1766694614155": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=amad-diallo-ouvre-le-score-face-la-mozambique-video&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "amad-diallo-ouvre-le-score-face-la-mozambique-video": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-la-caf-prend-une-decision-de-taille-pour (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /es/https:/can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228 (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+Failed to build /[locale]/[category]/[slug]/page: /en/https:/rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire (attempt 2 of 3) because it took more than 60 seconds. Retrying again shortly.
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "luca-zidane-une-premiere-memorable-a-la-can-2025-af-1766604618403": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-les-equipes-les-plus-cheres-revelees-af-1766685624244": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-retrouve-lespoir-apres-sa-vic-af-1766683821027": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "etta-eyong-ouvre-le-score-pour-le-cameroun-face-au-gabon-video": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+   Generating static pages using 7 workers (119/256) 
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-karl-etta-eyong-propulse-le-cameroun-face-af-1766622680606": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-reforme-historique-avec-une-nouvelle-peri-af-1766689217705": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "video-virale-habib-diarra-tourne-un-dessin-anime-pour-la-can": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-francis-ngannou-fait-trembler-les-bookmakers-avec-son-enorme-pari-sur-le-sacre-du-cameroun": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-zambie-et-comores-un-duel-decisif-a-casab-af-1766748654903": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-en/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-envoie-un-message-fort-au-continent-apres-sa-victoire-face-au-gabon": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-geste-touchant-des-tunisiens-envers-les-e-af-1766601020619": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-la-caf-prend-une-decision-de-taille-pour&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-la-caf-prend-une-decision-de-taille-pour": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "remy-ngono-se-lache-a-48h-du-choc-senegal-rdc-il-balance-ses-verites-sans-detour": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "zidane-le-fils-luca-brille-lors-du-premier-match-d-af-1766608269778": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-le-maroc-vise-la-qualification-face-au-ma-af-1766736032374": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-pape-thiaw-devoile-son-joker-de-luxe-pour-les-prochains-matchs": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "mbappe-le-dilemme-algerien-ou-camerounais-apres-ma-af-1766701814024": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports-es/wp-json/wp/v2/posts?slug=can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-duel-historique-entre-legypte-et-lafrique-af-1766737822335": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+[DataFetcher] Error fetching post by slug "can-2025-resultats-et-performances-des-hommes-du-m-af-1766750437855": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7692)
+   Generating static pages using 7 workers (128/256) 
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-a-3-jours-du-choc-face-a-rdc-un-pilier-du-senegal-se-blesse-a-lentrainement": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "rigobert-song-balance-ses-verites-sur-le-choc-face-a-la-cote-divoire": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-lexploit-des-etalons-face-a-la-guinee-equ-af-1766665887228": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Failed to fetch posts: 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091&per_page=1&_embed=true&orderby=date&order=desc
+[DataFetcher] Error in fetchPosts: Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Error fetching post by slug "can-2025-le-cameroun-amorce-son-parcours-avec-dete-af-1766665816091": Error: Failed to fetch posts: 522
+    at h.fetchPosts (.next/server/chunks/ssr/_f666ce7d._.js:3:12590)
+    at async h.fetchPostBySlug (.next/server/chunks/ssr/_f666ce7d._.js:3:12774)
+    at async Module.D (.next/server/chunks/ssr/src_6ada3471._.js:1:7752)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson&per_page=1&_embed=true&orderby=date&order=desc, retrying in 1000ms (attempt 1/3)
+[DataFetcher] Retryable error 522 from https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?slug=can-2025-une-nouvelle-inattendue-tombe-pour-nicolas-jackson&per_page=1&_embed=true&orderby=date&order=desc, retrying in 2000ms (attempt 2/3)
+Failed to build /[locale]/[category]/[slug]/page: /fr/https:/can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293 after 3 attempts.
+Export encountered an error on /[locale]/[category]/[slug]/page: /fr/https:/can-2025-le-cameroun-simpose-face-au-gabon-dans-un-af-1766622620293, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
