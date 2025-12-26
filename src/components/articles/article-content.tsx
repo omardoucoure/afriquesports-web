@@ -32,27 +32,54 @@ export function ArticleContent({ content }: ArticleContentProps) {
     const paragraphs = contentRef.current.querySelectorAll("p");
 
     paragraphs.forEach((p) => {
-      const text = p.textContent || "";
-      const match = text.match(twitterUrlPattern);
+      // Check if paragraph contains a Twitter/X link
+      const twitterLink = p.querySelector('a[href*="twitter.com/"], a[href*="x.com/"]');
 
-      if (match && match.length > 0) {
-        const tweetUrl = match[0].trim();
+      if (twitterLink) {
+        const href = twitterLink.getAttribute('href');
 
-        // Check if URL is standalone (not part of a link already)
-        if (!p.querySelector(`a[href="${tweetUrl}"]`) && !p.querySelector('blockquote')) {
-          // Create Twitter embed blockquote
-          const blockquote = document.createElement("blockquote");
-          blockquote.className = "twitter-tweet";
-          blockquote.setAttribute("data-conversation", "none");
-          blockquote.setAttribute("data-theme", "light");
+        // Verify it's a status URL
+        if (href && /\/status\/\d+/.test(href)) {
+          // Check if this is the only content in the paragraph (standalone tweet)
+          const paragraphText = p.textContent?.trim() || "";
+          const linkText = twitterLink.textContent?.trim() || "";
 
-          const link = document.createElement("a");
-          link.href = tweetUrl;
-          link.textContent = "View Tweet";
-          blockquote.appendChild(link);
+          // If paragraph only contains the link (or link + whitespace), convert to embed
+          if (paragraphText === linkText || paragraphText === href) {
+            const blockquote = document.createElement("blockquote");
+            blockquote.className = "twitter-tweet";
+            blockquote.setAttribute("data-conversation", "none");
+            blockquote.setAttribute("data-theme", "light");
 
-          // Replace paragraph with blockquote
-          p.replaceWith(blockquote);
+            const link = document.createElement("a");
+            link.href = href;
+            link.textContent = "View Tweet";
+            blockquote.appendChild(link);
+
+            p.replaceWith(blockquote);
+          }
+        }
+      } else {
+        // Handle plain text Twitter URLs (not wrapped in <a> tag)
+        const text = p.textContent || "";
+        const match = text.match(twitterUrlPattern);
+
+        if (match && match.length > 0) {
+          const tweetUrl = match[0].trim();
+
+          if (!p.querySelector('blockquote')) {
+            const blockquote = document.createElement("blockquote");
+            blockquote.className = "twitter-tweet";
+            blockquote.setAttribute("data-conversation", "none");
+            blockquote.setAttribute("data-theme", "light");
+
+            const link = document.createElement("a");
+            link.href = tweetUrl;
+            link.textContent = "View Tweet";
+            blockquote.appendChild(link);
+
+            p.replaceWith(blockquote);
+          }
         }
       }
     });
