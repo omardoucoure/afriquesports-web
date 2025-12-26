@@ -455,6 +455,7 @@
         "goal": "BUT",
         "goalBadge": "BUT !",
         "general": "Commentaire",
+        "preMatch": "Analyse d'avant-match",
         "matchStart": "Début du match",
         "fullTime": "Fin du match",
         "halfTime": "Mi-temps",

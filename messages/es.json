@@ -451,6 +451,7 @@
         "redCards": "Tarjetas Rojas"
       },
       "eventTypes": {
+        "preMatch": "Análisis previo",
         "goal": "GOL",
         "goalBadge": "¡GOL!",
         "general": "Comentario",
