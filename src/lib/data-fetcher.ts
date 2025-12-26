@@ -105,9 +105,9 @@ function getWordPressBaseUrl(locale?: string): string {
 }
 const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
-const MAX_RETRIES = 3;
-const RETRY_DELAY_MS = 1000;
-const FETCH_TIMEOUT_MS = 10000; // 10 second timeout per request
+const MAX_RETRIES = 2; // Reduced from 3 to minimize retry storm
+const RETRY_DELAY_MS = 2000; // Increased from 1000ms
+const FETCH_TIMEOUT_MS = 30000; // Increased to 30 seconds to reduce retries during server load
 
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
