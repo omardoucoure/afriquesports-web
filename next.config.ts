@@ -146,6 +146,25 @@ const nextConfig: NextConfig = {
         destination: "/category/europe/allemagne",
         permanent: true,
       },
+
+      // ============================================================================
+      // WordPress CMS Integration - Redirect content URLs to Next.js
+      // ============================================================================
+      // This redirects article/content requests from cms.realdemadrid.com to the Next.js site
+      // BUT preserves WordPress admin, API, and static assets access
+      {
+        source: '/:locale(afriquesports|afriquesports-en|afriquesports-es|afriquesports-ar)/:path((?!wp-admin|wp-login|wp-json|wp-content|wp-includes|xmlrpc.php).*)',
+        has: [{ type: 'host', value: 'cms.realdemadrid.com' }],
+        destination: 'https://www.afriquesports.net/:path*',
+        permanent: true,
+      },
+      // Redirect root paths from CMS (but exclude WordPress paths)
+      {
+        source: '/:path((?!wp-admin|wp-login|wp-json|wp-content|wp-includes|xmlrpc.php|afriquesports|afriquesports-en|afriquesports-es|afriquesports-ar).*)',
+        has: [{ type: 'host', value: 'cms.realdemadrid.com' }],
+        destination: 'https://www.afriquesports.net/:path*',
+        permanent: true,
+      },
     ];
   },
   async headers() {
