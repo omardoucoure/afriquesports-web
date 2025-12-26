@@ -107,6 +107,7 @@ const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 1000;
+const FETCH_TIMEOUT_MS = 10000; // 10 second timeout per request
 
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
@@ -131,8 +132,9 @@ export class DataFetcher {
   // ============================================================================
 
   /**
-   * Retry wrapper for fetch with exponential backoff
+   * Retry wrapper for fetch with exponential backoff and timeout
    * Handles transient Cloudflare errors (520, 521, etc.) and server errors
+   * Each request has a 10-second timeout to prevent hanging
    */
   private static async fetchWithRetry(
     url: string,
@@ -142,8 +144,16 @@ export class DataFetcher {
     let lastError: Error | null = null;
 
     for (let attempt = 0; attempt < retries; attempt++) {
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
       try {
-        const response = await fetch(url, options);
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
 
         // If it's a retryable error and we have retries left, wait and retry
         if (
@@ -160,12 +170,18 @@ export class DataFetcher {
 
         return response;
       } catch (error) {
+        clearTimeout(timeoutId);
         lastError = error as Error;
-        // Network errors - retry with backoff
+
+        // Check if it's a timeout error
+        const isTimeout = error instanceof Error && error.name === 'AbortError';
+        const errorType = isTimeout ? 'Timeout' : 'Network error';
+
+        // Retry with backoff
         if (attempt < retries - 1) {
           const delay = RETRY_DELAY_MS * Math.pow(2, attempt);
           console.warn(
-            `[DataFetcher] Network error fetching ${url}, retrying in ${delay}ms (attempt ${attempt + 1}/${retries}): ${lastError.message}`
+            `[DataFetcher] ${errorType} fetching ${url}, retrying in ${delay}ms (attempt ${attempt + 1}/${retries}): ${lastError.message}`
           );
           await new Promise((resolve) => setTimeout(resolve, delay));
         }
