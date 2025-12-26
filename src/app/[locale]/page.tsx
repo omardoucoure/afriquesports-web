@@ -368,10 +368,10 @@ export default async function Home({ params }: HomePageProps) {
             {/* Sidebar - hidden on mobile */}
             <aside className="hidden lg:block w-[340px] flex-shrink-0">
               <div className="sticky top-20 space-y-6">
-                {/* Most read - DISABLED FOR PERFORMANCE TESTING */}
-                {/* <Suspense fallback={<MostReadWidgetSkeleton />}>
+                {/* Most read */}
+                <Suspense fallback={<MostReadWidgetSkeleton />}>
                   <MostReadSection locale={locale} />
-                </Suspense> */}
+                </Suspense>
 
                 {/* Top African Scorers in Europe */}
                 <Suspense fallback={<TopScorersWidgetSkeleton />}>
@@ -387,8 +387,8 @@ export default async function Home({ params }: HomePageProps) {
 
         {/* Mobile-only widgets */}
         <div className="lg:hidden container-main space-y-8 py-8 border-t border-gray-200">
-          {/* Most read - DISABLED FOR PERFORMANCE TESTING */}
-          {/* <section>
+          {/* Most read */}
+          <section>
             <div className="flex items-center gap-3 mb-5">
               <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
                 {t("mostRead")}
@@ -398,7 +398,7 @@ export default async function Home({ params }: HomePageProps) {
             <Suspense fallback={<MostReadWidgetSkeleton />}>
               <MostReadSection locale={locale} />
             </Suspense>
-          </section> */}
+          </section>
 
           {/* Top Scorers - mobile */}
           <section>
