@@ -26,6 +26,12 @@ function getPool(): mysql.Pool | null {
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    // Connection timeouts and keepalive to prevent ECONNRESET errors
+    connectTimeout: 10000, // 10 seconds to establish connection
+    acquireTimeout: 10000, // 10 seconds to acquire connection from pool
+    timeout: 60000, // 60 seconds query timeout
+    enableKeepAlive: true, // Keep connections alive
+    keepAliveInitialDelay: 0, // Start keepalive immediately
   };
 
   if (!config.user || !config.password) {
@@ -42,6 +48,53 @@ function getPool(): mysql.Pool | null {
     console.error('[MySQL] Failed to create connection pool:', error);
     return null;
   }
+}
+
+/**
+ * Execute database operation with retry logic for connection errors
+ * Implements exponential backoff to handle transient network issues
+ */
+async function executeWithRetry<T>(
+  operation: () => Promise<T>,
+  maxRetries = 3,
+  baseDelay = 1000
+): Promise<T | null> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error: any) {
+      lastError = error;
+
+      // Only retry on connection errors
+      if (
+        error.code === 'ECONNRESET' ||
+        error.code === 'ETIMEDOUT' ||
+        error.code === 'ENOTFOUND' ||
+        error.code === 'PROTOCOL_CONNECTION_LOST' ||
+        error.errno === -104 // ECONNRESET errno
+      ) {
+        const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff
+        console.warn(
+          `[MySQL] Connection error (${error.code || error.errno}) on attempt ${attempt}/${maxRetries}, ` +
+          `retrying in ${delay}ms...`
+        );
+
+        if (attempt < maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+      }
+
+      // Non-retryable error or max retries exceeded
+      console.error('[MySQL] Non-retryable error or max retries exceeded:', error);
+      return null;
+    }
+  }
+
+  console.error('[MySQL] Operation failed after all retries:', lastError);
+  return null;
 }
 
 // Record a visit
@@ -193,16 +246,16 @@ export const getTrendingPostsByRange = unstable_cache(
 /**
  * Batch record multiple visits in a single query
  * Used by the batch processor to reduce database load
+ * Includes automatic retry logic for connection errors
  */
 export async function batchRecordVisits(visits: VisitData[]): Promise<mysql.ResultSetHeader | null> {
-  const db = getPool();
-  if (!db) return null;
-
   if (visits.length === 0) return null;
 
-  const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  return executeWithRetry(async () => {
+    const db = getPool();
+    if (!db) throw new Error('No database connection pool available');
 
-  try {
+    const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     // Build bulk INSERT ... ON DUPLICATE KEY UPDATE query
     const values: any[] = [];
     const placeholders: string[] = [];
@@ -246,11 +299,7 @@ export async function batchRecordVisits(visits: VisitData[]): Promise<mysql.Resu
 
     console.log(`[MySQL] Batch insert completed: ${visits.length} visits, ${result.affectedRows} rows affected`);
     return result;
-
-  } catch (error) {
-    console.error('[MySQL] Error in batch insert:', error);
-    return null;
-  }
+  });
 }
 
 // Close the connection pool (useful for graceful shutdown)
