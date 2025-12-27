@@ -27,10 +27,10 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Use ISR (Incremental Static Regeneration) for better performance and lower costs
-// Pages are cached for 5 minutes, then regenerated on next request
-// This reduces Vercel function invocations by 95%+ while keeping content fresh
-export const revalidate = 300; // 5 minutes
+// Force dynamic rendering due to Next.js 16 proxy.ts middleware
+// The proxy middleware marks all routes as dynamic, so ISR is not compatible
+// We use edge caching via Cache-Control headers for performance instead
+export const dynamic = 'force-dynamic';
 
 // Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
