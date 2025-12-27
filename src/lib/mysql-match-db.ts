@@ -532,28 +532,40 @@ export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]>
     // Get matches with pre-match analysis
     try {
       const [prematchRows] = await db.query<mysql.RowDataPacket[]>(
-        `SELECT match_id, MIN(created_at) as created_at
-        FROM wp_match_prematch_analysis
-        GROUP BY match_id`
+        `SELECT * FROM wp_match_prematch_analysis ORDER BY created_at DESC`
       );
 
-      console.log(`[MySQL] Found ${prematchRows.length} matches with pre-match analysis`);
+      console.log(`[MySQL] Found ${prematchRows.length} pre-match rows`);
 
+      // Group by match_id and use earliest created_at
+      const prematchByMatch = new Map<string, Date>();
       for (const row of prematchRows) {
-        const existing = matchMap.get(row.match_id);
+        const existingDate = prematchByMatch.get(row.match_id);
+        const rowDate = new Date(row.created_at);
+
+        if (!existingDate || rowDate < existingDate) {
+          prematchByMatch.set(row.match_id, rowDate);
+        }
+      }
+
+      console.log(`[MySQL] Found ${prematchByMatch.size} unique matches with pre-match`);
+
+      // Add to match map
+      for (const [match_id, created_at] of prematchByMatch.entries()) {
+        const existing = matchMap.get(match_id);
         if (existing) {
           existing.has_prematch = true;
           // Use earlier date
-          if (new Date(row.created_at) < new Date(existing.first_commented)) {
-            existing.first_commented = row.created_at;
+          if (created_at < new Date(existing.first_commented)) {
+            existing.first_commented = created_at.toISOString();
           }
         } else {
-          matchMap.set(row.match_id, {
-            match_id: row.match_id,
+          matchMap.set(match_id, {
+            match_id,
             has_commentary: false,
             has_prematch: true,
             commentary_count: 0,
-            first_commented: row.created_at,
+            first_commented: created_at.toISOString(),
           });
         }
       }
