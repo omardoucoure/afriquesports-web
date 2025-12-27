@@ -14,7 +14,7 @@ import { generateMatchUrl } from '@/lib/match-url';
 import mysql from 'mysql2/promise';
 
 export const dynamic = 'force-dynamic';
-export const maxDuration = 60;
+export const maxDuration = 30; // Reduced from 60s to save costs
 
 const SITE_URL = 'https://www.afriquesports.net';
 const CRON_SECRET = process.env.CRON_SECRET;

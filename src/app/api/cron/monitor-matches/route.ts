@@ -23,7 +23,7 @@ import { getAllMatchStates, upsertMatchState, type MatchState as MySQLMatchState
  */
 
 export const runtime = 'nodejs';
-export const maxDuration = 300; // 5 minutes max
+export const maxDuration = 60; // 1 minute max (reduced from 300s to save costs)
 
 interface MatchState {
   match_id: string;
