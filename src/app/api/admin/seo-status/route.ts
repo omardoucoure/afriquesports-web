@@ -11,9 +11,14 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
-    // Optional: Add authentication check here
-    // const token = request.headers.get('authorization');
-    // if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    // Verify admin token
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.replace('Bearer ', '');
+    const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
+
+    if (!token || token !== ADMIN_TOKEN) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     const orchestrator = new SEOAgentOrchestrator();
     const status = await orchestrator.getStatus();

@@ -20,11 +20,21 @@ interface LogEntry {
   type: 'info' | 'error' | 'success';
 }
 
+interface SEOStatus {
+  agentActive: boolean;
+  lastRun: any;
+  recentRuns: any[];
+  recentAlerts: any[];
+  indexingStats: any;
+  franceStats: any;
+}
+
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [agentStatus, setAgentStatus] = useState<AgentStatus | null>(null);
   const [vllmStatus, setVLLMStatus] = useState<VLLMStatus | null>(null);
+  const [seoStatus, setSeoStatus] = useState<SEOStatus | null>(null);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
@@ -102,6 +112,15 @@ export default function AdminPage() {
       if (logsRes.ok) {
         const logsData = await logsRes.json();
         setLogs(logsData.logs);
+      }
+
+      // Fetch SEO status
+      const seoRes = await fetch('/api/admin/seo-status', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (seoRes.ok) {
+        const seoData = await seoRes.json();
+        setSeoStatus(seoData);
       }
     } catch (error) {
       console.error('Error fetching status:', error);
@@ -190,7 +209,7 @@ export default function AdminPage() {
         </div>
 
         {/* Status Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {/* Agent Status */}
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="flex items-center justify-between mb-4">
@@ -269,6 +288,107 @@ export default function AdminPage() {
                     <span className="font-semibold">Model:</span>{' '}
                     <span className="text-sm">{vllmStatus.model}</span>
                   </p>
+                )}
+              </div>
+            ) : (
+              <p className="text-gray-500">Loading...</p>
+            )}
+          </div>
+
+          {/* SEO Agent Status */}
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold">SEO Agent</h2>
+              <div className={`w-3 h-3 rounded-full ${seoStatus?.agentActive ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
+            </div>
+
+            {seoStatus ? (
+              <div className="space-y-3">
+                {/* Last Run */}
+                {seoStatus.lastRun && (
+                  <div>
+                    <p className="text-gray-700 text-sm">
+                      <span className="font-semibold">Last run:</span>{' '}
+                      <span className={seoStatus.lastRun.status === 'success' ? 'text-green-600' : 'text-red-600'}>
+                        {seoStatus.lastRun.status}
+                      </span>
+                    </p>
+                    <p className="text-gray-500 text-xs">
+                      {new Date(seoStatus.lastRun.started_at).toLocaleString()}
+                    </p>
+                  </div>
+                )}
+
+                {/* France Stats */}
+                {seoStatus.franceStats && (
+                  <div className="border-t pt-3">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">France (7 days)</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <p className="text-gray-500">Clicks</p>
+                        <p className="font-bold text-[#345C00]">{seoStatus.franceStats.totalClicks?.toLocaleString() || 0}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Avg Pos</p>
+                        <p className="font-bold">{seoStatus.franceStats.avgPosition?.toFixed(1) || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Impressions</p>
+                        <p className="font-bold">{seoStatus.franceStats.totalImpressions?.toLocaleString() || 0}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">CTR</p>
+                        <p className="font-bold">{seoStatus.franceStats.avgCTR?.toFixed(2) || 0}%</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Indexing Stats */}
+                {seoStatus.indexingStats && (
+                  <div className="border-t pt-3">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">Indexing</p>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Submitted:</span>
+                        <span className="font-semibold">{seoStatus.indexingStats.submitted || 0}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Indexed:</span>
+                        <span className="font-semibold text-green-600">{seoStatus.indexingStats.indexed || 0}</span>
+                      </div>
+                      {seoStatus.indexingStats.error > 0 && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">Errors:</span>
+                          <span className="font-semibold text-red-600">{seoStatus.indexingStats.error}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Recent Alerts */}
+                {seoStatus.recentAlerts && seoStatus.recentAlerts.length > 0 && (
+                  <div className="border-t pt-3">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">
+                      Recent Alerts ({seoStatus.recentAlerts.length})
+                    </p>
+                    <div className="space-y-1">
+                      {seoStatus.recentAlerts.slice(0, 3).map((alert: any, index: number) => (
+                        <div key={index} className="text-xs">
+                          <span className={`font-semibold ${
+                            alert.severity === 'critical' ? 'text-red-600' :
+                            alert.severity === 'warning' ? 'text-yellow-600' :
+                            'text-blue-600'
+                          }`}>
+                            {alert.severity === 'critical' ? '🚨' :
+                             alert.severity === 'warning' ? '⚠️' : 'ℹ️'}
+                          </span>
+                          <span className="text-gray-700 ml-1">{alert.message.substring(0, 40)}...</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             ) : (
