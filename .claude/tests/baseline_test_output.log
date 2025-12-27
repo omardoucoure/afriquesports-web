@@ -1,0 +1,18 @@
+============================================================
+AFCON 2025 - Match Commentary Baseline Test
+============================================================
+Match: Maroc vs Égypte
+Model: Qwen/Qwen2.5-VL-7B-Instruct
+Total events: 63
+============================================================
+
+[1/63] -15' - pre_match... Traceback (most recent call last):
+  File "/Users/omardoucoure/Documents/Afrique Sports/afriquesports-web/.claude/tests/match-commentary-baseline.py", line 284, in <module>
+    main()
+    ~~~~^^
+  File "/Users/omardoucoure/Documents/Afrique Sports/afriquesports-web/.claude/tests/match-commentary-baseline.py", line 228, in main
+    result = generate_commentary(event)
+  File "/Users/omardoucoure/Documents/Afrique Sports/afriquesports-web/.claude/tests/match-commentary-baseline.py", line 133, in generate_commentary
+    "possession": f"{event['team']} contrôle le ballon. Commente la phase de possession",
+                     ~~~~~^^^^^^^^
+KeyError: 'team'

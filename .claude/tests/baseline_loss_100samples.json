@@ -1,0 +1,714 @@
+{
+  "metadata": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "samples_evaluated": 100,
+    "total_samples": 100,
+    "avg_token_accuracy": 0.36312105526762617,
+    "avg_bleu_score": 0.14316193723895299,
+    "avg_loss": 0.7892377765747429,
+    "perplexity": 2.201717585791763,
+    "logprobs_available": true
+  },
+  "results": [
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Tunisie. Hannibal Mejbri recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Sur la pelouse de l'Estadio Nacional de Tunis, le suspense est palpable dans cette CAN 2025. À la minute 80', les deux équipes se disputent le dernier quart d'heure de ce match crucial entre la Tunisie et le Ghana. Les joueurs sont surchauffés, chaque action compte.\n\nSur le flanc droit, la Tunisie a réussi à dégager une passe précise vers la droite, mais malheureusement, le ballon est intercepté par un défenseur ghanéen qui s'apprête à lancer un contre-risque. La pression est montante pour les tricolores, qui cherchent à inscrire leur troisième but pour assurer leur qualification.\n\nLe Ghana, quant à lui, est bien décidé à ne pas céder. Le milieu de terrain central, connu pour son talent technique, reçoit le ballon dans sa surface et",
+      "token_accuracy": 0.47058823529411764,
+      "bleu_score": 0.224,
+      "logprob_loss": 0.8438451313764846
+    },
+    {
+      "ground_truth": "Mali met la pression dans cette fin de première mi-temps. Amadou Haidara sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Sur le terrain de l'Estuaire, nous assistons à une phase de jeu intense entre le Mali et le Sénégal. À la mi-temps, les deux équipes se sont affrontées avec autant d'ardeur que d'habileté. \n\nAvec 38 minutes écoulées du match, le Mali vient de réaliser une percée remarquable dans le milieu de terrain sénégalais. Le ballon est passé parmi les défenseurs sénégalais, et le milieu maliens a réussi à déjouer la pression adverse pour prendre possession du ballon. Il semble que les joueurs maliens ont retrouvé leur rythme après quelques minutes d'adaptation.\n\nLe Sénégal, quant à lui, reste concentré et ne laisse pas passer l'occasion de contrer rapidement. Les attaquants sénégalais sont prêts à exploiter chaque mo",
+      "token_accuracy": 0.42105263157894735,
+      "bleu_score": 0.1810344827586207,
+      "logprob_loss": 0.8215404867304773
+    },
+    {
+      "ground_truth": "But splendide de Brahim Diaz! Sur un centre parfait de Thomas Partey, il propulse sa tête au fond des filets.",
+      "prediction": "Dans les dernières minutes de ce match captivant entre le Maroc et le Ghana, l'engagement est toujours aussi intense sur le terrain. À la minute 89', une énorme opportunité se présente pour le Maroc. Un centre venu du côté droit de la surface est bien capté par un joueur marocain qui, malgré la pression de plusieurs défenseurs ghanéens, réussit à dégager un tir puissant vers le but. Le gardien ghanéen, concentré jusqu'à la dernière seconde, parvient à se jeter au dernier moment pour arrêter le ballon. Les joueurs marocains sont dans le feu de l'action, ils savent qu'ils ont encore quelques minutes pour inscrire le but décisif. Le public est à son tour engagé, les encouragements fusent de toutes parts. Le match reste ouvert et tout peut encore arriver.",
+      "token_accuracy": 0.3157894736842105,
+      "bleu_score": 0.09302325581395349,
+      "logprob_loss": 0.7505894880377343
+    },
+    {
+      "ground_truth": "Jordan Ayew déborde sur le côté droit et centre en retrait pour Zambo Anguissa, mais le ballon est contré par un défenseur.",
+      "prediction": "Sur le terrain, les Ghanéens continuent de s'imposer avec une domination visible. Le milieu de terrain camerounais, Samuel Eto'o, vient de perdre le ballon dans sa surface, offrant ainsi l'occasion d'un corner à la défense ghanéenne. Les camerounais sont bien sur le terrain, mais ils semblent avoir du mal à trouver la percée face aux défenses solides des Ghanéens. La pression est intense, et les Ghanéens profitent de chaque occasion pour maintenir leur avantage. Le match reste ouvert, mais les statistiques montrent que le Ghana a plus de possession de balle et de coups francs. Les spectateurs attendent avec impatience ce qui se passera lors de la prochaine phase offensive des camerounais.",
+      "token_accuracy": 0.3333333333333333,
+      "bleu_score": 0.13392857142857142,
+      "logprob_loss": 0.8618557608302553
+    },
+    {
+      "ground_truth": "Youssef Msakni délivre un centre appliqué sortant du pied gauche. Wilfried Singo repousse de la tête.",
+      "prediction": "Sur la pelouse de l'Al Khor Stadium, où la tension est palpable, nous sommes à la trente-et-unième minute du match Tunisie-Côte d'Ivoire. Les deux équipes sont engagées dans une lutte acharnée pour le contrôle du ballon. \n\nSur le côté droit, les Ivoiriens ont réussi à dégager un corner. Le ballon est frappé fort par un joueur tunisien, mais malheureusement, il passe juste au-dessus du but. C'est une occasion manquée pour les locaux.\n\nEn contre, les Ivoiriens lancent un contre-risque rapide. Le ballon est récupéré par un joueur de l'équipe de Côte d'Ivoire qui avance rapidement vers le milieu de terrain. Il faut dire que sa vitesse et son adresse sont impressionnantes, mais malheureusement, il est intercepté par un défenseur",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.12605042016806722,
+      "logprob_loss": 0.7415024632455959
+    },
+    {
+      "ground_truth": "Belle combinaison entre Hannibal Mejbri et Jordan Ayew sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Dans cette CAN 2025, la Tunisie et le Ghana se disputent une place en demi-finale. À la mi-temps, les deux équipes ont montré un jeu intense mais sans véritable domination. \n\nÀ la 25e minute, nous observons un coup franc directement dans la surface ghanéenne. Le gardien tunisien a réussi à stopper le tir de l'attaquant ghanéen, mais la pression est toujours là. Les Ghanéens cherchent à marquer et la Tunisie défend avec détermination. \n\nLe match est serré et chaque équipe se montre déterminée à prendre l'avantage. Les supporters des deux camps sont sur le bord de la pelouse, envoûtés par l'engagement de leurs joueurs respectifs.\n\nC'est un match qui promet d'être passionnant jusqu'à la fin. Restez connectés pour suivre l",
+      "token_accuracy": 0.3,
+      "bleu_score": 0.16666666666666666,
+      "logprob_loss": 0.7777439710506997
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Sur le terrain de l'Estuaire, les deux équipes sont déjà engagées dans ce qui promet d'être une rencontre intense. Au coup d'envoi, le Mali a pris l'initiative, lançant un premier assaut rapide vers le but camerounais. Les défenseurs camerounais ont réussi à contenir le premier essai malien, mais on sent bien que les deux camps sont prêts à tout donner pour les trois points. Le match est lancé et les premières minutes montrent que les deux équipes ne惜ont pas leur temps. Le public est déjà sur le bord de ses sièges, les supporters des deux pays se disputent les meilleures places pour vivre ce duel de la CAN 2025. C'est parti pour un match qui promet de faire vibrer les fans de toute l'Afrique !",
+      "token_accuracy": 0.5714285714285714,
+      "bleu_score": 0.248,
+      "logprob_loss": 0.8623201928949765
+    },
+    {
+      "ground_truth": "Jordan Ayew ouvre le score d'une frappe magnifique du gauche! Le ballon vient se loger dans la lucarne opposée, le gardien n'a rien pu faire.",
+      "prediction": "Dans cette CAN 2025, le Ghana a réussi à inscrire son premier but face à l'Égypte, portant le score à 1-0. La joie est palpable sur le terrain ghanéen, tandis que les supporters égyptiens se tournent vers leur défense pour essayer de redresser la situation. Le Ghana, qui jouait jusqu'à présent dans une certaine défiance, vient de montrer qu'il est capable d'attaquer et de marquer. C'est un coup dur pour l'Égypte qui, malgré sa domination au cours des dernières minutes, ne parvient pas encore à trouver le chemin des filets. Le match reste ouvert et tout peut encore arriver.",
+      "token_accuracy": 0.2608695652173913,
+      "bleu_score": 0.13131313131313133,
+      "logprob_loss": 0.7257847018657722
+    },
+    {
+      "ground_truth": "Cameroun met la pression dans cette fin de première mi-temps. Bryan Mbeumo sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Sur la pelouse de la CAN 2025, le Cameroun affronte le Sénégal dans une rencontre qui promet du feu. À la minute 79', le suspense est palpable. Le Cameroun, qui a été très solide tout au long du match, semble avoir conservé son avantage. Les Lions indomptables ont maintenu leur rythme offensif, cherchant à marquer pour consolider leur position. \n\nLe Sénégal, quant à lui, ne lâche rien. Ses joueurs continuent d'attaquer sans relâche, cherchant à trouver l'ouverture. Le capitaine Sadio Mané, toujours aussi déterminé, est en pleine action sur le côté gauche du terrain. Il cherche à déborder et à servir ses coéquipiers à l'intérieur de la surface.\n\nLes arbitres sont attentifs, prêts à intervenir",
+      "token_accuracy": 0.3684210526315789,
+      "bleu_score": 0.1565217391304348,
+      "logprob_loss": 0.7637233838938983
+    },
+    {
+      "ground_truth": "Nigeria procède à un triple changement. Victor Osimhen, Zambo Anguissa et Ademola Lookman quittent le terrain.",
+      "prediction": "Dans cette minute supplémentaire, c'est une décision cruciale qui change le cours du match ! Le Nigeria vient d'introduire son dernier joueur sur le terrain, un remplaçant déterminé qui a rejoint ses coéquipiers dans l'attaque. Il est temps de voir s'il va pouvoir influencer le score final. En face, les camerounais sont bien positionnés et attendent ce moment avec impatience. C'est une bataille serrée qui se joue à chaque touche, chaque tentative de contrôle du ballon. Les deux équipes ont donné tout ce qu'elles avaient au cours de ces 90 minutes et plus. La pression est à son comble et chacun sait que chaque action compte. Reste à voir si le Nigeria parvient à trouver l'égalisation ou si le Cameroun renforce son avantage. C'est un match qui promet encore de bel",
+      "token_accuracy": 0.3125,
+      "bleu_score": 0.1297709923664122,
+      "logprob_loss": 0.893789687413896
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Algérie. Islam Slimani recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette CAN 2025, les Algériens continuent leur parcours sans faute face aux Tunisiens. À la mi-temps, l'équipe algérienne dominait largement, mais le score était toujours à zéro. \n\nAvec seulement 47 minutes d'action restantes, les choses semblent s'accélérer sur le terrain. Les joueurs algériens ont maintenu leur rythme élevé, cherchant constamment à créer des occasions de but. \n\nL'équipe algérienne a bien géré le ballon, contrôlant ainsi le jeu. Les Tunisiens, quant à eux, semblent avoir du mal à se mettre en position défensive efficace. \n\nC'est donc à Alger que nous devons suivre ce match passionnant. Les deux équipes ont montré une grande qualité technique, mais c'est l'Algérie qui semble avoir le dessus dans cette partie de la rencontre",
+      "token_accuracy": 0.35294117647058826,
+      "bleu_score": 0.11864406779661017,
+      "logprob_loss": 0.8938089539131738
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Maroc. Mazraoui recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Sur le terrain, la tension monte d'un cran. Au terme de 79 minutes de jeu, le Maroc et l'Égypte se disputent toujours le même but : la victoire. Les deux équipes ont été tenaces jusqu'à présent, mais c'est l'Egypte qui semble avoir le dernier mot dans cette phase finale. Le ballon est au pied de l'attaquant égyptien, il s'apprête à prendre son tir décisif. Les défenseurs marocains sont prêts à tout pour bloquer ce coup franc. C'est une situation qui pourrait changer le cours du match. Suivez-nous pour voir si l'Égypte parvient à inscrire ce but crucial ou si les Marocains parviennent à se sortir de cette situation difficile. Restez bien attachés à votre écran !",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.14655172413793102,
+      "logprob_loss": 0.8058426687391724
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Égypte. Mohamed Salah recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette CAN 2025, l'Égypte et le Maroc se disputent une place au sommet du groupe A. À seulement cinq minutes de jeu, les deux équipes sont déjà engagées dans un affrontement intense. Les Égyptiens, menés par leur capitaine Salah, ont pris l'initiative dès le coup d'envoi. Leur jeu est rapide et précis, cherchant à créer des occasions de but. D'un autre côté, les Marocains, dirigés par leur entraîneur Hajjaj, ne lâchent rien. Ils sont bien organisés et cherchent à contrer efficacement les attaques égyptiennes.\n\nSur le terrain, on voit Salah prendre le contrôle du ballon, cherchant à déclencher une offensive. Ses coéquipiers, comme Fathy, sont à sa disposition pour soutenir ses actions. Cependant",
+      "token_accuracy": 0.35294117647058826,
+      "bleu_score": 0.09649122807017543,
+      "logprob_loss": 0.6971403081166091
+    },
+    {
+      "ground_truth": "Moussa Djenepo inscrit son 14e but en sélection! D'une frappe puissante à l'entrée de la surface, il permet à Mali de doubler la mise.",
+      "prediction": "Dans les dernières minutes du match entre le Mali et la Côte d'Ivoire, c'est l'équipe africaine qui a décroché le premier but de la rencontre ! Le milieu de terrain malien, Adama Diawara, a su saisir une passe décisive de son coéquipier, Mamadou Doumbia, pour ouvrir le score à la 39e minute. Les supporters maliens sont dans la danse, tandis que les joueurs de la Côte d'Ivoire se doivent de reprendre leur rythme de jeu pour ne pas laisser filer cette belle opportunité de prendre l'avantage dans ce match crucial de la CAN 2025. L'arbitrage est toujours sur ses gardes pour éviter tout incident. Reste à voir si le Mali peut maintenir son avance ou si la Côte d'Ivoire parviendra à revenir",
+      "token_accuracy": 0.2857142857142857,
+      "bleu_score": 0.1885245901639344,
+      "logprob_loss": 0.8173365845214061
+    },
+    {
+      "ground_truth": "Baghdad Bounedjah déborde sur le côté droit et centre en retrait pour Wahbi Khazri, mais le ballon est contré par un défenseur.",
+      "prediction": "Alors que l'Algérie tente de renverser le score, il est déjà la minute 63'. La Tunisie, qui a su maintenir son avantage tout au long du match, semble avoir les moyens de tenir jusqu'à la fin. Les joueurs algériens sont actifs sur le terrain, cherchant des opportunités de but, mais la défense tunisienne reste solide. Le temps presse pour les Nord-Africains, qui doivent faire preuve d'une grande précision et de détermination pour revenir dans le match. Les supporters algériens sont visiblement motivés, mais ils savent qu'ils ont encore beaucoup de travail devant eux. Reste à voir si l'Algérie parviendra à inverser la tendance avant la fin du temps réglementaire.",
+      "token_accuracy": 0.2857142857142857,
+      "bleu_score": 0.10091743119266056,
+      "logprob_loss": 0.7223727069280227
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Dans cette CAN 2025, le Cameroun et le Maroc sont engagés dans une rencontre qui promet d'être intense. À la minute 79', les deux équipes se disputent le ballon avec la même intensité qu'au début du match. Le Cameroun, toujours en quête d'un but décisif, a réussi à créer une opportunité intéressante en contre-attaque. Le milieu camerounais, habilement servi par son coéquipier à l'aile, a tenté une frappe de loin, mais le gardien marocain a bien réagi pour bloquer ce tir.\n\nLe Maroc, quant à lui, n'a pas lâché la pression et continue de chercher à contrôler le jeu. Les attaquants marocains, bien soutenus par leur défense, restent vigilants sur les débordements camerounais. Ce",
+      "token_accuracy": 0.5714285714285714,
+      "bleu_score": 0.19298245614035087,
+      "logprob_loss": 0.7381662386992514
+    },
+    {
+      "ground_truth": "Ghana met la pression dans cette fin de première mi-temps. Mohammed Kudus sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Dans cette CAN 2025, le Ghana et l'Égypte s'affrontent dans un match intense qui se joue au stade d'Abidjan. À la mi-temps, les deux équipes ont montré une combativité exemplaire. Le Ghana, porté par son public, a réussi à prendre l'avantage au fil des minutes. En ce qui concerne l'Égypte, ils ont montré une résistance indomptable, cherchant à revenir dans le match.\n\nÀ la 42e minute, le Ghana a encore une fois montré sa puissance offensive. Une passe précise de leur milieu de terrain a permis à un attaquant de marquer un but. Ce but donne un petit avant-goût du potentiel offensif du Ghana, qui semble bien décidé à remporter cette rencontre.\n\nL'Égypte, de son côté, ne lâche rien. Ils contin",
+      "token_accuracy": 0.3684210526315789,
+      "bleu_score": 0.15702479338842976,
+      "logprob_loss": 0.7446790357603368
+    },
+    {
+      "ground_truth": "Vincent Aboubakar délivre un centre appliqué sortant du pied gauche. Omar Marmoush repousse de la tête.",
+      "prediction": "Dans les vestiaires du Stade Olympique de Douala, la tension monte d'un cran. À la mi-temps, le Cameroun menait 1-0 face à l'Égypte grâce à un but de Samuel Eto'o. Mais maintenant, en seconde période, les équipes sont revenues sur le terrain. \n\nAvec 65 minutes écoulées, le jeu est toujours serré. Les deux équipes ont montré une intensité égale et le score reste inchangé. Les supporters camerounais espèrent que leur équipe peut maintenir son avantage, tandis que les supporters égyptiens ne lâchent rien.\n\nSur le terrain, les joueurs continuent de courir sans relâche. Le milieu de terrain camerounais, avec sa précision et sa technique, essaie de délivrer des passes décisives, tandis que les défenseurs é",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.0782608695652174,
+      "logprob_loss": 0.7529986810824993
+    },
+    {
+      "ground_truth": "Belle intervention défensive de Hannibal Mejbri qui intercepte une passe dangereuse dans la surface.",
+      "prediction": "Sur le terrain de Tunis, les Camerounais continuent leur offensive sans relâche. À la minute 77, le ballon est à nouveau aux pieds de Samuel Eto'o, qui s'apprête à prendre son envol vers la surface adverse. Son adversaire défensif fait face à une situation délicate : il doit choisir entre rester en place pour bloquer le tir ou se laisser pousser par l'élan d'Eto'o. Les supporters camerounais sont sur la pointe des pieds, attendant avec impatience ce que sera cette ultime opportunité. Les observateurs attendent avec brio ce que fera le capitaine camerounais pour marquer le but décisif qui pourrait décider du match.",
+      "token_accuracy": 0.2857142857142857,
+      "bleu_score": 0.07766990291262135,
+      "logprob_loss": 0.9064726398024315
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par Baghdad Bounedjah. André Onana se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Sur le terrain de l'Algérie, les camerounais ont pris l'avantage dès la 21e minute ! Avec une passe précise de Samuel Eto'o, Vincent Aboubakar a pu profiter d'un dégagement maladroit de la défense algérienne pour ouvrir le score. Les supporters camerounais explosent de joie, tandis que les supporters algériens sont sous le choc. Cette première occasion est déjà un tournant dans le match, et on se demande quelles seront les réactions de l'équipe algérienne pour inverser la tendance. La pression est grande sur les joueurs algériens qui doivent maintenant trouver le moyen de revenir dans le match. Restez avec nous pour suivre cette CAN 2025 qui promet d'être intense !",
+      "token_accuracy": 0.2857142857142857,
+      "bleu_score": 0.11818181818181818,
+      "logprob_loss": 0.7431583090805024
+    },
+    {
+      "ground_truth": "Victor Osimhen délivre un centre appliqué sortant du pied gauche. Adama Traoré repousse de la tête.",
+      "prediction": "Dans cette CAN 2025, le Nigeria et le Mali se disputent l'avantage au milieu du terrain. À la 19e minute, les deux équipes sont engagées dans une lutte acharnée pour prendre le contrôle du jeu. Les Nigérians cherchent à pousser vers l'avant, tandis que les Maliens défendent solides et cherchent à contenir les offensives adverses.\n\nLe ballon est à la tête de l'attaquant nigérian, qui tente de trouver un espace entre les défenseurs maliens. Il semble bien placé pour déclencher une action offensive, mais la pression des joueurs maliens est intense. Le gardien malien, concentré, reste prêt à intervenir si nécessaire.\n\nSur le côté droit du terrain, on observe une percée intéressante pour le Mali. Un passeur habile a réussi à",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.08264462809917356,
+      "logprob_loss": 0.7278021205862762
+    },
+    {
+      "ground_truth": "Mazraoui tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, le match Maroc contre Ghana est en train de s'enchaîner avec une intensité grandissante. À seulement six minutes de jeu, les deux équipes se disputent déjà le ballon avec une grande précision et une volonté indéniable de prendre l'avantage. Le Maroc, toujours aussi solide dans son jeu défensif, tente de contenir les attaques rapides du Ghana, tandis que les Ghanéens cherchent à dégager rapidement le ballon pour créer des occasions. Les deux formations sont bien engagées et chaque action semble compter. On attend avec impatience ce qui va se passer ensuite dans ce premier quart d'heure.",
+      "token_accuracy": 0.4,
+      "bleu_score": 0.15,
+      "logprob_loss": 0.7399373257976117
+    },
+    {
+      "ground_truth": "Kamaldeen Sulemana est remplacé par Victor Osimhen. Ovationné par l'enceinte, il quitte le terrain après une belle prestation.",
+      "prediction": "Dans cette CAN 2025, on assiste à une substitution stratégique sur le terrain de Ghana contre Nigeria. À la mi-temps, les entraîneurs ont décidé de faire entrer un joueur clé pour renforcer l'attaque ou stabiliser la défense. Ce changement pourrait avoir un impact significatif sur le score final. Restez bien attentifs !",
+      "token_accuracy": 0.17647058823529413,
+      "bleu_score": 0.07692307692307693,
+      "logprob_loss": 0.7693450209904925
+    },
+    {
+      "ground_truth": "Quelle action collective! Adama Traoré sert Pape Matar Sarr qui contrôle brillamment et ajuste le gardien d'un tir croisé. Sénégal mène désormais au score!",
+      "prediction": "Sur la ligne de temps, nous sommes maintenant à la minute 78' du match Sénégal contre le Mali lors de la CAN 2025. C'est une période cruciale où les deux équipes se disputent chaque balle avec une intensité croissante. \n\nLe Sénégal, qui a dominé la première moitié du match, vient de marquer son deuxième but de la soirée. Le but est tombé grâce à une frappe puissante de Mbaye Niang depuis l'aile droite, déviée par la défense malienne avant de trouver le fond des filets. Ce but signifie que le Sénégal mène désormais 2-0 au score.\n\nCette avance pourrait être décisive dans le reste du match. Le Mali, qui a été réduit à dix hommes après une expulsion, cherchera désespérément à revenir dans le match. Mais pour l",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.1171875,
+      "logprob_loss": 0.7497058239302328
+    },
+    {
+      "ground_truth": "Wahbi Khazri tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, la Tunisie et le Sénégal se disputent une place en demi-finale. À la 14e minute, les deux équipes sont engagées dans un match serré. Le Sénégal, avec ses joueurs expérimentés comme Sadio Mané et Younousse Diagne, a commencé fort. Ils ont réussi à prendre l'initiative en attaque, mais la défense tunisienne est solide et bien organisée.\n\nSur un coup franc tiré par Cheikh M'Bengue, le ballon est frappé fort et dévie sur la barre transversale. Les supporters sénégalais sont sur le point de crier leur joie, mais la défense tunisienne a réussi à se ressaisir. \n\nToutefois, malgré cette tentative de percée, les joueurs tunisiens restent concentrés. Ils",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.12612612612612611,
+      "logprob_loss": 0.7524082031174976
+    },
+    {
+      "ground_truth": "Mohamed Salah inscrit son 4e but en sélection! D'une frappe puissante à l'entrée de la surface, il permet à Égypte de doubler la mise.",
+      "prediction": "Alors que l'Égypte et le Ghana s'affrontent dans cette CAN 2025, l'action est déjà intense sur le terrain. À la 34ème minute, c'est une incroyable frappe croisée de Mohamed Salah qui ouvre le score pour les Pharaons ! Le but est magnifique, Salah a su profiter d'un espace entre deux défenseurs ghanéens pour planter le ballon au fond des filets. C'est un début prometteur pour l'Égypte qui avait besoin d'un coup de pouce pour se mettre en confiance. Ghana, attention, il faut être vigilant car ce n'est qu'une première mi-temps. Suivez-nous pour plus de rebondissements !",
+      "token_accuracy": 0.42857142857142855,
+      "bleu_score": 0.125,
+      "logprob_loss": 0.7471083508572502
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Sur la pelouse de Marrakech, le Maroc et le Ghana se disputent une bataille acharnée. A la 39ème minute, les Marocains ont réussi à prendre l'avantage grâce à un but signé de Nabil Dirar. Le milieu de terrain marocain a su profiter d'une passe décisive de Hakim Ziyech pour ouvrir le score. Les supporters marocains sont sur le toit du monde, crient à la victoire alors que le Ghana, qui avait bien lancé le match, semble être dans une phase de réaction. Le match est ouvert, tout peut encore arriver. Les deux équipes continueront à lutter pour dominer le jeu et chercher à doubler leur avantage. Suivez-nous pour plus de détails !",
+      "token_accuracy": 0.5714285714285714,
+      "bleu_score": 0.24107142857142858,
+      "logprob_loss": 0.8210801675766042
+    },
+    {
+      "ground_truth": "Franck Kessié tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, les deux équipes, Côte d'Ivoire et Nigeria, se disputent le ballon avec une intensité qui ne fait aucun doute. À la mi-temps, les deux formations ont montré une grande qualité technique et tactique. \n\nAvec 65 minutes écoulées, on observe que les choses se compliquent pour les Ivoiriens. Le Nigeria a réussi à prendre l'avantage dans le jeu, et cela se ressent sur le score. Les joueurs nigérians sont plus en confiance et ont bien géré leur possession du ballon.\n\nC'est donc à ce moment-là qu'il faut s'intéresser au comportement de nos Ivoiriens. Ils doivent faire preuve de plus de détermination et de créativité pour revenir dans le match. La pression est lourde, mais ils ont encore beaucoup de temps devant eux pour inverser",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.12598425196850394,
+      "logprob_loss": 0.8485372792803082
+    },
+    {
+      "ground_truth": "Maroc met la pression dans cette fin de première mi-temps. Mazraoui sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Sur le terrain, c'est toujours l'adrénaline qui monte ! Nous sommes à la mi-temps, et les deux équipes se disputent chaque ballon comme si leur survie dépendait de ce coup de pied précis. \n\nDans cette minute 59', on assiste à une belle action collective du Maroc. Le ballon est passé parmi les jambes de plusieurs défenseurs algériens, avant de trouver l'espace de Hakim Ziyech. Il a eu le temps de réfléchir et de tirer d'une frappe puissante qui a failli tromper le gardien algérien.\n\nC'est un moment clé du match, car ça pourrait être le déclic pour que le Maroc prenne l'avantage. Les supporters marocains sont à fond dans leurs tribunes, ils savent que chaque point compte pour leur qualification en demi-finale. Alors, attention",
+      "token_accuracy": 0.4444444444444444,
+      "bleu_score": 0.1693548387096774,
+      "logprob_loss": 0.8871185220570896
+    },
+    {
+      "ground_truth": "Omar Marmoush délivre un centre appliqué sortant du pied gauche. Jordan Ayew repousse de la tête.",
+      "prediction": "Dans cette CAN 2025, l'Égypte et le Ghana se disputent une place en demi-finale. C'est donc une rencontre qui ne peut que susciter l'intérêt des supporters de partout. À la 9ème minute, les deux équipes sont bien engagées dans le match. L'Égypte, toujours aussi solide défensivement, tente d'imposer son rythme offensif. Les Ghanéens, quant à eux, cherchent à s'adapter à ce jeu et à trouver des espaces pour créer des occasions. Le suspense est palpable, chacun sait que ce sera un match serré. On attend avec impatience la suite de cette confrontation entre ces deux équipes qui ont déjà fait preuve de beaucoup de talent lors de cette compétition.",
+      "token_accuracy": 0.1875,
+      "bleu_score": 0.07339449541284404,
+      "logprob_loss": 0.807992967588464
+    },
+    {
+      "ground_truth": "Hannibal Mejbri délivre un centre appliqué sortant du pied gauche. Nicolas Jackson repousse de la tête.",
+      "prediction": "Sur le terrain de la CAN 2025, nous sommes en pleine action au milieu du match entre la Tunisie et le Sénégal. À la mi-temps, les deux équipes ont montré une intensité indéniable. \n\nAvec 42 minutes écoulées, le Sénégal est en possession du ballon et semble chercher à creuser l'écart dans ce premier temps. Les joueurs sénégalais sont bien organisés et semblent avoir le contrôle du jeu. Ils ont réussi à créer quelques occasions de but, malgré la défense solide de la Tunisie.\n\nLa Tunisie, elle, réagit avec détermination. Ses attaquants tentent de trouver des espaces derrière la ligne défensive sénégalaise. Leur jeu est rapide et direct, cherchant à surprendre par surprise.\n\nLe public est engagé, les supporters de chaque camp se battent pour leur é",
+      "token_accuracy": 0.1875,
+      "bleu_score": 0.11904761904761904,
+      "logprob_loss": 0.7914305579613415
+    },
+    {
+      "ground_truth": "Belle combinaison entre Wahbi Khazri et Brahim Diaz sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "En ce début de rencontre entre la Tunisie et le Maroc, les deux équipes sont bien engagées dans le jeu. Alors que la Tunisie cherche à imposer son rythme, le Maroc réagit avec rapidité et efficacité. À la 16e minute, on observe une incursion marocaine dans la surface tunisienne, mais malgré l'intensité du jeu, les défenseurs tunisiens parviennent à contenir l'attaque adverse.\n\nLe ballon est rapidement récupéré par les joueurs marocains qui décident d'une passe diagonale vers l'aile gauche. Un joueur marocain se place parfaitement pour recevoir le ballon, mais il est immédiatement intercepté par un défenseur tunisien qui parvient à dégager le danger. \n\nLa pression de la défense tunisienne est palpable, elle ne laisse aucune",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.20689655172413793,
+      "logprob_loss": 0.7542595871881883
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Dans cette CAN 2025, l'Algérie et le Nigeria s'affrontent dans un match qui promet d'être intense. À la mi-temps, les deux équipes se sont livrées une bataille acharnée, mais c'est maintenant que les choses commencent à prendre forme.\n\nÀ la minute 63', l'Algérie a réussi à trouver son premier but grâce à une frappe puissante de Nabil Bentaleb depuis l'extérieur du box. Le gardien nigérian, bien qu'agréablement surpris par la précision de la frappe, n'a pas pu stopper le ballon qui a dévié en direction des filets. Les supporters algériens explosent de joie tandis que le Nigeria, malgré sa déception, continue de chercher à revenir dans le match.\n\nCe but donne un nouvel élan à l'équipe algérienne qui, jusqu",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.18487394957983194,
+      "logprob_loss": 0.6791223924094038
+    },
+    {
+      "ground_truth": "Victor Osimhen tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette minute 65', le Nigeria continue d'exercer une pression constante sur le camp égyptien. Le milieu de terrain nigérian, Adama Traoré, vient de recevoir un ballon dans l'espace et se dirige vers le but égyptien. Son adversaire égyptien, Ahmed Fathy, est bien positionné mais ne parvient pas à lui arracher le ballon. Traoré, déterminé, tente une frappe puissante qui passe juste au-dessus du filet. Les supporters nigérians sont sur le point de crier leur joie, mais l'arbitre a déjà sonne l'alarme pour une faute dans la surface. Le Nigeria reste néanmoins très dangereux et continue de chercher la percée. C'est une occasion manquée, mais le jeu est toujours ouvert.",
+      "token_accuracy": 0.5625,
+      "bleu_score": 0.20909090909090908,
+      "logprob_loss": 0.8070323648823413
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par André Onana. Youssef Msakni se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Dans cette CAN 2025, le Cameroun et la Tunisie se disputent une place en demi-finale. À la vingt-sixième minute du match, les deux équipes sont engagées dans un affrontement acharné. Les camerounais, qui ont le ballon, cherchent à créer des occasions de jeu. Le milieu de terrain camerounais, Jean-Michel Seri, est particulièrement actif, cherchant à dégager les passes vers les attaquants. De son côté, la défense tunisienne reste solide, mettant en garde contre les tentatives d'infiltration camerounaise.\n\nSur le terrain, on observe que le jeu est rapide et intense. Les joueurs de chaque côté cherchent à prendre l'avantage en créant des espaces entre les lignes adverses. La Tunisie, pour sa part, n'est pas en reste et tente de conten",
+      "token_accuracy": 0.3333333333333333,
+      "bleu_score": 0.11764705882352941,
+      "logprob_loss": 0.73052699728373
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Mali. Moussa Djenepo recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Sur le terrain de la CAN 2025, dans une ambiance électrique, les deux équipes font preuve d'un jeu intense. Au terme de la première vingtaine de minutes, le Mali a réussi à garder le contrôle du ballon, malgré l'agressivité de l'attaquant marocain qui a tenté de trouver des espaces. \n\nLe milieu de terrain maliens est particulièrement actif, distribuant des passes précises vers les ailiers. Leur défense semble solide, bien organisée, réduisant ainsi les occasions de but pour les Marocains.\n\nD'un autre côté, les attaquants marocains ont montré leur envie de marquer, mais ils ont été bloqués par la solidité défensive du Mali. Le gardien maliens, toujours concentré, a fait preuve d'une grande adresse à plusieurs reprises, repoussant les t",
+      "token_accuracy": 0.47058823529411764,
+      "bleu_score": 0.17647058823529413,
+      "logprob_loss": 0.8409086620438848
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Sur la pelouse de la CAN 2025, le match entre le Nigeria et le Sénégal est toujours aussi serré. À la mi-temps, les deux équipes ont montré une intensité déconcertante, mais c'est bien le Sénégal qui a pris l'avantage dans les premières minutes. \n\nMaintenant, à la 60e minute, le Nigeria cherche à revenir au score. Le capitaine du Sénégal, Sadio Mané, vient de prendre un coup franc à l'extérieur de la surface. Il a choisi de tirer à gauche, mais le gardien nigérian a réussi à se saisir du ballon en toute aisance.\n\nLe jeu se poursuit, et le Nigeria continue à chercher des espaces sur le côté droit. Les défenseurs sénégalais sont bien positionnés, mais ils savent qu'ils doivent rester vigilants car le Nigeria est capable",
+      "token_accuracy": 0.5714285714285714,
+      "bleu_score": 0.23622047244094488,
+      "logprob_loss": 0.7921047840981009
+    },
+    {
+      "ground_truth": "Belle intervention défensive de Mazraoui qui intercepte une passe dangereuse dans la surface.",
+      "prediction": "Sur le terrain de Marrakech, les Marocains continuent leur domination face aux Nigérianes. À la 34e minute, l'attaquant marocain, avec une précision redoutable, vient de trouver la cage nigériane. C'est un but qui ouvre le score et qui pourrait bien être le premier d'une série pour les Nord-Africaines. Les Marocaines ont montré toute leur puissance offensive dès le début du match, et ce but est un bon exemple de leur jeu offensif. Les Nigérianes, elles, semblent encore en quête de leur première occasion de marque. Le match est en faveur des Marocaines, qui dominent clairement sur le plan offensif. Nous allons voir si ce premier but va inspirer les joueuses marocaines à poursuivre leur travail et à faire pression sur les Nigérianes.",
+      "token_accuracy": 0.3076923076923077,
+      "bleu_score": 0.09016393442622951,
+      "logprob_loss": 0.852415084993877
+    },
+    {
+      "ground_truth": "Hannibal Mejbri, auteur d'un très bon match, délivre un centre tendu dans la surface. Mohamed Elneny ne parvient pas à reprendre le ballon.",
+      "prediction": "Sur le terrain de l'Estadio Nacional, la Tunisie et l'Égypte se disputent une CAN 2025 qui promet d'être passionnante. À la vingt-cinquième minute du match, les équipes sont engagées dans une lutte acharnée. Les joueurs tunisiens ont réussi à prendre l'avantage dans les derniers instants de la première mi-temps, mais l'Égypte ne lâche rien.\n\nL'attaquant égyptien, Salah, vient de recevoir un ballon en retrait et s'apprête à délivrer un centre puissant dans la surface tunisienne. Ses coéquipiers attendent patiemment à la pointe de l'attaque, prêts à exploiter la moindre ouverture. Les défenseurs tunisiens, quant à eux, se positionnent stratégiquement pour contrer ce type",
+      "token_accuracy": 0.34782608695652173,
+      "bleu_score": 0.20388349514563106,
+      "logprob_loss": 0.6800814041361661
+    },
+    {
+      "ground_truth": "Omar Marmoush délivre une frappe enroulée du droit! Le ballon trompe le gardien et finit sa course au fond des filets. Égypte prend l'avantage!",
+      "prediction": "Dans les vingt-deux premières minutes du match Égypte-Cameroun, on assiste à une scène qui pourrait bien être décisive. À la 18ème minute, l'Égypte a ouvert le score grâce à une frappe puissante de Salah, qui a trouvé le petit filet camerounais. Les égyptiens sont désormais en tête et cela pourrait bien être le début d'une domination. Le Cameroun, malgré son jeu offensif, semble un peu dépassé par la vitesse et la précision de Salah. C'est un but qui pourrait bien tourner la situation à leur faveur. Maintenant, attention aux réactions des camerounais, ils ont encore beaucoup de temps devant eux pour revenir dans le match. Restez bien attachés à cette rencontre, car elle promet d'être palpitante !",
+      "token_accuracy": 0.2608695652173913,
+      "bleu_score": 0.10256410256410256,
+      "logprob_loss": 0.8775058058701688
+    },
+    {
+      "ground_truth": "Belle combinaison entre Riyad Mahrez et Nicolas Jackson sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Dans cette CAN 2025, l'Algérie fait face au Sénégal, deux équipes qui ont une histoire riche dans ces compétitions. À la vingt-et-uneème minute, le suspense est palpable. Les deux équipes sont bien organisées et se disputent le ballon avec détermination. L'Algérie, toujours aussi solide défensivement, tente de contrôler le jeu et de créer des occasions d'attaque. De son côté, le Sénégal, toujours en quête de l'ouverture du score, ne lâche rien. Les joueurs africains sont concentrés et cherchent à prendre l'avantage. C'est un match serré, où chaque action compte. Nous attendons avec impatience ce qui va se passer ensuite.",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.10101010101010101,
+      "logprob_loss": 0.7347928971549845
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par Hakimi. Ademola Lookman se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Dans cette CAN 2025, le Maroc et le Nigeria sont engagés dans une rencontre intense. À la 32e minute, les Marocains ont réussi à prendre l'avantage sur le score. Le ballon est passé habilement entre les jambes du défenseur nigérian, avant d'être frappé avec précision par le milieu marocain. Le gardien nigérian a dû sortir rapidement pour arrêter le tir, mais malgré ses efforts, le but est tombé. Les Marocains commencent à dominer le jeu, maintenant un rythme soutenu qui pourrait bien leur permettre de consolider leur avance. Le public est déjà en liesse, et on peut sentir que les chances du Maroc de remporter ce match sont de plus en plus grandes. Reste à voir comment les Nigérians réagiront pour tenter de revenir dans le",
+      "token_accuracy": 0.35,
+      "bleu_score": 0.1111111111111111,
+      "logprob_loss": 0.6976040944008105
+    },
+    {
+      "ground_truth": "André Onana déborde sur le côté droit et centre en retrait pour Sadio Mané, mais le ballon est contré par un défenseur.",
+      "prediction": "Dans cette minute cruciale du match Cameroun contre le Sénégal, les deux équipes se disputent chaque ballon avec une intensité palpable. À la 82e minute, le Sénégal a réussi à reprendre l'avantage sur le score, marquant son deuxième but de la rencontre. \n\nLe but vient après une incroyable passe diagonale de Sadio Mané, qui trouve le milieu camerounais dans la profondeur. Ce dernier, malgré la pression défensive, parvient à se libérer et inscrit le but qui semble sceller le destin de la rencontre. \n\nLe Cameroun, bien que sous pression, reste déterminé et continue d'attaquer sans relâche, cherchant à revenir dans le match. Le public est en ébullition, les supporters camerounais poussant leurs joueurs à aller jusqu'au bout.\n\nCe but sénégalais",
+      "token_accuracy": 0.38095238095238093,
+      "bleu_score": 0.15,
+      "logprob_loss": 0.7868636057375624
+    },
+    {
+      "ground_truth": "Belle combinaison entre Youssef Msakni et Bryan Mbeumo sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Sur le terrain de Tunis, l'ambiance est électrique, les supporters tunisiens sont sur leur pied, prêts à soutenir leur équipe. À la 37e minute, c'est une action spectaculaire qui attire tous les regards. Le ballon est joué dans le milieu de terrain, et un joueur tunisien, rapide et habile, reçoit le ballon à la vitesse de l'éclair. Il se précipite vers la ligne de but, dépassant plusieurs défenseurs camerounais avec aisance. Avec une précision redoutable, il s'apprête à tirer face au gardien camerounais, mais avant qu'il ne puisse frapper, un défenseur camerounais parvient à interrompre son geste. C'est un moment de tension intense qui retient tous les regards. Les supporters tunisiens sont sur le point de s'extasier",
+      "token_accuracy": 0.3,
+      "bleu_score": 0.1452991452991453,
+      "logprob_loss": 0.7704182292959831
+    },
+    {
+      "ground_truth": "Mohamed Salah déborde sur le côté droit et centre en retrait pour Ellyes Skhiri, mais le ballon est contré par un défenseur.",
+      "prediction": "Dans cette minute cruciale du match Égypte contre Tunisie, le suspense est palpable. À la 83e minute, les égyptiens ont réussi à prendre l'avantage sur leur adversaire tunisien. Le ballon a été récupéré par le milieu égyptien qui a déclenché une offensive rapide. Il a été servi en profondeur vers le côté droit, où un attaquant égyptien a pu se libérer et prendre la décision d'un tir de précision. Le gardien tunisien a tenté de s'interposer mais le but est tombé dans le filet. Les Égyptiens célèbrent avec enthousiasme, tandis que les supporters tunisiens sont visiblement déçus. C'est un moment clé pour les Égyptiens qui cherchent à consolider leur avantage et à aller chercher la victoire. La pression est maintenant sur les",
+      "token_accuracy": 0.5238095238095238,
+      "bleu_score": 0.18032786885245902,
+      "logprob_loss": 0.7478496615723589
+    },
+    {
+      "ground_truth": "Ziyech tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, le match entre le Maroc et le Cameroun est en train de s'annoncer comme un affrontement intense. A seulement dix minutes de jeu, on observe déjà un jeu très disputé sur le terrain. Les Marocains sont bien en place défensivement, cherchant à contrôler le ballon et à créer des occasions de jeu. De leur côté, les Lions indomptables du Cameroun ne lâchent rien et tentent de se frayer un chemin vers l'ouverture du score.\n\nSur le terrain, les joueurs marocains semblent bien concentrés, mais aussi bien motivés. On voit notamment Yassine Bounou, le gardien marocain, intervenir avec efficacité pour arrêter les tirs adverses. Le jeu est rapide et les deux équipes cherchent à prendre l'avantage rapidement.\n\nLe Camer",
+      "token_accuracy": 0.26666666666666666,
+      "bleu_score": 0.13934426229508196,
+      "logprob_loss": 0.7396491646706648
+    },
+    {
+      "ground_truth": "Tacle par derrière de Alex Iwobi sur Omar Marmoush. Carton jaune logique pour le joueur de Nigeria.",
+      "prediction": "Dans cette CAN 2025, le Nigeria et l'Égypte s'affrontent dans une rencontre qui promet du feu. À la 29e minute, le ton est donné par un carton jaune pour le Nigeria. Le joueur égyptien, visiblement déterminé, a percuté violemment un défenseur nigérian, provoquant ainsi l'intervention du juge-arbitre. Ce geste n'est pas passé inaperçu et le carton jaune est tombé comme un plomb sur les joueurs égyptiens. La tension monte d'un cran dans ce match crucial. Les deux équipes doivent maintenant faire preuve de plus de prudence et de concentration pour éviter d'autres incidents. La CAN 2025 se joue à chaque détail et chaque action compte. Suivez-nous pour plus de détails sur ce match passionnant !",
+      "token_accuracy": 0.5625,
+      "bleu_score": 0.1826086956521739,
+      "logprob_loss": 0.7443878039635002
+    },
+    {
+      "ground_truth": "Algérie met la pression dans cette fin de première mi-temps. Islam Slimani sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Alors que l'Algérie tente de garder le rythme, c'est au Maroc qui prend les commandes du jeu. Avec une pression redoutable, les Lions du Nord ont réussi à dégager un corner à la minute 61'. Le ballon est récupéré par un joueur marocain qui se trouve dans une position privilégiée sur la droite. Il s'apprête à tirer, mais la défense algérienne reste vigilante. Les joueurs de l'équipe nationale algérienne sont concentrés pour éviter tout danger. C'est un moment crucial où le Maroc cherche à prendre l'avantage et à creuser l'écart. La tension monte d'un cran, tout le monde attend ce coup franc décisif.",
+      "token_accuracy": 0.3684210526315789,
+      "bleu_score": 0.13592233009708737,
+      "logprob_loss": 0.9245538277945129
+    },
+    {
+      "ground_truth": "Double changement pour Algérie. Riyad Mahrez cède sa place à Thomas Partey.",
+      "prediction": "Dans cette CAN 2025, l'Algérie et le Ghana se disputent une place en demi-finale. À la mi-temps, les deux équipes ont fait preuve d'un jeu intense et riche en occasions. \n\nAvec 65 minutes d'horloge, nous assistons à une substitution décisive dans le match. L'Algérie vient de faire entrer son attaquant vedette, qui a été particulièrement efficace lors des précédentes rencontres. Son entrée sur le terrain va sans aucun doute changer le cours du match.\n\nLe Ghana, quant à lui, doit faire face à ce changement tactique. Leur coach devra ajuster sa stratégie rapidement pour contrer l'impact de cet attaquant emblématique de l'Algérie. \n\nCette substitution pourrait bien être le catalyseur pour que l'une ou l'autre des équipes fasse la différence dans",
+      "token_accuracy": 0.4166666666666667,
+      "bleu_score": 0.075,
+      "logprob_loss": 0.7293951366222428
+    },
+    {
+      "ground_truth": "Quelle action collective! Mohamed Salah sert Bryan Mbeumo qui contrôle brillamment et ajuste le gardien d'un tir croisé. Cameroun mène désormais au score!",
+      "prediction": "Dans cette minute cruciale du match Cameroun contre Égypte, c'est un véritable moment d'émotion qui vient de se jouer. À la 81ème minute, un joueur camerounais a réussi l'exploit de marquer un but décisif. C'était une frappe puissante tirée au milieu de la surface, qui a trouvé le fond des filets égyptiens. Cette réalisation est un véritable coup de tonnerre dans la rencontre. Les supporters camerounais sont sur le point de crier leur joie, tandis que les joueurs de l'équipe nationale camerounaise s'embrassent en signe de victoire. Ce but change tout, il donne au Cameroun l'avantage nécessaire pour espérer une qualification historique pour les quarts de finale de la CAN 2025. Nous allons voir si ce score va être suffisant pour que le Cameroun puis",
+      "token_accuracy": 0.17391304347826086,
+      "bleu_score": 0.08,
+      "logprob_loss": 0.7908237062428293
+    },
+    {
+      "ground_truth": "Victor Osimhen, auteur d'un très bon match, délivre un centre tendu dans la surface. El-Kaabi ne parvient pas à reprendre le ballon.",
+      "prediction": "Dix minutes après le coup d'envoi, et le match entre le Nigeria et le Maroc est déjà très disputé. Le Nigeria, qui a commencé le match avec un fort rythme offensif, vient de prendre l'avantage sur le score grâce à une frappe puissante de l'attaquant Obafemi Martins. Le gardien marocain, Mohamed Aouar, n'a pas eu beaucoup à faire jusqu'à présent, mais il reste vigilant face à cette menace directe.\n\nLe Maroc, pour sa part, ne se laisse pas abattre. Ils ont réussi à contenir les attaques nigérianes pendant ce temps, et ils ont même réussi à créer quelques occasions intéressantes. L'un des joueurs marocains, Hakim Ziyech, a montré une grande habileté technique en dribblant plusieurs défenseurs avant de perdre la balle dans la surface. \n\nLe Nigeria continue",
+      "token_accuracy": 0.4090909090909091,
+      "bleu_score": 0.1889763779527559,
+      "logprob_loss": 0.8221147813502466
+    },
+    {
+      "ground_truth": "Mohamed Elneny déborde sur le côté droit et centre en retrait pour Thomas Partey, mais le ballon est contré par un défenseur.",
+      "prediction": "Sur le terrain de l'Égypte face au Ghana, nous sommes maintenant à la mi-temps et les équipes sont revenues sur le banc. En ce qui concerne l'Égypte, ils ont dominé la première période avec une prestation solide. Leur attaque a été particulièrement efficace, notamment grâce à la précision de leur passeur, Mohamed Salah.\n\nLe Ghana, bien qu'ayant montré de la résistance, semble avoir été dépassé par la puissance offensive égyptienne. Les joueurs ghanéens ont montré de la détermination, mais il est difficile de ne pas remarquer que les frappes de l'Égypte ont été plus nombreuses et plus précises.\n\nEn seconde mi-temps, les deux équipes doivent faire face à une nouvelle bataille. Les Égyptiens continueront probablement à chercher à marquer, tandis que les G",
+      "token_accuracy": 0.38095238095238093,
+      "bleu_score": 0.10569105691056911,
+      "logprob_loss": 0.8080132417785331
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Égypte. Mohamed Salah recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette minute cruciale du match Égypte contre l'Algérie, les deux équipes se disputent chaque ballon avec une intensité qui ne faiblit pas. À la 86ème minute, l'Algérie a le ballon dans son camp, et c'est un joueur algérien qui prend possession du ballon après un débordement sur le côté gauche. Il avance rapidement vers le milieu de terrain, cherchant à créer une action offensive. Les défenseurs égyptiens sont bien positionnés pour tenter d'intercepter ce passage, mais l'attaquant algérien semble avoir un bon soutien de ses coéquipiers. \n\nAlors que le temps s'épuise, l'Algérie continue d'attaquer sans relâche, cherchant à trouver l'ouverture. Les supporters algériens sont sur leurs pieds, encourageant leur équipe à aller jusqu'au",
+      "token_accuracy": 0.4117647058823529,
+      "bleu_score": 0.12280701754385964,
+      "logprob_loss": 0.7484233719944859
+    },
+    {
+      "ground_truth": "Wahbi Khazri délivre un centre appliqué sortant du pied gauche. Mohammed Kudus repousse de la tête.",
+      "prediction": "Dans les dernières minutes du match Tunisie contre le Ghana, l'engagement est palpable sur le terrain. Les deux équipes se disputent chaque balle comme si c'était leur dernier match. \n\nAvec 88 minutes écoulées, on assiste à une accélération dans les actions offensives. Les joueurs tunisiens cherchent à profiter du temps restant pour marquer un but décisif qui pourrait leur donner l'avantage. Leur pressing est intense, et ils tentent de déstabiliser le système défensif ghanéen.\n\nDe l'autre côté, le Ghana ne lâche rien. Ils continuent à pousser vers l'avant, espérant que leur vitesse et leur technique puissent trouver la faille dans la défense tunisienne. Les joueurs ghanéens sont déterminés à ne pas laisser la victoire échapper à leurs",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.06837606837606838,
+      "logprob_loss": 0.7246558090346593
+    },
+    {
+      "ground_truth": "Égypte met la pression dans cette fin de première mi-temps. Mohamed Elneny sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Dans ce match intense entre l'Égypte et le Mali, on assiste à une action spectaculaire dans les dernières minutes du premier acte. À la 22ème minute, l'Égypte a réussi à se créer une opportunité de taille ! Un centre venu de côté est parfaitement capturé par le milieu égyptien, qui a eu le réflexe d'envoyer un ballon croisé puissant vers la surface adverse.\n\nLe gardien malien, concentré jusqu'à l'ultime seconde, s'est penché sur son but pour tenter de détourner le danger. Cependant, malgré ses efforts, il n'a pas réussi à stopper le tir qui a frappé le montant droit du cadre. C'est un moment crucial pour l'Égypte qui pourrait bien décider du cours de cette rencontre. Le public égyptien s'agite et attend avec imp",
+      "token_accuracy": 0.42105263157894735,
+      "bleu_score": 0.16129032258064516,
+      "logprob_loss": 0.8543870504126494
+    },
+    {
+      "ground_truth": "Yves Bissouma tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, les deux équipes phares du continent se sont affrontées avec une intensité palpable. Au terme d'une première mi-temps qui a été lente sur le plan offensif, on assiste maintenant à un tournant décisif. \n\nAu 30e minute, c'est le Mali qui ouvre le score. Un centre venu de la droite est parfaitement dévié par un joueur malien, qui vient tromper le gardien nigérian sur une frappe croisée. Le public s'embrase, les supporters maliens se lèvent en chœur pour célébrer ce but crucial.\n\nLe Nigeria, qui était en possession du ballon, a manqué de réalisme dans ses occasions. Ils ont eu plusieurs opportunités de revenir dans le match, mais leur attaque n'a pas su exploiter ces situations. \n\nCe but donne un coup de",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.136,
+      "logprob_loss": 0.8813144746297258
+    },
+    {
+      "ground_truth": "But splendide de Mohammed Kudus! Sur un centre parfait de Salah-Eddine, il propulse sa tête au fond des filets.",
+      "prediction": "Dans cette CAN 2025, le Ghana et le Maroc se disputent une place en demi-finale. À la 37e minute, les étoiles africaines ont réussi à ouvrir le score ! C'est un but de toute beauté qui vient de l'arrière-garde marocaine. La défense ghanéenne a été particulièrement efficace dans ce moment-là, mettant en échec le jeu offensif marocain. Le Ghana a su tirer son épingle du jeu dès le début du match et cette première occasion est une preuve de leur détermination. Le public est déjà sur le bâton, les supporters ghanéens crient leur joie et espèrent que leur équipe continue sur cette lancée. Le Maroc, quant à lui, reste concentré et ne lâche rien. On attend maintenant la réaction des joueurs marocains et surtout, on esp",
+      "token_accuracy": 0.2777777777777778,
+      "bleu_score": 0.06349206349206349,
+      "logprob_loss": 0.8751549569362191
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Tunisie. Wahbi Khazri recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette minute cruciale du match Tunisie contre le Ghana, l'engagement est palpable sur le terrain. Les joueurs tunisiens continuent d'attaquer sans relâche, cherchant à marquer le but qui pourrait décider du match.\n\nSur le côté gauche, une passe précise de la défense tunisienne trouve son compère dans l'attaque. Il se dirige vers le milieu de terrain ghanéen, mais face à la pression intense, il manque un peu de précision. Le gardien ghanéen, concentré, parvient à se jeter et arrêter la balle.\n\nCependant, la pression ne faiblit pas. La Tunisie continue de pousser, cherchant à déjouer les défenses ghanéennes. Dans la foulée, un autre joueur tunisien s'avance, tentant une frappe lointaine. Mal",
+      "token_accuracy": 0.35294117647058826,
+      "bleu_score": 0.1875,
+      "logprob_loss": 0.7476471918191703
+    },
+    {
+      "ground_truth": "Ounahi, auteur d'un très bon match, délivre un centre tendu dans la surface. Kalidou Koulibaly ne parvient pas à reprendre le ballon.",
+      "prediction": "Dans cette ultime minute supplémentaire, les deux équipes sont toujours aussi engagées sur le terrain, cherchant à décrocher le dernier but qui pourrait leur offrir l'avantage décisif dans ce match serré. Le Maroc, malgré son avantage au score, continue de pousser sans relâche, tandis que le Sénégal, déterminé à ne pas laisser filer la victoire, défend avec fermeté. Les joueurs se donnent à fond, chaque action est une opportunité pour marquer, mais aussi pour éviter la concrétisation du but adverse.\n\nLe public, déjà électrisé par la tension, ne cesse d'applaudir et de crier pour soutenir ses joueurs respectifs. Les arbitres, eux, restent concentrés, prêts à intervenir si nécessaire pour maintenir l'intégrité de la rencontre.",
+      "token_accuracy": 0.2727272727272727,
+      "bleu_score": 0.15789473684210525,
+      "logprob_loss": 0.7777935235397438
+    },
+    {
+      "ground_truth": "Youssef Msakni tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, la Tunisie et l'Égypte se disputent une place en demi-finale. À la mi-temps, les deux équipes ont livré un match serré, mais c'est l'Égypte qui semble prendre l'avantage. \n\nA la 32ème minute, une incroyable opportunité pour les Egyptiens ! Le ballon est récupéré dans le milieu par un joueur égyptien, qui dribble habilement avant de passer un coup de pied croisé devant la surface. Il a réussi à tromper le gardien tunisien, mais malheureusement pour eux, son tir a été dévié par la défense tunisienne.\n\nC'est un moment clé du match, où l'Égypte tente de marquer un but crucial pour ouvrir l'écart. La Tunisie reste concentrée et bien organisée, mais elle doit être vigilante",
+      "token_accuracy": 0.4375,
+      "bleu_score": 0.1440677966101695,
+      "logprob_loss": 0.7873012693431292
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par Yves Bissouma. André Onana se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Sur la pelouse de l'Arabie Saoudite, dans le temps additionnel de la CAN 2025, le Mali et le Cameroun se disputent une bataille acharnée. A la minute 79', les deux équipes sont toujours sur le même niveau de jeu, mais c'est le Cameroun qui semble avoir le dessus. Les camerounais ont déjà marqué deux fois, et ils continuent d'attaquer sans relâche.\n\nLe ballon est maintenant aux pieds de Samuel Eto'o, l'ancien attaquant du FC Barcelone et de l'AS Monaco, qui a rejoint le Cameroun pour cette CAN. Il avance rapidement vers le milieu de terrain malien, cherchant à créer une opportunité pour son équipe. Ses coéquipiers, notamment Vincent Aboubakar et André Onana, sont à sa droite, prê",
+      "token_accuracy": 0.3333333333333333,
+      "bleu_score": 0.1282051282051282,
+      "logprob_loss": 0.7385889165481626
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par El-Kaabi. Zambo Anguissa se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Dans cette CAN 2025, le Maroc et le Cameroun se disputent une place en demi-finale. À la mi-temps, les deux équipes ont montré un jeu intense et bien engagé. \n\nAvec seulement 44 minutes d'action sur le terrain, le Maroc a commencé à prendre l'avantage. Leur attaque a été redoutable, notamment grâce à leur milieu de terrain qui a su délivrer des passes précises. En revanche, le Cameroun n'a pas encore répondu de manière convaincante.\n\nEn ce qui concerne le Maroc, ils ont réussi à créer plusieurs occasions de but. Leur gardien, bien qu'actif, a eu du mal à contenir les frappes de ses adversaires. Le Cameroun, quant à lui, semble être à la recherche de son premier but de la rencontre.\n\nLa tension est palpable dans",
+      "token_accuracy": 0.35,
+      "bleu_score": 0.15079365079365079,
+      "logprob_loss": 0.7730292760110592
+    },
+    {
+      "ground_truth": "Mohamed Elneny tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, l'Égypte et la Côte d'Ivoire se disputent une place en demi-finale. À la mi-temps, les deux équipes se sont livrées à un match serré. \n\nAvec seulement 53 minutes écoulées sur le terrain, on observe que les deux formations ont déjà joué à fond. L'Égypte, qui a pris l'avantage dès les premières minutes, continue de dominer le jeu. Leur attaque est bien organisée et elles ont réussi à créer plusieurs occasions de but.\n\nDe leur côté, les Ivoiriens ne se laissent pas abattre. Ils ont montré beaucoup de combativité et de détermination pour revenir dans le match. Leur milieu de terrain est particulièrement actif et ils tentent de trouver le chemin des filets par des passes précises.\n\nLe public est en ébullition et tous les",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.1171875,
+      "logprob_loss": 0.6881825858728325
+    },
+    {
+      "ground_truth": "Nicolas Pépé délivre une frappe enroulée du droit! Le ballon trompe le gardien et finit sa course au fond des filets. Côte d'Ivoire prend l'avantage!",
+      "prediction": "Dans les premières minutes du match Côte d'Ivoire contre Tunisie, les éléphants ont ouvert le score ! Après une phase de jeu très disputée, le ballon est tombé dans le camp tunisien. Un centre venu du côté droit a été dévié par une défenseure tunisienne, mais l'occasion était trop belle pour être laissée tomber. Une frappe croisée puissante de Gervinho a trouvé le petit filet de la gardienne tunisienne. Les supporters ivoiriens sont en liesse, tandis que les joueurs de la Tunisie cherchent à se remettre dans le match. C'est donc un but important pour les Ivoiriens qui prennent un bon départ dans cette CAN 2025. Suivez-nous pour plus de rebondissements !",
+      "token_accuracy": 0.2916666666666667,
+      "bleu_score": 0.125,
+      "logprob_loss": 0.7568251096927282
+    },
+    {
+      "ground_truth": "Riyad Mahrez délivre un centre appliqué sortant du pied gauche. Youssef Msakni repousse de la tête.",
+      "prediction": "Allez les fans algériens ! C'est la mi-temps et l'Algérie tient le cap face à la Tunisie. Les Fennecs ont su garder leur sérieux malgré les occasions de l'ennemi. A la mi-temps, ils sont à égalité 0-0, ce qui est déjà un bon signe pour eux. La pression est montée d'un cran pour les deux équipes, chacune cherchant à marquer avant la fin de la rencontre. Les joueurs algériens font preuve de détermination et de rigueur défensive, tandis que les Tunisiens continuent de chercher à trouver l'ouverture. Il reste encore quelques minutes pour que tout puisse se décider. Restez avec nous pour suivre l'évolution du match et n'oubliez pas de soutenir vos Fennecs !",
+      "token_accuracy": 0.25,
+      "bleu_score": 0.12280701754385964,
+      "logprob_loss": 0.8308989520698336
+    },
+    {
+      "ground_truth": "André Onana délivre un centre appliqué sortant du pied gauche. Wilfried Singo repousse de la tête.",
+      "prediction": "Dans cette CAN 2025, le match entre le Cameroun et la Côte d'Ivoire est toujours aussi intense. À la mi-temps, les deux équipes ont montré une grande qualité technique et une volonté de gagner. \n\nAvec seulement 49 minutes de jeu derrière nous, le Cameroun a réussi à prendre l'avantage dans ce match crucial. Leur attaque a été redoutable, avec plusieurs occasions claires de but. Le gardien ivoirien, bien qu'agréablement surpris, semble avoir fait preuve de sa solidité en rachetant plusieurs balles dangereuses.\n\nMaintenant, c'est au tour de la Côte d'Ivoire de revenir dans le match. Ils ont montré leur détermination à ne pas se laisser abattre et à chercher le retour à l'égalité. Leur milieu de terrain, avec son",
+      "token_accuracy": 0.125,
+      "bleu_score": 0.08403361344537816,
+      "logprob_loss": 0.742636750329932
+    },
+    {
+      "ground_truth": "Maroc met la pression dans cette fin de première mi-temps. Brahim Diaz sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Dans cette CAN 2025, le Maroc et l'Algérie se disputent une place en demi-finale. À la 16e minute, les deux équipes sont engagées dans un duel acharné. Les Marocains cherchent à prendre le dessus sur leur adversaire algérien, mais les défenseurs algériens sont bien positionnés et ne laissent pas passer d'occasions claires.\n\nD'un côté, l'attaquant marocain, connu pour sa vitesse et son adresse devant le but, s'efforce de créer un espace pour ses coéquipiers. De l'autre, la défense algérienne, solide et disciplinée, tente de contenir les avances marocaines. Le ballon circule rapidement entre les joueurs, chacun cherchant à déjouer l'opposition adverse.\n\nLe public est tendu",
+      "token_accuracy": 0.47368421052631576,
+      "bleu_score": 0.1619047619047619,
+      "logprob_loss": 0.6471851026630497
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Dans cette minute 55', le Sénégal continue de peser sur les épaules de l'Égypte. Les Lions du Sénégal ont réussi à maintenir leur domination sur le terrain, avec une pression constante qui semble avoir effrayé les défenseurs égyptiens. Le ballon circule rapidement entre les joueurs sénégalais, créant des occasions claires de but. \n\nLes Égyptiens, quant à eux, semblent être sous pression. Leur gardien, toujours vigilant, a déjà sorti plusieurs balles dangereuses de près. Cependant, malgré leurs efforts pour contenir le jeu rapide et offensif du Sénégal, ils semblent avoir du mal à se dégager de la pression. \n\nLe public est sur les nerfs, attendu que ce soit le quart de finale de la CAN 2025. Les deux équipes sont bien",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.21666666666666667,
+      "logprob_loss": 0.79799503338676
+    },
+    {
+      "ground_truth": "Sébastien Haller, auteur d'un très bon match, délivre un centre tendu dans la surface. Ademola Lookman ne parvient pas à reprendre le ballon.",
+      "prediction": "Sur le terrain de Cotonou, en pleine tension, les éléphants de Côte d'Ivoire ont lancé le match avec une offensive vigoureuse contre les Super Eagles du Nigeria. À seulement neuf minutes de jeu, les Ivoiriens ont déjà mis la pression sur le camp adverse. \n\nDésormais, les joueurs nigérians sont bien conscients qu'ils doivent faire preuve de vigilance si ils veulent éviter un but rapide. Les attaquants côte-d'ivoiriens, sous le regard attentif de leur public, cherchent à exploiter les espaces laissés par la défense nigériane. Le ballon est en possession de Tiémoué Bakayoko qui, avec sa vitesse et son adresse, tente de trouver un partenaire dans la surface.\n\nLes supporters des deux équipes sont sur le bord des fauteuils, les nerfs tendus,",
+      "token_accuracy": 0.2608695652173913,
+      "bleu_score": 0.12396694214876033,
+      "logprob_loss": 0.8320759312055589
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Algérie. Riyad Mahrez recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Alors que l'Algérie tente d'inscrire son premier but, la Tunisie se montre solide défensivement. Les algériens ont bien eu le ballon mais ne parviennent pas à créer de véritable menace. La pression est intense sur les joueurs algériens qui doivent se montrer plus efficaces dans les derniers mètres. Tunisie, elle, reste très compacte et refuse de céder le ballon à ses adversaires. Le temps presse pour les algériens qui cherchent à prendre l'avantage avant la fin du match. Les supporters algériens sont impatients de voir leur équipe marquer, mais pour l'instant, c'est une partie serrée qui se joue.",
+      "token_accuracy": 0.47058823529411764,
+      "bleu_score": 0.16326530612244897,
+      "logprob_loss": 0.8232308479211881
+    },
+    {
+      "ground_truth": "Mohammed Kudus accroche Wilfred Ndidi de manière irrégulière et se fait rappeler à l'ordre par l'arbitre. Carton jaune mérité.",
+      "prediction": "Sur la ligne de milieu, un coup de pied arrêté est joué par le Ghana. Le ballon rebondit sur le côté droit du terrain et arrive dans les pieds d'un joueur nigérian. Il s'agit d'un joueur très rapide qui avance vers la surface de réparation. En luttant pour le contrôle du ballon, il se fait prendre de dos par un défenseur ghanéen. Le contact est brutal et le joueur nigérian est projeté en arrière. Il semble qu'il ait reçu une faute assez claire. Les arbitres sont rapidement sur place et décident de montrer un carton jaune à l'attaquant nigérian. C'est une décision qui ne devrait pas être contestée, car il y avait un contact direct avec le défenseur. Le Ghana, qui était déjà en difficulté, va devoir faire face à un joueur en moins jusqu'à la fin du",
+      "token_accuracy": 0.42105263157894735,
+      "bleu_score": 0.11594202898550725,
+      "logprob_loss": 0.8991752484232529
+    },
+    {
+      "ground_truth": "Cameroun met la pression dans cette fin de première mi-temps. Vincent Aboubakar sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Voici un exemple de commentaire pour la CAN 2025 entre le Cameroun et le Sénégal :\n\n---\n\n**Commentaire :** À la troisième minute du match, les Camerounais font preuve d'une grande détermination dès le coup d'envoi. Leur jeu est rapide et bien orchestré, ce qui met en difficulté la défense sénégalaise. Les joueurs camerounais sont particulièrement agressifs dans leur pressing, cherchant à prendre rapidement le contrôle du ballon. Le Sénégal, quant à lui, semble un peu mal à l'aise dans cette phase initiale du match. La pression camerounaise est constante, et on peut déjà sentir que les Lions de la Teranga chercheront à se repositionner rapidement pour trouver leur rythme. Il faudra voir comment le coach sénégalais réagit à cette attaque rapide et efficace des Lions Indom",
+      "token_accuracy": 0.42105263157894735,
+      "bleu_score": 0.15748031496062992,
+      "logprob_loss": 0.762149733032926
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Sur le terrain, les joueurs tunisiens continuent leur combat acharné face aux Maliens. A la minute 77', la pression est palpable sur les deux camps. Les Tunisiens cherchent à creuser l'écart, tandis que les Maliens ne lâchent rien et continuent d'attaquer sans relâche.\n\nSur le côté droit du terrain, une passe longue de l'attaquant tunisien arrive dans la surface malienne. Le défenseur malien se précipite pour tenter de récupérer le ballon, mais le milieu de terrain tunisien, habile et rapide, parvient à dégager vers l'avant. Une frappe croisée s'élance vers le but malien, mais le gardien malien est bien placé et parvient à bloquer le tir.\n\nLa tension monte d'un cran. Les supporters tunisiens sont sur",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.1896551724137931,
+      "logprob_loss": 0.6918332016458316
+    },
+    {
+      "ground_truth": "Wilfred Ndidi tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Sur le terrain de l'Étoile du Nord, au cœur de la CAN 2025, les Nigérians ont réussi à tenir tête aux Marocains. À la mi-temps, le score est toujours indécis, mais c'est le Maroc qui semble avoir le dessus. \n\nAu 50e minute, les choses commencent à se clarifier. Un centre venu de côté est capté par un joueur marocain, qui s'empare du ballon avec adresse et déclenche une action offensive rapide. Les défenseurs nigérians sont bien positionnés, mais ils ne parviennent pas à stopper l'attaquant marocain qui, malgré quelques pertes de balle, parvient à garder le contrôle du ballon.\n\nLes supporters marocains sont dans tous leurs états, criant à la victoire. Le match est serré, et chaque é",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.15254237288135594,
+      "logprob_loss": 0.8714508903443857
+    },
+    {
+      "ground_truth": "Algérie met la pression dans cette fin de première mi-temps. Youcef Belaïli sollicite beaucoup le ballon sur son aile.",
+      "prediction": "Allez les algériens ! À la minute 82', l'Algérie tient le rythme face au Mali. Les joueurs algériens sont toujours aussi solides dans leur défense, mais c'est surtout leur offensive qui attire l'attention. Le ballon circule rapidement entre les pieds des attaquants algériens, cherchant à dénouer les lignes maliennes. Le milieu de terrain algérien, particulièrement aguerri, tente de créer une opportunité pour son équipe. Il faut dire que l'Algérie a été très disciplinée jusqu'à présent, ce qui pourrait être un atout décisif dans cette phase finale de la CAN 2025. Les supporters algériens sont en liesse, ils savent que chaque seconde compte. Reste à voir si les joueurs algériens parviendront à inscrire un but avant la fin du match",
+      "token_accuracy": 0.42105263157894735,
+      "bleu_score": 0.12605042016806722,
+      "logprob_loss": 0.7826051572225845
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Dans la CAN 2025, le match entre le Maroc et le Nigeria est en train de se révéler passionnant. À la 29e minute, les Marocains ont réussi à prendre l'avantage sur le score. Le ballon est passé parmi les jambes de plusieurs défenseurs nigérians, avant d'être dévié par un joueur marocain qui a tiré de loin. Le gardien nigérian n'a pas pu stopper le coup franc, et le ballon a trouvé le fond des filets. Les supporters marocains sont en liesse, tandis que ceux du Nigeria commencent à se demander où ils ont pu se tromper. Ce but ouvre la voie à une rencontre prometteuse, où les deux équipes vont tenter de marquer encore plus de points. Restez bien à l'écoute pour suivre cette rencontre captivante !",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.2204724409448819,
+      "logprob_loss": 0.730950066418237
+    },
+    {
+      "ground_truth": "Jordan Ayew déborde sur le côté droit et centre en retrait pour Ademola Lookman, mais le ballon est contré par un défenseur.",
+      "prediction": "Dans cette CAN 2025, le Ghana et le Nigeria se disputent une place en demi-finale. À la vingt-septième minute du match, les deux équipes sont engagées dans un duel acharné sur le terrain. Les Ghanéens, qui ont commencé la partie avec beaucoup d'ambition, cherchent à créer des occasions de but. Leur milieu de terrain, très dynamique, tente de percer la défense nigériane, mais les défenseurs nigérians restent vigilants.\n\nDe son côté, le Nigeria, malgré sa réputation de force offensive, semble un peu moins en confiance aujourd'hui. Le capitaine du Nigeria, avec son numéro 10, est particulièrement impliqué, mais il semble que la pression de la rencontre commence à peser sur ses épaules. Le jeu est serré, les joueurs sont concentrés, et chaque action compte",
+      "token_accuracy": 0.3333333333333333,
+      "bleu_score": 0.14516129032258066,
+      "logprob_loss": 0.7544481720853378
+    },
+    {
+      "ground_truth": "Kalidou Koulibaly est remplacé par Wilfred Ndidi. Ovationné par l'enceinte, il quitte le terrain après une belle prestation.",
+      "prediction": "Dans cette CAN 2025, le Sénégal et le Nigeria se disputent un duel intense sur le terrain. À la mi-temps, les deux équipes ont montré une intensité déconcertante, mais c'est au moment précis de la minute 57' que le jeu s'annonce décisif.\n\nC'est donc à ce moment-là qu'intervient une substitution majeure pour le Sénégal. Le capitaine du Sénégal, Sadio Mané, qui a été l'un des artisans de la victoire contre l'Algérie, est remplacé par Ousmane Dembélé. Ce dernier, connu pour son talent offensif et sa vitesse, est entré en jeu avec l'objectif de pousser le Sénégal vers un nouveau but.\n\nLe Nigeria, quant à lui, a également effectué une substitution. En remplaçant leur attaquant principal,",
+      "token_accuracy": 0.29411764705882354,
+      "bleu_score": 0.13043478260869565,
+      "logprob_loss": 0.740665806497941
+    },
+    {
+      "ground_truth": "Trezeguet tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Sur le terrain de l'Égypte, les équipes sont déjà engagées dans une rencontre intense. À la dixième minute du match contre l'Algérie, on observe une belle offensive égyptienne. Le ballon est en possession de l'Égypte qui a réussi à dégager un corner. Les joueurs algériens ont bien défendu cette situation, mais l'Égypte a su profiter de l'occasion. Nous pouvons voir Mohamed Salah qui se trouve dans une position intéressante sur le côté gauche du terrain. Il semble être prêt à recevoir le ballon et à prendre l'initiative. C'est là que l'on peut noter la qualité technique et la fluidité de jeu des joueurs égyptiens. Alors que l'Algérie tente de contenir, l'Égypte continue à chercher à créer des occasions. Ce sera intéressant de voir comment les deux équ",
+      "token_accuracy": 0.4666666666666667,
+      "bleu_score": 0.16535433070866143,
+      "logprob_loss": 0.894222683629248
+    },
+    {
+      "ground_truth": "Belle combinaison entre André Onana et Islam Slimani sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Dès le coup d'envoi, les Camerounais ont pris l'initiative. Le ballon est rapidement passé du côté droit, où le défenseur algérien se retrouve sous pression. Le milieu camerounais, habile, cherche à dégager et trouve son coéquipier en profondeur. C'est là que le jeu s'emballe ! Un dribble expert, une passe décisive, et le ballon est dans les pieds de l'attaquant camerounais. Il est temps de voir si le gardien algérien parviendra à stopper ce mouvement. Les Camerounais commencent à prendre l'ascendant sur leur adversaire, et c'est une belle occasion qui se dessine. La CAN 2025 commence fort pour le Cameroun !",
+      "token_accuracy": 0.35,
+      "bleu_score": 0.18811881188118812,
+      "logprob_loss": 0.8385185736645138
+    },
+    {
+      "ground_truth": "But splendide de Moussa Djenepo! Sur un centre parfait de Pape Matar Sarr, il propulse sa tête au fond des filets.",
+      "prediction": "Dans cette CAN 2025, le suspense est palpable entre le Mali et le Sénégal. À la minute 81', le score est toujours serré. Le Mali, qui a été très solide défensivement tout au long du match, vient de marquer son deuxième but de la soirée. C'est un but d'importance car il permet aux Aigles de l'Afrique de prendre l'avantage sur les Lions du Sénégal dans ce choc africain. Les spectateurs sont maintenant sur la pointe des pieds, attendant la réaction des Lions. Le Sénégal, malgré une légère déception, reste concentré et ne lâche rien. Il y a encore beaucoup de temps à jouer, mais ce but change radicalement la donne. Le Mali peut maintenant se concentrer sur la gestion du temps restant pour maintenir son avantage. Ce sera un match décisif, et nous all",
+      "token_accuracy": 0.35,
+      "bleu_score": 0.13432835820895522,
+      "logprob_loss": 0.8446445145000269
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Dans les vestiaires de l'Estuaire, le suspense est palpable. À la mi-temps, les Égyptiens ont réussi à prendre l'avantage sur la Côte d'Ivoire, mais la réaction des éléphants n'est pas à son heure. Minute 69', et voici le coup franc de notre capitaine, Gervinho. Il s'élance vers la surface, laissant derrière lui une défense égyptienne bien organisée. Avec une précision redoutable, il frappe du droit, et le ballon vient toucher le poteau droit. Un moment de folie pour les supporters ivoiriens qui espèrent toujours voir leur équipe revenir dans le match. La pression monte, et l'arbitre avertit les joueurs de ne pas commettre de fautes. Les deux équipes sont à égalité, et chaque action compte.",
+      "token_accuracy": 0.42857142857142855,
+      "bleu_score": 0.1826086956521739,
+      "logprob_loss": 0.8944893464904021
+    },
+    {
+      "ground_truth": "Corner exécuté côté gauche par Yves Bissouma. Jordan Ayew se signale avec une reprise de volée qui passe à côté du cadre.",
+      "prediction": "Dans cette minute 78', le rythme du match entre le Mali et le Ghana est toujours aussi intense. Le Mali, qui a été très agressif tout au long de la partie, continue de chercher l'ouverture du score. Les joueurs malins ont réussi à maintenir une pression constante sur le camp ghanéen, mais les défenseurs ghanéens ont montré une solidité remarquable.\n\nLe Ghana, de son côté, a bien réussi à contenir les attaques maliennes, mais il n'a pas encore réussi à créer d'occasions significatives. Cependant, on peut noter que les Ghanéens sont bien organisés et ont bien utilisé leur possession du ballon pour contrôler le jeu.\n\nLe temps presse pour les deux équipes. Le Mali, qui compte déjà un but d'avance, a besoin de marquer rapidement pour s'assurer",
+      "token_accuracy": 0.23809523809523808,
+      "bleu_score": 0.11023622047244094,
+      "logprob_loss": 0.7539399588589805
+    },
+    {
+      "ground_truth": "Mohammed Kudus tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette minute supplémentaire, le temps semble s'écouler à un rythme accéléré sur le terrain de la CAN 2025. Ghana et Mali sont toujours sur le même pied d'égalité, avec une rencontre qui se déroule dans une ambiance électrique. Les joueurs de chaque équipe semblent déterminés à ne pas laisser l'adversaire prendre l'avantage.\n\nLe Ghana a réussi à maintenir son équilibre défensif, tandis que les attaquants maliens cherchent à débloquer le score. Le milieu de terrain ghanéen, particulièrement actif, tente de contrôler le jeu et de créer des espaces pour ses coéquipiers.\n\nEn face, le milieu de terrain malien, lui aussi très solide, cherche à relancer l'attaque en passant le ballon rapidement entre ses lignes. C'est une b",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.17796610169491525,
+      "logprob_loss": 0.7771870255539807
+    },
+    {
+      "ground_truth": "Amadou Haidara tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette minute supplémentaire, les deux équipes continuent d'affronter avec une intensité qui ne faiblit pas. Le Mali, malgré sa domination dans les premières minutes, semble avoir tiré son épingle du jeu et maintient une pression constante sur le Sénégal. Les Sénégalais, quant à eux, n'ont pas lâché prise et continuent de chercher l'égalisation. L'arbitre a donné l'occasion à chaque équipe de marquer, mais jusqu'à présent, le score reste inchangé. Les deux formations ont montré une grande qualité technique et tactique, ce qui promet une finale très disputée. En attendant la fin du temps additionnel, tout est encore possible. Le suspense est palpable et les supporters des deux pays sont sur le bord de leurs sièges.",
+      "token_accuracy": 0.3125,
+      "bleu_score": 0.12931034482758622,
+      "logprob_loss": 0.7732059997326927
+    },
+    {
+      "ground_truth": "Belle combinaison entre Franck Kessié et Youcef Belaïli sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Sur le terrain de la CAN 2025, en cette minute 65', l'action est toujours aussi intense entre les deux équipes emblématiques de Côte d'Ivoire et d'Algérie. Les deux formations sont engagées dans une bataille acharnée pour le contrôle du ballon.\n\nCôte d'Ivoire, menée par le talent de ses joueurs comme Jonathan Kodjia ou encore Wilfried Bony, continue de chercher les occasions de marquer. Leur jeu offensif est bien construit, mais ils doivent faire face à une défense algérienne solide qui ne lâche rien.\n\nD'un autre côté, l'Algérie, avec son capitaine Nabil Bentaleb au centre du terrain, maintient une pression constante sur les attaquants ivoiriens. La défense algérienne, menée par le milieu de terrain Ahmed Zemmama,",
+      "token_accuracy": 0.4,
+      "bleu_score": 0.1391304347826087,
+      "logprob_loss": 0.6964724627430564
+    },
+    {
+      "ground_truth": "But contre son camp! Sur un centre tendu de Hannibal Mejbri, le défenseur adverse dévie malencontreusement le ballon dans ses propres filets.",
+      "prediction": "Dans cette ultime minute supplémentaire, la tension monte d'un cran sur le stade. Tunisie contre Algérie, deux équipes qui se connaissent bien et qui savent que chaque point compte. Les joueurs algériens sont particulièrement déterminés à ne pas laisser filer les trois points. \n\nSur une frappe croisée de la gauche, l'Algérie parvient à faire mouvement. La défense tunisienne est pressante mais ne parvient pas à stopper le ballon qui se dirige vers la surface. Le gardien tunisien, concentré, sort du but pour arracher le ballon au milieu de la surface.\n\nC'est alors que surgit un joueur algérien qui profite de l'erreur défensive de la défense tunisienne. Il reçoit le ballon dans la surface et, sans hésitation, vient planter le ballon dans le filet",
+      "token_accuracy": 0.38095238095238093,
+      "bleu_score": 0.18699186991869918,
+      "logprob_loss": 0.8384845930350895
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Maroc. Ounahi recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette CAN 2025, le match Maroc vs Sénégal est en train de se jouer à un rythme soutenu. À la 36e minute, les deux équipes sont engagées dans une lutte acharnée sur le terrain. Les Marocains ont bien réussi à prendre l'ascendant sur le début de partie, avec des passes précises et des attaques rapides. Leur milieu de terrain semble particulièrement actif, cherchant à dénouer les défenses adverses.\n\nDu côté sénégalais, ils ne lâchent rien. Le capitaine Aliou Cissé, toujours aussi déterminé, cherche à réduire le rythme marocain avec des passes longues et des positions bien placées. Les deux équipes semblent être sur le même niveau de jeu, ce qui promet un match très disputé.\n\nÀ noter que le temps",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.14049586776859505,
+      "logprob_loss": 0.752170260435098
+    },
+    {
+      "ground_truth": "Belle combinaison entre Jordan Ayew et Wilfried Singo sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Dans la CAN 2025, nous sommes maintenant à la minute 29 du match Ghana contre la Côte d'Ivoire. Les deux équipes sont engagées dans une bataille acharnée sur le terrain. Le Ghana, qui joue avec l'ambition de remporter son premier titre continental, est bien décidé à prendre l'initiative. Ils ont déjà réussi à mettre en difficulté la défense ivoirienne, qui a été tenue à distance par les frappes précises de leur attaque.\n\nAu contraire, la Côte d'Ivoire, bien que moins visible dans ce moment-là, semble avoir des intentions de faire basculer le match à son avantage. Leur milieu de terrain, connu pour sa rapidité et sa technique, est en train de chercher des espaces pour délivrer des passes décisives vers les ailiers.\n\nLe public est captivé par",
+      "token_accuracy": 0.35,
+      "bleu_score": 0.13385826771653545,
+      "logprob_loss": 0.838654896426873
+    },
+    {
+      "ground_truth": "Ademola Lookman est remplacé par Bryan Mbeumo. Ovationné par l'enceinte, il quitte le terrain après une belle prestation.",
+      "prediction": "Sur le terrain, l'engagement est toujours aussi intense entre les deux équipes. A la minute 78', on assiste à une substitution majeure sur le côté camerounais. Le capitaine du Cameroun, Samuel Eto'o, qui a donné tout son sang au match depuis le début, sort du terrain pour laisser sa place à un jeune espoir, Moussa Mbaye. Cette décision tactique semble être une réponse directe à l'attaque vigoureuse du Nigeria, qui a constamment cherché à déborder sur le flanc droit camerounais. On espère que cette entrée de Mbaye va redonner un peu de fraîcheur et de dynamisme à l'équipe camerounaise, qui a besoin de renouvellement après une longue partie. Restera-t-il suffisamment de temps pour que Moussa Mbaye fasse la différence ? C'est ce que",
+      "token_accuracy": 0.29411764705882354,
+      "bleu_score": 0.08943089430894309,
+      "logprob_loss": 0.7499344560555983
+    },
+    {
+      "ground_truth": "Wilfred Ndidi tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, le match entre le Nigeria et l'Égypte est en train de se jouer avec une tension palpable sur le terrain. À la 22e minute, les deux équipes sont engagées dans un jeu acharné, chaque ballon gagné est un point de départ pour une offensive.\n\nLe Nigeria, mené par ses attaquants rapides et agiles, tente de créer des espaces face à la défense rigide des Égyptiens. Leur milieu de terrain, avec sa capacité à distribuer rapidement, essaie de déstabiliser le camp adverse.\n\nDe son côté, l'Égypte, qui compte sur sa solidité défensive, cherche à contenir les offensives nigérianes tout en cherchant à profiter de leurs erreurs pour trouver le chemin des filets. Le gardien égyptien est particulièrement vigilant, prêt à sortir du",
+      "token_accuracy": 0.4375,
+      "bleu_score": 0.168,
+      "logprob_loss": 0.7262741723785779
+    },
+    {
+      "ground_truth": "Islam Slimani délivre un centre appliqué sortant du pied gauche. Amadou Haidara repousse de la tête.",
+      "prediction": "Sur la pelouse de la CAN 2025, l'Algérie et le Mali se disputent une place en demi-finale. À la mi-temps, les deux équipes ont montré des visages contrastés, mais c'est l'Algérie qui a su garder le contrôle du jeu. \n\nMaintenant, à la minute 72', l'Algérie est toujours en possession du ballon et semble bien positionnée pour prolonger son avantage. Les joueurs algériens ont réussi à créer quelques occasions de but, malgré la résistance du Mali.\n\nLe temps presse pour les deux équipes, chaque seconde compte dans cette phase finale de la compétition. Les supporters sont sur le bord de la pelouse, les nerfs tendus, attendant avec impatience ce qui va se passer à la suite de cette action.",
+      "token_accuracy": 0.1875,
+      "bleu_score": 0.13559322033898305,
+      "logprob_loss": 0.7740493034100463
+    },
+    {
+      "ground_truth": "Nicolas Jackson déborde sur le côté droit et centre en retrait pour Franck Kessié, mais le ballon est contré par un défenseur.",
+      "prediction": "Dans cette minute 64', le Sénégal continue de montrer une domination claire sur le terrain face à la Côte d'Ivoire. Les Lions du Sénégal ont bien géré la balle, créant plusieurs occasions de jeu. Leur attaque est redoutable, et leur milieu de terrain est particulièrement efficace dans l'organisation de la possession.\n\nEn face, les éléphants de Côte d'Ivoire semblent avoir perdu leur élan offensif. Ils sont moins présents dans le milieu de terrain et manquent de fluidité dans leurs transitions défensives. Le capitaine de la Côte d'Ivoire, Didier Drogba, semble être sous pression et cherche à stabiliser la situation dans son camp.\n\nLe public sénégalais est en liesse, applaudissant chaque action de ses joueurs. Il y a une ambiance électrique dans le stade, reflétant l'eng",
+      "token_accuracy": 0.23809523809523808,
+      "bleu_score": 0.12,
+      "logprob_loss": 0.8449707253481574
+    },
+    {
+      "ground_truth": "Le rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain.",
+      "prediction": "Alors que le temps presse, les deux équipes se disputent chaque ballon avec une intensité croissante. À la minute 84', l'Égypte parvient à dégager un corner de manière précise au milieu du terrain. Le Nigeria, toujours en quête de l'égalisation, se montre vigoureux dans la défense, mais aussi dans la transition offensive. Les joueurs nigérians sont particulièrement actifs sur le côté droit, cherchant à créer un espace pour leur attaque. La pression est palpable, chacun espérant marquer avant la fin du match. Les supporters des deux camps sont sur le point de s'enflammer encore plus, l'ambiance est électrique. Reste à voir si l'un ou l'autre équipe parviendra à inscrire le but qui pourrait décider de ce quart de finale crucial.",
+      "token_accuracy": 0.7142857142857143,
+      "bleu_score": 0.21666666666666667,
+      "logprob_loss": 0.84175661731976
+    },
+    {
+      "ground_truth": "Ziyech tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Sur le terrain de l'Estuaire, les Marocains ont bien tenu la main face aux Ivoiriens. A la 29ème minute, nous assistons à un coup franc direct du milieu marocain qui se retrouve dans une position délicate. Il semble être en train de prendre son temps, cherchant à trouver un passeur pour mettre la pression sur le gardien ivoirien. Les défenseurs marocains sont bien placés, prêts à intercepter si le ballon est mal placé. Les supporters marocains sont sur leurs appuis, attendant avec impatience ce que va faire leur équipe. Les Ivoiriens, quant à eux, semblent concentrés et attendent leur chance pour counter-attaquer. La tension monte, tout le monde sait que chaque minute compte dans cette CAN 2025.",
+      "token_accuracy": 0.4,
+      "bleu_score": 0.1111111111111111,
+      "logprob_loss": 0.9153721619624424
+    },
+    {
+      "ground_truth": "Le ballon circule bien dans le camp de Côte d'Ivoire. Franck Kessié recherche la profondeur mais le hors-jeu est signalé.",
+      "prediction": "Dans cette minute supplémentaire, les deux équipes sont toujours aussi engagées dans le match. La Côte d'Ivoire, qui a dominé la première mi-temps, continue de presser sur l'adversaire tunisien. Les défenseurs tunisiens sont bien positionnés, mais il semble qu'ils ne parviennent pas à contenir l'offensive rapide et précise des Ivoiriens.\n\nSur le côté droit, nous voyons un joueur ivoirien prendre l'initiative, cherchant à dépasser le milieu tunisien. Il y a une tension palpable sur le terrain, chaque mouvement est observé attentivement par les supporters des deux camps.\n\nLa Tunisie, quant à elle, essaie de reprendre le contrôle du jeu. Ils ont réussi à récupérer le ballon et tentent de mener l'attaque vers la droite. Leur milieu de terrain",
+      "token_accuracy": 0.5,
+      "bleu_score": 0.17796610169491525,
+      "logprob_loss": 0.8180895894022524
+    },
+    {
+      "ground_truth": "Belle combinaison entre Nicolas Pépé et Jordan Ayew sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Sur le terrain de l'Étoile Sportive d'Abidjan, les choses se compliquent pour les Ghanéens. A la 33ème minute, une passe décisive de Tiémoué Bakayoko trouve Sekou Koïta dans la surface, et le milieu de terrain ivoirien ne rate pas son coup. Il adresse un tir puissant qui rebondit sur le gardien ghanéen, avant de trouver le fond des filets. C'est un 1-0 pour la Côte d'Ivoire ! Les Ghanéens sont sous pression et doivent absolument réagir rapidement s'ils veulent éviter une humiliation. Le match est ouvert et tout peut encore arriver. On suivra de près les évolutions de ce duel entre les deux équipes africaines.",
+      "token_accuracy": 0.3,
+      "bleu_score": 0.14285714285714285,
+      "logprob_loss": 0.8642242288922174
+    },
+    {
+      "ground_truth": "Belle combinaison entre Nicolas Pépé et Trezeguet sur le flanc droit. Le ballon est finalement récupéré par la défense adverse.",
+      "prediction": "Sur le terrain de l'Égypte, les éléphants de Côte d'Ivoire ont réussi à égaliser à la mi-temps grâce à une frappe puissante de Koffi Djidji. Le gardien égyptien, Mohamed El-Shenawy, a été particulièrement sollicité dans les dernières minutes, mais il a réussi à contenir les attaques coteviroises. Les deux équipes sont maintenant sur un pied d'égalité au score, 1-1, ce qui promet une seconde mi-temps intense. Les supporters des deux camps sont déjà sur le point de se relancer dans le match, espérant que leur équipe puisse décrocher la victoire. À suivre !",
+      "token_accuracy": 0.15789473684210525,
+      "bleu_score": 0.0967741935483871,
+      "logprob_loss": 0.7824209655262626
+    },
+    {
+      "ground_truth": "Amadou Haidara tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale.",
+      "prediction": "Dans cette CAN 2025, le Mali est en train de faire face à une équipe sénégalaise qui a l'habitude de jouer à son aise sur le continent. À la 14e minute, les deux équipes se disputent le ballon au milieu du terrain. Les Sénégalais semblent avoir le contrôle du jeu, leur pression est constante et ils cherchent à dégager rapidement vers l'avant. Le Mali, quant à lui, essaie de contenir ce mouvement rapide et de créer ses propres opportunités défensives.\n\nLe ballon est maintenant dans les pieds d'un joueur sénégalais, qui semble prendre son temps avant de décider de son action suivante. Il a le temps de réfléchir, mais aussi de voir que le défenseur malien est bien positionné. Il choisit alors de passer le ballon en retrait,",
+      "token_accuracy": 0.375,
+      "bleu_score": 0.1953125,
+      "logprob_loss": 0.7981675382552339
+    },
+    {
+      "ground_truth": "Kalidou Koulibaly déborde sur le côté droit et centre en retrait pour Bryan Mbeumo, mais le ballon est contré par un défenseur.",
+      "prediction": "Sur le terrain de la CAN 2025, Sénégal et Cameroun s'affrontent dans une rencontre qui promet d'être intense. Au terme de la première moitié du match, les deux équipes ont montré une grande qualité technique et tactique.\n\nAvec 30 minutes déjà écoulées, le Sénégal a pris l'avantage sur le score grâce à une frappe puissante de Sadio Mané au milieu du terrain. Le but est tombé comme un tonnerre dans le camp camerounais, mettant fin à une longue période où les deux formations se sont contentées de tirer leur épingle du jeu.\n\nLe Cameroun, malgré son équipe étant moins connue que celle du Sénégal, ne lâche rien. Leur attaque, menée par Samuel Eto'o, continue de chercher à dégager des espaces. Il faudra donc",
+      "token_accuracy": 0.2857142857142857,
+      "bleu_score": 0.10569105691056911,
+      "logprob_loss": 0.8283621875559493
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "test_date": "2025-12-27T00:38:39.794260",
+  "base_model": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "adapter_path": "/workspace/fine-tuning/outputs/afrique-v1",
+  "events": [
+    {
+      "minute": "1'",
+      "type": "kickoff",
+      "description": "Tunisie vs Ghana",
+      "prompt": "Génère un commentaire pour: Minute 1' - kickoff - Tunisie vs Ghana",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 1' - kickoff - Tunisie vs Ghana\nassistant\nSur l'heure précise du coup d'envoi, tout le stade s'anime sous les projecteurs éclatants de la CAN 2025. Les joueurs tunisiens et ghanéens sont prêts, les nerfs tendus mais la détermination palpable. Le capitaine des deux équipes est aux premiers rangs, cérémonieux dans son geste, avant que le sifflet ne retentisse.\n\nLe ballon roule alors vers la ligne médiane, le public est sur ses cordes. Les deux sélections attendent ce premier échange de frappes comme on attend une révélation. La Tunisie, favori historique",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 1' - kickoff - Tunisie vs Ghana\nassistant\nBelle combinaison entre Youssef Msakni et Thomas Partey sur le flanc droit. Le ballon est finalement récupéré par la défense adverse."
+    },
+    {
+      "minute": "5'",
+      "type": "commentary",
+      "description": "Tunisie attaque",
+      "prompt": "Génère un commentaire pour: Minute 5' - commentary - Tunisie attaque",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 5' - commentary - Tunisie attaque\nassistant\nDans les premières minutes du match, c'est la Tunisie qui est aux commandes de l'action offensive. Les joueurs tunisiens semblent déterminés à prendre l'initiative dès le coup d'envoi. Le ballon circule rapidement dans leur camp, offrant déjà plusieurs occasions de jeu intéressantes au milieu de terrain. Les défenseurs adverses devront rester très attentifs car ils savent que chaque passe peut mener à une percée dangereuse. C'est un début prometteur pour les hommes de Walid Chikhaoui, qui cherchent sans hésitation à imposer leur rythme. Alors que les supporteurs se font déjà un plaisir de s",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 5' - commentary - Tunisie attaque\nassistant\nTunisie met la pression dans cette fin de première mi-temps. Hannibal Mejbri sollicite beaucoup le ballon sur son aile."
+    },
+    {
+      "minute": "12'",
+      "type": "chance",
+      "description": "Ghana occasion",
+      "prompt": "Génère un commentaire pour: Minute 12' - chance - Ghana occasion",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 12' - chance - Ghana occasion\nassistant\nSur la douzième minute du match, nous avons une opportunité claire pour le Ghana ! Le ballon est joué profondément dans la surface et un joueur ghanéen se trouve parfaitement placé au centre de l'attaquant. Il semble être dans une position favorable pour tirer sur le but, mais attention aux défenseurs qui s'approchent rapidement ! Les Ghanéens sont bien concentrés et prêt à interrompre cette avancée si nécessaire. Restez attentifs, il pourrait y avoir un tacle imminent ou un arrêt de dernière minute !",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 12' - chance - Ghana occasion\nassistant\nKamaldeen Sulemana délivre un centre appliqué sortant du pied gauche. Kamaldeen Sulemana repousse de la tête."
+    },
+    {
+      "minute": "23'",
+      "type": "goal",
+      "description": "Tunisie - But de Hannibal Mejbri",
+      "prompt": "Génère un commentaire pour: Minute 23' - goal - Tunisie - But de Hannibal Mejbri",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 23' - goal - Tunisie - But de Hannibal Mejbri\nassistant\nAlors que l'équipe tunisienne est toujours au cœur du match face à ses concurrents, voici que Hannibal Mejbri ouvre le score ! Les joueurs tunisiens se retrouvent donc à une avance précieuse contre leurs adversaires après seulement 23 minutes de jeu. Avec ce but, ils montrent leur envie de gagner et leur capacité à créer des occasions dès les premières minutes. Une belle performance individuelle qui pourrait bien faire pencher la balance dans leur faveur cette CAN 2025. Reste à voir si cette bonne dynamique continuera jusqu'à la fin du match...",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 23' - goal - Tunisie - But de Hannibal Mejbri\nassistant\nTunisie ouvre le score d'une frappe magnifique du gauche! Le ballon vient se loger dans la lucarne opposée, le gardien n'a rien pu faire."
+    },
+    {
+      "minute": "35'",
+      "type": "chance",
+      "description": "Ghana frappe",
+      "prompt": "Génère un commentaire pour: Minute 35' - chance - Ghana frappe",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 35' - chance - Ghana frappe\nassistant\nDans cette minute 35', les Ghanéens s'emparent du ballon avec une grande précision dans leur propre camp. Ils semblent prêts à pousser leurs adversaires à l'attaquer. Leur première action est bien orchestrée et montre leur envie de marquer rapidement. Les supporteurs ghanéens sont sur le qui-vive, attendant avec impatience ce premier but qui pourrait ouvrir le score. On sent que les joueurs sont motivés, concentrés sur leur objectif : trouver la faille dans la défense adverse. Ce sera crucial pour établir un avantage au milieu de jeu. Une attention particulière sera demandée à la ligne arrière adverse",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 35' - chance - Ghana frappe\nassistant\nKamaldeen Sulemana tente une frappe lointaine du gauche. Le ballon file largement au-dessus de la transversale."
+    },
+    {
+      "minute": "45'",
+      "type": "halftime",
+      "description": "Mi-temps",
+      "prompt": "Génère un commentaire pour: Minute 45' - halftime - Mi-temps",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 45' - halftime - Mi-temps\nassistant\n**Commentaire :**\n\nVoilà ! On vient de nous offrir une mi-temps riche en émotions, où les deux équipes ont tout donné au cours de ces quarante-cinq minutes. Les buts n'étaient pas encore comptés, mais l'engagement était palpable sur tous les terrains.\n\nSur le côté sud, notre équipe nationale a montré une détermination sans faille. Les joueurs se sont battus corps et âme pour garder leur avance et ont réussi à dominer ce premier acte. Leur jeu est fluide et bien orchestré ; ils maîtrisent parfaitement les accélérations et les passes décisives qui font",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 45' - halftime - Mi-temps\nassistant\nLe rythme commence à baisser. Les deux équipes se neutralisent au milieu de terrain."
+    },
+    {
+      "minute": "52'",
+      "type": "commentary",
+      "description": "Ghana pression",
+      "prompt": "Génère un commentaire pour: Minute 52' - commentary - Ghana pression",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 52' - commentary - Ghana pression\nassistant\nSur le terrain de l'Afrique du Sud, nous sommes en pleine action et c'est le Ghana qui est actuellement sous la pression. Le ballon circule rapidement dans les pieds ghanéens, cherchant à créer une opportunité offensive. Les joueurs africains sont bien organisés et tentent de dégager l'espace face à leur adversaire. Le public est sur ses appuis, attendus chaque fois qu'un joueur noir se met en mouvement. L'intensité est palpable, chaque action est surveillée avec attention. Le Ghana semble vouloir redoubler d'efforts pour égaliser ou même prendre l'avantage dans ce match crucial. C",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 52' - commentary - Ghana pression\nassistant\nBelle combinaison entre Jordan Ayew et Mohammed Kudus sur le flanc droit. Le ballon est finalement récupéré par la défense adverse."
+    },
+    {
+      "minute": "65'",
+      "type": "goal",
+      "description": "Ghana - But de Mohammed Kudus",
+      "prompt": "Génère un commentaire pour: Minute 65' - goal - Ghana - But de Mohammed Kudus",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 65' - goal - Ghana - But de Mohammed Kudus\nassistant\nSur une passe fluide de sa défense centrale, le ballon vient trouver Mohammed Kudus dans l'espace entre les défenseurs camerounais. Avec une technique d'une grande habileté, il déjoue le gardien camerounais qui venait s'interposer. C'est un but magnifique que vient inscrire Kudus pour le Ghana ! Le score devient désormais 1-1 après cette intervention décisive du milieu de terrain ghanéen. Les deux équipes se disputent toujours le premier but au terme de ce premier tiers de match. Attention aux réactions des supporters camerounais qui vont vouloir forcer le rythme avant la fin de cette",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 65' - goal - Ghana - But de Mohammed Kudus\nassistant\nBut splendide de Mohammed Kudus! Sur un centre parfait de Jordan Ayew, il propulse sa tête au fond des filets."
+    },
+    {
+      "minute": "78'",
+      "type": "commentary",
+      "description": "Tunisie contre-attaque",
+      "prompt": "Génère un commentaire pour: Minute 78' - commentary - Tunisie contre-attaque",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 78' - commentary - Tunisie contre-attaque\nassistant\nDans cette minute cruciale du match entre la Tunisie et l'équipe adverse, les bleus tunisiens se retrouvent dans une situation offensive. Le ballon est rapidement distribué par le milieu de terrain tunisien qui a su prendre le contrôle de la balle. Il semble qu'il soit sur le point d'accélérer vers l'avant, accompagné de ses coéquipiers qui s'alignent derrière lui pour former une passe décisive. Les défenseurs adverses sont attentifs, mais ils devront faire face à une attaque rapide de la part des joueurs tunisiens. C'est un moment où chaque geste compte, chaque dribble ou passe peut changer le cours du",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 78' - commentary - Tunisie contre-attaque\nassistant\nBelle combinaison entre Wahbi Khazri et Youssef Msakni sur le flanc droit. Le ballon est finalement récupéré par la défense adverse."
+    },
+    {
+      "minute": "90'",
+      "type": "fulltime",
+      "description": "Fin du match",
+      "prompt": "Génère un commentaire pour: Minute 90' - fulltime - Fin du match",
+      "base_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 90' - fulltime - Fin du match\nassistant\nAh, les temps forts de la CAN 2025 ! Nous sommes dans la minute 90', le temps additionnel n'est pas encore compté, mais c'est clair que nous approchons de l'heure fatale où tout est possible. Le public s'embrase sur cette pelouse mythique d'Abidjan, chaque échange entre les deux équipes suscite une tension palpable. Les joueurs sont épuisés après ces heures de jeu intensif, mais chacun se tient debout, prêts à donner leur dernier souffle.\n\nSur le terrain, l’ambiance est électrique : les supporters africains ont déployé une cohorte de",
+      "finetuned_commentary": "system\nTu es un commentateur sportif professionnel pour Afrique Sports. Tu génères des commentaires de match de la CAN 2025 en français, avec un style vivant, précis et engageant, similaire à L'Équipe et RMC Sport.\nuser\nGénère un commentaire pour: Minute 90' - fulltime - Fin du match\nassistant\nBelle combinaison entre Nicolas Pépé et Sadio Mané sur le flanc droit. Le ballon est finalement récupéré par la défense adverse."
+    }
+  ]
+}

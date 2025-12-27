@@ -3,14 +3,20 @@ import { getAllCommentedMatches } from '@/lib/mysql-match-db';
 
 export async function GET(request: NextRequest) {
   try {
+    console.log('[API] /api/matches/commented - Starting request');
+
     // Get all matches with commentary or pre-match from MySQL
     const commentedMatches = await getAllCommentedMatches();
 
+    console.log(`[API] getAllCommentedMatches returned ${commentedMatches.length} matches`);
+
     if (commentedMatches.length === 0) {
+      console.log('[API] No matches found, returning empty response');
       return NextResponse.json({
         success: true,
         count: 0,
-        matches: []
+        matches: [],
+        debug: 'No commented matches found in database'
       });
     }
 

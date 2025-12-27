@@ -18,9 +18,9 @@ const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const WEBHOOK_SECRET = process.env.AI_AGENT_WEBHOOK_SECRET;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 const CHECK_INTERVAL = parseInt(process.env.CHECK_INTERVAL_SECONDS || '60') * 1000;
-const VLLM_BASE_URL = process.env.VLLM_BASE_URL || 'http://194.68.245.75:8000/v1';
-const VLLM_API_KEY = process.env.VLLM_API_KEY || 'afrique-sports-70b-working';
-const VLLM_MODEL = process.env.VLLM_MODEL || 'llama-3.1-70b';
+const VLLM_BASE_URL = process.env.VLLM_BASE_URL || 'https://qbjo7w9adplhia-8000.proxy.runpod.net/v1';
+const VLLM_API_KEY = process.env.VLLM_API_KEY || 'sk-1234';
+const VLLM_MODEL = process.env.VLLM_MODEL || 'oxmo88/Qwen2.5-VL-7B-AFCON2025';
 
 // Track active live streams
 const activeStreams = new Map();

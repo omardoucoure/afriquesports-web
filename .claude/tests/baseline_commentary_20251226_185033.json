@@ -1,0 +1,918 @@
+{
+  "metadata": {
+    "test_type": "baseline_commentary",
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "match": {
+      "competition": "CAN 2025 - Quart de finale",
+      "home_team": "Maroc",
+      "away_team": "Égypte",
+      "venue": "Stade de la Paix, Bouaké",
+      "date": "2025-02-02",
+      "attendance": "35,000"
+    },
+    "total_events": 63,
+    "total_tokens": 19725,
+    "errors": 0,
+    "success_rate": "100.0%",
+    "generated_at": "2025-12-26T18:50:33.767929"
+  },
+  "results": [
+    {
+      "event": {
+        "minute": -15,
+        "type": "pre_match",
+        "description": "Présentation des équipes"
+      },
+      "minute_display": "Avant le match",
+      "prompt": "Décris l'ambiance et les enjeux avant le coup d'envoi. Présentation des équipes",
+      "commentary": "Avant que le stade ne vibre sous le puissant flash de l'arbitre, une tension palpable s'installe dans l'air. C'est l'antichambre d'un match décisif entre deux nations emblématiques de la CAN : le Maroc et l'Égypte. Les supporters des deux camps sont déjà dans leur transe, les esprits haletants en attente de ce qui va se jouer sur ces pelouses d'honneur.\n\nPour le Maroc, dirigé par Ali Benarab, il s'agit d'une rencontre cruciale pour maintenir son impulsion après la victoire contre la Guinée Équatoriale. La réputation du football marocain a beaucoup été faite sur cette CAN, avec des performances solides à domicile et à l'extérieur. Cette rencontre face à l'Égypte, médaillée d'argent il y a quatre",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:43:30.570411",
+      "tokens": 335
+    },
+    {
+      "event": {
+        "minute": -10,
+        "type": "pre_match",
+        "description": "Échauffement des joueurs"
+      },
+      "minute_display": "Avant le match",
+      "prompt": "Décris l'ambiance et les enjeux avant le coup d'envoi. Échauffement des joueurs",
+      "commentary": "L'ambiance est électrisante au stade, les supporters marocains et égyptiens se sont réunis dans une atmosphère festive pour cette rencontre qui promet d'être un tournant clé dans leur campagne respective vers la CAN 2025. Les deux équipes savent que chaque point compte, tant pour le bilan final du championnat africain que pour la rivalité historique qui les oppose.\n\nLes joueurs de Maroc et Égypte se préparent avec intensité pour ce match crucial. L'équipe marocaine, dirigée par un entraîneur visionnaire, a connu une préparation rigoureuse. Ils ont travaillé sur leurs performances offensives et défensives pour contrer le jeu rapide et technique de leurs adversaires égyptiens. Le public attend avec impatience de voir comment ils géreront la pression venue de leur supporteur loyal.\n\nDe son",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:43:37.435756",
+      "tokens": 334
+    },
+    {
+      "event": {
+        "minute": -5,
+        "type": "pre_match",
+        "description": "Hymnes nationaux"
+      },
+      "minute_display": "Avant le match",
+      "prompt": "Décris l'ambiance et les enjeux avant le coup d'envoi. Hymnes nationaux",
+      "commentary": "Sur cette pelouse de Marrakech, l'ambiance est électrisante. Les supporteurs marocains ont réussi à faire écho à leur hymne national, « Al hamdoullah », qui résonne comme une prière à chaque fois que le Maroc prend possession du ballon. C'est un son de guerre, c'est un appel à la gloire pour l'équipe, mais aussi pour le peuple marocain. La majesté du public et l'enthousiasme sont palpables.\n\nEn face, les Égyptiens ne se laissent pas intimider. Leur hymne national, « Misrakach », évoquant fièrement leur histoire et leur richesse culturelle, est un rappel de leur vaste territoire et de leurs nombreux titres continentaux. Ce n'est pas seulement un chant patriotique, c'est aussi un symbole de la puissance de la maison royale",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:43:44.863836",
+      "tokens": 332
+    },
+    {
+      "event": {
+        "minute": 0,
+        "type": "kickoff",
+        "description": "Coup d'envoi du match"
+      },
+      "minute_display": "0' - Première mi-temps",
+      "prompt": "Commente le coup d'envoi du match avec enthousiasme",
+      "commentary": "Le coup d'envoi retentit, et l'atmosphère électrique s'élève à son comble ! Les joueurs marocains et égyptiens sortent sur le terrain avec des regards déterminés. Le stade vibre sous les encouragements des supporters, qui savent que ce match promet de faire le plein de suspense. Les deux équipes sont prêtes à livrer un affrontement intense pour décrocher leur billet pour les quarts de finale de la CAN 2025.\n\nC'est bien sûr une rencontre chargée de valeur historique entre deux nations qui ont souvent entretenu une rivalité amicale mais parfois tendue sur le terrain. La pression est palpable, mais aussi l'attente. Les deux équipes ont montré leur potentiel lors des derniers championnats africains, et chacune espère confirmer sa qualité face à son rival",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:43:52.248407",
+      "tokens": 322
+    },
+    {
+      "event": {
+        "minute": 1,
+        "type": "possession",
+        "team": "Maroc",
+        "description": "Maroc contrôle le ballon"
+      },
+      "minute_display": "1' - Première mi-temps",
+      "prompt": "Maroc contrôle le ballon. Commente la phase de possession",
+      "commentary": "La possession marocaine est fluide et bien orchestrée, monsieur Abdeslam se déplace avec autorité au milieu du terrain. Il manie habilement le ballon, cherchant des passes décisives pour ses coéquipiers. Derrière lui, le milieu marocain fait preuve d'une solide lecture de jeu, assurant un bon soutien à l'attaque. Les défenseurs égyptiens se tiennent solidement mais la pression de l'équipe du Maroc est constante. C'est un scénario classique de la CAN, où le Maroc fait preuve de sa puissance offensive et de son jeu de positioned. L'Égypte, malgré son expérience, semble être en peine pour contenir ce mouvement offensif. Le match promet d'être intense entre ces deux sélections, toujours rivales au plus haut niveau.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:43:59.509759",
+      "tokens": 315
+    },
+    {
+      "event": {
+        "minute": 3,
+        "type": "attack",
+        "team": "Maroc",
+        "player": "Hakimi",
+        "description": "Montée sur le côté droit"
+      },
+      "minute_display": "3' - Première mi-temps",
+      "prompt": "Commente l'action offensive de Hakimi. Montée sur le côté droit",
+      "commentary": "Sur la ligne droite du terrain, Hakimi a fait preuve d'une vitesse impressionnante et d'une précision redoutable. Il a accéléré à travers la défense égyptienne, son élan puissant et sa vitesse lui permettant de prendre le dessus sur ses adversaires. Avec une technique impeccable, il a réussi à se dégager et à accélérer encore plus vers l'intérieur.\n\nLorsqu'il a atteint la surface de réparation, Hakimi a pris une pause bien calculée, ajustant sa vitesse pour trouver l'angle parfait pour centrer. Sa position originale et sa lecture du jeu étaient étonnantes : il a anticipé exactement où la défense égyptienne chercherait à se regrouper et a profité de cette situation pour créer un espace.\n\nLa passe de Hakimi était tout simplement incroyable, un ballon parfaitement délivré avec une",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:06.523181",
+      "tokens": 322
+    },
+    {
+      "event": {
+        "minute": 5,
+        "type": "corner",
+        "team": "Maroc",
+        "description": "Corner pour le Maroc"
+      },
+      "minute_display": "5' - Première mi-temps",
+      "prompt": "Corner pour Maroc. Commente cette phase arrêtée",
+      "commentary": "Arrêté ! Le Maroc prend le corner, et on constate immédiatement une intensité incroyable de la part des joueurs marocains. Le ballon est en pleine course vers le but égyptien, mais l'Égypte parvient à repousser de justesse avec une interposition rapide. Les défenseurs égyptiens ont réussi à bloquer le danger et la première tentative est parvenue à s'échapper.\n\nCette action marque déjà un tournant dans le match. On observe une excellente coordination entre les attaquants marocains et leur milieu de terrain, qui cherchent à dégager une option de passe ou une frappe en profondeur. Cependant, l'Égypte reste solide et sa défense, bien organisée, ne laisse pas beaucoup d'opportunités à l'attaquant marocain qui a reçu le ballon au point",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:13.423613",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": 7,
+        "type": "attack",
+        "team": "Égypte",
+        "player": "Salah",
+        "description": "Contre-attaque égyptienne"
+      },
+      "minute_display": "7' - Première mi-temps",
+      "prompt": "Commente l'action offensive de Salah. Contre-attaque égyptienne",
+      "commentary": "Salah, l'attaquant égyptien, a amorcé une incroyable contre-attaque avec une vitesse fulgurante qui fait siffler la galerie. Il a su profiter de l'erreur d'un défenseur marocain, révélant sa rapidité et son agilité. Sa frappe, malgré sa force, ne parvient pas à passer derrière le gardien marocain, mais elle a été d'une précision redoutable.\n\nCet élan offensif est une bonne illustration des potentielles menaces que peuvent représenter les Égyptiens sur le terrain marocain. La rivalité entre ces deux nations est bien connue dans ce contexte, avec des affrontements passionnants qui sont souvent marqués par des duels individuels intenses entre leurs stars comme Salah et Morocco. La CAN 2025 offre une plateforme exceptionnelle pour cette",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:20.460870",
+      "tokens": 323
+    },
+    {
+      "event": {
+        "minute": 10,
+        "type": "possession",
+        "team": "Égypte",
+        "description": "Égypte tente de construire"
+      },
+      "minute_display": "10' - Première mi-temps",
+      "prompt": "Égypte contrôle le ballon. Commente la phase de possession",
+      "commentary": "Dans cette phase de possession, l'Égypte joue de manière solide. Leur organisation défensive est bien mise en place, avec des joueurs positionnés de manière stratégique pour anticiper les débordements adverses. Les Marocains semblent avoir du mal à créer des opportunités nettes dans ces instants-là.\n\nL'Égypte maîtrise parfaitement son domaine de jeu, gagnant le temps nécessaire pour structurer son jeu. Leurs passes sont précises, et elles cherchent à faire avancer le ballon en direction de leur but marocain.\n\nLes joueurs égyptiens travaillent également bien ensemble, sans désordre ni panique. C'est une belle prestation collective qui montre leur expérience et leur maturité tactique. Il faudra toutefois qu'ils parviennent à imprimer un peu plus d'énergie offensivement pour pouvoir créer dav",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:27.325415",
+      "tokens": 321
+    },
+    {
+      "event": {
+        "minute": 12,
+        "type": "chance",
+        "team": "Maroc",
+        "player": "En-Nesyri",
+        "description": "Grosse occasion marocaine"
+      },
+      "minute_display": "12' - Première mi-temps",
+      "prompt": "Commente cette grosse occasion de En-Nesyri! Grosse occasion marocaine",
+      "commentary": "Dans ce temps de jeu, nous avons assisté à une occasion d'envergure avec En-Nesyri, l'attaquant marocain. Son dribble habile et sa précision ont permis de créer un véritable péril pour la défense égyptienne. Il a réussi à prendre l'axe de la surface avant de passer la balle au milieu du champ, offrant une chance claire à ses coéquipiers. Cette attaque, bien que très compacte et bien orchestrée, s'est heurtée à la solidité des défenses égyptiennes. Cependant, on ne peut ignorer l'intensité de l'action et la qualité technique déployée par le joueur marocain. Ce moment est significatif dans la course aux qualifications pour la CAN 2025, où chaque équipe cherche à montrer sa valeur face à la concurrence rude. La rivalité entre les deux nations n'a",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:34.734185",
+      "tokens": 324
+    },
+    {
+      "event": {
+        "minute": 15,
+        "type": "save",
+        "team": "Égypte",
+        "player": "El Shenawy",
+        "description": "Arrêt du gardien égyptien"
+      },
+      "minute_display": "15' - Première mi-temps",
+      "prompt": "Arrêt de El Shenawy! Commente cette parade importante",
+      "commentary": "À tout juste cinq minutes de la fin, El Shenawy a eu une parade cruciale ! Le défenseur marocain s'est d'abord engagé à fond dans la pression, tentant de récupérer la balle, mais face à l'intensité de la frappe égyptienne, il a eu recours à une technique subtile. Il a réussi à détourner habilement le ballon vers un coéquipier pour éviter un but en contre. Cette intervention est tantôt un acte d'excellence individuelle, tantôt le fruit d'une synchronisation parfaite entre le Maroc et son adversaire. Elle souligne l'importance de la concentration et de la réactivité dans ces moments décisifs. C'est une preuve de plus que chaque détail compte lors des rencontres internationales de ce niveau.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:41.417987",
+      "tokens": 303
+    },
+    {
+      "event": {
+        "minute": 18,
+        "type": "foul",
+        "team": "Égypte",
+        "player": "Hegazi",
+        "description": "Faute dans l'axe"
+      },
+      "minute_display": "18' - Première mi-temps",
+      "prompt": "Faute. Faute dans l'axe. Commente",
+      "commentary": "Avec une passe en profondeur, la défense égyptienne fait un effort défensif important. Malheureusement, elle rate le ballon à la limite de la surface, offrant ainsi un large espace au milieu marocain qui profite de cette opportunité. Le dribble habile du joueur marocain débouche sur une situation intéressante face à la surface adverse, mais malgré une percée menaçante, il manque de justesse pour conclure. C'est un retour fort des pharaons, ils ne peuvent s'empêcher d'insister sur le but marocain. Le match est tendu entre ces deux équipes qui se disputent le titre continental. En analysant ces phases de jeu, il est clair que les deux formations sont prêtes à donner tout pour remporter ce duel tant attendu.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:48.140699",
+      "tokens": 305
+    },
+    {
+      "event": {
+        "minute": 20,
+        "type": "free_kick",
+        "team": "Maroc",
+        "description": "Coup franc dangereux pour le Maroc"
+      },
+      "minute_display": "20' - Première mi-temps",
+      "prompt": "Coup franc pour Maroc. Décris la situation",
+      "commentary": "Le coup franc pour Maroc est une occasion précieuse dans ce match décisif. En se tenant devant leur propre surface, les Marocains doivent composer avec l'énorme pression qu'impose l'Égypte, l'une des meilleures équipes africaines actuelles et historiquement régulière sur la scène internationale. Cette action revêt une importance capitale, car elle peut déterminer le cours du jeu à venir.\n\nL'équipe marocaine a choisi de faire jouer un milieu de terrain rapide et technicien qui a reçu la balle dans les douze mètres. Il est important de noter que cette situation se produit pendant un temps où l'Égypte semble avoir retrouvé son niveau d'excellence. Les équipes nord-africaines ont toujours une histoire riche de rivalités entre elles, et cette rencontre est sans doute une confrontation mémorable entre deux nations",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:44:55.174024",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": 22,
+        "type": "attack",
+        "team": "Égypte",
+        "player": "Trézéguet",
+        "description": "Percée sur le flanc gauche"
+      },
+      "minute_display": "22' - Première mi-temps",
+      "prompt": "Commente l'action offensive de Trézéguet. Percée sur le flanc gauche",
+      "commentary": "Sur le côté gauche, c'est Trézéguet qui a commencé cette offensive spectaculaire. Il a suivi la trajectoire d'un passeur habile, mais c'est sa vitesse et sa précision qui ont vraiment impressionné. Son coup de pied de folie a trouvé son buteur à la pointe, créant ainsi une opportunité énorme pour l'Égypte. Avec ce scénario de jeu, il y a eu beaucoup de risque, mais également de récompense. L'équipe enchaînera peut-être des joueurs aguerris comme Aymane, qui devra désormais se lancer dans le match avec encore plus d'intensité pour contrer les débordements marocains. La pression monte maintenant pour les Nord-Africains, qui doivent préparer leur réponse face à cet attaque virile et bien ordonnée.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:01.975815",
+      "tokens": 324
+    },
+    {
+      "event": {
+        "minute": 25,
+        "type": "possession",
+        "team": "Maroc",
+        "description": "Maroc domine la possession"
+      },
+      "minute_display": "25' - Première mi-temps",
+      "prompt": "Maroc contrôle le ballon. Commente la phase de possession",
+      "commentary": "Sur le terrain, c'est l'équipe marocaine qui domine nettement le jeu. La possession de balle est tout à fait dans le giron des Lions de la Atlante, qui ne cèdent pas un millimètre. Les Marocains font preuve d'une solide possession, travaillant avec précision le ballon à travers le milieu de terrain. Le système offensif semble bien mis en place, permettant une circulation fluide du ballon vers les ailes et en direction des buts adverses.\n\nLes joueurs marocains sont concentrés sur la maîtrise du ballon, cherchant à créer des opportunités de jeu. Il faut noter que le Maroc est une équipe qui a toujours montré de la force en défense comme en attaque lorsqu'elle contrôle la possession. Les Egyptiens vont devoir faire preuve d'adresse et de rapidité pour contre-attaquer lorsque le",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:08.994985",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 28,
+        "type": "yellow_card",
+        "team": "Égypte",
+        "player": "Elneny",
+        "description": "Carton jaune pour Elneny"
+      },
+      "minute_display": "28' - Première mi-temps",
+      "prompt": "Carton jaune pour Elneny. Commente l'avertissement",
+      "commentary": "Étonnant! Un carton jaune pour Elneny, et qui plus est lors d'un match tant attendu entre le Maroc et l'Égypte. Cela signifie qu'il a fait preuve d'une faute assez grave ou d'un comportement déplacé. Nous savons que ce genre de sanction peut affecter le moral des joueurs, voire leur performance sur le terrain. L'arbitre prendra-t-il des décisions plus sévères lors de matchs suivants? Il reste à voir comment cela influencera l'expérience de cette rencontre pour les deux équipes, notamment la confrontation directe entre les deux formations les plus performantes du continent africain.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:14.973100",
+      "tokens": 274
+    },
+    {
+      "event": {
+        "minute": 30,
+        "type": "analysis",
+        "description": "Point tactique à la 30ème minute"
+      },
+      "minute_display": "30' - Première mi-temps",
+      "prompt": "Fais une analyse tactique de la phase de jeu en cours",
+      "commentary": "Alors, on assiste à un match incroyablement disputé entre le Maroc et l'Égypte. Au niveau tactique, on remarque une approche assez équilibrée des deux équipes.\n\nLe Maroc a choisi un système défensif très rigoureux, avec une pression intense sur le ballon adverse dès son reprise de possession. Cela force l'Égypte à jouer dans les zones de son camp où elle se retrouve souvent sous pression. Cette approche a permis au Maroc de limiter les occasions de but de l'équipe égyptienne, bien que cela ait également réduit leur capacité à créer des opportunités d'en face.\n\nL'Égypte, quant à elle, a mis en place une attaque agressive. Leur coach a décidé d'envoyer ses joueurs en profondeur vers le centre du terrain, espérant trouver des espaces",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:22.009668",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 32,
+        "type": "chance",
+        "team": "Égypte",
+        "player": "Salah",
+        "description": "Salah face au but"
+      },
+      "minute_display": "32' - Première mi-temps",
+      "prompt": "Commente cette grosse occasion de Salah! Salah face au but",
+      "commentary": "Ah, c'est vraiment un moment mémorable ! Voici Salah, le pharaon, qui s'élance avec une vitesse fulgurante vers le but marocain. Son pied droit croise la barre transversale, l'Égypte se désole silencieusement. Mais le destin est cruel, il semble qu'un remontée de la CAN 2025, ce sera une autre fois pour Salah et son équipe. Cependant, cela ne fait que rendre la compétition encore plus passionnante. La rivalité entre les deux nations continue de faire rage sur le continent africain. Après tout, les équipes nord-africaines ont toujours été des forces à part entière dans la CAN. Alors, voyons maintenant comment l'équipe marocaine gérera cette opportunité offerte par Salah pour repousser l'Égypte.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:28.797364",
+      "tokens": 315
+    },
+    {
+      "event": {
+        "minute": 34,
+        "type": "save",
+        "team": "Maroc",
+        "player": "Bounou",
+        "description": "Parade de Bounou"
+      },
+      "minute_display": "34' - Première mi-temps",
+      "prompt": "Arrêt de Bounou! Commente cette parade importante",
+      "commentary": "Sous une pluie battante, Hakim Ziyech piquait vers la surface marocaine. Le ballon semblait bien dans les jambes de l'attaquant égyptien, mais là, il s'élance à grands pas, prétendant passer à côté, avant de se retourner. Bounou, mu par un réflexe incroyable, saute pour bloquer en plein vol. C'est un arrêt glorieux ! Ce gardien marocain a réussi à stopper ce danger, évitant ainsi un but d'une précision redoutable. La rigueur de Bounou ne laisse aucun doute sur son rôle crucial dans le match. Il semble avoir encore une fois démontré sa capacité à être l'un des meilleurs portiers au monde. Cette parade revêt une importance capitale car elle maintient le score à zéro et accentue la pression sur les Égyptiens qui doivent",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:35.901155",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": 36,
+        "type": "corner",
+        "team": "Égypte",
+        "description": "Corner pour l'Égypte"
+      },
+      "minute_display": "36' - Première mi-temps",
+      "prompt": "Corner pour Égypte. Commente cette phase arrêtée",
+      "commentary": "Ah, attention ! Le corner pour l'Égypte est lancé. Les Marocains sont en défense bien organisée, prêts à intercepter le ballon. On voit Djamel Belmadi, notre attaquant marocain, se positionner au centre de la surface pour tenter de repousser le pénalty. C'est une phase où chaque action compte car l'Égypte tente d'égaliser ce qui serait très crucial dans cette CAN. Reste à voir s'ils parviennent à déclencher une percée effective. Pour l'instant, c'est une bataille serrée entre les deux équipes.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:41.747990",
+      "tokens": 265
+    },
+    {
+      "event": {
+        "minute": 38,
+        "type": "attack",
+        "team": "Maroc",
+        "player": "Ziyech",
+        "description": "Ziyech à la conclusion"
+      },
+      "minute_display": "38' - Première mi-temps",
+      "prompt": "Commente l'action offensive de Ziyech. Ziyech à la conclusion",
+      "commentary": "Dans cette fin de match palpitante, Hakim Ziyech met à profit son talent pour transformer une action offensive en véritable opération de guerre. Il a su capitaliser sur le décalage latéral, ce qui lui a permis d'aller chercher un large espace dans la défense égyptienne.\n\nL'attaquant marocain a su profiter de l'intervalle stratégique entre deux défenseurs adverses. Son dribble habile et sa vision de jeu lui ont permis de passer au-dessus des défenseurs et de se retrouver seul face au gardien. Cette position exceptionnelle offre un moment précieux pour Ziyech.\n\nIl faut noter que cette action intervient dans un contexte particulier, car elle répond à une dynamique de match qui semble avoir basculé récemment à l'avantage des Marocains. Lorsque les joueurs de la sélection marocaine prenn",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:48.805428",
+      "tokens": 323
+    },
+    {
+      "event": {
+        "minute": 40,
+        "type": "chance",
+        "team": "Maroc",
+        "player": "En-Nesyri",
+        "description": "Tête d'En-Nesyri"
+      },
+      "minute_display": "40' - Première mi-temps",
+      "prompt": "Commente cette grosse occasion de En-Nesyri! Tête d'En-Nesyri",
+      "commentary": "Je suis sur le bord de la pelouse, une tension palpable à l'entame du match Maroc vs Égypte. La pression monte à mesure que le ballon roule vers la surface du terrain marocaine. L'attaquant En-Nesyri, arborant le numéro 10, profite de l'espace créé par les défenseurs égyptiens. Il avance avec grâce, sauf qu'un tacle soutenu par un défenseur égyptien le fait basculer. C'est une situation où il manque l'occasion de marque, mais on se rappelle que ce n'est pas le premier match de la compétition pour lui.\n\nEn-Nesyri a été présent dans plusieurs occasions précédentes, malheureusement sans être récompensé. Cela ne change pas le fait qu'il est un joueur de talent qui, lorsqu'il a la balle à ses pieds, est capable de",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:45:55.659150",
+      "tokens": 326
+    },
+    {
+      "event": {
+        "minute": 42,
+        "type": "goal",
+        "team": "Maroc",
+        "player": "Hakimi",
+        "score": "1-0",
+        "description": "BUUUUT! Hakimi ouvre le score!"
+      },
+      "minute_display": "42' - Première mi-temps",
+      "prompt": "BUUUUT DE Hakimi POUR Maroc! Score: 1-0. Commente ce but avec passion!",
+      "commentary": "Bravo à Hakimi ! Ce but est une explosion de talent et de détermination ! Le milieu marocain a su faire preuve d'un bonne anticipation et d'une agilité incroyable pour ouvrir le score contre l'Égypte. Son piqué direct dans le dos de la défense égyptienne a été lourde de conséquences, transformant un lancer libre en une frappe redoutable qui s'est enroulée dans le filet des égyptiens sans chance. C'est un but qui résume à merveille l'esprit de cette CAN 2025 : guerre froide, rivalité au plus haut niveau et compétition féroce. Hakimi, en écrasant ce but, a rendu hommage à son pays et a secoué les démons de la poule difficile qui a entamé la compétition. Cette action de classe est un rappel à tous les",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:02.718117",
+      "tokens": 332
+    },
+    {
+      "event": {
+        "minute": 43,
+        "type": "celebration",
+        "team": "Maroc",
+        "description": "Explosion de joie marocaine"
+      },
+      "minute_display": "43' - Première mi-temps",
+      "prompt": "Célébration de Maroc. Décris l'ambiance",
+      "commentary": "Là, c'est une scène électrique! La joie se lit sur chaque visage des supporters marocains. On entend les sifflets triomphants qui résonnent dans tout le stade, alors que les joueurs marocains fêtent leur victoire avec des gestes exubérants, bras levés, cris de bonheur. Le drapeau marocain flotte haut comme un symbole de fierté nationale, tandis que les fans se ruent vers le terrain pour célébrer cette performance exceptionnelle. L'ambiance est électrisante, comme si toute la Nation se trouvait là pour soutenir son équipe favorite. C'est un moment d'exaltation totale qui capture l'esprit du football, où la joie collective rencontre la passion sportive.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:09.176426",
+      "tokens": 299
+    },
+    {
+      "event": {
+        "minute": 45,
+        "type": "added_time",
+        "description": "3 minutes de temps additionnel"
+      },
+      "minute_display": "45' - Première mi-temps",
+      "prompt": "3 minutes de temps additionnel. Commente le temps additionnel",
+      "commentary": "Ah, les 3 minutes supplémentaires, c'est souvent un moment d'incertitude pour les deux équipes. C'est comme si l'arbitre allait chercher à rabattre le tempo sur un match déjà intense, histoire de profiter d'un dernier burst de joueurs déterminés. Pour le Maroc, ça pourrait être l'occasion de prolonger l'avantage acquis tout au long du match, mais il faudra veiller à ne pas perdre la cohérence tactique qui a tant fonctionné jusqu'à présent. Quant à l'Égypte, cette petite dose de temps additionnel peut aussi être bénéfique. Ils auront l'opportunité de repositionner leurs joueurs pour perturber davantage le rythme du jeu marocain ou de chercher à sortir une frappe décisive. Il faudra donc rester attentif à tous les détails,",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:16.242815",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 45.1,
+        "type": "attack",
+        "team": "Égypte",
+        "description": "Dernière attaque égyptienne"
+      },
+      "minute_display": "45.1",
+      "prompt": "Commente l'action offensive de Égypte. Dernière attaque égyptienne",
+      "commentary": "Dans cette dernière attaque de l'Égypte, nous voyons un véritable ballet offensif. Le ballon part du milieu droit, distribué par le capitaine Mohamed Salah, qui a su prendre ses responsabilités ce soir. Le jeu s'enchaîne rapidement, passant par la paire Gaëtan Bong et Ahmed Fathi, deux joueurs du même club qui ont créé une belle entente entre eux.\n\nLe ballon avance vers le milieu gauche, où Mohammed Aboutrika reçoit. Sa vitesse et son dribbling sont impressionnants. Il se libère d'un défenseur avant de servir l'inévitable Salah à nouveau. L'attaquant égyptien utilise sa rapidité pour décaler et trouve l'espace juste derrière la défense marocaine. \n\nC'est là que le suspense s'installe. Salah, qui a récupéré le ballon sur le côté gauche, accél",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:23.298219",
+      "tokens": 325
+    },
+    {
+      "event": {
+        "minute": 45.3,
+        "type": "half_time",
+        "score": "1-0",
+        "description": "Mi-temps"
+      },
+      "minute_display": "45.3",
+      "prompt": "Mi-temps! Score: 1-0. Fais un résumé de la première période",
+      "commentary": "Mi-temps ! Score: 1-0. Il y a eu une première période intense entre les deux équipes marocaines et égyptiennes. Le Maroc a su s'imposer dès les premières minutes grâce à une frappe puissante d'un joueur marocain qui a battu le gardien égyptien. \n\nLa première période a été marquée par des combats acharnés au milieu de terrain, les deux équipes cherchant à déposséder l'autre pour créer des occasions de but. Les Marocains ont dominé les temps forts du match, ayant plusieurs opportunités de marquer, tandis que les Égyptiens ont réussi à contenir les attaques marocaines.\n\nL'Équipe du Maroc a montré une forte performance offensive tout au long de la première mi-temps, mais aussi une solidité défensive impressionnante. Leur potentiel offensif",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:30.359252",
+      "tokens": 328
+    },
+    {
+      "event": {
+        "minute": "HT",
+        "type": "half_time_analysis",
+        "description": "Analyse de la première mi-temps"
+      },
+      "minute_display": "HT",
+      "prompt": "Analyse tactique de la première mi-temps (3-4 phrases)",
+      "commentary": "Durant la première période, la formation marocaine a imposé un jeu offensif direct et pressant, mettant la défense égyptienne sous une pression constante. Les attaquants marocains ont profité de leur supériorité numérique à plusieurs reprises, notamment avec des passes précises sur le côté droit de l'axe. Malgré cela, les égyptiens ont réussi à contenir l'explosion offensive marocaine par une défense solide et bien organisée, qui a su profiter des décisions à balles longues pour contrer efficacement les avancées marocaines. La rivalité nord-africaine entre ces deux nations se dessine déjà sur ce terrain, chacune cherchant à imposer son jeu et à ne pas céder devant l'autre.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:36.658969",
+      "tokens": 298
+    },
+    {
+      "event": {
+        "minute": "HT+5",
+        "type": "stats",
+        "description": "Statistiques de la première période"
+      },
+      "minute_display": "HT+5",
+      "prompt": "Présente les statistiques importantes du match jusqu'ici",
+      "commentary": "À ce stade du match entre le Maroc et l'Égypte, nous observons une domination significative du côté marocain. Les Lions de l'Atlas ont dominé la possession du ballon avec près de 60% du temps. Cette suprématie tactique se traduit par une franchise de 15 tirs au but, dont 7 cadrés, tandis que l'Égypte n'a réussi qu'à placer 4 tirs au but, dont seulement 2 ont été cadrés.\n\nSur le plan offensif, le Maroc a créé plusieurs opportunités claires, notamment avec des passes décisives de Hakim Ziyech qui ont été sauvées par des défenses égyptiennes compétentes. \n\nEn termes de dribbles réalisés, le Maroc détient un avantage important avec 8 dribbles effectués contre seulement 3 de l'Égypte",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:43.863081",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": "HT+10",
+        "type": "preview",
+        "description": "Aperçu de la seconde mi-temps"
+      },
+      "minute_display": "HT+10",
+      "prompt": "Donne un aperçu de ce qui nous attend en deuxième mi-temps",
+      "commentary": "Dans cette deuxième mi-temps, il y aura sûrement des changements tactiques qui devraient faire vibrer les supporters des deux camps. Le Maroc, malgré sa domination de la première période, ne doit pas se complaire dans son travail. Il faudra qu'il maintienne la pression et continue à chercher les espaces derrière la défense égyptienne.\n\nDe leur côté, les Égyptiens auront certainement besoin d'ajuster leur jeu pour mettre fin à l'engagement marocain. Ils pourront essayer d'accroître la solidité défensive tout en cherchant à créer des occasions offensives. C'est une bataille intense qui s'annonce, avec chaque équipe cherchant à remporter l'avantage après un premier acte qui a été plutôt bénéfique aux Marocains. Les buts vont certainement pleuvoir, donc gardez-vous prêt à crier de joie",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:50.961802",
+      "tokens": 323
+    },
+    {
+      "event": {
+        "minute": 46,
+        "type": "kickoff",
+        "description": "Début de la deuxième mi-temps"
+      },
+      "minute_display": "46' - Deuxième mi-temps",
+      "prompt": "Commente le coup d'envoi du match avec enthousiasme",
+      "commentary": "D'accord, je suis prêt à commencer. Dites-moi dans quelle langue vous souhaitez que je fasse mon commentaire et si vous avez des préférences particulières pour ce match Maroc vs Égypte.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:46:54.620972",
+      "tokens": 172
+    },
+    {
+      "event": {
+        "minute": 47,
+        "type": "substitution",
+        "team": "Égypte",
+        "player_out": "Elneny",
+        "player_in": "Marmoush",
+        "description": "Changement égyptien"
+      },
+      "minute_display": "47' - Deuxième mi-temps",
+      "prompt": "Changement: Marmoush entre pour Elneny. Commente",
+      "commentary": "En temps de jeu, c'est un coup fort d'Elyounoussi à la pointe qui a été dévié dans le dos de Maroc, offrant ainsi à l'Égypte l'occasion de se procurer une première opportunité de but. Les joueurs marocains doivent être vigilants, mais Marmoush, qui vient remplacer Elneny, apporte une nouvelle dimension tactique à l'attaque égyptienne. Ce changement pourrait jouer un rôle crucial dans le rééquilibrage de cette partie serrée. En attaque, l'Égypte continue d'imposer sa puissance, ce qui devrait garder les Marocains sur leur garde. La CAN 2025 est une compétition qui met en valeur les rivalités historiques en Afrique du Nord, et cette rencontre offre un spectacle à ne pas manquer, tant en termes de football que de dramatisme",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:01.639390",
+      "tokens": 322
+    },
+    {
+      "event": {
+        "minute": 50,
+        "type": "attack",
+        "team": "Égypte",
+        "player": "Salah",
+        "description": "Égypte pousse pour égaliser"
+      },
+      "minute_display": "50' - Deuxième mi-temps",
+      "prompt": "Commente l'action offensive de Salah. Égypte pousse pour égaliser",
+      "commentary": "Dans cette phase offensive, Mohamed Salah, star égyptienne, est en pleine action. Le ballon circule rapidement entre ses pieds avec une maîtrise impressionnante. Il prend à nouveau l'initiative en sollicitant la défense marocaine avec des dribbles agiles. C'est dans ce genre de situation que l'Egypte, et plus particulièrement Salah, cherche à trouver le chemin du but.\n\nLa pression du Maroc n'est pas tendre, mais Salah tente de jouer sa carte avec un bond en avant vers le but marocain. C'est là que la tension monte. Le défenseur marocain semble rattraper Salah, mais l'écart est tellement mince que la plupart des observateurs sont suspendus à l'issue de la passe décisive.\n\nS'ils réussissent à contenir Salah, ils bloquent une grande partie de l'attaque égypt",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:08.523288",
+      "tokens": 324
+    },
+    {
+      "event": {
+        "minute": 52,
+        "type": "chance",
+        "team": "Égypte",
+        "player": "Marmoush",
+        "description": "Occasion pour le nouveau rentrant"
+      },
+      "minute_display": "52' - Deuxième mi-temps",
+      "prompt": "Commente cette grosse occasion de Marmoush! Occasion pour le nouveau rentrant",
+      "commentary": "Oh là là, le suspense est palpable sur ce côté gauche marocain ! Quel timing extraordinaire de Marmoush ! Il a enchaîné avec précision, dribblé sans失误, puis a tiré d'une exquise précision vers le but égyptien. On se rappelle qu'il n'est pas ici depuis longtemps, mais il réintègre avec brio l'ambiance de la Coupe d'Afrique des Nations ! L'Égypte, on sait que c'est une puissance, mais la détermination marocaine est tout aussi impressionnante. C'est un beau moment de jeu, un vrai mélange de talent et de combativité qui fait vibrer le stade. Le public réagit à fond, tous les regards fixés sur cette volée de Marmoush qui, pour l'instant, reste à une courte distance du filet. Dès lors, tout est",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:15.561277",
+      "tokens": 326
+    },
+    {
+      "event": {
+        "minute": 55,
+        "type": "possession",
+        "team": "Égypte",
+        "description": "Domination égyptienne"
+      },
+      "minute_display": "55' - Deuxième mi-temps",
+      "prompt": "Égypte contrôle le ballon. Commente la phase de possession",
+      "commentary": "Dans ce temps de jeu, l'Égypte démontre une solide domination de la possession. Le milieu de terrain égyptien est particulièrement actif, cherchant à reprendre le ballon et à orienter l'attaque vers le secteur marocain. Les joueurs de l'Équipe d'Égypte semblent bien orchestrés, en accord parfait avec le but de leur offensive. Les passes précises, bien cadrées, montrent une grande intelligence tactique et un bon soutien entre les lignes. Il est intéressant de noter que cette maîtrise de la balle intervient au moment où le Maroc semble légèrement déconnecté, sans véritable plan d'action offensif qui puisse lancer une contre-attaque efficace. Cela pourrait être un indicateur de la confiance des Égyptiens dans leur capacité à défendre et à contrôler le rythme du",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:22.853458",
+      "tokens": 321
+    },
+    {
+      "event": {
+        "minute": 57,
+        "type": "save",
+        "team": "Maroc",
+        "player": "Bounou",
+        "description": "Bounou encore décisif"
+      },
+      "minute_display": "57' - Deuxième mi-temps",
+      "prompt": "Arrêt de Bounou! Commente cette parade importante",
+      "commentary": "Là, c'est une parade de l'anthologie ! Bounou, le gardien marocain, a sauté comme un acrobate et s'est jeté sur la balle. Il a réussi à bloquer le tir égyptien avec une précision chirurgicale, évitant ainsi un but crucial. C'est un arrêt d'une qualité rare qui signifie que le Maroc reste bien dans la partie. Dans ce match palpitant où les deux équipes se disputent chaque ballon, chaque intervention compte. Bounou a mis à profit son expérience et son réflexe d'or pour stopper ce danger, contribuant ainsi de manière décisive à l'assurance de son équipe. Les supporters marocains doivent être fiers, car leur gardien s'est porté au-devant de la situation pour sauver leur campagne.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:29.784579",
+      "tokens": 307
+    },
+    {
+      "event": {
+        "minute": 60,
+        "type": "analysis",
+        "description": "Point tactique à l'heure de jeu"
+      },
+      "minute_display": "60' - Deuxième mi-temps",
+      "prompt": "Fais une analyse tactique de la phase de jeu en cours",
+      "commentary": "Sur le terrain, la pression marocaine est évidente. Les joueurs marocains montent très haut et cherchent à disposer rapidement du ballon afin de créer des opportunités offensives rapides. Le jeu passe bien dans l'axe avec beaucoup d'occasions de frappe, particulièrement sur des tirages lointains de Maghoma qui ont été mal défendus par l'Égypte.\n\nEn défense, l'équipe égyptienne maintient une forte cohésion. Les Milistes sont bien positionnés pour interrompre les actions marocaines et tentent de prendre le dessus lors des situations de balle morte. Le but du coup franc de Maghoma, malgré son lancer puissant, est sauvé par le gardien égyptien.\n\nLes attaquants égyptiens se portent plus vers le centre pour chercher à piéger les défense",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:36.953568",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 62,
+        "type": "attack",
+        "team": "Maroc",
+        "player": "Ziyech",
+        "description": "Contre-attaque marocaine"
+      },
+      "minute_display": "62' - Deuxième mi-temps",
+      "prompt": "Commente l'action offensive de Ziyech. Contre-attaque marocaine",
+      "commentary": "Ah, Ziyech ! Il y a là une véritable énergie dans son action offensive ! Le milieu marocain s'engouffre avec assurance dans le milieu de terrain égyptien, son ballon dribblé avec maîtrise. Il reçoit l'appui de ses coéquipiers qui, eux aussi, plongent dans la contre-attaque avec des intentions claires. Les défenseurs égyptiens sont pris au dépourvu, leur pression insuffisante face à l'intensité d'une offensive rapide.\n\nL'attaquant marocain n'hésite pas une seconde, il avance droit vers le but de l'Égypte, les yeux fixés sur la cage. Ses coéquipiers, sensibles à sa position, lui offrent des options de passe, mais c'est la frappe directe qu'il opte pour. Ziyech tente alors sa chance avec",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:44.185762",
+      "tokens": 325
+    },
+    {
+      "event": {
+        "minute": 65,
+        "type": "corner",
+        "team": "Égypte",
+        "description": "Énième corner égyptien"
+      },
+      "minute_display": "65' - Deuxième mi-temps",
+      "prompt": "Corner pour Égypte. Commente cette phase arrêtée",
+      "commentary": "Dans ce corner, l'Égypte fait face à une situation cruciale. Le Maroc, bien positionné pour l'arrêter, vient de réceptionner le ballon dans ses propres domaines. C'est un moment de haute tension car chaque corner représente une opportunité pour le camp adverse d'inscrire un but.\n\nL'arbitre a déjà déclaré un corner à l'Égypte, et il semble que le ballon soit en route vers la cage marocaine. Les joueurs marocains sont concentrés, prêts à se lancer sur le but pour éviter une pénalité indirecte si le ballon reste dans le rectangle des six mètres. L'Égypte, elle, attend avec impatience cette phase pour tenter de prendre l'avantage.\n\nLes arbitres et les assistants surveillent attentivement pour identifier tout contact avec le ballon ou avec les joueurs qui pour",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:51.157747",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 67,
+        "type": "goal",
+        "team": "Égypte",
+        "player": "Salah",
+        "score": "1-1",
+        "description": "ÉGALISATION! Salah remet les deux équipes à égalité!"
+      },
+      "minute_display": "67' - Deuxième mi-temps",
+      "prompt": "BUUUUT DE Salah POUR Égypte! Score: 1-1. Commente ce but avec passion!",
+      "commentary": "Oh, quel but incroyable ! Moahamed Salah, la flamme du Caire, s'est échappé dans l'attaque égyptienne, a percé la défense marocaine et a trouvé le petit filet pour mettre le score à 1-1. C'est une preuve d'habileté technique et de détermination sans faille de Salah qui fait vibrer l'Égypte. Cette égalisation est comme un coup de tonnerre, elle redonne espoir à tous les supporters des Pharaons. Le Maroc reste dans la course, mais l'Egypte a prouvé qu'elle est bien là, prête à faire chuter les grands en Afrique. Ce but ne se limite pas à ce match, c'est un exemple de ce que l'Afrique peut offrir au football mondial. L'Égypte vient de réussir à se tailler une place sur la",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:47:58.199633",
+      "tokens": 332
+    },
+    {
+      "event": {
+        "minute": 68,
+        "type": "celebration",
+        "team": "Égypte",
+        "description": "Les Pharaons exultent"
+      },
+      "minute_display": "68' - Deuxième mi-temps",
+      "prompt": "Célébration de Égypte. Décris l'ambiance",
+      "commentary": "L'ambiance était électrique dans le stade, une véritable explosion de joie et d'émotion. Les supporters égyptiens ont investi l'ensemble du terrain, criant, sautant et célébrant avec une passion palpable leur succès. Leur équipe a marqué le but crucial qui a ouvert le score, mettant fin à une partie inférieure où le Maroc a dominé physiquement mais sans créer d'occasions décisives. Cette réalisation s'est transformée en un moment de véritable euphorie, marquant une inversion des tendances au tableau d'affichage et offrant un nouveau souffle à leur camp. La victoire a été pleinement assumée et célébrée par tous, marquant une page importante dans cette CAN 2025.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:04.746668",
+      "tokens": 297
+    },
+    {
+      "event": {
+        "minute": 70,
+        "type": "substitution",
+        "team": "Maroc",
+        "player_out": "Ziyech",
+        "player_in": "Adli",
+        "description": "Changement marocain"
+      },
+      "minute_display": "70' - Deuxième mi-temps",
+      "prompt": "Changement: Adli entre pour Ziyech. Commente",
+      "commentary": "Dans une décision stratégique, l'entraîneur marocain fait entrer Adli en remplacement de Ziyech, dans un tournant crucial du match contre l'Égypte. Cette opération, qui intervient à un moment charnière du jeu, révèle l'ambition de l'équipe marocaine à conserver l'avantage obtenu tout au long de cette CAN. Ziyech, un attaquant talentueux, vient de délivrer une passe décisive, mais l'essence de l'affrontement demeure équilibrée.\n\nLa présence d'Adli apporte une autre dimension technique au jeu marocain. Décidément, ce milieu de terrain offre un soutien précieux en profondeur, capable de tirer parti des espaces laissés par la défense égyptienne. Ce changement pourrait également signifier que le coach cherche à sol",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:11.607169",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 72,
+        "type": "yellow_card",
+        "team": "Maroc",
+        "player": "Amrabat",
+        "description": "Amrabat averti"
+      },
+      "minute_display": "72' - Deuxième mi-temps",
+      "prompt": "Carton jaune pour Amrabat. Commente l'avertissement",
+      "commentary": "Avec le carton jaune accordé à Amrabat, l'Arabie du Nord continue de s'agiter dans cette CAN 2025. Ce n'est pas la première fois que nous voyons des cartons jaunes échapper pendant ce tournoi. C'est toujours une perte de temps précieux pour l'équipe, qui doit nowateur se repositionner et adapter son jeu aux conséquences du non-disponibilité d'un joueur clé. Ce carton jaune intervient dans un match où le Maroc a fait preuve de sa puissance offensive mais aussi de son dynamisme défensif. Amrabat, lui, semble être le nerf de la guerre pour les Lions de laAtlas, et sa suspension temporaire pourrait avoir des répercussions sur leur dynamisme et leur jeu collectif. Mais ce n'est qu'une cartographie au tableau de bord de la CAN.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:18.664213",
+      "tokens": 322
+    },
+    {
+      "event": {
+        "minute": 75,
+        "type": "chance",
+        "team": "Maroc",
+        "player": "Adli",
+        "description": "Adli cherche le but"
+      },
+      "minute_display": "75' - Deuxième mi-temps",
+      "prompt": "Commente cette grosse occasion de Adli! Adli cherche le but",
+      "commentary": "Adli, c'est lui ! Le numéro 10 marocain se retrouve face au gardien égyptien. Il a profité d'un dégagement hésitant de l'arrière défenseur égyptien pour pousser la balle vers le but. Attention ! C'est un joueur emblématique de la Coupe d'Afrique des Nations ! Avec son talent et son expérience, il a vraiment tout donné. Mais attention, ce n'est pas encore le but... Adli est toujours là, prêt à marquer ! La pression est montante sur son adversaire. C'est une belle occasion qui pourrait faire basculer le match en faveur des Lions de l'Atlas. Les yeux sont rivés sur la trajectoire de la balle.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:24.764342",
+      "tokens": 288
+    },
+    {
+      "event": {
+        "minute": 77,
+        "type": "attack",
+        "team": "Égypte",
+        "player": "Trézéguet",
+        "description": "L'Égypte sent la victoire"
+      },
+      "minute_display": "77' - Deuxième mi-temps",
+      "prompt": "Commente l'action offensive de Trézéguet. L'Égypte sent la victoire",
+      "commentary": "Au cœur de cette CAN, le match Maroc-Égypte s'annonce d'un suspense extrême. Nous assistons à une incroyable offensive égyptienne qui démontre la force de ses attaquants. \n\nLe numéro 17 de l'équipe égyptienne, Trézéguet, vient de recevoir un ballon magnifiquement joué par son coéquipier à l'aile. Sa vitesse impressionnante et sa précision sont clairement remarquables. Il se dirige droit vers le but marocain avec autant de détermination que de grâce.\n\nL'entraîneur égyptien semble avoir misé sur Trézéguet pour délivrer un coup de maître en fin de match. Son adresse à la frappe est à surveiller de près, puisque cela pourrait bien être la clé pour décrocher la victoire pour l'Égypte",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:31.814464",
+      "tokens": 329
+    },
+    {
+      "event": {
+        "minute": 80,
+        "type": "substitution",
+        "team": "Maroc",
+        "player_out": "Ounahi",
+        "player_in": "Amallah",
+        "description": "Deuxième changement marocain"
+      },
+      "minute_display": "80' - Deuxième mi-temps",
+      "prompt": "Changement: Amallah entre pour Ounahi. Commente",
+      "commentary": "Voici mon commentaire sur ce changement :\n\nL'entraîneur marocain vient d'introduire Amallah à la place d'Ounahi dans le milieu de terrain. Ce remplacement fait suite à une phase de jeu intense où les équipes ont investi leurs milieux. Ounahi, avec son temps de jeu complet, a certainement donné tout ce qu'il avait à offrir.\n\nLe changement apporte un soutien supplémentaire dans l'axe pour le Maroc. Amallah, connu pour sa solidité défensive mais aussi ses capacités offensives, devrait avoir un impact direct sur le jeu. En effet, son entrée pourrait être déterminante pour contrer les attaques rapides et bien organisées de l'Égypte.\n\nCette action reflète une stratégie précise de l'équipe marocaine pour répondre au rythme de jeu de son adversaire. La CAN 2",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:39.049781",
+      "tokens": 320
+    },
+    {
+      "event": {
+        "minute": 82,
+        "type": "chance",
+        "team": "Maroc",
+        "player": "En-Nesyri",
+        "description": "En-Nesyri bute sur El Shenawy"
+      },
+      "minute_display": "82' - Deuxième mi-temps",
+      "prompt": "Commente cette grosse occasion de En-Nesyri! En-Nesyri bute sur El Shenawy",
+      "commentary": "En-Nesyri, ce fut une prestation mémorable ! Son coup de pied est magnifique, si bien dirigé que l'Égyptien El Shenawy ne peut que se laisser aller. C'est un moment de grand défi qui se joue entre ces deux équipes au plus haut niveau de la CAN 2025. L'action était à couper le souffle, un véritable cocktail d'agilité et de précision ! Il est clair que En-Nesyri a donné tout son grain de beauté pour conquérir le ballon face à l'équipe égyptienne. Cette tentative, elle, n'a pas fait défaut. Mais la réalité nous rappelle qu'il y a toujours des attaquants et des gardiens qui ont leur mot à dire dans ce type de situation. L'Égypte, elle, n'a pas été sans répliquer, prouvant une fois de plus sa combat",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:46.117332",
+      "tokens": 328
+    },
+    {
+      "event": {
+        "minute": 85,
+        "type": "tension",
+        "description": "La tension monte dans le stade"
+      },
+      "minute_display": "85' - Deuxième mi-temps",
+      "prompt": "Décris la tension qui monte dans le stade en fin de match",
+      "commentary": "Les applaudissements s'échelonnent, l'atmosphère est électrique. Les supporters marocains se redressent dans leurs tribunes, leur regard fixé sur le terrain, les dents serrées à l'idée de maintenir cette deuxième place au classement de groupe. Dans la foulée, les spectateurs égyptiens ne sont pas en reste, leur joie croissante à chaque prise de balle conquise ou débordement réussi. L'arbitre tient toujours la main levée, interrompue par le temps additionnel, l'attente palpable. Chaque seconde semble peser lourd, chaque minute supplémentaire une goutte de sueur supplémentaire pour les deux sélections. L'air est épais, la tension palpable, comme si chaque coup de ballon restait suspendu dans l'espace, le temps ralenti pour que chaque action",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:48:53.156483",
+      "tokens": 323
+    },
+    {
+      "event": {
+        "minute": 87,
+        "type": "substitution",
+        "team": "Égypte",
+        "player_out": "Trézéguet",
+        "player_in": "Mostafa Mohamed",
+        "description": "Dernier changement égyptien"
+      },
+      "minute_display": "87' - Deuxième mi-temps",
+      "prompt": "Changement: Mostafa Mohamed entre pour Trézéguet. Commente",
+      "commentary": "Ah, une substitution majeure dans cette rencontre! Mostafa Mohamed, reconnu pour son talent offensif et sa capacité à marquer des buts décisifs, entre en jeu pour替er Treszeuguet. C'est une opération qui va devoir être observée de près. Le capitaine égyptien a eu son rôle important jusqu'à présent, mais Mostafa Mohamed est désormais prêt à emmener l'équipe vers de nouveaux horizons offensifs.\n\nEn analysant la phase de jeu précédente, on a pu voir l'agressivité de l'Egypte dans les zones offensives, cherchant constamment à créer des opportunités devant le but marocain. L'introduction de Mostafa Mohamed pourrait changer la donne en donnant une nouvelle impulsion à cette offensive.\n\nIl est clair que cette décision tactique change le cours du match. L'Égypte était en train d'exercer une",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:00.013310",
+      "tokens": 324
+    },
+    {
+      "event": {
+        "minute": 88,
+        "type": "foul",
+        "team": "Égypte",
+        "description": "Faute égyptienne dans leur camp"
+      },
+      "minute_display": "88' - Deuxième mi-temps",
+      "prompt": "Faute. Faute égyptienne dans leur camp. Commente",
+      "commentary": "Un coup franc vire sous le regard du public marocain. Les défenseurs égyptiens se rassemblent avec une prudence tactique, mais un centre s'élève rapidement vers la surface de réparation. Une passe en retrait semble être faite, un tacle pourtant mal exécuté permet à l'un des attaquants de l'équipe marocaine d'atteindre la balle dans le dos de la défense égyptienne. La situation devient alors plus incertaine, avec des appels à l'arbitrage qui résonnent clairement dans l'air.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:05.554730",
+      "tokens": 255
+    },
+    {
+      "event": {
+        "minute": 89,
+        "type": "free_kick",
+        "team": "Maroc",
+        "description": "Coup franc pour le Maroc"
+      },
+      "minute_display": "89' - Deuxième mi-temps",
+      "prompt": "Coup franc pour Maroc. Décris la situation",
+      "commentary": "Ah, on est dans l'air du jeu, et le Maroc est à la barre ! C'est un coup franc qui s'envole droit vers la surface égyptienne. Les défenseurs égyptiens sont bien positionnés pour récupérer ce ballon. L'attaquant marocain a le temps de reprendre son souffle, mais l'équipe nationale a des joueurs talentueux prêts à réagir rapidement.\n\nSur le plan tactique, le Maroc fait appel à un système offensif compact et précis. Les Egyptiens, eux, restent solides et ne laissent pas beaucoup d'espace entre eux. C'est une bataille où chaque action compte, et les deux formations cherchent à maintenir leur avantage respectif.\n\nPour ce match Maroc vs Égypte, la CAN 2025 se profile déjà comme une grande affiche. La rivalité nord",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:12.450980",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": 90,
+        "type": "added_time",
+        "description": "5 minutes de temps additionnel"
+      },
+      "minute_display": "90' - Deuxième mi-temps",
+      "prompt": "5 minutes de temps additionnel. Commente le temps additionnel",
+      "commentary": "Bien sûr, c'est le moment décisif où le suspense monte. Les arbitres ont accordé 5 minutes supplémentaires à la suite des prolongations. Dans ce laps de temps crucial, les deux équipes font l'impasse sur les occasions majeures. Le Maroc, malgré ses efforts constant, n'a pas réussi à marquer. Quant à l'Égypte, elle semble ne pas avoir accédé aux largesses offensives qui lui sont coutumières. Cette phase supplémentaire pourrait être décisive dans le parcours de ces deux nations pour la CAN 2025. Rendez-vous compte, ce sont ici des moments importants, chaque seconde compte dans cette compétition continentale. Restons attentifs !",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:18.647088",
+      "tokens": 283
+    },
+    {
+      "event": {
+        "minute": 90.1,
+        "type": "attack",
+        "team": "Maroc",
+        "description": "Assaut final marocain"
+      },
+      "minute_display": "90.1",
+      "prompt": "Commente l'action offensive de Maroc. Assaut final marocain",
+      "commentary": "Ah, quelle action ! Nous assistons à un assaut final des Marocains contre les Égyptiens. Le ballon vient de sortir d'un angle dangereux, et la pression de l'équipe marocaine est palpable. Un joueur marocain, visiblement motivé par la nécessité de marquer et de sécuriser la victoire, se précipite vers l'avant. Sa vitesse et son adresse sont remarquables : il contourne plusieurs défenseurs égyptiens avec une précision redoutable.\n\nL'attaque marocaine semble déterminée à ne pas laisser filer la victoire sur un coup franc ou une déviation, mettant en jeu sa survie dans cette CAN. La pression est montante, les joueurs marocains travaillent en synergie pour créer un espace devant la défense adverse.\n\nC'est là que l'action devient cruciale. Le",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:25.682255",
+      "tokens": 322
+    },
+    {
+      "event": {
+        "minute": 90.3,
+        "type": "goal",
+        "team": "Maroc",
+        "player": "Amallah",
+        "score": "2-1",
+        "description": "BUUUUUT! Amallah en or pour le Maroc!"
+      },
+      "minute_display": "90.3",
+      "prompt": "BUUUUT DE Amallah POUR Maroc! Score: 2-1. Commente ce but avec passion!",
+      "commentary": "Ce but d'Amallah est une réelle perle de jeu ! Avec un contrôle impeccable, l'international marocain a éliminé son défenseur égyptien avant de déclencher un tir puissant dans les angles. L'explosion de l'enthousiasme à Marrakech est incontournable. C'est une véritable démonstration de技 (technique) et de courage ! Le Maroc reste en tête du groupe malgré la résistance égyptienne. Une performance magistrale de la part d'Amallah qui pourrait bien faire parler de lui au cours de cette compétition. Bravo, Amallah !",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:31.344443",
+      "tokens": 271
+    },
+    {
+      "event": {
+        "minute": 90.4,
+        "type": "celebration",
+        "team": "Maroc",
+        "description": "Délire dans les tribunes marocaines"
+      },
+      "minute_display": "90.4",
+      "prompt": "Célébration de Maroc. Décris l'ambiance",
+      "commentary": "L'ambiance à la CAF est électrisante, mais elle est encore plus intense aujourd'hui. Les supporters marocains sont sur leur lancée, leur détermination palpable dans chaque geste et chaque cri. Le stade vibre sous la force du collectif, chaque toucher du ballon se traduisant par une explosion de joie. Les couleurs nationales, rouge et blanc, dominent l'air avec une force inégalée, marquant leur présence non seulement par leurs chants entraînants mais aussi par leur énergie collective. Cette victoire leur permet d'exprimer leur fierté sans mesure, de célébrer chaque but avec une exubérance communicative qui résonne jusqu'à la moindre corbeille voisine.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:37.585837",
+      "tokens": 287
+    },
+    {
+      "event": {
+        "minute": 90.5,
+        "type": "despair",
+        "team": "Égypte",
+        "description": "Déception égyptienne"
+      },
+      "minute_display": "90.5",
+      "prompt": "Déception visible de Égypte. Commente leur frustration",
+      "commentary": "Malgré la déception manifeste sur le visage des joueurs égyptiens, il est essentiel de comprendre qu'il s'agit là d'un match crucial dans le cadre de la CAN 2025. La défaite ne fait aucun doute, car le Maroc a été particulièrement agressif et précis devant le but. Les Pharaons ont connu une journée difficile, avec des occasions manquées et une défense qui semblait trop souvent prise en contre. \n\nLa rivalité nord-africaine ne se limite pas aux résultats, elle s'étend également à l'esprit du jeu et aux émotions des supporters. Les fans égyptiens sont plus qu'attachés à cette compétition, tant elles sont perçues comme une forme de revanche sur le désastreux résultat de la CAN 2019. \n\nEn effet, lors de ce dernier tournoi, l'équipe nation",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:44.586238",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": 93,
+        "type": "attack",
+        "team": "Égypte",
+        "description": "Dernière tentative égyptienne"
+      },
+      "minute_display": "93' - Temps additionnel",
+      "prompt": "Commente l'action offensive de Égypte. Dernière tentative égyptienne",
+      "commentary": "Sur le terrain, nous voyons une offensive intense de l'Égypte, l'un des favoris pour la victoire. Le ballon est à un attaquant égyptien qui s'est engouffré dans le centre de la défense marocaine. Il a un dosseur face à lui, mais il semble déterminé à tirer. Son geste est agressif et habile, essayant de prendre la paire de défenseurs marocains à contre-pied. Le gardien marocain est à la traîne pour se mettre entre le coup-franc et le filet, prêts à réagir si le ballon vient se poser près du but. C'est une situation où l'Égypte a la possibilité de tirer sur la main ou de pousser le ballon vers l'angle. Les spectateurs attendent avec impatience pour voir si l'Égypte",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:51.667561",
+      "tokens": 324
+    },
+    {
+      "event": {
+        "minute": 95,
+        "type": "full_time",
+        "score": "2-1",
+        "description": "Coup de sifflet final"
+      },
+      "minute_display": "95' - Temps additionnel",
+      "prompt": "Coup de sifflet final! Score: 2-1. Commente la fin du match",
+      "commentary": "Un match palpitant de bout en bout ! Aujourd'hui, c'est le Maroc qui remporte la CAN grâce à ce but controversé sur un coup franc en toute fin de match. Les Marocains ont dominé cette première mi-temps, construisant plusieurs occasions. Leur jeu est technique et bien orchestré, ce qui a vraiment mis la pression sur l'Égypte.\n\nPourtant, le onze égyptien reste bien solide défensivement et a réussi à contenir les offensives marocaines pendant les 45 premières minutes. Cependant, dans une seconde période où le Maroc a dominé davantage, les pharaons ont été contraints à jouer plus haut dans leur zone afin de contenir l'assaut marocain.\n\nLe moment décisif intervient à la 89ème minute, quand le Maroc parvient à contrôler le ballon sur",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:49:58.531193",
+      "tokens": 328
+    },
+    {
+      "event": {
+        "minute": "FT",
+        "type": "full_time_analysis",
+        "description": "Analyse du match"
+      },
+      "minute_display": "FT",
+      "prompt": "Analyse complète du match (5-6 phrases)",
+      "commentary": "Le Maroc a dominé l'Égypte avec une performance impressionnante. En première mi-temps, les Lions de l'Atlas ont ouvert le score rapidement grâce à un but de Raphaël Varane. L'Egypte, malgré ses efforts, n'a pas réussi à trouver la faille dans la défense marocaine. À la pause, le score était déjà 2-0 pour le Maroc. En seconde mi-temps, le Maroc a maintenu son avantage, ajoutant deux nouveaux buts par Hakim Ziyech et Youssef En-Nesyri. Les égyptiens, bien que tenaces, ne parviennent pas à réduire l'écart. Ce match illustre clairement le niveau élevé du Maroc lors de cette CAN, avec une affinité particulière avec le football nord-africain qui s'est manifestée tout au long du match.",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:50:05.630122",
+      "tokens": 315
+    },
+    {
+      "event": {
+        "minute": "FT+5",
+        "type": "stats",
+        "description": "Statistiques complètes"
+      },
+      "minute_display": "FT+5",
+      "prompt": "Présente les statistiques importantes du match jusqu'ici",
+      "commentary": "Bonjour à tous, nous sommes au milieu d'un match captivant entre le Maroc et l'Égypte en prévision de la CAN 2025. À ce stade, le match se joue sous un ciel orageux, comme souvent dans ces compétitions marquées par la rivalité nord-africaine.\n\nL'équipe marocaine a montré une solide défense, n'accordant que deux opportunités claires de but à l'Égypte. La performance de Nasser Helaoui en particulier est remarquable, s'engageant vigoureusement pour contenir l'attaque égyptienne. Son efficacité au duel est aussi notable, repoussant plusieurs avancées égyptiennes.\n\nL'Égypte a été plus dominante en possession de balle, contrôlant 60% du temps de jeu, mais l'efficacité",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:50:12.773965",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": "FT+10",
+        "type": "man_of_match",
+        "description": "Homme du match"
+      },
+      "minute_display": "FT+10",
+      "prompt": "Désigne et commente l'homme du match",
+      "commentary": "En observant ce duel, il est évident que nous avons affaire à deux équipes qui se connaissent bien, marquant le rythme de la CAN en préparation. Le duel clé semble se jouer entre les deux titans de la compétition nord-africaine : le Maroc et l'Égypte.\n\nL'homme du match, vu son rôle capital dans l'attaque et sa capacité à marquer, pourrait être Hakim Ziyech pour le Maroc. Ce milieu offensif, talentueux et rapide, a déjà prouvé son potentiel offensif lors des précédentes CAN. Son dynamisme sur le terrain et son sens du but le font souvent regarder comme une menace constante pour les défenses adverses. Sa précision sur les corners et ses dribbles ont été clés lors des derniers matches.\n\nDans l'autre camp, Mohamed Salah, attaquant égyptien reconn",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:50:19.675621",
+      "tokens": 318
+    },
+    {
+      "event": {
+        "minute": "FT+15",
+        "type": "reactions",
+        "description": "Réactions des joueurs"
+      },
+      "minute_display": "FT+15",
+      "prompt": "Décris les réactions des joueurs après le match",
+      "commentary": "Après cette intense rencontre entre le Maroc et l'Égypte, on observe des émotions contrastées chez les joueurs de chaque équipe. Pour le Maroc, où le triomphe était clairement dans l'air, une joie contenue mais sincère s'est manifestée. Les joueurs ont salué leurs supporters avec une danse traditionnelle marocaine, une façon respectueuse d'honorer leur public. Cette célébration reflète le sentiment d'une victoire remportée de justesse et du dévouement de tous les membres de l'équipe.\n\nDu côté égyptien, la déception a été palpable. Leurs efforts ont été louables, mais le score final ne laisse pas de place au doute : ils sont repartis bredouilles de ce choc. Les joueurs ont été vus dans un silence presque pénitent, certains abattus sur le terrain",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:50:26.869721",
+      "tokens": 319
+    },
+    {
+      "event": {
+        "minute": "FT+20",
+        "type": "consequences",
+        "description": "Conséquences pour la suite de la compétition"
+      },
+      "minute_display": "FT+20",
+      "prompt": "Explique les conséquences de ce résultat pour la suite de la CAN",
+      "commentary": "Le match Maroc contre Égypte, lors de la phase de poules de la CAN 2025, s'est déroulé dans une ambiance électrisante, reflétant la rivalité historique entre ces deux équipes africaines emblématiques. Avec un score final de 3-2 en faveur du Maroc, l'histoire répète quelque peu celle des précédentes éditions de la CAN, où l'Égypte avait remporté le duel à chaque fois.\n\nCette victoire du Maroc place les Lions de l'Atlas dans une situation stratégique intéressante pour le reste du tournoi. Le Maroc occupe désormais la première place du groupe A, avec trois points d'avance sur ses concurrents directs. Cela signifie que pour continuer sa progression, l'équipe marocaine devra être constamment en forme, car les points sont précieux dans les compétitions",
+      "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "timestamp": "2025-12-26T18:50:33.767298",
+      "tokens": 322
+    }
+  ]
+}
