@@ -27,12 +27,10 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// CRITICAL: Next.js 16 proxy.ts forces dynamic rendering
-// Cannot use ISR (revalidate) or auto rendering - causes DYNAMIC_SERVER_USAGE error
-// Must use force-dynamic, but we enable caching via Vercel edge with Cache-Control headers
-// This achieves ISR-like performance (5min edge cache) without ISR
+// Force dynamic rendering due to Next.js 16 proxy.ts middleware
+// The proxy middleware marks all routes as dynamic, so ISR is not compatible
+// We use edge caching via Cache-Control headers for performance instead
 export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store'; // Prevent Next.js from overriding our cache headers
 
 // Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
