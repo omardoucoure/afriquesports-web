@@ -51,13 +51,15 @@ export default function MatchPageClient({
     setViewers(Math.floor(Math.random() * 5000) + 1000);
   }, []);
 
-  // Poll for updates every 15 seconds during live matches
+  // Poll for updates every 15 seconds for all matches
   const { data: liveData } = useSWR(
-    isLive ? `/api/match-live-update?id=${matchId}&locale=${locale}` : null,
+    `/api/match-live-update?id=${matchId}&locale=${locale}`,
     fetcher,
     {
       refreshInterval: 15000,
-      fallbackData: { match: initialMatchData, commentary: initialCommentary }
+      fallbackData: { match: initialMatchData, commentary: initialCommentary },
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true
     }
   );
 

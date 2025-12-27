@@ -13,6 +13,7 @@
 require('dotenv').config({ path: '.env.local' });
 const https = require('https');
 const http = require('http');
+const zlib = require('zlib');
 
 const VLLM_ENDPOINT = process.env.VLLM_ENDPOINT || 'https://qbjo7w9adplhia-8000.proxy.runpod.net/v1';
 const VLLM_API_KEY = process.env.VLLM_API_KEY || 'sk-1234';
@@ -24,15 +25,22 @@ function fetchJSON(url) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
     protocol.get(url, (res) => {
+      // Handle gzip encoding
+      let stream = res;
+      if (res.headers['content-encoding'] === 'gzip') {
+        stream = res.pipe(zlib.createGunzip());
+      }
+
       let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
+      stream.on('data', chunk => data += chunk);
+      stream.on('end', () => {
         try {
           resolve(JSON.parse(data));
         } catch (e) {
           reject(new Error(`Failed to parse JSON: ${e.message}`));
         }
       });
+      stream.on('error', reject);
     }).on('error', reject);
   });
 }

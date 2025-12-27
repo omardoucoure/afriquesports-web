@@ -16,6 +16,7 @@
 
 const https = require('https');
 const http = require('http');
+const zlib = require('zlib');
 
 // Configuration
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
@@ -35,21 +36,28 @@ const processedMatches = new Set();
 const activeStreams = new Map();
 
 /**
- * Fetch JSON via HTTPS
+ * Fetch JSON via HTTPS (handles gzip compression)
  */
 function fetchJSON(url) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
     protocol.get(url, (res) => {
+      // Handle gzip encoding
+      let stream = res;
+      if (res.headers['content-encoding'] === 'gzip') {
+        stream = res.pipe(zlib.createGunzip());
+      }
+
       let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
+      stream.on('data', chunk => data += chunk);
+      stream.on('end', () => {
         try {
           resolve(JSON.parse(data));
         } catch (e) {
           reject(e);
         }
       });
+      stream.on('error', reject);
     }).on('error', reject);
   });
 }
@@ -113,6 +121,133 @@ async function webSearch(query) {
     console.error(`[ERROR] Web search failed for "${query}":`, error.message);
     return { abstract: '', results: [] };
   }
+}
+
+/**
+ * Find live match coverage from known sports sites
+ */
+async function searchLiveMatchCoverage(homeTeam, awayTeam) {
+  const potentialUrls = [];
+
+  // Priority URLs - verified live coverage sites
+  if (homeTeam.toLowerCase().includes('senegal') || awayTeam.toLowerCase().includes('senegal')) {
+    potentialUrls.push(
+      'https://rmcsport.bfmtv.com/football/coupe-d-afrique-des-nations/direct-senegal-rd-congo-suivez-le-choc-du-groupe-d-de-la-can-205-en-live_LS-202512270086.html',
+      'https://www.eurosport.fr/football/coupe-d-afrique-des-nations/2025/live-senegal-rd-congo_mtc1584162/live-commentary.shtml',
+      'https://www.senenews.com/actualites/sport/en-direct-benin-vs-botswana-can-2025-groupe-d-suivez-le-match-en-direct_570677.html'
+    );
+  }
+
+  if (homeTeam.toLowerCase().includes('benin') || awayTeam.toLowerCase().includes('benin')) {
+    potentialUrls.push(
+      'https://www.senenews.com/actualites/sport/en-direct-benin-vs-botswana-can-2025-groupe-d-suivez-le-match-en-direct_570677.html'
+    );
+  }
+
+  // Generic CAN 2025 live coverage pages
+  potentialUrls.push(
+    'https://www.eurosport.fr/football/coupe-d-afrique-des-nations/2025/live.shtml',
+    'https://www.lequipe.fr/Football/can/direct.html',
+    'https://www.footmercato.net/afrique/coupe-afrique-nations/live'
+  );
+
+  console.log(`   🔍 Checking ${potentialUrls.length} known sports sites...`);
+  return potentialUrls;
+}
+
+/**
+ * Scrape live match commentary from a news website
+ */
+async function scrapeLiveCommentary(url, homeTeam, awayTeam) {
+  return new Promise((resolve) => {
+    const urlObj = new URL(url);
+    const protocol = urlObj.protocol === 'https:' ? https : http;
+    const options = {
+      hostname: urlObj.hostname,
+      path: urlObj.pathname + urlObj.search,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml'
+      },
+      timeout: 10000
+    };
+
+    const req = protocol.get(options, (res) => {
+      // Handle redirects
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        console.log(`   ↪️  Redirected to ${res.headers.location}`);
+        resolve([]);
+        return;
+      }
+
+      if (res.statusCode !== 200) {
+        console.log(`   ⚠️  ${urlObj.hostname} returned ${res.statusCode}`);
+        resolve([]);
+        return;
+      }
+
+      let html = '';
+      res.on('data', chunk => html += chunk);
+      res.on('end', () => {
+        try {
+          // Extract live updates/commentary
+          const events = [];
+
+          // Multiple patterns to catch different formats
+          const patterns = [
+            // "12:45 - Text" or "12h45 - Text"
+            /(\d{1,2}[h:]\d{2}['"]?)\s*[-:—]\s*([^<\n]{15,250})/gi,
+            // "12' Text" or "12min Text"
+            /(\d{1,2}['"]|min)\s+([^<\n]{15,250})/gi
+          ];
+
+          for (const pattern of patterns) {
+            const matches = [...html.matchAll(pattern)];
+
+            for (const match of matches) {
+              const time = match[1].replace('h', ':').replace('"', "'").replace('min', "'");
+              let text = match[2]
+                .replace(/<[^>]*>/g, '') // Remove HTML tags
+                .replace(/&[a-z]+;/gi, ' ') // Remove HTML entities
+                .replace(/\s+/g, ' ') // Normalize whitespace
+                .trim();
+
+              // Only include if it mentions the teams or common football terms
+              const isRelevant = text.toLowerCase().includes(homeTeam.toLowerCase()) ||
+                               text.toLowerCase().includes(awayTeam.toLowerCase()) ||
+                               text.match(/but|goal|carton|penalty|faute|tir|corner|arrêt|ballon|passe|frappe|gardien/i);
+
+              if (isRelevant && text.length >= 15 && text.length <= 300 && !text.match(/^\d+$/)) {
+                events.push({ time, text, source: urlObj.hostname });
+              }
+            }
+          }
+
+          // Remove duplicates
+          const uniqueEvents = events.filter((event, index, self) =>
+            index === self.findIndex(e => e.time === event.time && e.text === event.text)
+          );
+
+          console.log(`   📰 Scraped ${uniqueEvents.length} events from ${urlObj.hostname}`);
+          resolve(uniqueEvents);
+        } catch (error) {
+          console.error(`[ERROR] Failed to parse ${url}:`, error.message);
+          resolve([]);
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      console.log(`   ⚠️  Could not reach ${urlObj.hostname}`);
+      resolve([]);
+    });
+
+    req.on('timeout', () => {
+      req.destroy();
+      console.log(`   ⏱️  Timeout for ${urlObj.hostname}`);
+      resolve([]);
+    });
+  });
 }
 
 /**
@@ -234,6 +369,67 @@ Sois professionnel, précis et engageant.`;
 
   } catch (error) {
     console.error('[ERROR] Failed to generate pre-match analysis:', error.message);
+    return null;
+  }
+}
+
+/**
+ * Generate narrative commentary based on match context (no chat needed)
+ */
+async function generateNarrativeCommentary(match, minute, score, homeTeam, awayTeam) {
+  try {
+    // Determine match phase
+    let phase = '';
+    const min = parseInt(minute) || 0;
+    if (min < 15) phase = 'début du match';
+    else if (min < 30) phase = 'première mi-temps';
+    else if (min < 45) phase = 'fin de première mi-temps';
+    else if (min >= 45 && min < 50) phase = 'début de deuxième mi-temps';
+    else if (min < 75) phase = 'deuxième mi-temps';
+    else phase = 'fin du match';
+
+    const prompt = `Tu es un commentateur sportif français expert pour la CAN 2025.
+
+CONTEXTE DU MATCH:
+Match: ${homeTeam} vs ${awayTeam}
+Score actuel: ${homeTeam} ${score.home} - ${score.away} ${awayTeam}
+Minute: ${minute}
+Phase: ${phase}
+
+INSTRUCTIONS:
+Génère UN commentaire narratif professionnel en français (2-3 phrases max) qui décrit l'action probable à ce moment du match. Sois dynamique et engageant.
+
+Exemples de commentaires selon la phase:
+- Début: "Le ${homeTeam} prend le contrôle du ballon. Les deux équipes s'observent avec prudence."
+- Milieu: "${awayTeam} multiplie les attaques. La défense ${homeTeam} reste solide."
+- Fin: "Le temps presse pour ${awayTeam}. Dernière occasion de revenir au score!"
+
+Génère maintenant un commentaire adapté à ce contexte:`;
+
+    const payload = {
+      model: VLLM_MODEL,
+      messages: [
+        { role: 'system', content: 'Tu es un commentateur sportif français dynamique pour Afrique Sports CAN 2025.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 120,
+      temperature: 0.9
+    };
+
+    const response = await postJSON(
+      `${VLLM_BASE_URL}/chat/completions`,
+      payload,
+      { 'Authorization': `Bearer ${VLLM_API_KEY}` }
+    );
+
+    if (response.status !== 200) {
+      throw new Error(`vLLM API error: ${response.status}`);
+    }
+
+    return response.data.choices[0].message.content.trim();
+
+  } catch (error) {
+    console.error('[ERROR] Failed to generate narrative commentary:', error.message);
     return null;
   }
 }
@@ -726,16 +922,84 @@ async function processLiveMatch(match) {
     await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
+  // SEARCH WEB FOR LIVE MATCH COVERAGE
+  console.log(`   🌐 Searching web for live match coverage...`);
+  const coverageUrls = await searchLiveMatchCoverage(match.homeTeam, match.awayTeam);
+
+  if (coverageUrls.length > 0) {
+    console.log(`   📰 Found ${coverageUrls.length} live coverage sites`);
+
+    // Scrape commentary from all found sites
+    const allEvents = [];
+    for (const url of coverageUrls) {
+      const events = await scrapeLiveCommentary(url, match.homeTeam, match.awayTeam);
+      allEvents.push(...events);
+      await new Promise(r => setTimeout(r, 1000)); // Rate limit
+    }
+
+    // Post scraped events to database
+    if (allEvents.length > 0) {
+      console.log(`   📝 Posting ${allEvents.length} scraped events...`);
+
+      for (const event of allEvents.slice(0, 10)) { // Limit to 10 most recent
+        const eventKey = `scraped_${match.id}_${event.time}_${event.text.substring(0, 30)}`;
+
+        // Skip if already posted
+        if (processedMatches.has(eventKey)) continue;
+
+        // Determine event type from text
+        let type = 'general';
+        let isScoring = false;
+        if (event.text.match(/but|goal/i)) {
+          type = 'goal';
+          isScoring = true;
+        } else if (event.text.match(/carton jaune|yellow card/i)) {
+          type = 'yellowCard';
+        } else if (event.text.match(/carton rouge|red card/i)) {
+          type = 'redCard';
+        }
+
+        const success = await postCommentary(match.id, event.text, type, isScoring);
+        if (success) {
+          processedMatches.add(eventKey);
+          console.log(`   ✅ Posted: ${event.time} - ${event.text.substring(0, 60)}...`);
+        }
+
+        await new Promise(r => setTimeout(r, 500)); // Rate limit
+      }
+    } else {
+      console.log(`   ⚠️  No events found on coverage sites`);
+    }
+  } else {
+    console.log(`   ⚠️  No live coverage sites found`);
+  }
+
   // Find YouTube stream automatically
   const stream = await findYouTubeLiveStream(match);
 
   if (!stream) {
-    console.log(`   ⚠️  No YouTube live stream found`);
+    console.log(`   ⚠️  No YouTube live stream found - generating narrative commentary`);
 
-    // Still generate commentary based on match details if available
-    if (details && details.minute) {
-      const minuteCommentary = `${details.minute} - Le match est en cours. Score actuel : ${details.homeTeam.name} ${details.homeTeam.score} - ${details.awayTeam.score} ${details.awayTeam.name}.`;
-      await postCommentary(match.id, minuteCommentary, 'general', false);
+    // Generate AI-powered narrative commentary even without stream
+    if (details) {
+      const minute = details.minute || 'En direct';
+      const score = {
+        home: details.homeTeam?.score || 0,
+        away: details.awayTeam?.score || 0
+      };
+
+      const narrative = await generateNarrativeCommentary(
+        match,
+        minute,
+        score,
+        details.homeTeam?.name || match.homeTeam,
+        details.awayTeam?.name || match.awayTeam
+      );
+
+      if (narrative) {
+        console.log(`   💬 Generated: "${narrative.substring(0, 60)}..."`);
+        await postCommentary(match.id, narrative, 'general', false);
+      }
     }
     return;
   }
@@ -751,12 +1015,35 @@ async function processLiveMatch(match) {
   console.log(`   💬 Chat messages: ${chatMessages.length}`);
 
   if (chatMessages.length === 0) {
-    console.log(`   ⚠️  No chat messages available`);
+    console.log(`   ⚠️  No chat messages available - generating narrative commentary`);
 
-    // Generate commentary based on match state
-    if (details && details.minute) {
-      const stateCommentary = `⚽ ${details.minute} - Match en cours à ${details.homeTeam.score}-${details.awayTeam.score}. L'action est intense sur le terrain !`;
-      await postCommentary(match.id, stateCommentary, 'general', false);
+    // Generate AI-powered narrative commentary based on match context
+    if (details) {
+      // Estimate minute based on time elapsed since kickoff or use "En direct"
+      const minute = details.minute || 'En direct';
+      const score = {
+        home: details.homeTeam?.score || 0,
+        away: details.awayTeam?.score || 0
+      };
+
+      const narrative = await generateNarrativeCommentary(
+        match,
+        minute,
+        score,
+        details.homeTeam?.name || match.homeTeam,
+        details.awayTeam?.name || match.awayTeam
+      );
+
+      if (narrative) {
+        console.log(`   💬 Generated: "${narrative.substring(0, 60)}..."`);
+        await postCommentary(match.id, narrative, 'general', false);
+      } else {
+        // Fallback to simple commentary
+        const homeTeamName = details.homeTeam?.name || match.homeTeam;
+        const awayTeamName = details.awayTeam?.name || match.awayTeam;
+        const fallback = `Match en cours. ${homeTeamName} ${score.home} - ${score.away} ${awayTeamName}.`;
+        await postCommentary(match.id, fallback, 'general', false);
+      }
     }
     return;
   }
