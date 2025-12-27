@@ -1,8 +1,14 @@
 import createMiddleware from 'next-intl/middleware';
-import { routing } from './src/i18n/routing';
 
 export default createMiddleware({
-  ...routing,
+  // A list of all locales that are supported
+  locales: ['fr', 'en', 'es', 'ar'],
+
+  // Used when no locale matches
+  defaultLocale: 'fr',
+
+  // Keep French at root (no /fr prefix) for SEO in production
+  localePrefix: process.env.NODE_ENV === 'development' ? 'always' : 'as-needed',
 
   // CRITICAL: Disable locale detection to prevent automatic redirects
   // Users should get the language specified in the URL, not their browser preference
