@@ -193,43 +193,64 @@ async function scrapeLiveCommentary(url, homeTeam, awayTeam) {
           // Extract live updates/commentary
           const events = [];
 
-          // Multiple patterns to catch different formats
-          const patterns = [
-            // "12:45 - Text" or "12h45 - Text"
-            /(\d{1,2}[h:]\d{2}['"]?)\s*[-:—]\s*([^<\n]{15,250})/gi,
-            // "12' Text" or "12min Text"
-            /(\d{1,2}['"]|min)\s+([^<\n]{15,250})/gi
-          ];
+          // Extract paragraph content (actual commentary)
+          const paragraphMatches = html.match(/<p[^>]*>([^<]{30,500})<\/p>/gi) || [];
 
-          for (const pattern of patterns) {
-            const matches = [...html.matchAll(pattern)];
+          for (const pTag of paragraphMatches) {
+            const text = pTag
+              .replace(/<[^>]*>/g, '') // Remove HTML tags
+              .replace(/&nbsp;/g, ' ')
+              .replace(/&quot;/g, '"')
+              .replace(/&amp;/g, '&')
+              .replace(/&[a-z]+;/gi, ' ') // Remove other entities
+              .replace(/\s+/g, ' ') // Normalize whitespace
+              .trim();
 
-            for (const match of matches) {
-              const time = match[1].replace('h', ':').replace('"', "'").replace('min', "'");
-              let text = match[2]
-                .replace(/<[^>]*>/g, '') // Remove HTML tags
-                .replace(/&[a-z]+;/gi, ' ') // Remove HTML entities
-                .replace(/\s+/g, ' ') // Normalize whitespace
-                .trim();
+            // Only include if it mentions teams or football terms and is not metadata
+            const isRelevant = (
+              text.toLowerCase().includes(homeTeam.toLowerCase()) ||
+              text.toLowerCase().includes(awayTeam.toLowerCase()) ||
+              text.match(/but|goal|carton|penalty|faute|tir|corner|arrêt|ballon|passe|frappe|gardien|match|joueur|attaque|défense/i)
+            ) && !text.match(/^\d+$/) && !text.match(/^https?:/) && !text.match(/script|json|window\./i);
 
-              // Only include if it mentions the teams or common football terms
-              const isRelevant = text.toLowerCase().includes(homeTeam.toLowerCase()) ||
-                               text.toLowerCase().includes(awayTeam.toLowerCase()) ||
-                               text.match(/but|goal|carton|penalty|faute|tir|corner|arrêt|ballon|passe|frappe|gardien/i);
+            if (isRelevant && text.length >= 30 && text.length <= 500) {
+              // Try to find a timestamp near this paragraph
+              // Priority: match minutes (28', 45+2') over clock times (15h54)
+              const beforeText = html.substring(Math.max(0, html.indexOf(pTag) - 300), html.indexOf(pTag));
 
-              if (isRelevant && text.length >= 15 && text.length <= 300 && !text.match(/^\d+$/)) {
-                events.push({ time, text, source: urlObj.hostname });
+              // First try to find match minute format: "28'" or "45+2'"
+              // Match ONLY realistic match minutes: 1-90 or 1-90+1-9 (e.g., "28'", "45+2'", "90+5'")
+              const matchMinute = beforeText.match(/\b([1-9]|[1-8]\d|90)(\+\d{1,2})?['"]/);
+
+              let time;
+              if (matchMinute) {
+                // Use match minute (e.g., "28'", "45+2'")
+                const fullMatch = matchMinute[0].replace('"', "'");
+                time = fullMatch;
+              } else {
+                // Fallback: use clock time or "En direct"
+                const clockTime = beforeText.match(/(\d{1,2}[h:]\d{2})/);
+                time = clockTime ? clockTime[1].replace('h', ':') + "'" : 'En direct';
               }
+
+              events.push({ time, text, source: urlObj.hostname });
             }
           }
 
-          // Remove duplicates
-          const uniqueEvents = events.filter((event, index, self) =>
-            index === self.findIndex(e => e.time === event.time && e.text === event.text)
-          );
+          // Remove duplicates based on text similarity
+          const uniqueEvents = [];
+          for (const event of events) {
+            const isDuplicate = uniqueEvents.some(e =>
+              e.text === event.text ||
+              (e.text.substring(0, 50) === event.text.substring(0, 50) && e.time === event.time)
+            );
+            if (!isDuplicate) {
+              uniqueEvents.push(event);
+            }
+          }
 
           console.log(`   📰 Scraped ${uniqueEvents.length} events from ${urlObj.hostname}`);
-          resolve(uniqueEvents);
+          resolve(uniqueEvents.slice(0, 15)); // Limit to 15 most recent
         } catch (error) {
           console.error(`[ERROR] Failed to parse ${url}:`, error.message);
           resolve([]);
@@ -477,14 +498,17 @@ Génère UN commentaire de match professionnel en français (2-3 phrases) basé 
 /**
  * Post commentary to database
  */
-async function postCommentary(matchId, commentary, type = 'general', isScoring = false, team = null, scorer = null) {
+async function postCommentary(matchId, commentary, type = 'general', isScoring = false, team = null, scorer = null, customTime = null) {
   try {
     const eventId = `auto_${matchId}_${Date.now()}`;
+
+    // Use custom time if provided (from scraping), otherwise use current clock time
+    const timeDisplay = customTime || (new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + "'");
 
     const payload = {
       match_id: matchId,
       event_id: eventId,
-      time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + "'",
+      time: timeDisplay,
       time_seconds: Math.floor(Date.now() / 1000),
       locale: 'fr',
       text: commentary,
@@ -947,19 +971,35 @@ async function processLiveMatch(match) {
         // Skip if already posted
         if (processedMatches.has(eventKey)) continue;
 
-        // Determine event type from text
+        // Determine event type from text - STRICT matching for goals
         let type = 'general';
         let isScoring = false;
-        if (event.text.match(/but|goal/i)) {
+
+        // Only mark as goal if it explicitly says it's a goal, not just mentions "but"
+        const actualGoalPhrases = [
+          /\bbut\s*!\s*[A-Z]/i,           // "but ! Senegal" or "but ! Mané"
+          /\bgoal\s*!/i,                   // "goal !"
+          /marque/i,                       // "marque" (scores)
+          /ouvre le score/i,               // "opens the scoring"
+          /égalise/i,                      // "equalizes"
+          /\d+\s*-\s*\d+/,                 // Score like "1-0" or "2-1"
+          /filet|filets/i,                 // "nets" (in the net)
+          /au fond des filets/i            // "at the back of the net"
+        ];
+
+        const isActualGoal = actualGoalPhrases.some(pattern => event.text.match(pattern)) &&
+                            !event.text.match(/mais|frappe (au-dessus|à côté|sur le gardien)|arrêt|repousse|sauve|manque/i);
+
+        if (isActualGoal) {
           type = 'goal';
           isScoring = true;
-        } else if (event.text.match(/carton jaune|yellow card/i)) {
+        } else if (event.text.match(/carton jaune|yellow card|averti/i)) {
           type = 'yellowCard';
-        } else if (event.text.match(/carton rouge|red card/i)) {
+        } else if (event.text.match(/carton rouge|red card|expuls/i)) {
           type = 'redCard';
         }
 
-        const success = await postCommentary(match.id, event.text, type, isScoring);
+        const success = await postCommentary(match.id, event.text, type, isScoring, null, null, event.time);
         if (success) {
           processedMatches.add(eventKey);
           console.log(`   ✅ Posted: ${event.time} - ${event.text.substring(0, 60)}...`);
@@ -978,29 +1018,9 @@ async function processLiveMatch(match) {
   const stream = await findYouTubeLiveStream(match);
 
   if (!stream) {
-    console.log(`   ⚠️  No YouTube live stream found - generating narrative commentary`);
-
-    // Generate AI-powered narrative commentary even without stream
-    if (details) {
-      const minute = details.minute || 'En direct';
-      const score = {
-        home: details.homeTeam?.score || 0,
-        away: details.awayTeam?.score || 0
-      };
-
-      const narrative = await generateNarrativeCommentary(
-        match,
-        minute,
-        score,
-        details.homeTeam?.name || match.homeTeam,
-        details.awayTeam?.name || match.awayTeam
-      );
-
-      if (narrative) {
-        console.log(`   💬 Generated: "${narrative.substring(0, 60)}..."`);
-        await postCommentary(match.id, narrative, 'general', false);
-      }
-    }
+    console.log(`   ⚠️  No YouTube live stream found`);
+    // DO NOT generate AI narrative - only web scraping provides real events
+    // Stream info is already set during web scraping phase above
     return;
   }
 
@@ -1015,36 +1035,8 @@ async function processLiveMatch(match) {
   console.log(`   💬 Chat messages: ${chatMessages.length}`);
 
   if (chatMessages.length === 0) {
-    console.log(`   ⚠️  No chat messages available - generating narrative commentary`);
-
-    // Generate AI-powered narrative commentary based on match context
-    if (details) {
-      // Estimate minute based on time elapsed since kickoff or use "En direct"
-      const minute = details.minute || 'En direct';
-      const score = {
-        home: details.homeTeam?.score || 0,
-        away: details.awayTeam?.score || 0
-      };
-
-      const narrative = await generateNarrativeCommentary(
-        match,
-        minute,
-        score,
-        details.homeTeam?.name || match.homeTeam,
-        details.awayTeam?.name || match.awayTeam
-      );
-
-      if (narrative) {
-        console.log(`   💬 Generated: "${narrative.substring(0, 60)}..."`);
-        await postCommentary(match.id, narrative, 'general', false);
-      } else {
-        // Fallback to simple commentary
-        const homeTeamName = details.homeTeam?.name || match.homeTeam;
-        const awayTeamName = details.awayTeam?.name || match.awayTeam;
-        const fallback = `Match en cours. ${homeTeamName} ${score.home} - ${score.away} ${awayTeamName}.`;
-        await postCommentary(match.id, fallback, 'general', false);
-      }
-    }
+    console.log(`   ⚠️  No chat messages available - relying on web scraping only`);
+    // DO NOT generate AI narrative - only use real scraped events
     return;
   }
 
