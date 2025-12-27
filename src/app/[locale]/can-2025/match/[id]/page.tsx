@@ -119,6 +119,26 @@ export async function generateMetadata({
   const isCompleted = status?.type?.completed || false;
   const isUpcoming = !isLive && !isCompleted;
 
+  // Helper function to safely format date
+  const formatMatchDate = (dateString: string | undefined | null): string => {
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+    // Check if date is valid
+    if (isNaN(date.getTime())) return '';
+
+    try {
+      return date.toLocaleDateString(locale, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return '';
+    }
+  };
+
   // Dynamic title based on match status
   let title: string;
   if (isLive) {
@@ -126,12 +146,9 @@ export async function generateMetadata({
   } else if (isCompleted) {
     title = `${homeTeam.team.displayName} ${homeScore}-${awayScore} ${awayTeam.team.displayName} | CAN 2025 | Afrique Sports`;
   } else {
-    const matchDate = new Date(matchDataRaw.header.date);
-    const dateStr = matchDate.toLocaleDateString(locale, {
-      month: 'short',
-      day: 'numeric'
-    });
-    title = `${homeTeam.team.displayName} vs ${awayTeam.team.displayName} - ${dateStr} | CAN 2025 | Afrique Sports`;
+    const dateStr = formatMatchDate(matchDataRaw.header.date);
+    const datePart = dateStr ? ` - ${dateStr}` : '';
+    title = `${homeTeam.team.displayName} vs ${awayTeam.team.displayName}${datePart} | CAN 2025 | Afrique Sports`;
   }
 
   // Dynamic description based on match status
