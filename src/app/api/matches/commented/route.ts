@@ -1,67 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getAllCommentedMatches } from '@/lib/mysql-match-db';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get all unique match IDs from match_commentary_ai
-    const { data: commentaryMatches, error: commentaryError } = await supabase
-      .from('match_commentary_ai')
-      .select('match_id, created_at')
-      .order('created_at', { ascending: false });
+    // Get all matches with commentary or pre-match from MySQL
+    const commentedMatches = await getAllCommentedMatches();
 
-    if (commentaryError) {
-      console.error('Error fetching commentary matches:', commentaryError);
-      return NextResponse.json(
-        { error: 'Failed to fetch matches', message: commentaryError.message },
-        { status: 500 }
-      );
+    if (commentedMatches.length === 0) {
+      return NextResponse.json({
+        success: true,
+        count: 0,
+        matches: []
+      });
     }
-
-    // Get all unique match IDs from match_prematch_analysis
-    const { data: prematchMatches, error: prematchError } = await supabase
-      .from('match_prematch_analysis')
-      .select('match_id, created_at')
-      .order('created_at', { ascending: false });
-
-    if (prematchError) {
-      console.error('Error fetching prematch matches:', prematchError);
-      return NextResponse.json(
-        { error: 'Failed to fetch matches', message: prematchError.message },
-        { status: 500 }
-      );
-    }
-
-    // Combine and deduplicate match IDs
-    const allMatchIds = new Set<string>();
-    const matchDates = new Map<string, string>();
-
-    commentaryMatches?.forEach(m => {
-      allMatchIds.add(m.match_id);
-      if (!matchDates.has(m.match_id)) {
-        matchDates.set(m.match_id, m.created_at);
-      }
-    });
-
-    prematchMatches?.forEach(m => {
-      allMatchIds.add(m.match_id);
-      if (!matchDates.has(m.match_id)) {
-        matchDates.set(m.match_id, m.created_at);
-      }
-    });
 
     // Fetch match details from ESPN API for each match
-    const matchDetailsPromises = Array.from(allMatchIds).map(async (matchId) => {
+    const matchDetailsPromises = commentedMatches.map(async (match) => {
       try {
-        const espnUrl = `https://site.api.espn.com/apis/site/v2/sports/soccer/afr.1/summary?event=${matchId}`;
+        const espnUrl = `https://site.api.espn.com/apis/site/v2/sports/soccer/afr.1/summary?event=${match.match_id}`;
         const response = await fetch(espnUrl);
 
         if (!response.ok) {
-          console.error(`Failed to fetch ESPN data for match ${matchId}`);
+          console.error(`Failed to fetch ESPN data for match ${match.match_id}`);
           return null;
         }
 
@@ -74,33 +34,22 @@ export async function GET(request: NextRequest) {
         const homeTeam = competitors.find((c: any) => c.homeAway === 'home');
         const awayTeam = competitors.find((c: any) => c.homeAway === 'away');
 
-        // Get commentary counts
-        const { count: commentaryCount } = await supabase
-          .from('match_commentary_ai')
-          .select('*', { count: 'exact', head: true })
-          .eq('match_id', matchId);
-
-        const { count: prematchCount } = await supabase
-          .from('match_prematch_analysis')
-          .select('*', { count: 'exact', head: true })
-          .eq('match_id', matchId);
-
         return {
-          match_id: matchId,
+          match_id: match.match_id,
           home_team: homeTeam?.team?.displayName || 'Unknown',
           away_team: awayTeam?.team?.displayName || 'Unknown',
           home_score: homeTeam?.score || '0',
           away_score: awayTeam?.score || '0',
           status: data.header?.competitions?.[0]?.status?.type?.name || 'Unknown',
-          date: data.header?.competitions?.[0]?.date || matchDates.get(matchId),
+          date: data.header?.competitions?.[0]?.date || match.first_commented,
           competition: data.header?.league?.name || 'African Cup of Nations',
-          has_commentary: (commentaryCount || 0) > 0,
-          has_prematch: (prematchCount || 0) > 0,
-          commentary_count: commentaryCount || 0,
-          first_commented: matchDates.get(matchId)
+          has_commentary: match.has_commentary,
+          has_prematch: match.has_prematch,
+          commentary_count: match.commentary_count,
+          first_commented: match.first_commented
         };
       } catch (error) {
-        console.error(`Error fetching details for match ${matchId}:`, error);
+        console.error(`Error fetching details for match ${match.match_id}:`, error);
         return null;
       }
     });

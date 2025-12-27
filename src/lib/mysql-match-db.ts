@@ -481,6 +481,80 @@ export async function getMatchReport(match_id: string, locale: string = 'fr'): P
   }
 }
 
+// ============================================================================
+// GET ALL COMMENTED MATCHES
+// ============================================================================
+
+export interface CommentedMatchSummary {
+  match_id: string;
+  has_commentary: boolean;
+  has_prematch: boolean;
+  commentary_count: number;
+  first_commented: string;
+}
+
+export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]> {
+  const db = getPool();
+  if (!db) return [];
+
+  try {
+    // Get matches with commentary
+    const [commentaryRows] = await db.query<mysql.RowDataPacket[]>(
+      `SELECT
+        match_id,
+        COUNT(*) as commentary_count,
+        MIN(created_at) as first_commented
+      FROM wp_match_commentary
+      GROUP BY match_id`
+    );
+
+    // Get matches with pre-match analysis
+    const [prematchRows] = await db.query<mysql.RowDataPacket[]>(
+      `SELECT DISTINCT match_id, created_at
+      FROM wp_match_prematch_analysis`
+    );
+
+    // Combine results
+    const matchMap = new Map<string, CommentedMatchSummary>();
+
+    // Add commentary matches
+    for (const row of commentaryRows) {
+      matchMap.set(row.match_id, {
+        match_id: row.match_id,
+        has_commentary: true,
+        has_prematch: false,
+        commentary_count: row.commentary_count,
+        first_commented: row.first_commented,
+      });
+    }
+
+    // Add prematch matches
+    for (const row of prematchRows) {
+      const existing = matchMap.get(row.match_id);
+      if (existing) {
+        existing.has_prematch = true;
+        // Use earlier date
+        if (new Date(row.created_at) < new Date(existing.first_commented)) {
+          existing.first_commented = row.created_at;
+        }
+      } else {
+        matchMap.set(row.match_id, {
+          match_id: row.match_id,
+          has_commentary: false,
+          has_prematch: true,
+          commentary_count: 0,
+          first_commented: row.created_at,
+        });
+      }
+    }
+
+    return Array.from(matchMap.values());
+  } catch (error) {
+    console.error('[MySQL] Error fetching commented matches:', error);
+    return [];
+  }
+}
+
 // Close pool (for graceful shutdown)
 export async function closeMatchPool(): Promise<void> {
   if (pool) {
