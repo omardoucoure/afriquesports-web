@@ -118,8 +118,11 @@ export async function generateMetadata({
   }
 
   const competition = matchDataRaw.header.competitions[0];
-  const homeTeam = competition.competitors[0];
-  const awayTeam = competition.competitors[1];
+
+  // Find actual home and away teams based on homeAway field
+  const homeTeam = competition.competitors.find((c: any) => c.homeAway === 'home') || competition.competitors[0];
+  const awayTeam = competition.competitors.find((c: any) => c.homeAway === 'away') || competition.competitors[1];
+
   const status = matchDataRaw.header.status;
   const homeScore = homeTeam.score || 0;
   const awayScore = awayTeam.score || 0;
@@ -269,20 +272,28 @@ export default async function MatchPage({
       notFound();
     }
 
-    // Check if using old URL format (just numeric ID) and redirect to new format
+    // Extract team information
     const competition = matchDataRaw.header.competitions[0];
-    const homeTeam = competition.competitors[0];
-    const awayTeam = competition.competitors[1];
 
+    // Find actual home and away teams based on homeAway field
+    const homeTeamData = competition.competitors.find((c: any) => c.homeAway === 'home') || competition.competitors[0];
+    const awayTeamData = competition.competitors.find((c: any) => c.homeAway === 'away') || competition.competitors[1];
+
+    // Only redirect if using old URL format (just numeric ID)
+    // Accept new format URLs with any team order to avoid redirect loops
     if (isOldFormatSlug(slug)) {
       const newPath = generateMatchPath(
-        homeTeam.team.displayName,
-        awayTeam.team.displayName,
+        homeTeamData.team.displayName,
+        awayTeamData.team.displayName,
         matchId,
         locale
       );
       redirect(newPath);
     }
+
+    // Use the data from whichever order they appear in the API for display
+    const homeTeam = homeTeamData;
+    const awayTeam = awayTeamData;
 
     // Add YouTube stream to match data
     if (youtubeStream) {
