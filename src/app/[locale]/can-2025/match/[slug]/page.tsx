@@ -344,7 +344,14 @@ export default async function MatchPage({
         <Footer />
       </>
     );
-  } catch (error) {
+  } catch (error: any) {
+    // Don't log Next.js navigation errors (redirect, notFound)
+    // These are not real errors - just Next.js control flow
+    if (error?.digest?.startsWith('NEXT_REDIRECT') || error?.digest?.startsWith('NEXT_NOT_FOUND')) {
+      throw error;
+    }
+
+    // Log actual errors
     console.error('Error in MatchPage:', error);
     throw error;
   }
