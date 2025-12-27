@@ -174,6 +174,27 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      // Cache article pages at Vercel Edge (5 min cache, 10 min stale)
+      // This provides ISR-like performance without ISR (Next.js 16 proxy.ts compatibility)
+      {
+        source: "/:locale(fr|en|es|ar)?/:category/:slug",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=300, stale-while-revalidate=600",
+          },
+        ],
+      },
+      // Cache homepage and category pages (shorter cache time for freshness)
+      {
+        source: "/:locale(fr|en|es|ar)?/:path(category|mercato|can-2025)?",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=60, stale-while-revalidate=300",
+          },
+        ],
+      },
       // Cache API responses at Vercel Edge to reduce origin requests and costs
       {
         source: "/api/can2025/:path*",

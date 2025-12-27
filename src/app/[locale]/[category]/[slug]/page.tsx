@@ -27,10 +27,11 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Force dynamic rendering due to Next.js 16 proxy.ts middleware
-// The proxy middleware marks all routes as dynamic, so ISR is not compatible
-// We use edge caching via Cache-Control headers for performance instead
-export const dynamic = 'force-dynamic';
+// Dynamic rendering with edge caching for optimal performance and cost
+// Next.js 16 proxy.ts uses Node.js runtime (incompatible with ISR)
+// Solution: Use dynamic rendering + edge caching via Vercel CDN
+// This provides similar performance to ISR with better compatibility
+export const fetchCache = 'default-cache';
 
 // Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
