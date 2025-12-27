@@ -1,0 +1,45 @@
+# Vercel Cron Jobs - Running on WordPress Server
+# Location: /var/www/scripts/vercel-cron-runner.sh
+# Server: 159.223.103.16 (WordPress/DigitalOcean)
+#
+# Benefits:
+# - Saves $50-100/month on Vercel bills
+# - Uses already-paid-for WordPress server resources
+# - Same functionality, zero additional cost
+#
+# Installation Instructions:
+# 1. SSH into WordPress server: ssh root@159.223.103.16
+# 2. Create scripts directory: mkdir -p /var/www/scripts
+# 3. Upload vercel-cron-runner.sh to /var/www/scripts/
+# 4. Make executable: chmod +x /var/www/scripts/vercel-cron-runner.sh
+# 5. Set CRON_SECRET environment variable (see below)
+# 6. Add these cron jobs: crontab -e
+
+# Set environment variables for all cron jobs
+CRON_SECRET=your_cron_secret_here
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Monitor Matches - Every 5 minutes, 9am-11pm only
+*/5 9-23 * * * /var/www/scripts/vercel-cron-runner.sh monitor-matches
+
+# Pre-Index Matches - Every 2 hours
+0 */2 * * * /var/www/scripts/vercel-cron-runner.sh preindex-matches
+
+# Index Upcoming Matches - Every 6 hours
+0 */6 * * * /var/www/scripts/vercel-cron-runner.sh index-upcoming-matches
+
+# SEO Realtime Check - Every hour, 9am-9pm
+0 9-21 * * * /var/www/scripts/vercel-cron-runner.sh seo-realtime
+
+# SEO Agent Daily Run - Daily at 6am
+0 6 * * * /var/www/scripts/vercel-cron-runner.sh seo-agent
+
+# SEO Weekly Report - Weekly on Monday at 8am
+0 8 * * 1 /var/www/scripts/vercel-cron-runner.sh seo-report
+
+# Notes:
+# - All times are in server timezone (UTC)
+# - Logs are written to /var/log/vercel-crons.log
+# - Monitor logs: tail -f /var/log/vercel-crons.log
+# - Check cron status: systemctl status cron
