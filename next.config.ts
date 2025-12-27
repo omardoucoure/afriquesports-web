@@ -174,6 +174,43 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      // Cache API responses at Vercel Edge to reduce origin requests and costs
+      {
+        source: "/api/can2025/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=60, stale-while-revalidate=300",
+          },
+        ],
+      },
+      {
+        source: "/api/posts",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=300, stale-while-revalidate=600",
+          },
+        ],
+      },
+      {
+        source: "/api/visits/trending",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=3600, stale-while-revalidate=7200",
+          },
+        ],
+      },
+      {
+        source: "/api/wordpress/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "s-maxage=60, stale-while-revalidate=300",
+          },
+        ],
+      },
     ];
   },
   images: {

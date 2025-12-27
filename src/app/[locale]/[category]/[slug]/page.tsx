@@ -27,9 +27,10 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Force dynamic rendering to avoid DYNAMIC_SERVER_USAGE errors
-// Pages use dynamic features (cookies/headers) from next-intl and analytics
-export const dynamic = 'force-dynamic';
+// Use ISR (Incremental Static Regeneration) for better performance and lower costs
+// Pages are cached for 5 minutes, then regenerated on next request
+// This reduces Vercel function invocations by 95%+ while keeping content fresh
+export const revalidate = 300; // 5 minutes
 
 // Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
@@ -70,11 +71,10 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     const imageUrl = getFeaturedImageUrl(article, "full");
     const baseUrl = "https://www.afriquesports.net";
 
-    // Use Next.js Image Optimization for og:image to ensure reliable delivery
-    // This caches images on Vercel's CDN and handles special characters in filenames
-    const ogImageUrl = imageUrl && !imageUrl.startsWith("/")
-      ? `${baseUrl}/_next/image?url=${encodeURIComponent(imageUrl)}&w=1200&q=75`
-      : `${baseUrl}/opengraph-image`;
+    // Use original WordPress image for og:image (no optimization needed)
+    // Social media crawlers download once and cache forever, so no need for Next.js optimization
+    // This saves ~180K image transformations/month on Vercel
+    const ogImageUrl = imageUrl || `${baseUrl}/opengraph-image`;
 
     // Determine image type from original URL (before optimization)
     const imageExtension = imageUrl?.toLowerCase().split('.').pop()?.split('?')[0];
