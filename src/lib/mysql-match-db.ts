@@ -495,62 +495,77 @@ export interface CommentedMatchSummary {
 
 export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]> {
   const db = getPool();
-  if (!db) return [];
+  if (!db) {
+    console.error('[MySQL] getAllCommentedMatches: No database connection');
+    return [];
+  }
 
   try {
-    // Get matches with commentary
-    const [commentaryRows] = await db.query<mysql.RowDataPacket[]>(
-      `SELECT
-        match_id,
-        COUNT(*) as commentary_count,
-        MIN(created_at) as first_commented
-      FROM wp_match_commentary
-      GROUP BY match_id`
-    );
-
-    // Get matches with pre-match analysis
-    const [prematchRows] = await db.query<mysql.RowDataPacket[]>(
-      `SELECT DISTINCT match_id, created_at
-      FROM wp_match_prematch_analysis`
-    );
-
-    // Combine results
     const matchMap = new Map<string, CommentedMatchSummary>();
 
-    // Add commentary matches
-    for (const row of commentaryRows) {
-      matchMap.set(row.match_id, {
-        match_id: row.match_id,
-        has_commentary: true,
-        has_prematch: false,
-        commentary_count: row.commentary_count,
-        first_commented: row.first_commented,
-      });
-    }
+    // Get matches with commentary
+    try {
+      const [commentaryRows] = await db.query<mysql.RowDataPacket[]>(
+        `SELECT
+          match_id,
+          COUNT(*) as commentary_count,
+          MIN(created_at) as first_commented
+        FROM wp_match_commentary
+        GROUP BY match_id`
+      );
 
-    // Add prematch matches
-    for (const row of prematchRows) {
-      const existing = matchMap.get(row.match_id);
-      if (existing) {
-        existing.has_prematch = true;
-        // Use earlier date
-        if (new Date(row.created_at) < new Date(existing.first_commented)) {
-          existing.first_commented = row.created_at;
-        }
-      } else {
+      console.log(`[MySQL] Found ${commentaryRows.length} matches with commentary`);
+
+      for (const row of commentaryRows) {
         matchMap.set(row.match_id, {
           match_id: row.match_id,
-          has_commentary: false,
-          has_prematch: true,
-          commentary_count: 0,
-          first_commented: row.created_at,
+          has_commentary: true,
+          has_prematch: false,
+          commentary_count: row.commentary_count,
+          first_commented: row.first_commented,
         });
       }
+    } catch (commentaryError) {
+      console.error('[MySQL] Error querying commentary:', commentaryError);
     }
 
-    return Array.from(matchMap.values());
+    // Get matches with pre-match analysis
+    try {
+      const [prematchRows] = await db.query<mysql.RowDataPacket[]>(
+        `SELECT match_id, MIN(created_at) as created_at
+        FROM wp_match_prematch_analysis
+        GROUP BY match_id`
+      );
+
+      console.log(`[MySQL] Found ${prematchRows.length} matches with pre-match analysis`);
+
+      for (const row of prematchRows) {
+        const existing = matchMap.get(row.match_id);
+        if (existing) {
+          existing.has_prematch = true;
+          // Use earlier date
+          if (new Date(row.created_at) < new Date(existing.first_commented)) {
+            existing.first_commented = row.created_at;
+          }
+        } else {
+          matchMap.set(row.match_id, {
+            match_id: row.match_id,
+            has_commentary: false,
+            has_prematch: true,
+            commentary_count: 0,
+            first_commented: row.created_at,
+          });
+        }
+      }
+    } catch (prematchError) {
+      console.error('[MySQL] Error querying pre-match:', prematchError);
+    }
+
+    const results = Array.from(matchMap.values());
+    console.log(`[MySQL] getAllCommentedMatches returning ${results.length} total matches`);
+    return results;
   } catch (error) {
-    console.error('[MySQL] Error fetching commented matches:', error);
+    console.error('[MySQL] Error in getAllCommentedMatches:', error);
     return [];
   }
 }
