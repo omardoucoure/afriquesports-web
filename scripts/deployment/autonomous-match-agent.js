@@ -17,6 +17,7 @@
 const https = require('https');
 const http = require('http');
 const zlib = require('zlib');
+const puppeteer = require('puppeteer');
 
 // Configuration
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
@@ -1107,6 +1108,83 @@ async function processKeyEvents(matchId, keyEvents, homeTeam, awayTeam) {
 }
 
 /**
+ * Extract ESPN commentary using Puppeteer
+ * ESPN commentary is JavaScript-rendered, so we need a headless browser
+ */
+async function getESPNCommentary(matchId) {
+  let browser;
+  try {
+    console.log(`   🌐 Fetching ESPN commentary for match ${matchId}...`);
+
+    browser = await puppeteer.launch({
+      headless: 'new',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu'
+      ]
+    });
+
+    const page = await browser.newPage();
+
+    // Set timeout and user agent
+    await page.setDefaultNavigationTimeout(30000);
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
+
+    // Navigate to ESPN commentary page
+    const url = `https://africa.espn.com/football/commentary/_/gameId/${matchId}`;
+    await page.goto(url, { waitUntil: 'networkidle2' });
+
+    // Wait for commentary to load (max 10 seconds)
+    try {
+      await page.waitForSelector('.MatchCommentary__Comment', { timeout: 10000 });
+    } catch (err) {
+      console.log(`   ⚠️  Commentary section not found - match may not have started`);
+      return [];
+    }
+
+    // Extract commentary entries
+    const commentary = await page.evaluate(() => {
+      const entries = [];
+      const commentBlocks = document.querySelectorAll('.MatchCommentary__Comment');
+
+      commentBlocks.forEach(block => {
+        // Extract timestamp (match minute)
+        const timeElement = block.querySelector('.MatchCommentary__Comment__Timestamp');
+        const time = timeElement ? timeElement.textContent.trim() : null;
+
+        // Extract commentary text
+        const textElement = block.querySelector('.MatchCommentary__Comment__GameDetails');
+        let text = textElement ? textElement.textContent.trim() : null;
+
+        // Clean up text (remove extra whitespace)
+        if (text) {
+          text = text.replace(/\s+/g, ' ').trim();
+        }
+
+        if (time && text && text.length > 10) {
+          entries.push({ time, text });
+        }
+      });
+
+      return entries;
+    });
+
+    console.log(`   ✅ Extracted ${commentary.length} commentary entries from ESPN`);
+    return commentary;
+
+  } catch (error) {
+    console.error(`   ❌ Error fetching ESPN commentary:`, error.message);
+    return [];
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
+}
+
+/**
  * Process live match
  */
 async function processLiveMatch(match) {
@@ -1138,21 +1216,63 @@ async function processLiveMatch(match) {
     await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
-  // YOUTUBE CAPTION EXTRACTION: DISABLED
-  // youtube-transcript doesn't support live streams - only works after match ends
+  // ESPN COMMENTARY EXTRACTION
+  // Extract full match commentary from ESPN Africa (20+ entries per match)
+  // This replaces AI hallucinations with real ESPN commentary data
+  console.log(`   📰 Fetching ESPN commentary...`);
 
-  // WEB SCRAPING: DISABLED
-  // Causes hallucinations, timeouts, and posts commentary with wrong timestamps
+  const espnCommentary = await getESPNCommentary(match.id);
 
-  // ONLY USING ESPN KEY EVENTS
-  // ESPN API provides accurate, real-time data for goals, cards, and substitutions
-  // This prevents hallucinations with fake player names
+  if (espnCommentary.length > 0) {
+    console.log(`   ✅ Found ${espnCommentary.length} ESPN commentary entries`);
 
-  console.log(`   ⚠️  YouTube captions and web scraping disabled`);
-  console.log(`   ✅ Using ESPN key events only (goals, cards, substitutions)`);
-  console.log(`   ✅ All commentary is accurate from ESPN API`);
+    // Process each commentary entry (reverse order - oldest first)
+    const reversedCommentary = [...espnCommentary].reverse();
 
-  // End of live match processing - ESPN key events already processed above
+    for (const entry of reversedCommentary) {
+      // Create unique key for this commentary entry
+      const commentaryKey = `espn_commentary_${match.id}_${entry.time}_${entry.text.substring(0, 30)}`;
+
+      // Skip if already processed
+      if (processedMatches.has(commentaryKey)) {
+        continue;
+      }
+
+      // Determine event type from commentary text
+      let eventType = 'general';
+      const textLower = entry.text.toLowerCase();
+
+      if (textLower.includes('goal') || textLower.includes('scores') || textLower.includes('converts penalty')) {
+        eventType = 'goal';
+      } else if (textLower.includes('yellow card')) {
+        eventType = 'yellowCard';
+      } else if (textLower.includes('red card')) {
+        eventType = 'redCard';
+      } else if (textLower.includes('substitution') || textLower.includes('replaces')) {
+        eventType = 'substitution';
+      }
+
+      // Format commentary with match minute
+      const commentary = `${entry.time} - ${entry.text}`;
+
+      // Post commentary
+      const success = await postCommentary(match.id, commentary, eventType, eventType === 'goal', entry.time);
+
+      if (success) {
+        processedMatches.add(commentaryKey);
+        console.log(`   ✅ Posted ESPN commentary: [${entry.time}] ${entry.text.substring(0, 60)}...`);
+      }
+
+      // Rate limiting: wait 500ms between posts to avoid overwhelming database
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
+    console.log(`   🎉 ESPN commentary processing complete`);
+  } else {
+    console.log(`   ⚠️  No ESPN commentary available yet - match may not have started`);
+  }
+
+  // End of live match processing
   return;
 
   // Set YouTube stream for match page

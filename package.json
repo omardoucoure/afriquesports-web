@@ -26,6 +26,7 @@
     "next-sitemap": "^4.2.3",
     "posthog-js": "^1.309.1",
     "posthog-node": "^5.17.4",
+    "puppeteer": "^23.11.1",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-markdown": "^10.1.0",
