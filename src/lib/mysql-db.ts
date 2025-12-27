@@ -3,6 +3,17 @@ import { unstable_cache } from 'next/cache';
 
 let pool: mysql.Pool | null = null;
 
+export interface VisitData {
+  postId: string;
+  postSlug: string;
+  postTitle: string;
+  postImage?: string;
+  postAuthor?: string;
+  postCategory?: string;
+  postSource?: string;
+  postLocale?: string;
+}
+
 // Get MySQL connection pool
 function getPool(): mysql.Pool | null {
   if (pool) return pool;
@@ -178,6 +189,69 @@ export const getTrendingPostsByRange = unstable_cache(
     tags: ['trending-posts'],
   }
 );
+
+/**
+ * Batch record multiple visits in a single query
+ * Used by the batch processor to reduce database load
+ */
+export async function batchRecordVisits(visits: VisitData[]): Promise<mysql.ResultSetHeader | null> {
+  const db = getPool();
+  if (!db) return null;
+
+  if (visits.length === 0) return null;
+
+  const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+  try {
+    // Build bulk INSERT ... ON DUPLICATE KEY UPDATE query
+    const values: any[] = [];
+    const placeholders: string[] = [];
+
+    for (const visit of visits) {
+      const {
+        postId,
+        postSlug,
+        postTitle,
+        postImage,
+        postAuthor,
+        postCategory,
+        postSource = 'afriquesports',
+        postLocale = 'fr',
+      } = visit;
+
+      placeholders.push('(?, ?, ?, ?, ?, ?, ?, ?, ?, 1)');
+      values.push(
+        postId,
+        postSlug,
+        postTitle,
+        postImage || null,
+        postAuthor || null,
+        postCategory || null,
+        postSource,
+        postLocale,
+        visitDate
+      );
+    }
+
+    const query = `
+      INSERT INTO wp_afriquesports_visits
+        (post_id, post_slug, post_title, post_image, post_author, post_category, post_source, post_locale, visit_date, count)
+      VALUES ${placeholders.join(', ')}
+      ON DUPLICATE KEY UPDATE
+        count = count + 1,
+        updated_at = CURRENT_TIMESTAMP
+    `;
+
+    const [result] = await db.query<mysql.ResultSetHeader>(query, values);
+
+    console.log(`[MySQL] Batch insert completed: ${visits.length} visits, ${result.affectedRows} rows affected`);
+    return result;
+
+  } catch (error) {
+    console.error('[MySQL] Error in batch insert:', error);
+    return null;
+  }
+}
 
 // Close the connection pool (useful for graceful shutdown)
 export async function closePool(): Promise<void> {

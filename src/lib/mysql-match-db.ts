@@ -491,6 +491,9 @@ export interface CommentedMatchSummary {
   has_prematch: boolean;
   commentary_count: number;
   first_commented: string;
+  home_team?: string;
+  away_team?: string;
+  competition?: string;
 }
 
 export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]> {
@@ -538,26 +541,34 @@ export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]>
       console.log(`[MySQL] Found ${prematchRows.length} pre-match rows`);
 
       // Group by match_id and use earliest created_at
-      const prematchByMatch = new Map<string, Date>();
+      const prematchByMatch = new Map<string, { created_at: Date; home_team: string; away_team: string; competition: string }>();
       for (const row of prematchRows) {
-        const existingDate = prematchByMatch.get(row.match_id);
+        const existing = prematchByMatch.get(row.match_id);
         const rowDate = new Date(row.created_at);
 
-        if (!existingDate || rowDate < existingDate) {
-          prematchByMatch.set(row.match_id, rowDate);
+        if (!existing || rowDate < existing.created_at) {
+          prematchByMatch.set(row.match_id, {
+            created_at: rowDate,
+            home_team: row.home_team,
+            away_team: row.away_team,
+            competition: row.competition || 'CAN'
+          });
         }
       }
 
       console.log(`[MySQL] Found ${prematchByMatch.size} unique matches with pre-match`);
 
       // Add to match map
-      for (const [match_id, created_at] of prematchByMatch.entries()) {
+      for (const [match_id, data] of prematchByMatch.entries()) {
         const existing = matchMap.get(match_id);
         if (existing) {
           existing.has_prematch = true;
+          existing.home_team = data.home_team;
+          existing.away_team = data.away_team;
+          existing.competition = data.competition;
           // Use earlier date
-          if (created_at < new Date(existing.first_commented)) {
-            existing.first_commented = created_at.toISOString();
+          if (data.created_at < new Date(existing.first_commented)) {
+            existing.first_commented = data.created_at.toISOString();
           }
         } else {
           matchMap.set(match_id, {
@@ -565,7 +576,10 @@ export async function getAllCommentedMatches(): Promise<CommentedMatchSummary[]>
             has_commentary: false,
             has_prematch: true,
             commentary_count: 0,
-            first_commented: created_at.toISOString(),
+            first_commented: data.created_at.toISOString(),
+            home_team: data.home_team,
+            away_team: data.away_team,
+            competition: data.competition
           });
         }
       }
