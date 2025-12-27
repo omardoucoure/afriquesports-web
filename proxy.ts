@@ -1,6 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 
-export default createMiddleware({
+// Next.js 16: Renamed from middleware.ts to proxy.ts
+// Export function named 'proxy' instead of default export
+export const proxy = createMiddleware({
   // A list of all locales that are supported
   locales: ['fr', 'en', 'es', 'ar'],
 
