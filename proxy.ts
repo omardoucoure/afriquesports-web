@@ -23,6 +23,9 @@ export async function proxy(request: NextRequest) {
   // Call next-intl middleware first
   const response = await intlMiddleware(request);
 
+  // Debug: Add header to ALL requests to verify middleware runs
+  response.headers.set('x-proxy-executed', 'true');
+
   // Add edge cache headers for article pages to reduce Vercel costs
   // Article pages: /:locale?/:category/:slug (e.g., /football/some-article, /en/football/some-article)
   // Exclude special paths: /category/, /can-2025/, /api/, /admin/, etc.
