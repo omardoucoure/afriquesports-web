@@ -12,6 +12,7 @@ export interface TrendingArticle {
   slug: string;
   title: { rendered: string };
   link: string;
+  category?: string; // Category slug for URL generation
   _embedded?: {
     'wp:featuredmedia'?: Array<{ source_url: string }>;
   };
@@ -79,7 +80,7 @@ export function MostReadWidget({
           const isFullPost = 'date' in article;
           const articleUrl = isFullPost
             ? getArticleUrl(article as WordPressPost)
-            : `/${(article as TrendingArticle).link?.split('/').slice(-2, -1)[0] || 'football'}/${article.slug}`;
+            : `/${(article as TrendingArticle).category || 'football'}/${article.slug}`;
           const imageUrl = isFullPost
             ? getFeaturedImageUrl(article as WordPressPost, "medium")
             : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.svg');

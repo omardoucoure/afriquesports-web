@@ -271,6 +271,7 @@ async function SidebarMostRead({ locale }: { locale: string }) {
         id: parseInt(item.post_id as string),
         slug: item.post_slug,
         title: { rendered: item.post_title },
+        category: item.post_category || 'football', // Category slug for URL generation
         _embedded: item.post_image ? {
           'wp:featuredmedia': [{ source_url: item.post_image }]
         } : undefined,
@@ -312,7 +313,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     // If article not found in requested locale and locale is not French, try French fallback
     if (!article && locale !== "fr") {
-      console.log(`Article not found in ${locale}, trying French fallback...`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Article not found in ${locale}, trying French fallback...`);
+      }
       article = await DataFetcher.fetchPostBySlug(slug, "fr");
       if (article) {
         actualLocale = "fr";

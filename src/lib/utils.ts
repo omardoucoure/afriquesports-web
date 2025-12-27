@@ -175,6 +175,82 @@ export function getArticleUrl(post: WordPressPost): string {
 }
 
 /**
+ * Validate that a URL is a relative path (not a full URL with protocol)
+ * Returns true if valid relative path, false if full URL
+ */
+export function isRelativeUrl(url: string): boolean {
+  if (!url) return false;
+  // Check if URL starts with protocol (http://, https://, //)
+  return !url.match(/^(https?:)?\/\//i);
+}
+
+/**
+ * Sanitize a URL slug to ensure it's safe and properly formatted
+ * Removes protocols, domain names, and ensures proper path format
+ */
+export function sanitizeSlug(slug: string): string {
+  if (!slug) return '';
+
+  // Remove any protocol and domain (e.g., "https://example.com/slug" -> "slug")
+  let cleaned = slug.replace(/^(https?:)?\/\/[^/]+\//i, '');
+
+  // Remove leading/trailing slashes
+  cleaned = cleaned.replace(/^\/+|\/+$/g, '');
+
+  // Remove any remaining special characters that shouldn't be in a slug
+  cleaned = cleaned.replace(/[^a-z0-9-_/]/gi, '-');
+
+  return cleaned;
+}
+
+/**
+ * Extract category and slug from a full URL or path
+ * Returns { category: string, slug: string } or null if invalid
+ */
+export function extractUrlParts(url: string): { category: string; slug: string } | null {
+  if (!url) return null;
+
+  try {
+    // Remove protocol and domain if present
+    let path = url.replace(/^(https?:)?\/\/[^/]+/i, '');
+
+    // Remove leading/trailing slashes
+    path = path.replace(/^\/+|\/+$/g, '');
+
+    // Split by slash
+    const parts = path.split('/').filter(Boolean);
+
+    // We expect at least 2 parts: category and slug
+    if (parts.length >= 2) {
+      return {
+        category: parts[parts.length - 2],
+        slug: parts[parts.length - 1]
+      };
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Build a safe article URL from category and slug
+ * Validates and sanitizes inputs to prevent malformed URLs
+ */
+export function buildArticleUrl(category: string, slug: string): string {
+  const safeCategory = sanitizeSlug(category) || 'football';
+  const safeSlug = sanitizeSlug(slug);
+
+  if (!safeSlug) {
+    console.warn('[buildArticleUrl] Invalid slug provided:', slug);
+    return '/football';
+  }
+
+  return `/${safeCategory}/${safeSlug}`;
+}
+
+/**
  * Author ID to name mapping (source database user IDs to display names)
  */
 const AUTHOR_MAP: Record<number, string> = {

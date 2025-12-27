@@ -135,6 +135,7 @@ async function SidebarMostRead({ locale }: { locale: string }) {
         id: parseInt(item.post_id as string),
         slug: item.post_slug,
         title: { rendered: item.post_title },
+        category: item.post_category || 'football', // Category slug for URL generation
         _embedded: item.post_image ? {
           'wp:featuredmedia': [{ source_url: item.post_image }]
         } : undefined,

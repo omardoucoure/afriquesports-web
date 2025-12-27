@@ -221,6 +221,7 @@ async function MostReadSection({ locale }: { locale: string }) {
         id: parseInt(item.post_id as string),
         slug: item.post_slug,
         title: { rendered: item.post_title },
+        category: item.post_category || 'football', // Category slug for URL generation
         _embedded: item.post_image ? {
           'wp:featuredmedia': [{ source_url: item.post_image }]
         } : undefined,
@@ -229,10 +230,12 @@ async function MostReadSection({ locale }: { locale: string }) {
         author: item.post_author || 'Afrique Sports',
       }));
 
-      console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
+      }
 
       return <MostReadWidget articles={trendingArticles} title={t("mostRead")} />;
-    } else {
+    } else if (process.env.NODE_ENV === 'development') {
       console.log('[MostReadSection] ⚠ No trending data in database yet - using fallback');
     }
   } catch (error) {
@@ -247,7 +250,9 @@ async function MostReadSection({ locale }: { locale: string }) {
     return <MostReadWidgetSkeleton />;
   }
 
-  console.log('[MostReadSection] → Showing latest articles (view counts hidden until database has data)');
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[MostReadSection] → Showing latest articles (view counts hidden until database has data)');
+  }
 
   return <MostReadWidget articles={articles} title={t("mostRead")} />;
 }
