@@ -86,14 +86,19 @@ export function ArticleContent({ content }: ArticleContentProps) {
 
     // Handle WordPress figure embeds for Twitter (e.g., <figure class="wp-block-embed-twitter">)
     const figures = contentRef.current.querySelectorAll("figure.wp-block-embed-twitter");
-    figures.forEach((figure) => {
+    console.log(`[Twitter Embed] Found ${figures.length} figure elements with wp-block-embed-twitter class`);
+
+    figures.forEach((figure, index) => {
       const wrapper = figure.querySelector('.wp-block-embed__wrapper');
       if (wrapper) {
         const text = wrapper.textContent || "";
+        console.log(`[Twitter Embed] Figure ${index}: text content =`, text.substring(0, 100));
         const match = text.match(twitterUrlPattern);
+        console.log(`[Twitter Embed] Figure ${index}: regex match =`, match);
 
         if (match && match.length > 0) {
           const tweetUrl = match[0].trim();
+          console.log(`[Twitter Embed] Figure ${index}: Converting to blockquote with URL =`, tweetUrl);
 
           // Don't convert if already has a blockquote
           if (!figure.querySelector('blockquote')) {
@@ -108,8 +113,15 @@ export function ArticleContent({ content }: ArticleContentProps) {
             blockquote.appendChild(link);
 
             figure.replaceWith(blockquote);
+            console.log(`[Twitter Embed] Figure ${index}: Successfully converted to blockquote`);
+          } else {
+            console.log(`[Twitter Embed] Figure ${index}: Already has blockquote, skipping`);
           }
+        } else {
+          console.log(`[Twitter Embed] Figure ${index}: No Twitter URL match found in text`);
         }
+      } else {
+        console.log(`[Twitter Embed] Figure ${index}: No .wp-block-embed__wrapper found`);
       }
     });
 
