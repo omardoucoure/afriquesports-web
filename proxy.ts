@@ -21,7 +21,7 @@ const intlMiddleware = createMiddleware({
 // Wrap next-intl middleware to add cache headers for article pages
 export async function proxy(request: NextRequest) {
   // Call next-intl middleware first
-  const response = intlMiddleware(request);
+  const response = await intlMiddleware(request);
 
   // Add edge cache headers for article pages to reduce Vercel costs
   // Article pages: /:locale?/:category/:slug (e.g., /football/some-article, /en/football/some-article)
@@ -45,6 +45,7 @@ export async function proxy(request: NextRequest) {
     // Set edge cache headers (5 min cache, 10 min stale-while-revalidate)
     // This works even with force-dynamic because middleware headers take precedence
     response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+    response.headers.set('x-middleware-cache', 'HIT'); // Debug header to verify middleware runs
   }
 
   return response;
