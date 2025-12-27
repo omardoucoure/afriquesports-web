@@ -457,6 +457,62 @@ Génère maintenant un commentaire adapté à ce contexte:`;
 }
 
 /**
+ * Rewrite ESPN commentary in French using fine-tuned AI model
+ */
+async function rewriteESPNCommentary(espnText, homeTeam, awayTeam, minute, eventType) {
+  try {
+    const prompt = `Tu es un commentateur sportif français professionnel pour Afrique Sports. Ta mission est de réécrire ce commentaire ESPN en français de manière naturelle et engageante.
+
+MATCH: ${homeTeam} vs ${awayTeam}
+MINUTE: ${minute}
+TYPE D'ÉVÉNEMENT: ${eventType}
+
+COMMENTAIRE ESPN (anglais):
+"${espnText}"
+
+INSTRUCTIONS:
+- Réécris ce commentaire en français professionnel et fluide
+- Garde tous les noms de joueurs, équipes et détails factuels exacts
+- Utilise un style dynamique et engageant pour les lecteurs francophones
+- Adapte le ton selon le type d'événement (but = excitation, faute = descriptif)
+- Reste fidèle aux faits, ne rajoute RIEN qui n'est pas dans le texte original
+- Maximum 2-3 phrases
+
+Génère UNIQUEMENT le commentaire en français, sans préambule:`;
+
+    const payload = {
+      model: VLLM_MODEL,
+      messages: [
+        { role: 'system', content: 'Tu es un commentateur sportif français expert pour la CAN 2025. Tu réécris des commentaires ESPN en français professionnel.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 150,
+      temperature: 0.7
+    };
+
+    const response = await postJSON(
+      `${VLLM_BASE_URL}/chat/completions`,
+      payload,
+      { 'Authorization': `Bearer ${VLLM_API_KEY}` }
+    );
+
+    if (response.status !== 200) {
+      throw new Error(`vLLM API error: ${response.status}`);
+    }
+
+    const rewrittenText = response.data.choices[0].message.content.trim();
+
+    // Remove any quotes that the AI might have added
+    return rewrittenText.replace(/^["']|["']$/g, '');
+
+  } catch (error) {
+    console.error('[ERROR] Failed to rewrite ESPN commentary:', error.message);
+    // Fallback: return original text if AI fails
+    return espnText;
+  }
+}
+
+/**
  * Generate live commentary from YouTube chat
  */
 async function generateLiveCommentary(match, chatContext) {
@@ -1216,15 +1272,15 @@ async function processLiveMatch(match) {
     await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
-  // ESPN COMMENTARY EXTRACTION
-  // Extract full match commentary from ESPN Africa (20+ entries per match)
-  // This replaces AI hallucinations with real ESPN commentary data
+  // ESPN COMMENTARY EXTRACTION + AI REWRITING
+  // Extract ESPN commentary and rewrite in French using fine-tuned AI model
   console.log(`   📰 Fetching ESPN commentary...`);
 
   const espnCommentary = await getESPNCommentary(match.id);
 
   if (espnCommentary.length > 0) {
     console.log(`   ✅ Found ${espnCommentary.length} ESPN commentary entries`);
+    console.log(`   🤖 AI rewriting enabled with fine-tuned model: ${VLLM_MODEL}`);
 
     // Process each commentary entry (reverse order - oldest first)
     const reversedCommentary = [...espnCommentary].reverse();
@@ -1252,22 +1308,36 @@ async function processLiveMatch(match) {
         eventType = 'substitution';
       }
 
-      // Format commentary with match minute
-      const commentary = `${entry.time} - ${entry.text}`;
+      // AI REWRITE: Convert English ESPN commentary to French professional commentary
+      console.log(`   🔄 AI rewriting: [${entry.time}] ${entry.text.substring(0, 50)}...`);
+      const frenchCommentary = await rewriteESPNCommentary(
+        entry.text,
+        match.homeTeam,
+        match.awayTeam,
+        entry.time,
+        eventType
+      );
 
-      // Post commentary
-      const success = await postCommentary(match.id, commentary, eventType, eventType === 'goal', entry.time);
+      if (!frenchCommentary) {
+        console.log(`   ⚠️  AI rewrite failed, skipping entry`);
+        continue;
+      }
+
+      console.log(`   ✅ AI rewrote: ${frenchCommentary.substring(0, 60)}...`);
+
+      // Post AI-rewritten French commentary
+      const success = await postCommentary(match.id, frenchCommentary, eventType, eventType === 'goal', entry.time);
 
       if (success) {
         processedMatches.add(commentaryKey);
-        console.log(`   ✅ Posted ESPN commentary: [${entry.time}] ${entry.text.substring(0, 60)}...`);
+        console.log(`   📝 Posted AI commentary: [${entry.time}] ${frenchCommentary.substring(0, 50)}...`);
       }
 
-      // Rate limiting: wait 500ms between posts to avoid overwhelming database
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Rate limiting: wait 1s between posts (AI rewriting + database)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    console.log(`   🎉 ESPN commentary processing complete`);
+    console.log(`   🎉 ESPN commentary processing complete (AI-rewritten in French)`);
   } else {
     console.log(`   ⚠️  No ESPN commentary available yet - match may not have started`);
   }
