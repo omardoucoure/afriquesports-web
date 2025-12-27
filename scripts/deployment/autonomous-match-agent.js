@@ -944,8 +944,12 @@ async function setYouTubeStream(matchId, videoId, title, channel) {
 
 /**
  * Process pre-match (24 hours before kickoff)
+ * DISABLED: AI pre-match generation causes hallucinations with wrong player names
  */
 async function processPreMatch(match) {
+  console.log(`   ⚠️  Pre-match AI generation disabled to prevent hallucinations`);
+  return; // Disabled - only use ESPN key events
+
   const key = `prematch_${match.id}`;
   if (processedMatches.has(key)) return;
 
@@ -1134,171 +1138,22 @@ async function processLiveMatch(match) {
     await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
-  // STEP 1: TRY YOUTUBE CAPTION EXTRACTION (PRIMARY SOURCE)
-  console.log(`   📺 Checking for YouTube live stream...`);
+  // YOUTUBE CAPTION EXTRACTION: DISABLED
+  // youtube-transcript doesn't support live streams - only works after match ends
 
-  // Check if we have YouTube stream in database
-  let youtubeStream = await getYouTubeStream(match.id);
+  // WEB SCRAPING: DISABLED
+  // Causes hallucinations, timeouts, and posts commentary with wrong timestamps
 
-  // If not found, search Afrique Sports channel automatically
-  if (!youtubeStream || youtubeStream.status === 'searching') {
-    console.log(`   🔍 Searching Afrique Sports channel...`);
-    const searchResult = await searchYouTubeLiveStreamForMatch(match);
+  // ONLY USING ESPN KEY EVENTS
+  // ESPN API provides accurate, real-time data for goals, cards, and substitutions
+  // This prevents hallucinations with fake player names
 
-    if (searchResult && searchResult.videoId) {
-      // Save to database
-      const searchQuery = `${match.homeTeam} vs ${match.awayTeam} CAN 2025`;
-      await saveYouTubeStream(match.id, searchResult.videoUrl, searchResult.videoId, 'found', searchQuery);
+  console.log(`   ⚠️  YouTube captions and web scraping disabled`);
+  console.log(`   ✅ Using ESPN key events only (goals, cards, substitutions)`);
+  console.log(`   ✅ All commentary is accurate from ESPN API`);
 
-      youtubeStream = {
-        video_id: searchResult.videoId,
-        youtube_url: searchResult.videoUrl,
-        status: 'found',
-        last_caption_offset: 0
-      };
-    }
-  }
-
-  // Extract captions if we have a stream
-  if (youtubeStream && youtubeStream.video_id) {
-    console.log(`   ✅ Using YouTube stream: ${youtubeStream.youtube_url}`);
-    console.log(`   📝 Extracting live captions...`);
-
-    const { segments, lastOffset } = await extractYouTubeCaptions(
-      youtubeStream.video_id,
-      youtubeStream.last_caption_offset || 0
-    );
-
-    if (segments.length > 0) {
-      console.log(`   ✅ Processing ${segments.length} new caption segments`);
-
-      // Process each caption segment
-      for (const segment of segments.slice(0, 15)) { // Limit to 15 segments per check
-        // Convert video timestamp to match minute
-        const matchMinute = calculateMatchMinute(segment.offset, 0); // 0 = match starts at video start
-
-        // Use caption text directly
-        const captionText = segment.text.trim();
-
-        // Skip very short or empty captions
-        if (captionText.length < 10) continue;
-
-        // Post to database
-        const eventKey = `youtube_${match.id}_${segment.offset}`;
-        if (!processedMatches.has(eventKey)) {
-          const success = await postCommentary(
-            match.id,
-            captionText,
-            'general',
-            false,
-            null,
-            null,
-            matchMinute
-          );
-
-          if (success) {
-            processedMatches.add(eventKey);
-            console.log(`   ✅ Posted: ${matchMinute} - ${captionText.substring(0, 60)}...`);
-          }
-
-          await new Promise(r => setTimeout(r, 300)); // Rate limit
-        }
-      }
-
-      // Update last processed offset
-      await updateLastCaptionOffset(match.id, lastOffset);
-      console.log(`   ✅ Updated caption offset to ${lastOffset}s`);
-
-      // Skip web scraping if we successfully extracted YouTube captions
-      console.log(`   ✅ YouTube caption extraction successful, skipping web scraping`);
-      return;
-    } else {
-      console.log(`   ⚠️  No new captions available, falling back to web scraping...`);
-    }
-  } else {
-    console.log(`   ⚠️  No YouTube stream found, falling back to web scraping...`);
-  }
-
-  // STEP 2: FALLBACK TO WEB SCRAPING IF YOUTUBE NOT AVAILABLE
-  console.log(`   🌐 Searching web for live match coverage...`);
-  const coverageUrls = await searchLiveMatchCoverage(match.homeTeam, match.awayTeam);
-
-  if (coverageUrls.length > 0) {
-    console.log(`   📰 Found ${coverageUrls.length} live coverage sites`);
-
-    // Scrape commentary from all found sites
-    const allEvents = [];
-    for (const url of coverageUrls) {
-      const events = await scrapeLiveCommentary(url, match.homeTeam, match.awayTeam);
-      allEvents.push(...events);
-      await new Promise(r => setTimeout(r, 1000)); // Rate limit
-    }
-
-    // Post scraped events to database
-    if (allEvents.length > 0) {
-      console.log(`   📝 Posting ${allEvents.length} scraped events...`);
-
-      for (const event of allEvents.slice(0, 10)) { // Limit to 10 most recent
-        const eventKey = `scraped_${match.id}_${event.time}_${event.text.substring(0, 30)}`;
-
-        // Skip if already posted
-        if (processedMatches.has(eventKey)) continue;
-
-        // Determine event type from text - STRICT matching for goals
-        let type = 'general';
-        let isScoring = false;
-
-        // Only mark as goal if it explicitly says it's a goal, not just mentions "but"
-        const actualGoalPhrases = [
-          /\bbut\s*!\s*[A-Z]/i,           // "but ! Senegal" or "but ! Mané"
-          /\bgoal\s*!/i,                   // "goal !"
-          /marque/i,                       // "marque" (scores)
-          /ouvre le score/i,               // "opens the scoring"
-          /égalise/i,                      // "equalizes"
-          /\d+\s*-\s*\d+/,                 // Score like "1-0" or "2-1"
-          /filet|filets/i,                 // "nets" (in the net)
-          /au fond des filets/i            // "at the back of the net"
-        ];
-
-        const isActualGoal = actualGoalPhrases.some(pattern => event.text.match(pattern)) &&
-                            !event.text.match(/mais|frappe (au-dessus|à côté|sur le gardien)|arrêt|repousse|sauve|manque/i);
-
-        if (isActualGoal) {
-          type = 'goal';
-          isScoring = true;
-        } else if (event.text.match(/carton jaune|yellow card|averti/i)) {
-          type = 'yellowCard';
-        } else if (event.text.match(/carton rouge|red card|expuls/i)) {
-          type = 'redCard';
-        }
-
-        const success = await postCommentary(match.id, event.text, type, isScoring, null, null, event.time);
-        if (success) {
-          processedMatches.add(eventKey);
-          console.log(`   ✅ Posted: ${event.time} - ${event.text.substring(0, 60)}...`);
-        }
-
-        await new Promise(r => setTimeout(r, 500)); // Rate limit
-      }
-    } else {
-      console.log(`   ⚠️  No events found on coverage sites`);
-    }
-  } else {
-    console.log(`   ⚠️  No live coverage sites found`);
-  }
-
-  // Find YouTube stream automatically
-  const stream = await findYouTubeLiveStream(match);
-
-  if (!stream) {
-    console.log(`   ⚠️  No YouTube live stream found`);
-    // DO NOT generate AI narrative - only web scraping provides real events
-    // Stream info is already set during web scraping phase above
-    return;
-  }
-
-  console.log(`   📺 Found stream: ${stream.title}`);
-  console.log(`   📡 Channel: ${stream.channel}`);
+  // End of live match processing - ESPN key events already processed above
+  return;
 
   // Set YouTube stream for match page
   await setYouTubeStream(match.id, stream.videoId, stream.title, stream.channel);
