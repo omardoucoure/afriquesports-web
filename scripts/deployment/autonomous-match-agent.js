@@ -63,9 +63,9 @@ function fetchJSON(url) {
 }
 
 /**
- * POST JSON data
+ * POST JSON data (supports POST, PATCH, PUT methods)
  */
-function postJSON(url, data, headers = {}) {
+function postJSON(url, data, headers = {}, method = 'POST') {
   return new Promise((resolve, reject) => {
     const urlObj = new URL(url);
     const protocol = urlObj.protocol === 'https:' ? https : http;
@@ -75,7 +75,7 @@ function postJSON(url, data, headers = {}) {
       hostname: urlObj.hostname,
       port: urlObj.port || (protocol === https ? 443 : 80),
       path: urlObj.pathname + urlObj.search,
-      method: 'POST',
+      method: method,
       headers: {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(postData),
@@ -605,6 +605,194 @@ async function searchYouTubeWithAPI() {
 }
 
 /**
+ * Search Afrique Sports YouTube channel for specific match live stream
+ */
+async function searchYouTubeLiveStreamForMatch(match) {
+  if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === 'YOUR_YOUTUBE_API_KEY') {
+    console.log('   ⚠️  YouTube API key not configured');
+    return null;
+  }
+
+  const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || 'UCtTx4ZA0kCZ5jQ0xYhmwouA';
+
+  try {
+    // Build search query
+    const searchQuery = `${match.homeTeam} vs ${match.awayTeam} CAN 2025`;
+    console.log(`   🔍 Searching YouTube for: ${searchQuery}`);
+
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?` +
+      `part=snippet&` +
+      `channelId=${CHANNEL_ID}&` +
+      `eventType=live&` +
+      `type=video&` +
+      `q=${encodeURIComponent(searchQuery)}&` +
+      `key=${YOUTUBE_API_KEY}&` +
+      `maxResults=5`;
+
+    const data = await fetchJSON(searchUrl);
+
+    if (data.items && data.items.length > 0) {
+      const liveVideo = data.items[0];
+      const videoId = liveVideo.id.videoId;
+      const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      const title = liveVideo.snippet.title;
+
+      console.log(`   ✅ Found live stream: ${title}`);
+      console.log(`   📺 Video URL: ${videoUrl}`);
+
+      return { videoId, videoUrl, title };
+    } else {
+      console.log(`   ⚠️  No live stream found for: ${searchQuery}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`   ❌ YouTube search error:`, error.message);
+    return null;
+  }
+}
+
+/**
+ * Get YouTube stream from database
+ */
+async function getYouTubeStream(matchId) {
+  try {
+    const url = `${SITE_URL}/api/admin/youtube-stream?match_id=${matchId}`;
+    const response = await fetchJSON(url);
+
+    if (response && response.found && response.stream) {
+      return response.stream;
+    }
+    return null;
+  } catch (error) {
+    console.error(`   ❌ Error getting YouTube stream:`, error.message);
+    return null;
+  }
+}
+
+/**
+ * Save YouTube stream to database
+ */
+async function saveYouTubeStream(matchId, youtubeUrl, videoId, status = 'found', searchQuery = '') {
+  try {
+    const payload = {
+      match_id: matchId,
+      youtube_url: youtubeUrl,
+      video_id: videoId,
+      status: status,
+      search_query: searchQuery
+    };
+
+    const response = await postJSON(
+      `${SITE_URL}/api/admin/youtube-stream`,
+      payload,
+      { 'x-webhook-secret': WEBHOOK_SECRET }
+    );
+
+    if (response.status === 200) {
+      console.log(`   ✅ YouTube stream saved to database`);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error(`   ❌ Error saving YouTube stream:`, error.message);
+    return false;
+  }
+}
+
+/**
+ * Extract captions from YouTube video using youtube-transcript
+ */
+async function extractYouTubeCaptions(videoId, lastOffset = 0) {
+  try {
+    // Dynamically import youtube-transcript
+    const { YoutubeTranscript } = await import('youtube-transcript');
+
+    console.log(`   📝 Extracting captions from video ${videoId}...`);
+    console.log(`   ⏱️  Last processed offset: ${lastOffset}s`);
+
+    // Fetch transcript
+    const transcript = await YoutubeTranscript.fetchTranscript(videoId, {
+      lang: 'fr' // French captions
+    });
+
+    if (!transcript || transcript.length === 0) {
+      console.log(`   ⚠️  No captions available for video ${videoId}`);
+      return { segments: [], lastOffset: lastOffset };
+    }
+
+    // Filter new segments only
+    const newSegments = transcript.filter(seg => seg.offset > lastOffset);
+
+    if (newSegments.length === 0) {
+      console.log(`   ⚠️  No new captions since offset ${lastOffset}`);
+      return { segments: [], lastOffset: lastOffset };
+    }
+
+    console.log(`   ✅ Extracted ${newSegments.length} new caption segments`);
+
+    // Calculate new last offset
+    const newLastOffset = Math.max(...newSegments.map(s => s.offset + s.duration));
+
+    return {
+      segments: newSegments,
+      lastOffset: newLastOffset
+    };
+
+  } catch (error) {
+    console.error(`   ❌ Caption extraction error:`, error.message);
+    return { segments: [], lastOffset: lastOffset, error: error.message };
+  }
+}
+
+/**
+ * Convert video timestamp to match minute
+ */
+function calculateMatchMinute(videoOffset, kickoffOffset = 0) {
+  // videoOffset: seconds since video start
+  // kickoffOffset: seconds when match actually kicked off (skip pre-match)
+
+  const elapsedSeconds = Math.max(0, videoOffset - kickoffOffset);
+  const minutes = Math.floor(elapsedSeconds / 60);
+
+  // Handle match phases
+  if (minutes <= 45) {
+    return `${minutes}'`;
+  } else if (minutes <= 45 + 15) { // Halftime (15 min break assumed)
+    return `45'`;
+  } else if (minutes <= 90 + 15) {
+    const secondHalfMinute = minutes - 15;
+    return `${secondHalfMinute}'`;
+  } else {
+    const injuryTime = minutes - (90 + 15);
+    return `90+${injuryTime}'`;
+  }
+}
+
+/**
+ * Update last caption offset in database
+ */
+async function updateLastCaptionOffset(matchId, lastOffset) {
+  try {
+    const payload = {
+      match_id: matchId,
+      last_caption_offset: lastOffset
+    };
+
+    await postJSON(
+      `${SITE_URL}/api/admin/youtube-stream`,
+      payload,
+      { 'x-webhook-secret': WEBHOOK_SECRET },
+      'PATCH'
+    );
+
+    return true;
+  } catch (error) {
+    console.error(`   ❌ Error updating caption offset:`, error.message);
+    return false;
+  }
+}
+
+/**
  * Scrape YouTube channel page to find CAN 2025 live stream (fallback)
  */
 async function scrapeYouTubeLiveStream() {
@@ -946,7 +1134,92 @@ async function processLiveMatch(match) {
     await processKeyEvents(match.id, details.keyEvents, details.homeTeam, details.awayTeam);
   }
 
-  // SEARCH WEB FOR LIVE MATCH COVERAGE
+  // STEP 1: TRY YOUTUBE CAPTION EXTRACTION (PRIMARY SOURCE)
+  console.log(`   📺 Checking for YouTube live stream...`);
+
+  // Check if we have YouTube stream in database
+  let youtubeStream = await getYouTubeStream(match.id);
+
+  // If not found, search Afrique Sports channel automatically
+  if (!youtubeStream || youtubeStream.status === 'searching') {
+    console.log(`   🔍 Searching Afrique Sports channel...`);
+    const searchResult = await searchYouTubeLiveStreamForMatch(match);
+
+    if (searchResult && searchResult.videoId) {
+      // Save to database
+      const searchQuery = `${match.homeTeam} vs ${match.awayTeam} CAN 2025`;
+      await saveYouTubeStream(match.id, searchResult.videoUrl, searchResult.videoId, 'found', searchQuery);
+
+      youtubeStream = {
+        video_id: searchResult.videoId,
+        youtube_url: searchResult.videoUrl,
+        status: 'found',
+        last_caption_offset: 0
+      };
+    }
+  }
+
+  // Extract captions if we have a stream
+  if (youtubeStream && youtubeStream.video_id) {
+    console.log(`   ✅ Using YouTube stream: ${youtubeStream.youtube_url}`);
+    console.log(`   📝 Extracting live captions...`);
+
+    const { segments, lastOffset } = await extractYouTubeCaptions(
+      youtubeStream.video_id,
+      youtubeStream.last_caption_offset || 0
+    );
+
+    if (segments.length > 0) {
+      console.log(`   ✅ Processing ${segments.length} new caption segments`);
+
+      // Process each caption segment
+      for (const segment of segments.slice(0, 15)) { // Limit to 15 segments per check
+        // Convert video timestamp to match minute
+        const matchMinute = calculateMatchMinute(segment.offset, 0); // 0 = match starts at video start
+
+        // Use caption text directly
+        const captionText = segment.text.trim();
+
+        // Skip very short or empty captions
+        if (captionText.length < 10) continue;
+
+        // Post to database
+        const eventKey = `youtube_${match.id}_${segment.offset}`;
+        if (!processedMatches.has(eventKey)) {
+          const success = await postCommentary(
+            match.id,
+            captionText,
+            'general',
+            false,
+            null,
+            null,
+            matchMinute
+          );
+
+          if (success) {
+            processedMatches.add(eventKey);
+            console.log(`   ✅ Posted: ${matchMinute} - ${captionText.substring(0, 60)}...`);
+          }
+
+          await new Promise(r => setTimeout(r, 300)); // Rate limit
+        }
+      }
+
+      // Update last processed offset
+      await updateLastCaptionOffset(match.id, lastOffset);
+      console.log(`   ✅ Updated caption offset to ${lastOffset}s`);
+
+      // Skip web scraping if we successfully extracted YouTube captions
+      console.log(`   ✅ YouTube caption extraction successful, skipping web scraping`);
+      return;
+    } else {
+      console.log(`   ⚠️  No new captions available, falling back to web scraping...`);
+    }
+  } else {
+    console.log(`   ⚠️  No YouTube stream found, falling back to web scraping...`);
+  }
+
+  // STEP 2: FALLBACK TO WEB SCRAPING IF YOUTUBE NOT AVAILABLE
   console.log(`   🌐 Searching web for live match coverage...`);
   const coverageUrls = await searchLiveMatchCoverage(match.homeTeam, match.awayTeam);
 

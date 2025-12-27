@@ -95,7 +95,7 @@ export async function getMatchCommentary(match_id: string, locale: string = 'fr'
     const [rows] = await db.query<mysql.RowDataPacket[]>(
       `SELECT * FROM wp_match_commentary
        WHERE match_id = ? AND locale = ?
-       ORDER BY time_seconds ASC, id ASC`,
+       ORDER BY time_seconds DESC, id DESC`,
       [match_id, locale]
     );
     return rows as MatchCommentary[];
