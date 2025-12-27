@@ -13,6 +13,21 @@ require('dotenv').config({ path: '.env.local' });
 
 const SITE_URL = 'https://www.afriquesports.net';
 const MATCH_ID = 732152; // Senegal vs RD Congo
+const HOME_TEAM = 'Senegal';
+const AWAY_TEAM = 'Congo DR';
+
+// Helper function to generate SEO-friendly URL slug
+function generateMatchSlug(homeTeam, awayTeam, matchId) {
+  const slugify = (name) => name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return `${slugify(homeTeam)}-vs-${slugify(awayTeam)}-${matchId}`;
+}
+
+function generateMatchUrl(homeTeam, awayTeam, matchId, locale = 'fr') {
+  const slug = generateMatchSlug(homeTeam, awayTeam, matchId);
+  const basePath = `/can-2025/match/${slug}`;
+  const path = (locale && locale !== 'fr') ? `/${locale}${basePath}` : basePath;
+  return `${SITE_URL}${path}`;
+}
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -39,9 +54,7 @@ async function submitCurrentMatch() {
     ];
 
     for (const locale of locales) {
-      const url = locale.code === 'fr'
-        ? `${SITE_URL}/can-2025/match/${MATCH_ID}`
-        : `${SITE_URL}/${locale.code}/can-2025/match/${MATCH_ID}`;
+      const url = generateMatchUrl(HOME_TEAM, AWAY_TEAM, MATCH_ID, locale.code);
 
       console.log(`📤 Submitting ${locale.name} version...`);
       console.log(`   URL: ${url}`);

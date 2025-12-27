@@ -10,6 +10,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleIndexingAPI } from '@/lib/google-indexing';
 import { createClient } from '@supabase/supabase-js';
+import { generateMatchUrl } from '@/lib/match-url';
 import mysql from 'mysql2/promise';
 
 export const dynamic = 'force-dynamic';
@@ -95,7 +96,8 @@ export async function GET(request: Request) {
 
     // Process each match
     for (const match of upcomingMatches) {
-      const matchUrl = `${SITE_URL}/can-2025/match/${match.id}`;
+      // Generate SEO-friendly URL with team names
+      const matchUrl = generateMatchUrl(match.home_team, match.away_team, match.id, 'fr');
       const matchTime = new Date(match.match_datetime);
       const timeUntilMatch = Math.round((matchTime.getTime() - now.getTime()) / (60 * 1000));
 
@@ -130,10 +132,7 @@ export async function GET(request: Request) {
         const locales = ['fr', 'en', 'es'];
         const submissionResults = await Promise.allSettled(
           locales.map(locale => {
-            const localizedUrl = locale === 'fr'
-              ? matchUrl
-              : `${SITE_URL}/${locale}/can-2025/match/${match.id}`;
-
+            const localizedUrl = generateMatchUrl(match.home_team, match.away_team, match.id, locale);
             return indexingAPI.notifyUpdate(localizedUrl);
           })
         );

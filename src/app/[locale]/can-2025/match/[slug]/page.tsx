@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { generateMatchSchemas, espnToMatchData, MatchData } from '@/lib/match-schema';
 import {
@@ -7,6 +7,13 @@ import {
   getYouTubeStream as fetchYouTubeStream,
   getPreMatchAnalysis as fetchPreMatchAnalysis,
 } from '@/lib/mysql-match-db';
+import {
+  extractMatchIdFromSlug,
+  generateMatchSlug,
+  generateMatchUrl,
+  isOldFormatSlug,
+  generateMatchPath
+} from '@/lib/match-url';
 import MatchPageClient from '@/components/match/MatchPageClient';
 import { Header, Footer } from '@/components/layout';
 import { Breadcrumb } from '@/components/ui';
@@ -92,10 +99,13 @@ async function getPreMatchAnalysis(matchId: string, locale: string): Promise<any
 export async function generateMetadata({
   params
 }: {
-  params: Promise<{ id: string; locale: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { id, locale } = await params;
-  const matchDataRaw = await getMatchData(id);
+  const { slug, locale } = await params;
+
+  // Extract match ID from slug
+  const matchId = extractMatchIdFromSlug(slug);
+  const matchDataRaw = await getMatchData(matchId);
 
   if (!matchDataRaw || !matchDataRaw.header) {
     return {
@@ -113,6 +123,13 @@ export async function generateMetadata({
   const status = matchDataRaw.header.status;
   const homeScore = homeTeam.score || 0;
   const awayScore = awayTeam.score || 0;
+
+  // Generate SEO-friendly slug
+  const seoSlug = generateMatchSlug(
+    homeTeam.team.displayName,
+    awayTeam.team.displayName,
+    matchId
+  );
 
   // Determine match status (handle null status)
   const isLive = status?.type?.state === 'in';
@@ -162,12 +179,12 @@ export async function generateMetadata({
     description = `Suivez ${homeTeam.team.displayName} contre ${awayTeam.team.displayName} pour la CAN 2025. Analyses d'avant-match, compositions probables et prédictions.`;
   }
 
-  // Canonical URL (French at root, other locales with prefix)
-  const frenchUrl = `${SITE_URL}/can-2025/match/${id}`;
-  const canonicalUrl = locale === 'fr' ? frenchUrl : `${SITE_URL}/${locale}/can-2025/match/${id}`;
+  // Canonical URLs with SEO-friendly slugs
+  const frenchUrl = generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'fr');
+  const canonicalUrl = locale === 'fr' ? frenchUrl : generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, locale);
 
   // OG Image URL (dynamic with match data)
-  const ogImageUrl = `${SITE_URL}/api/og-match?id=${id}&locale=${locale}`;
+  const ogImageUrl = `${SITE_URL}/api/og-match?id=${matchId}&locale=${locale}`;
 
   return {
     title,
@@ -175,10 +192,10 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        'fr-FR': frenchUrl,
-        'en-US': `${SITE_URL}/en/can-2025/match/${id}`,
-        'es-ES': `${SITE_URL}/es/can-2025/match/${id}`,
-        'ar-SA': `${SITE_URL}/ar/can-2025/match/${id}`,
+        'fr-FR': generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'fr'),
+        'en-US': generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'en'),
+        'es-ES': generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'es'),
+        'ar-SA': generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'ar'),
         'x-default': canonicalUrl
       }
     },
@@ -230,23 +247,41 @@ export async function generateMetadata({
 export default async function MatchPage({
   params
 }: {
-  params: Promise<{ id: string; locale: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { id, locale } = await params;
+  const { slug, locale } = await params;
+
+  // Extract match ID from slug
+  const matchId = extractMatchIdFromSlug(slug);
 
   try {
     const t = await getTranslations({ locale });
 
     // Fetch match data, commentary, YouTube stream, and pre-match analysis in parallel
     const [matchDataRaw, commentary, youtubeStream, preMatchAnalysis] = await Promise.all([
-      getMatchData(id),
-      getMatchCommentary(id, locale),
-      getYouTubeStream(id),
-      getPreMatchAnalysis(id, locale)
+      getMatchData(matchId),
+      getMatchCommentary(matchId, locale),
+      getYouTubeStream(matchId),
+      getPreMatchAnalysis(matchId, locale)
     ]);
 
     if (!matchDataRaw || !matchDataRaw.header) {
       notFound();
+    }
+
+    // Check if using old URL format (just numeric ID) and redirect to new format
+    const competition = matchDataRaw.header.competitions[0];
+    const homeTeam = competition.competitors[0];
+    const awayTeam = competition.competitors[1];
+
+    if (isOldFormatSlug(slug)) {
+      const newPath = generateMatchPath(
+        homeTeam.team.displayName,
+        awayTeam.team.displayName,
+        matchId,
+        locale
+      );
+      redirect(newPath);
     }
 
     // Add YouTube stream to match data
@@ -260,16 +295,13 @@ export default async function MatchPage({
     // Generate comprehensive schema markup
     const schema = generateMatchSchemas(matchData, locale);
 
-    // Extract team info for breadcrumb
-    const competition = matchDataRaw.header.competitions[0];
-    const homeTeam = competition.competitors[0];
-    const awayTeam = competition.competitors[1];
     const matchTitle = `${homeTeam.team.displayName} vs ${awayTeam.team.displayName}`;
+    const matchSlug = generateMatchSlug(homeTeam.team.displayName, awayTeam.team.displayName, matchId);
 
-    // Breadcrumb items
+    // Breadcrumb items with new URL format
     const breadcrumbItems = [
-      { label: 'CAN 2025', href: `/${locale}/can-2025` },
-      { label: matchTitle, href: `/${locale}/can-2025/match/${id}` }
+      { label: 'CAN 2025', href: locale === 'fr' ? '/can-2025' : `/${locale}/can-2025` },
+      { label: matchTitle, href: generateMatchPath(homeTeam.team.displayName, awayTeam.team.displayName, matchId, locale) }
     ];
 
     return (
@@ -294,7 +326,7 @@ export default async function MatchPage({
             commentary={commentary}
             preMatchAnalysis={preMatchAnalysis}
             locale={locale}
-            matchId={id}
+            matchId={matchId}
           />
         </main>
 
@@ -306,4 +338,3 @@ export default async function MatchPage({
     throw error;
   }
 }
-
