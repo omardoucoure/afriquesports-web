@@ -42,12 +42,12 @@ export async function GET(request: Request) {
   try {
     console.log('🎯 Pre-Match Indexing: Starting...');
 
-    // Connect to MySQL to get upcoming matches
+    // Connect to WordPress MySQL database to get upcoming matches
     const connection = await mysql.createConnection({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE,
+      host: process.env.WORDPRESS_DB_HOST,
+      user: process.env.WORDPRESS_DB_USER,
+      password: process.env.WORDPRESS_DB_PASSWORD,
+      database: process.env.WORDPRESS_DB_NAME,
     });
 
     // Get matches starting in next 2-4 hours
