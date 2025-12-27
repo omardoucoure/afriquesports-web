@@ -84,6 +84,35 @@ export function ArticleContent({ content }: ArticleContentProps) {
       }
     });
 
+    // Handle WordPress figure embeds for Twitter (e.g., <figure class="wp-block-embed-twitter">)
+    const figures = contentRef.current.querySelectorAll("figure.wp-block-embed-twitter");
+    figures.forEach((figure) => {
+      const wrapper = figure.querySelector('.wp-block-embed__wrapper');
+      if (wrapper) {
+        const text = wrapper.textContent || "";
+        const match = text.match(twitterUrlPattern);
+
+        if (match && match.length > 0) {
+          const tweetUrl = match[0].trim();
+
+          // Don't convert if already has a blockquote
+          if (!figure.querySelector('blockquote')) {
+            const blockquote = document.createElement("blockquote");
+            blockquote.className = "twitter-tweet";
+            blockquote.setAttribute("data-conversation", "none");
+            blockquote.setAttribute("data-theme", "light");
+
+            const link = document.createElement("a");
+            link.href = tweetUrl;
+            link.textContent = "View Tweet";
+            blockquote.appendChild(link);
+
+            figure.replaceWith(blockquote);
+          }
+        }
+      }
+    });
+
     // Find blockquotes that contain Twitter links and add twitter-tweet class
     const blockquotes = contentRef.current.querySelectorAll("blockquote");
     blockquotes.forEach((blockquote) => {
