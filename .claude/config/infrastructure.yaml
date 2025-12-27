@@ -2,22 +2,199 @@
 # This file is git-tracked and persists across Claude Code sessions
 
 runpod:
-  pod_id: wfl4o3ns1tizo1
-  pod_name: eager_gray_crane
-  ip: 194.68.245.75
-  ssh_port: 22164  # Dynamic - use runpodctl to get current port
+  # OLD PODS (TERMINATED): wfl4o3ns1tizo1, 5x6ah8amw9oo9e
+
+  # ACTIVE vLLM TEMPLATE POD (as of 2025-12-27 - migrated)
+  pod_id: qbjo7w9adplhia
+  pod_name: redundant_lavender_alligator-migration
+  template: vllm/vllm-openai:latest  # RunPod vLLM template
+  gpu: RTX A5000 24GB
+  location: CA
+  cost: $0.270/hr
+
+  # SSH (limited functionality on vLLM template - API-first design)
+  ssh_tunnel: qbjo7w9adplhia-64411022@ssh.runpod.io
+  ssh_tcp: root@69.30.85.175:22147
   ssh_key: ~/.ssh/id_ed25519
-  ssh_user: root
-  ssh_method: runpodctl  # Use: runpodctl ssh connect wfl4o3ns1tizo1
-  auto_start_script: /workspace/start_vllm.sh  # Runs on pod startup (SSH + vLLM)
+  ssh_note: "SSH has limited PTY support on vLLM template - use HTTP API instead"
+
+  # vLLM API Configuration
   vllm:
+    # Status: ✅ WORKING - AFCON Merged Model Deployed (2025-12-27)
+
+    # Public HTTP endpoints via RunPod proxy
+    base_url: https://qbjo7w9adplhia-8000.proxy.runpod.net
+    api_endpoint: https://qbjo7w9adplhia-8000.proxy.runpod.net/v1
+    api_docs: https://qbjo7w9adplhia-8000.proxy.runpod.net/docs
+    openapi_spec: https://qbjo7w9adplhia-8000.proxy.runpod.net/openapi.json
+
+    # Internal endpoint (from within pod)
+    internal_endpoint: http://localhost:8000/v1
     port: 8000
-    internal_endpoint: http://localhost:8000/v1  # From within pod
-    external_port: 22165  # TCP port mapping (updated 2025-12-25)
-    endpoint: http://194.68.245.75:22165/v1  # External access endpoint
-    api_key: none
-    model: Qwen/Qwen2.5-7B-Instruct
-    served_model_name: qwen2.5-7b
+
+    # Authentication ✅ CONFIGURED
+    api_key: sk-1234  # Set via launch parameter --api-key
+    auth_header: "Authorization: Bearer sk-1234"
+
+    # Model configuration (Fine-tuned Vision-Language model)
+    model: oxmo88/Qwen2.5-VL-7B-AFCON2025  # Fine-tuned for AFCON French commentary
+    base_model: Qwen/Qwen2.5-VL-7B-Instruct  # Original base model
+    huggingface_repo: https://huggingface.co/oxmo88/Qwen2.5-VL-7B-AFCON2025
+    model_type: merged_lora  # LoRA adapter merged into base model
+    fine_tuning:
+      adapter_merged: true
+      training_examples: 2000
+      training_loss: 0.148
+      domain: AFCON 2025 French commentary
+    model_capabilities:
+      - text_generation
+      - vision_understanding  # Can process images
+      - tool_calling  # Function calling support
+      - afcon_commentary  # Fine-tuned specialty
+    max_model_len: 32768  # 32k token context window
+    dtype: bfloat16
+    gpu_memory_utilization: 0.95
+    tensor_parallel_size: 1
+
+    # Vision capabilities
+    vision:
+      max_images_per_prompt: 4
+      max_videos_per_prompt: 1
+      allowed_media_path: /workspace
+
+    # Tool calling
+    tool_calling:
+      enabled: true
+      parser: hermes
+      auto_tool_choice: true
+
+    # LoRA support (NOT USED - using merged model instead)
+    lora:
+      enabled: false  # vLLM template doesn't support LoRA - using merged model
+      note: "AFCON adapter merged into base model (oxmo88/Qwen2.5-VL-7B-AFCON2025)"
+      max_loras: 4
+      max_lora_rank: 64
+      adapter_directory: /workspace/lora-adapters
+
+      # Domain adapters configuration
+      adapters:
+        - name: fut-v1
+          domain: FIFA Ultimate Team
+          languages: [EN, FR]
+          path: /workspace/lora-adapters/fut-v1
+          websites:
+            - fut-elite.com
+            - fut-elite.fr
+          status: pending_training
+
+        - name: madrid-v1
+          domain: Real Madrid News
+          languages: [ES, EN]
+          path: /workspace/lora-adapters/madrid-v1
+          websites:
+            - real-madrid-news.com
+          status: pending_training
+
+        - name: afrique-v1
+          domain: African Sports (AFCON)
+          languages: [FR]
+          path: /workspace/lora-adapters/afrique-v1
+          huggingface_adapter_repo: oxmo88/afrique-sports-afcon2025-adapter
+          huggingface_merged_repo: oxmo88/Qwen2.5-VL-7B-AFCON2025
+          websites:
+            - afriquesports.net
+          training_data: /workspace/training-data/afrique/afcon2025_training.jsonl
+          training_examples: 2000
+          training_completed: 2025-12-27
+          training_loss: 0.148  # 94% reduction from 2.566
+          deployment_method: merged_model
+          status: deployed_to_vllm
+          deployed_at: 2025-12-27
+          vllm_model_name: oxmo88/Qwen2.5-VL-7B-AFCON2025
+          priority: 1  # ✅ COMPLETED - Live in production
+
+        - name: cuisine-v1
+          domain: African Cuisine
+          languages: [FR]
+          path: /workspace/lora-adapters/cuisine-v1
+          websites:
+            - cuisine-africaine.net
+          status: pending_training
+
+      # Updated launch command (replace current parameters)
+      launch_command: |
+        --model Qwen/Qwen2.5-VL-7B-Instruct \
+        --tensor-parallel-size 1 \
+        --dtype bfloat16 \
+        --gpu-memory-utilization 0.90 \
+        --max-model-len 32768 \
+        --host 0.0.0.0 \
+        --api-key sk-1234 \
+        --enable-auto-tool-choice \
+        --tool-call-parser hermes \
+        --limit-mm-per-prompt '{"image":4,"video":1}' \
+        --allowed-local-media-path /workspace \
+        --enable-lora \
+        --max-loras 4 \
+        --max-lora-rank 64 \
+        --lora-modules fut-v1=/workspace/lora-adapters/fut-v1 \
+        --lora-modules madrid-v1=/workspace/lora-adapters/madrid-v1 \
+        --lora-modules afrique-v1=/workspace/lora-adapters/afrique-v1 \
+        --lora-modules cuisine-v1=/workspace/lora-adapters/cuisine-v1
+
+  # Training pod (on-demand for LoRA training)
+  training_pod:
+    pod_id: 5x0b0iznq43xu4
+    pod_name: immediate_brown_moth
+    gpu: RTX A5000 24GB
+    location: CA
+    cost: $0.270/hr
+    status: running
+    usage: "On-demand LoRA adapter training (stop when not training)"
+
+    # Training configuration
+    purpose: lora_training
+    framework: axolotl
+    shared_volume: /workspace  # Same volume as inference pod
+
+    training_config:
+      base_model: Qwen/Qwen2.5-VL-7B-Instruct
+      lora_r: 64
+      lora_alpha: 128
+      lora_dropout: 0.05
+      target_modules:
+        - q_proj
+        - k_proj
+        - v_proj
+        - o_proj
+        - gate_proj
+        - up_proj
+        - down_proj
+      batch_size: 4
+      gradient_accumulation_steps: 4
+      learning_rate: 2e-4
+      num_epochs: 3
+      warmup_steps: 100
+
+    # Training data locations
+    data_paths:
+      afrique: /workspace/training-data/afrique/afcon2025_training.jsonl
+      fut: /workspace/training-data/fut/
+      madrid: /workspace/training-data/madrid/
+      cuisine: /workspace/training-data/cuisine/
+
+    # Output paths (shared with inference pod)
+    output_paths:
+      afrique: /workspace/lora-adapters/afrique-v1
+      fut: /workspace/lora-adapters/fut-v1
+      madrid: /workspace/lora-adapters/madrid-v1
+      cuisine: /workspace/lora-adapters/cuisine-v1
+
+    # Cost management
+    recommended_usage: "Start only for training, stop when complete"
+    estimated_training_time_per_adapter: "2-3 hours"
+    estimated_cost_per_adapter: "$0.81"
+
   fine_tuning:
     framework: axolotl
     training_data: scripts/data-collection/data/afcon2025_training.jsonl

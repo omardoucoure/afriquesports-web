@@ -14,34 +14,56 @@ if [ ! -f "$CONFIG" ]; then
 fi
 
 # Parse YAML (simple grep-based parsing)
-POD_ID=$(grep -A 10 "^runpod:" "$CONFIG" | grep "pod_id:" | awk '{print $2}')
-RUNPOD_IP=$(grep -A 10 "^runpod:" "$CONFIG" | grep "ip:" | awk '{print $2}')
-VLLM_PORT=$(grep -A 10 "vllm:" "$CONFIG" | grep "port:" | awk '{print $2}')
-VLLM_ENDPOINT=$(grep -A 10 "vllm:" "$CONFIG" | grep "endpoint:" | awk '{print $2}')
+POD_ID=$(grep -A 30 "^runpod:" "$CONFIG" | grep "pod_id:" | head -1 | awk '{print $2}')
+RUNPOD_IP=$(grep -A 30 "^runpod:" "$CONFIG" | grep "ip:" | head -1 | awk '{print $2}')
+VLLM_API_URL=$(grep -A 30 "vllm:" "$CONFIG" | grep "api_endpoint:" | awk '{print $2}')
+VLLM_API_KEY=$(grep -A 30 "vllm:" "$CONFIG" | grep "api_key:" | awk '{print $2}')
+VLLM_BASE_URL=$(grep -A 30 "vllm:" "$CONFIG" | grep "base_url:" | awk '{print $2}')
 DO_IP=$(grep -A 10 "^digitalocean:" "$CONFIG" | grep "ip:" | awk '{print $2}')
 
-echo "📡 RunPod Server ($RUNPOD_IP)"
+echo "📡 RunPod vLLM Server (Pod: $POD_ID)"
 echo "----------------------------"
 
-# Check SSH using runpodctl (handles dynamic ports)
+# Check pod status via runpodctl
 if command -v runpodctl >/dev/null 2>&1; then
-    SSH_CMD=$(runpodctl ssh connect "$POD_ID" 2>/dev/null)
-    if [ -n "$SSH_CMD" ] && $SSH_CMD -o ConnectTimeout=10 -o StrictHostKeyChecking=no "echo 'SSH OK'" >/dev/null 2>&1; then
-        SSH_PORT=$(echo "$SSH_CMD" | grep -o "\-p [0-9]*" | awk '{print $2}')
-        echo "  SSH: ✅ Connected (port $SSH_PORT via runpodctl)"
+    POD_STATUS=$(runpodctl get pod "$POD_ID" 2>&1 | grep -i "RUNNING" || echo "")
+    if [ -n "$POD_STATUS" ]; then
+        echo "  Pod Status: ✅ Running"
     else
-        echo "  SSH: ❌ Connection failed (use: runpodctl ssh connect $POD_ID)"
+        echo "  Pod Status: ❌ Stopped or not found"
+        echo "  (Check: https://www.runpod.io/console/pods)"
     fi
 else
-    echo "  SSH: ⚠️  runpodctl not installed (install: brew install runpod/runpodctl/runpodctl)"
+    echo "  Pod Status: ⚠️  runpodctl not installed"
+    echo "  (Install: brew install runpod/runpodctl/runpodctl)"
 fi
 
-# Check vLLM
-if curl -s --connect-timeout 5 "$VLLM_ENDPOINT/models" >/dev/null 2>&1; then
-    echo "  vLLM: ✅ Running (port $VLLM_PORT)"
+# Check vLLM API
+if [ -n "$VLLM_API_URL" ] && [ -n "$VLLM_API_KEY" ]; then
+    VLLM_RESPONSE=$(curl -s --connect-timeout 10 "$VLLM_API_URL/models" \
+        -H "Authorization: Bearer $VLLM_API_KEY" 2>&1)
+
+    if echo "$VLLM_RESPONSE" | grep -q '"object":"list"'; then
+        # Count models
+        MODEL_COUNT=$(echo "$VLLM_RESPONSE" | grep -o '"id":' | wc -l | tr -d ' ')
+        echo "  vLLM API: ✅ Running ($MODEL_COUNT models loaded)"
+
+        # Check if LoRA enabled
+        if echo "$VLLM_RESPONSE" | grep -q 'fut-v1\|madrid-v1\|afrique-v1\|cuisine-v1'; then
+            echo "  LoRA Support: ✅ Enabled (multi-domain adapters active)"
+        else
+            echo "  LoRA Support: ⚠️  Not enabled (base model only)"
+        fi
+    else
+        echo "  vLLM API: ❌ Not responding or unauthorized"
+        echo "  Endpoint: $VLLM_BASE_URL"
+    fi
 else
-    echo "  vLLM: ❌ Not responding (port $VLLM_PORT)"
+    echo "  vLLM API: ⚠️  Configuration missing"
 fi
+
+# SSH check (limited on vLLM template)
+echo "  SSH Access: ⚠️  Limited (vLLM template is API-first)"
 
 echo ""
 echo "🖥️  DigitalOcean Server ($DO_IP)"

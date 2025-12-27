@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'admin-secret-token-' + Date.now();
-const VLLM_ENDPOINT = 'http://194.68.245.75:22165/v1';
+const VLLM_ENDPOINT = process.env.VLLM_ENDPOINT || 'https://qbjo7w9adplhia-8000.proxy.runpod.net/v1';
+const VLLM_API_KEY = process.env.VLLM_API_KEY || 'sk-1234';
 
 function verifyAuth(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
@@ -25,7 +26,8 @@ export async function GET(request: NextRequest) {
     const response = await fetch(`${VLLM_ENDPOINT}/models`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${VLLM_API_KEY}`
       }
     });
 

@@ -1,7 +1,7 @@
 /**
  * Google Indexing API Wrapper
  *
- * Enables instant indexing of match pages when they go live.
+ * Enables instant indexing of match pages and articles.
  * Requires Google Cloud service account with Indexing API enabled.
  *
  * Setup Instructions:
@@ -19,8 +19,15 @@
  */
 
 import { google } from 'googleapis';
+import { createClient } from '@supabase/supabase-js';
 
 const SITE_URL = "https://www.afriquesports.net";
+
+// Supabase client for tracking indexing status
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export class GoogleIndexingAPI {
   private auth: any;
@@ -184,6 +191,96 @@ export class GoogleIndexingAPI {
     }
 
     console.log(`Batch indexing complete: ${successCount}/${matchIds.length} matches notified`);
+    return successCount;
+  }
+
+  /**
+   * Notify Google about a new or updated article
+   * Logs submission to database for tracking
+   */
+  async notifyArticlePublished(category: string, slug: string, locale: string = 'fr'): Promise<boolean> {
+    // Construct article URL
+    const url = locale === 'fr'
+      ? `${SITE_URL}/${category}/${slug}`
+      : `${SITE_URL}/${locale}/${category}/${slug}`;
+
+    try {
+      // Submit to Google Indexing API
+      const success = await this.notifyUpdate(url);
+
+      // Track in database
+      if (supabase) {
+        await supabase.from('seo_indexing_status').upsert({
+          url,
+          submitted_at: new Date().toISOString(),
+          indexing_status: success ? 'submitted' : 'error',
+          last_checked_at: new Date().toISOString(),
+          error_message: success ? null : 'Failed to submit to Indexing API'
+        }, {
+          onConflict: 'url'
+        });
+      }
+
+      return success;
+    } catch (error: any) {
+      console.error('Error notifying article:', {
+        url,
+        error: error.message
+      });
+
+      // Log error to database
+      if (supabase) {
+        await supabase.from('seo_indexing_status').upsert({
+          url,
+          submitted_at: new Date().toISOString(),
+          indexing_status: 'error',
+          last_checked_at: new Date().toISOString(),
+          error_message: error.message
+        }, {
+          onConflict: 'url'
+        });
+      }
+
+      return false;
+    }
+  }
+
+  /**
+   * Notify Google about article for all locales
+   */
+  async notifyArticleAllLocales(category: string, slug: string): Promise<boolean> {
+    const locales = ['fr', 'en', 'es'];
+    const results = await Promise.allSettled(
+      locales.map(locale => this.notifyArticlePublished(category, slug, locale))
+    );
+
+    const successful = results.filter(r => r.status === 'fulfilled' && r.value).length;
+    console.log(`Notified ${successful}/${locales.length} locales for article ${category}/${slug}`);
+
+    return successful > 0;
+  }
+
+  /**
+   * Batch notify multiple article URLs (respects rate limits)
+   * articles: Array of { category: string, slug: string }
+   */
+  async notifyArticleBatch(
+    articles: Array<{ category: string; slug: string }>,
+    delayMs: number = 300
+  ): Promise<number> {
+    let successCount = 0;
+
+    for (const article of articles) {
+      const success = await this.notifyArticleAllLocales(article.category, article.slug);
+      if (success) successCount++;
+
+      // Respect rate limits (200 requests/min = ~300ms per request)
+      if (delayMs > 0 && articles.indexOf(article) < articles.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
+    }
+
+    console.log(`Batch article indexing complete: ${successCount}/${articles.length} articles notified`);
     return successCount;
   }
 }

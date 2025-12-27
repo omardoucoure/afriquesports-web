@@ -324,7 +324,7 @@ export function generateArticleJsonLd(
     author: {
       "@type": "Person",
       name: authorName,
-      url: `${SITE_URL}/author/${authorName.toLowerCase().replace(/\s+/g, "-")}`,
+      // Note: Author URL removed until author pages are implemented (avoiding 404s)
     },
     publisher: {
       "@type": "Organization",
