@@ -26,6 +26,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.afriquesports.
 const VLLM_BASE_URL = process.env.VLLM_BASE_URL || 'https://qbjo7w9adplhia-8000.proxy.runpod.net/v1';
 const VLLM_API_KEY = process.env.VLLM_API_KEY || 'sk-1234';
 const VLLM_MODEL = process.env.VLLM_MODEL || 'oxmo88/Qwen2.5-VL-7B-AFCON2025';
+
+// Translation endpoint (base model, no hallucination)
+const VLLM_TRANSLATION_URL = process.env.VLLM_TRANSLATION_URL || VLLM_BASE_URL;
+const TRANSLATION_MODEL = 'Qwen/Qwen2.5-7B-Instruct';
+
 const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 const PRE_MATCH_HOURS = 24; // Generate pre-match analysis 24 hours before
 
@@ -457,10 +462,13 @@ Génère maintenant un commentaire adapté à ce contexte:`;
 }
 
 /**
- * Rewrite ESPN commentary in French using fine-tuned AI model
+ * Translate ESPN commentary to French using base model (no hallucination)
  */
 async function rewriteESPNCommentary(espnText, homeTeam, awayTeam, minute, eventType) {
   try {
+    // Use dedicated translation endpoint with base Qwen model
+    // Avoids hallucination from fine-tuned model that memorizes CAN 2025 facts
+
     const prompt = `Traduis EXACTEMENT ce texte ESPN en français. Ne change RIEN, ne rajoute RIEN.
 
 TEXTE ORIGINAL:
@@ -483,23 +491,23 @@ INTERDIT:
 Traduis maintenant le texte ci-dessus MOT À MOT:`;
 
     const payload = {
-      model: VLLM_MODEL,
+      model: TRANSLATION_MODEL,
       messages: [
-        { role: 'system', content: 'Tu es un traducteur sportif expert. Tu traduis des commentaires de match EN RESTANT 100% FIDÈLE aux faits. Tu ne modifies JAMAIS les détails factuels.' },
+        { role: 'system', content: 'Tu es un traducteur professionnel. Tu traduis mot à mot sans ajouter ni modifier aucune information.' },
         { role: 'user', content: prompt }
       ],
       max_tokens: 150,
-      temperature: 0.3
+      temperature: 0.1
     };
 
     const response = await postJSON(
-      `${VLLM_BASE_URL}/chat/completions`,
+      `${VLLM_TRANSLATION_URL}/chat/completions`,
       payload,
       { 'Authorization': `Bearer ${VLLM_API_KEY}` }
     );
 
     if (response.status !== 200) {
-      throw new Error(`vLLM API error: ${response.status}`);
+      throw new Error(`Translation API error: ${response.status}`);
     }
 
     const rewrittenText = response.data.choices[0].message.content.trim();
@@ -508,8 +516,8 @@ Traduis maintenant le texte ci-dessus MOT À MOT:`;
     return rewrittenText.replace(/^["']|["']$/g, '');
 
   } catch (error) {
-    console.error('[ERROR] Failed to rewrite ESPN commentary:', error.message);
-    // Fallback: return original text if AI fails
+    console.error('[ERROR] Failed to translate ESPN commentary:', error.message);
+    // Fallback: return original text if translation fails
     return espnText;
   }
 }
@@ -1450,6 +1458,9 @@ async function startAgent() {
   console.log('🤖 FULLY AUTONOMOUS MATCH COMMENTARY AGENT');
   console.log('==========================================');
   console.log(`📡 vLLM Endpoint: ${VLLM_BASE_URL}`);
+  console.log(`🧠 Fine-tuned Model: ${VLLM_MODEL}`);
+  console.log(`📝 Translation Endpoint: ${VLLM_TRANSLATION_URL}`);
+  console.log(`🌐 Translation Model: ${TRANSLATION_MODEL}`);
   console.log(`🌐 Site URL: ${SITE_URL}`);
   console.log(`⏱️  Check Interval: ${CHECK_INTERVAL / 60000} minutes`);
   console.log(`📋 Pre-match: ${PRE_MATCH_HOURS} hours before kickoff`);
