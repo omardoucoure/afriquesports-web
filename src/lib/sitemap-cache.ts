@@ -127,51 +127,62 @@ async function fetchSitemapPosts(
   const apiPages = Math.ceil(perPage / POSTS_PER_PAGE);
   const startOffset = (page - 1) * perPage;
 
+  // PERFORMANCE FIX: Fetch pages in parallel to avoid 25s Vercel timeout
+  // With 10 sequential calls at 3-4s each = 30-40s (exceeds timeout)
+  // With parallel calls = ~4s total (within timeout)
+  const fetchPromises = [];
   for (let i = 0; i < apiPages; i++) {
     const apiPage = Math.floor(startOffset / POSTS_PER_PAGE) + i + 1;
 
-    try {
-      const response = await fetch(
+    fetchPromises.push(
+      fetch(
         `${baseUrl}/wp-json/wp/v2/posts?per_page=${POSTS_PER_PAGE}&page=${apiPage}&_fields=slug,modified,link,date,_embedded&_embed&orderby=id&order=asc`,
         {
           next: { revalidate: 3600 },
           headers: {
             Accept: "application/json",
           },
+          signal: AbortSignal.timeout(15000), // 15s timeout per request
         }
-      );
+      )
+      .then(async (response) => {
+        if (!response.ok) {
+          if (response.status === 400) return null; // No more pages
+          throw new Error(`API error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error(`Error fetching sitemap posts page ${apiPage}:`, error);
+        return null; // Return null on error instead of breaking
+      })
+    );
+  }
 
-      if (!response.ok) {
-        if (response.status === 400) break; // No more pages
-        throw new Error(`API error: ${response.status}`);
+  // Wait for all requests to complete in parallel
+  const results = await Promise.all(fetchPromises);
+
+  // Process results
+  for (const posts of results) {
+    if (!posts) continue; // Skip failed requests
+
+    for (const post of posts) {
+      // Get category slug from embedded data
+      let category = "football"; // default fallback
+
+      if (post._embedded && post._embedded["wp:term"] && post._embedded["wp:term"][0]) {
+        const primaryCategory = post._embedded["wp:term"][0][0];
+        if (primaryCategory && primaryCategory.slug) {
+          category = primaryCategory.slug;
+        }
       }
 
-      const posts = await response.json();
-
-      for (const post of posts) {
-        // Get category slug from embedded data
-        let category = "football"; // default fallback
-
-        if (post._embedded && post._embedded["wp:term"] && post._embedded["wp:term"][0]) {
-          const primaryCategory = post._embedded["wp:term"][0][0];
-          if (primaryCategory && primaryCategory.slug) {
-            category = primaryCategory.slug;
-          }
-        }
-
-        allPosts.push({
-          slug: post.slug,
-          category,
-          modified: post.modified,
-          publishDate: post.date,
-        });
-      }
-
-      // If we got fewer than expected, we've reached the end
-      if (posts.length < POSTS_PER_PAGE) break;
-    } catch (error) {
-      console.error(`Error fetching sitemap posts page ${apiPage}:`, error);
-      break;
+      allPosts.push({
+        slug: post.slug,
+        category,
+        modified: post.modified,
+        publishDate: post.date,
+      });
     }
   }
 

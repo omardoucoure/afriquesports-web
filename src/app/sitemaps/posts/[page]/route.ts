@@ -5,7 +5,8 @@ import { getCachedSitemapPosts, calculatePriority } from "@/lib/sitemap-cache";
  * Paginated Post Sitemap
  * Route: /sitemaps/posts/[page].xml
  *
- * Each sitemap contains 1000 posts for optimal performance
+ * Each sitemap contains 500 posts for optimal performance
+ * Reduced from 1000 to prevent Vercel 25s timeout with slow WordPress API
  * Following Google's best practice of smaller, faster sitemaps
  */
 
@@ -16,7 +17,7 @@ export const runtime = "edge";
 export const revalidate = 43200;
 
 const SITE_URL = "https://www.afriquesports.net";
-const POSTS_PER_SITEMAP = 1000;
+const POSTS_PER_SITEMAP = 500; // Reduced from 1000 to prevent timeout
 
 export async function GET(
   request: NextRequest,
