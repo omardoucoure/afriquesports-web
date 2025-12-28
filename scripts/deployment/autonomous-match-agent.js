@@ -461,33 +461,35 @@ Génère maintenant un commentaire adapté à ce contexte:`;
  */
 async function rewriteESPNCommentary(espnText, homeTeam, awayTeam, minute, eventType) {
   try {
-    const prompt = `Tu es un commentateur sportif français professionnel pour Afrique Sports. Ta mission est de réécrire ce commentaire ESPN en français de manière naturelle et engageante.
+    const prompt = `Traduis EXACTEMENT ce texte ESPN en français. Ne change RIEN, ne rajoute RIEN.
 
-MATCH: ${homeTeam} vs ${awayTeam}
-MINUTE: ${minute}
-TYPE D'ÉVÉNEMENT: ${eventType}
-
-COMMENTAIRE ESPN (anglais):
+TEXTE ORIGINAL:
 "${espnText}"
 
-INSTRUCTIONS:
-- Réécris ce commentaire en français professionnel et fluide
-- Garde tous les noms de joueurs, équipes et détails factuels exacts
-- Utilise un style dynamique et engageant pour les lecteurs francophones
-- Adapte le ton selon le type d'événement (but = excitation, faute = descriptif)
-- Reste fidèle aux faits, ne rajoute RIEN qui n'est pas dans le texte original
-- Maximum 2-3 phrases
+EXEMPLES DE TRADUCTION CORRECTE:
+- "Foul by John Doe" → "Faute de John Doe"
+- "Goal! Team A 1, Team B 0." → "But ! Team A 1, Team B 0."
+- "Yellow card" → "Carton jaune"
+- "Right footed shot" → "Tir du pied droit"
+- "Substitution, Team A. Player X replaces Player Y" → "Changement, Team A. Player X remplace Player Y"
 
-Génère UNIQUEMENT le commentaire en français, sans préambule:`;
+INTERDIT:
+❌ Changer les noms de joueurs
+❌ Changer "right" en "left" ou vice-versa
+❌ Ajouter des statistiques (nombre de buts, etc.)
+❌ Inventer des détails
+❌ Supposer des raisons
+
+Traduis maintenant le texte ci-dessus MOT À MOT:`;
 
     const payload = {
       model: VLLM_MODEL,
       messages: [
-        { role: 'system', content: 'Tu es un commentateur sportif français expert pour la CAN 2025. Tu réécris des commentaires ESPN en français professionnel.' },
+        { role: 'system', content: 'Tu es un traducteur sportif expert. Tu traduis des commentaires de match EN RESTANT 100% FIDÈLE aux faits. Tu ne modifies JAMAIS les détails factuels.' },
         { role: 'user', content: prompt }
       ],
       max_tokens: 150,
-      temperature: 0.7
+      temperature: 0.3
     };
 
     const response = await postJSON(
