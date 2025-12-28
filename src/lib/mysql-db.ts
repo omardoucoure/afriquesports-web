@@ -28,8 +28,6 @@ function getPool(): mysql.Pool | null {
     queueLimit: 0,
     // Connection timeouts and keepalive to prevent ECONNRESET errors
     connectTimeout: 10000, // 10 seconds to establish connection
-    acquireTimeout: 10000, // 10 seconds to acquire connection from pool
-    timeout: 60000, // 60 seconds query timeout
     enableKeepAlive: true, // Keep connections alive
     keepAliveInitialDelay: 0, // Start keepalive immediately
   };
