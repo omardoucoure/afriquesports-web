@@ -384,7 +384,11 @@
       "keyPlayers": "لاعبون رئيسيون",
       "tacticalPreview": "نظرة تكتيكية",
       "prediction": "التوقعات",
-      "waitingForCommentary": "في انتظار التعليقات المباشرة..."
+      "waitingForCommentary": "في انتظار التعليقات المباشرة...",
+      "noVideosAvailable": "لا توجد فيديوهات متاحة",
+      "videosAvailableAfterMatch": "ستتوفر الفيديوهات بعد المباراة",
+      "highlights": "أبرز اللحظات",
+      "matchHighlight": "أبرز لحظات المباراة"
     },
     "results": {
       "finished": "انتهت"
