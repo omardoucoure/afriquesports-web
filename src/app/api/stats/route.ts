@@ -40,48 +40,16 @@ export async function GET(request: NextRequest) {
     dateFrom.setDate(dateFrom.getDate() - days);
     const fromDate = dateFrom.toISOString().split('T')[0];
 
-    // Get total posts count from visits table
-    const [totalPostsRows] = await pool.query<mysql.RowDataPacket[]>(
-      `SELECT COUNT(DISTINCT post_id) as total
-       FROM wp_afriquesports_visits
-       WHERE visit_date >= ?`,
-      [fromDate]
-    );
-    const totalPosts = totalPostsRows[0]?.total || 0;
-
-    // Get posts by language
-    const [languageRows] = await pool.query<mysql.RowDataPacket[]>(
-      `SELECT
-        post_locale,
-        COUNT(DISTINCT post_id) as count
-       FROM wp_afriquesports_visits
-       WHERE visit_date >= ?
-       GROUP BY post_locale`,
-      [fromDate]
-    );
-
-    const languageStats = {
-      french: 0,
-      english: 0,
-      spanish: 0,
-      arabic: 0,
-    };
-
-    languageRows.forEach((row) => {
-      const locale = row.post_locale || 'fr';
-      const count = row.count || 0;
-
-      if (locale === 'fr') languageStats.french = count;
-      else if (locale === 'en') languageStats.english = count;
-      else if (locale === 'es') languageStats.spanish = count;
-      else if (locale === 'ar') languageStats.arabic = count;
-    });
-
-    // Get posts by author
+    // Get comprehensive author statistics with views
     const [authorRows] = await pool.query<mysql.RowDataPacket[]>(
       `SELECT
         post_author as author,
-        COUNT(DISTINCT post_id) as totalPosts
+        COUNT(DISTINCT post_id) as totalPosts,
+        SUM(CASE WHEN post_locale = 'fr' THEN 1 ELSE 0 END) as frenchPosts,
+        SUM(CASE WHEN post_locale = 'en' THEN 1 ELSE 0 END) as englishPosts,
+        SUM(CASE WHEN post_locale = 'es' THEN 1 ELSE 0 END) as spanishPosts,
+        SUM(CASE WHEN post_locale = 'ar' THEN 1 ELSE 0 END) as arabicPosts,
+        SUM(count) as totalViews
        FROM wp_afriquesports_visits
        WHERE visit_date >= ? AND post_author IS NOT NULL
        GROUP BY post_author
@@ -91,18 +59,19 @@ export async function GET(request: NextRequest) {
 
     const authorStats = authorRows.map((row) => ({
       author: row.author || 'Unknown',
-      totalPosts: row.totalPosts || 0,
+      totalPosts: parseInt(row.totalPosts) || 0,
+      frenchPosts: parseInt(row.frenchPosts) || 0,
+      englishPosts: parseInt(row.englishPosts) || 0,
+      spanishPosts: parseInt(row.spanishPosts) || 0,
+      arabicPosts: parseInt(row.arabicPosts) || 0,
+      totalViews: parseInt(row.totalViews) || 0,
     }));
 
-    return NextResponse.json({
-      totalPosts,
-      languageStats,
-      authorStats,
-    });
+    return NextResponse.json({ authorStats });
   } catch (error: any) {
     console.error('[API /api/stats] Error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch statistics', details: error.message },
+      { error: 'Failed to fetch author statistics', details: error.message },
       { status: 500 }
     );
   }
