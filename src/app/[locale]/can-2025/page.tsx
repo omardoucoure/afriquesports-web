@@ -11,6 +11,7 @@ import { generateFaqJsonLd, generateSportsEventJsonLd, CATEGORY_KEYWORDS, SEO_KE
 import { LiveMatchCommentary } from "@/components/can2025";
 
 // ISR: Revalidate every 60 seconds for fresh content
+// Cache cleared: 2025-12-28
 export const revalidate = 60;
 
 interface CAN2025PageProps {
