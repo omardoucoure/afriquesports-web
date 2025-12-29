@@ -4,8 +4,27 @@ import { getPool } from '@/lib/mysql-db';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const period = searchParams.get('period') || '7'; // Default 7 days
-  const days = parseInt(period);
+  const period = searchParams.get('period') || 'week'; // Default week
+
+  // Convert period to days
+  let days: number;
+  switch (period) {
+    case 'day':
+      days = 1;
+      break;
+    case 'week':
+      days = 7;
+      break;
+    case 'month':
+      days = 30;
+      break;
+    case 'all':
+      days = 365; // Last year
+      break;
+    default:
+      // If numeric value provided, use it
+      days = parseInt(period) || 7;
+  }
 
   try {
     const pool = getPool();
