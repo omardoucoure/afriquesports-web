@@ -45,10 +45,10 @@ export async function GET(request: NextRequest) {
       `SELECT
         post_author as author,
         COUNT(DISTINCT post_id) as totalPosts,
-        SUM(CASE WHEN post_locale = 'fr' THEN 1 ELSE 0 END) as frenchPosts,
-        SUM(CASE WHEN post_locale = 'en' THEN 1 ELSE 0 END) as englishPosts,
-        SUM(CASE WHEN post_locale = 'es' THEN 1 ELSE 0 END) as spanishPosts,
-        SUM(CASE WHEN post_locale = 'ar' THEN 1 ELSE 0 END) as arabicPosts,
+        COUNT(DISTINCT CASE WHEN post_locale = 'fr' THEN post_id END) as frenchPosts,
+        COUNT(DISTINCT CASE WHEN post_locale = 'en' THEN post_id END) as englishPosts,
+        COUNT(DISTINCT CASE WHEN post_locale = 'es' THEN post_id END) as spanishPosts,
+        COUNT(DISTINCT CASE WHEN post_locale = 'ar' THEN post_id END) as arabicPosts,
         SUM(count) as totalViews
        FROM wp_afriquesports_visits
        WHERE visit_date >= ? AND post_author IS NOT NULL
