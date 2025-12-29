@@ -40,16 +40,13 @@ export async function GET(request: NextRequest) {
     dateFrom.setDate(dateFrom.getDate() - days);
     const fromDate = dateFrom.toISOString().split('T')[0];
 
-    // Get comprehensive author statistics with views
+    // Get clean author statistics: posts written and views received
     const [authorRows] = await pool.query<mysql.RowDataPacket[]>(
       `SELECT
         post_author as author,
         COUNT(DISTINCT post_id) as totalPosts,
-        COUNT(DISTINCT CASE WHEN post_locale = 'fr' THEN post_id END) as frenchPosts,
-        COUNT(DISTINCT CASE WHEN post_locale = 'en' THEN post_id END) as englishPosts,
-        COUNT(DISTINCT CASE WHEN post_locale = 'es' THEN post_id END) as spanishPosts,
-        COUNT(DISTINCT CASE WHEN post_locale = 'ar' THEN post_id END) as arabicPosts,
-        SUM(count) as totalViews
+        SUM(count) as totalViews,
+        ROUND(SUM(count) / COUNT(DISTINCT post_id), 0) as avgViewsPerPost
        FROM wp_afriquesports_visits
        WHERE visit_date >= ? AND post_author IS NOT NULL
        GROUP BY post_author
@@ -60,11 +57,8 @@ export async function GET(request: NextRequest) {
     const authorStats = authorRows.map((row) => ({
       author: row.author || 'Unknown',
       totalPosts: parseInt(row.totalPosts) || 0,
-      frenchPosts: parseInt(row.frenchPosts) || 0,
-      englishPosts: parseInt(row.englishPosts) || 0,
-      spanishPosts: parseInt(row.spanishPosts) || 0,
-      arabicPosts: parseInt(row.arabicPosts) || 0,
       totalViews: parseInt(row.totalViews) || 0,
+      avgViewsPerPost: parseInt(row.avgViewsPerPost) || 0,
     }));
 
     return NextResponse.json({ authorStats });
