@@ -14,8 +14,8 @@ export interface VisitData {
   postLocale?: string;
 }
 
-// Get MySQL connection pool
-function getPool(): mysql.Pool | null {
+// Get MySQL connection pool (exported for use in API routes)
+export function getPool(): mysql.Pool | null {
   if (pool) return pool;
 
   const config = {
