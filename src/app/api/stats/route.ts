@@ -61,7 +61,14 @@ export async function GET(request: NextRequest) {
       avgViewsPerPost: parseInt(row.avgViewsPerPost) || 0,
     }));
 
-    return NextResponse.json({ authorStats });
+    return NextResponse.json(
+      { authorStats },
+      {
+        headers: {
+          'Cache-Control': 'public, max-age=300, s-maxage=600',
+        },
+      }
+    );
   } catch (error: any) {
     console.error('[API /api/stats] Error:', error);
     return NextResponse.json(
