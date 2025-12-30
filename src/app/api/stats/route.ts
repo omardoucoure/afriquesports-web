@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { getPool } from '@/lib/mysql-db';
 
+// Author statistics API - simplified version
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const period = searchParams.get('period') || 'week'; // Default week
