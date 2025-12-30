@@ -105,14 +105,14 @@ const nextConfig: NextConfig = {
       // Fix malformed video indexing URLs (Google Search Console issue)
       // Pattern 1: /locale/https:/slug → /locale/football/slug
       {
-        source: "/:locale(en|es|ar|fr)/https\\::slug*",
-        destination: "/:locale/football/:slug*",
+        source: "/:locale(en|es|ar|fr)/https\\:/:path*",
+        destination: "/:locale/football/:path*",
         permanent: true,
       },
       // Pattern 2: /https:/slug → /football/slug
       {
-        source: "/https\\::slug*",
-        destination: "/football/:slug*",
+        source: "/https\\:/:path*",
+        destination: "/football/:path*",
         permanent: true,
       },
       // Redirect /foot to /football (legacy URL fix)
