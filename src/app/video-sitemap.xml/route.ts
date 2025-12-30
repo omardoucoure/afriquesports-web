@@ -12,7 +12,8 @@ export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (videos don't change as often)
 
 const SITE_URL = 'https://www.afriquesports.net';
-const POSTS_PER_PAGE = 1000;
+const POSTS_PER_PAGE = 100; // Fetch in batches
+const VIDEO_CATEGORY_ID = 9791; // Afrique Sports TV category (909 posts)
 const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2';
 
 interface VideoPost {
@@ -68,22 +69,38 @@ function stripHtml(html: string): string {
 
 export async function GET() {
   try {
-    // Fetch recent posts (with content to extract video URLs)
-    const response = await fetch(
-      `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&_embed&orderby=date&order=desc`,
-      {
-        headers: {
-          'User-Agent': 'afriquesports-sitemap/1.0',
-        },
-        next: { revalidate: 86400 }, // Cache for 24 hours
-      }
-    );
+    // Fetch posts from Afrique Sports TV category (video-heavy category)
+    // We'll fetch multiple pages to get all video posts
+    const allPosts: any[] = [];
+    let page = 1;
+    const maxPages = 10; // Fetch up to 1000 posts (10 pages × 100)
 
-    if (!response.ok) {
-      throw new Error(`WordPress API error: ${response.status}`);
+    while (page <= maxPages) {
+      const response = await fetch(
+        `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&page=${page}&categories=${VIDEO_CATEGORY_ID}&_embed&orderby=date&order=desc`,
+        {
+          headers: {
+            'User-Agent': 'afriquesports-sitemap/1.0',
+          },
+          next: { revalidate: 86400 }, // Cache for 24 hours
+        }
+      );
+
+      if (!response.ok) {
+        // No more pages
+        break;
+      }
+
+      const posts = await response.json();
+      if (posts.length === 0) {
+        break;
+      }
+
+      allPosts.push(...posts);
+      page++;
     }
 
-    const posts: any[] = await response.json();
+    const posts: any[] = allPosts;
 
     // Filter posts that have videos
     const videoPosts: Array<{
