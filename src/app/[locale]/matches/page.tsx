@@ -44,7 +44,8 @@ interface ESPNMatch {
 
 async function fetchAFCONMatches(): Promise<ESPNMatch[]> {
   try {
-    const response = await fetch(
+    // Fetch today's matches
+    const todayResponse = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
       {
         next: { revalidate: 60 },
@@ -54,13 +55,40 @@ async function fetchAFCONMatches(): Promise<ESPNMatch[]> {
       }
     );
 
-    if (!response.ok) {
-      console.error('ESPN API error:', response.status);
+    if (!todayResponse.ok) {
+      console.error('ESPN API error:', todayResponse.status);
       return [];
     }
 
-    const data = await response.json();
-    return data.events || [];
+    const todayData = await todayResponse.json();
+    const todayMatches = todayData.events || [];
+
+    // Try to fetch tomorrow's matches (ESPN API uses current date by default)
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowDate = tomorrow.toISOString().split('T')[0].replace(/-/g, '');
+
+    try {
+      const tomorrowResponse = await fetch(
+        `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard?dates=${tomorrowDate}`,
+        {
+          next: { revalidate: 60 },
+          headers: {
+            'Accept': 'application/json',
+          },
+        }
+      );
+
+      if (tomorrowResponse.ok) {
+        const tomorrowData = await tomorrowResponse.json();
+        const tomorrowMatches = tomorrowData.events || [];
+        return [...todayMatches, ...tomorrowMatches];
+      }
+    } catch (error) {
+      console.error('Error fetching tomorrow matches:', error);
+    }
+
+    return todayMatches;
   } catch (error) {
     console.error('Error fetching AFCON matches:', error);
     return [];
@@ -75,9 +103,77 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations('matchesPage');
 
+  const title = `${t('title')} | Afrique Sports`;
+  const description = t('description');
+  const baseUrl = 'https://www.afriquesports.net';
+  const currentUrl = `${baseUrl}/${locale}/matches`;
+
   return {
-    title: `${t('title')} | Afrique Sports`,
-    description: t('description'),
+    title,
+    description,
+    keywords: [
+      'AFCON 2025',
+      'Africa Cup of Nations',
+      'CAN 2025',
+      'live matches',
+      'football results',
+      'African football',
+      'live commentary',
+      'AI commentary',
+      'match schedule',
+      'upcoming matches',
+    ].join(', '),
+    authors: [{ name: 'Afrique Sports' }],
+    creator: 'Afrique Sports',
+    publisher: 'Afrique Sports',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    alternates: {
+      canonical: currentUrl,
+      languages: {
+        'fr': `${baseUrl}/fr/matches`,
+        'en': `${baseUrl}/en/matches`,
+        'es': `${baseUrl}/es/matches`,
+        'ar': `${baseUrl}/ar/matches`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: currentUrl,
+      siteName: 'Afrique Sports',
+      locale: locale === 'fr' ? 'fr_FR' : locale === 'en' ? 'en_US' : locale === 'es' ? 'es_ES' : 'ar_AR',
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/og-matches.jpg`,
+          width: 1200,
+          height: 630,
+          alt: 'AFCON 2025 Matches - Live Results & Commentary',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      site: '@afriquesports',
+      creator: '@afriquesports',
+      images: [`${baseUrl}/og-matches.jpg`],
+    },
+    verification: {
+      google: 'your-google-verification-code',
+    },
+    category: 'Sports',
   };
 }
 
@@ -212,9 +308,11 @@ async function MatchesList({ locale }: { locale: string }) {
                   {homeTeam.team.displayName}
                 </span>
               </div>
-              <span className="text-4xl font-bold text-gray-900 min-w-[3rem] text-right">
-                {homeTeam.score || '-'}
-              </span>
+              {match.status.type.state !== 'pre' && (
+                <span className="text-4xl font-bold text-gray-900 min-w-[3rem] text-right">
+                  {homeTeam.score || '-'}
+                </span>
+              )}
             </div>
 
             {/* Divider */}
@@ -242,9 +340,11 @@ async function MatchesList({ locale }: { locale: string }) {
                   {awayTeam.team.displayName}
                 </span>
               </div>
-              <span className="text-4xl font-bold text-gray-900 min-w-[3rem] text-right">
-                {awayTeam.score || '-'}
-              </span>
+              {match.status.type.state !== 'pre' && (
+                <span className="text-4xl font-bold text-gray-900 min-w-[3rem] text-right">
+                  {awayTeam.score || '-'}
+                </span>
+              )}
             </div>
           </div>
 
@@ -308,12 +408,18 @@ async function MatchesList({ locale }: { locale: string }) {
             )}
           </div>
 
-          {/* Score */}
-          <div className="flex items-center justify-center gap-1.5 w-[90px] h-[44px] bg-gradient-to-r from-[#04453f] to-[#345C00] rounded-lg shadow-sm flex-shrink-0">
-            <span className="text-lg font-bold text-white tabular-nums">{homeTeam.score || '0'}</span>
-            <span className="text-sm font-bold text-white/40">:</span>
-            <span className="text-lg font-bold text-white tabular-nums">{awayTeam.score || '0'}</span>
-          </div>
+          {/* Score or VS indicator */}
+          {match.status.type.state === 'pre' ? (
+            <div className="flex items-center justify-center w-[90px] h-[44px] bg-gradient-to-r from-[#04453f]/10 to-[#345C00]/10 rounded-lg border-2 border-[#04453f]/20 flex-shrink-0">
+              <span className="text-sm font-bold text-[#04453f]">VS</span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-1.5 w-[90px] h-[44px] bg-gradient-to-r from-[#04453f] to-[#345C00] rounded-lg shadow-sm flex-shrink-0">
+              <span className="text-lg font-bold text-white tabular-nums">{homeTeam.score || '0'}</span>
+              <span className="text-sm font-bold text-white/40">:</span>
+              <span className="text-lg font-bold text-white tabular-nums">{awayTeam.score || '0'}</span>
+            </div>
+          )}
 
           {/* Away Team */}
           <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -446,11 +552,11 @@ function LoadingSkeleton() {
               <div className="w-[70px] h-[44px] bg-gray-200 rounded-lg flex-shrink-0"></div>
               <div className="flex items-center gap-3 flex-1 justify-end">
                 <div className="h-4 w-24 bg-gray-200 rounded"></div>
-                <div className="w-9 h-9 bg-gray-200 rounded-full flex-shrink-0"></div>
+                <div className="w-8 h-8 bg-gray-200 rounded-full flex-shrink-0"></div>
               </div>
-              <div className="w-[100px] h-[44px] bg-gray-200 rounded-lg flex-shrink-0"></div>
+              <div className="w-[90px] h-[44px] bg-gray-200 rounded-lg flex-shrink-0"></div>
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-9 h-9 bg-gray-200 rounded-full flex-shrink-0"></div>
+                <div className="w-8 h-8 bg-gray-200 rounded-full flex-shrink-0"></div>
                 <div className="h-4 w-24 bg-gray-200 rounded"></div>
               </div>
               <div className="w-[100px] flex items-center justify-end flex-shrink-0">
@@ -471,9 +577,96 @@ export default async function MatchesPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations('matchesPage');
+  const matches = await fetchAFCONMatches();
+
+  // Generate structured data for SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'AFCON 2025 Matches',
+    description: 'Live match results and upcoming fixtures for Africa Cup of Nations 2025',
+    numberOfItems: matches.length,
+    itemListElement: matches.map((match, index) => {
+      const competition = match.competitions[0];
+      const homeTeam = competition.competitors.find((c) => c.homeAway === 'home');
+      const awayTeam = competition.competitors.find((c) => c.homeAway === 'away');
+
+      return {
+        '@type': 'SportsEvent',
+        position: index + 1,
+        name: match.name,
+        description: `${homeTeam?.team.displayName} vs ${awayTeam?.team.displayName}`,
+        startDate: match.date,
+        eventStatus: match.status.type.completed
+          ? 'https://schema.org/EventScheduled'
+          : match.status.type.state === 'in'
+          ? 'https://schema.org/EventLive'
+          : 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+          '@type': 'Place',
+          name: competition.venue?.fullName || 'TBD',
+        },
+        competitor: [
+          {
+            '@type': 'SportsTeam',
+            name: homeTeam?.team.displayName,
+          },
+          {
+            '@type': 'SportsTeam',
+            name: awayTeam?.team.displayName,
+          },
+        ],
+        ...(match.status.type.completed && {
+          homeTeam: {
+            '@type': 'SportsTeam',
+            name: homeTeam?.team.displayName,
+          },
+          awayTeam: {
+            '@type': 'SportsTeam',
+            name: awayTeam?.team.displayName,
+          },
+          homeScore: homeTeam?.score,
+          awayScore: awayTeam?.score,
+        }),
+      };
+    }),
+  };
+
+  const breadcrumbStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://www.afriquesports.net',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Matches',
+        item: `https://www.afriquesports.net/${locale}/matches`,
+      },
+    ],
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
+
       <Header />
 
       <main className="min-h-screen bg-gradient-to-b from-gray-50 to-[#F6F6F6] pt-header pb-20 lg:pb-0">
