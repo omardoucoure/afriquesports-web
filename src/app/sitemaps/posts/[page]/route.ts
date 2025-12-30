@@ -13,8 +13,8 @@ import { getCachedSitemapPosts, calculatePriority } from "@/lib/sitemap-cache";
 // Use edge runtime for faster response
 export const runtime = "edge";
 
-// Revalidate every 12 hours
-export const revalidate = 43200;
+// Revalidate every 7 days (sitemaps rarely change, aggressive caching to protect WordPress)
+export const revalidate = 604800;
 
 const SITE_URL = "https://www.afriquesports.net";
 const POSTS_PER_SITEMAP = 500; // Reduced from 1000 to prevent timeout
@@ -71,9 +71,9 @@ ${urlEntries.join("\n")}
     return new NextResponse(xml, {
       headers: {
         "Content-Type": "application/xml; charset=utf-8",
-        "Cache-Control": "public, max-age=43200, s-maxage=86400, stale-while-revalidate=604800",
-        "CDN-Cache-Control": "public, max-age=86400",
-        "Vercel-CDN-Cache-Control": "public, max-age=86400",
+        "Cache-Control": "public, max-age=604800, s-maxage=604800, stale-while-revalidate=2592000",
+        "CDN-Cache-Control": "public, max-age=604800",
+        "Vercel-CDN-Cache-Control": "public, max-age=604800",
       },
     });
   } catch (error) {

@@ -67,12 +67,12 @@ export async function getCachedPostCount(): Promise<number> {
   try {
     const response = await fetch(
       "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=1",
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 86400 } }
     );
     const total = parseInt(response.headers.get("x-wp-total") || "135000", 10);
 
-    // Cache for 6 hours
-    setInCache(cacheKey, total, 21600);
+    // Cache for 7 days (post count rarely changes significantly)
+    setInCache(cacheKey, total, 604800);
     return total;
   } catch (error) {
     console.error("Error fetching post count:", error);
@@ -98,8 +98,8 @@ export async function getCachedSitemapPosts(
   // Fetch from WordPress API
   const posts = await fetchSitemapPosts(page, perPage, locale);
 
-  // Cache for 12 hours (posts don't change URLs often)
-  setInCache(cacheKey, posts, 43200);
+  // Cache for 7 days (posts don't change URLs often, aggressive caching to protect WordPress server)
+  setInCache(cacheKey, posts, 604800);
 
   return posts;
 }
