@@ -15,6 +15,7 @@ const CREDENTIALS_PATH = path.join(__dirname, '..', 'google-service-account.json
 const SITEMAPS_TO_SUBMIT = [
   'https://www.afriquesports.net/sitemap.xml',
   'https://www.afriquesports.net/news-sitemap.xml',
+  'https://www.afriquesports.net/video-sitemap.xml',
 ];
 
 async function submitSitemaps() {

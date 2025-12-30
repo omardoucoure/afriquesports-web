@@ -102,15 +102,15 @@ const categoryMeta: Record<string, { title: string; seoTitle: string; descriptio
 };
 
 interface CategoryPageProps {
-  params: Promise<{ locale: string; slug: string[] }>;
+  params: Promise<{ locale: string; path: string[] }>;
   searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateMetadata({ params, searchParams }: CategoryPageProps): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const { locale, path } = await params;
   const { page } = await searchParams;
-  const categorySlug = slug[slug.length - 1];
-  const categoryPath = `/category/${slug.join("/")}`;
+  const categorySlug = path[path.length - 1];
+  const categoryPath = `/category/${path.join("/")}`;
   const currentPage = parseInt(page || "1", 10);
 
   const meta = categoryMeta[categorySlug] || {
@@ -286,7 +286,7 @@ async function SidebarMostRead({ locale }: { locale: string }) {
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const { locale, slug } = await params;
+  const { locale, path } = await params;
   const { page: pageParam } = await searchParams;
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
@@ -295,13 +295,13 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const tCategories = await getTranslations("categories");
   const tCountries = await getTranslations("countries");
 
-  if (!slug || slug.length === 0) {
+  if (!path || path.length === 0) {
     notFound();
   }
 
   // Build the category slug from the path segments
-  const categorySlug = slug[slug.length - 1];
-  const fullPath = `/category/${slug.join("/")}`;
+  const categorySlug = path[path.length - 1];
+  const fullPath = `/category/${path.join("/")}`;
 
   // Get category metadata
   const meta = categoryMeta[categorySlug] || {
