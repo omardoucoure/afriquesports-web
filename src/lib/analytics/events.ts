@@ -317,6 +317,56 @@ export interface AdClickEvent extends BaseEventProperties {
 }
 
 // ============================================================================
+// Video Events
+// ============================================================================
+
+export type VideoType = 'youtube' | 'self_hosted' | 'other'
+export type VideoPlayerAction = 'play' | 'pause' | 'ended' | 'seek' | 'buffer'
+
+export interface VideoImpressionEvent extends BaseEventProperties {
+  video_url: string
+  video_type: VideoType
+  article_id?: string
+  article_title?: string
+  article_category?: string
+  video_position: 'hero' | 'inline' | 'related' | 'embedded'
+}
+
+export interface VideoPlayEvent extends BaseEventProperties {
+  video_url: string
+  video_type: VideoType
+  article_id?: string
+  article_title?: string
+  video_duration_seconds?: number
+  autoplay: boolean
+}
+
+export interface VideoProgressEvent extends BaseEventProperties {
+  video_url: string
+  video_type: VideoType
+  article_id?: string
+  progress_percentage: 25 | 50 | 75 | 100
+  current_time_seconds: number
+  total_duration_seconds: number
+}
+
+export interface VideoCompleteEvent extends BaseEventProperties {
+  video_url: string
+  video_type: VideoType
+  article_id?: string
+  watch_time_seconds: number
+  completion_rate: number
+}
+
+export interface VideoInteractionEvent extends BaseEventProperties {
+  video_url: string
+  video_type: VideoType
+  article_id?: string
+  action: VideoPlayerAction
+  current_time_seconds: number
+}
+
+// ============================================================================
 // Error Events
 // ============================================================================
 
@@ -372,6 +422,11 @@ export type EventProperties =
   | LiveMatchEngagementEvent
   | AdImpressionEvent
   | AdClickEvent
+  | VideoImpressionEvent
+  | VideoPlayEvent
+  | VideoProgressEvent
+  | VideoCompleteEvent
+  | VideoInteractionEvent
   | ErrorEvent
 
 // ============================================================================
@@ -451,6 +506,17 @@ export enum AnalyticsEventName {
   // Ad Events
   AD_IMPRESSION = 'Ad_Impression',
   AD_CLICK = 'Ad_Click',
+
+  // Video Events
+  VIDEO_IMPRESSION = 'Video_Impression',
+  VIDEO_PLAY = 'Video_Play',
+  VIDEO_PROGRESS_25 = 'Video_Progress_25',
+  VIDEO_PROGRESS_50 = 'Video_Progress_50',
+  VIDEO_PROGRESS_75 = 'Video_Progress_75',
+  VIDEO_PROGRESS_100 = 'Video_Progress_100',
+  VIDEO_COMPLETE = 'Video_Complete',
+  VIDEO_PAUSE = 'Video_Pause',
+  VIDEO_SEEK = 'Video_Seek',
 
   // Error Events
   ERROR_OCCURRED = 'Error_Occurred',
