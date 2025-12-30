@@ -8,12 +8,13 @@ import { NextResponse } from 'next/server';
  * https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
  */
 
-export const runtime = 'edge';
+export const runtime = 'nodejs'; // Serverless with 60s timeout (edge has 30s limit)
 export const revalidate = 86400; // Revalidate daily (videos don't change as often)
+export const maxDuration = 60; // Maximum execution time: 60 seconds
 
 const SITE_URL = 'https://www.afriquesports.net';
 const POSTS_PER_PAGE = 100; // WordPress max per page
-const MAX_VIDEOS = 200; // Limit to 200 videos to avoid edge timeout (30s limit)
+const MAX_VIDEOS = 300; // Limit to 300 videos (60s serverless timeout allows ~350 posts max)
 const VIDEO_CATEGORY_ID = 9791; // Afrique Sports TV category (909 posts)
 const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2';
 
@@ -74,7 +75,7 @@ export async function GET() {
     // Limit to MAX_VIDEOS to avoid edge function timeout
     const allPosts: any[] = [];
     let page = 1;
-    const maxPages = Math.ceil(MAX_VIDEOS / POSTS_PER_PAGE); // 2 pages max (200 posts)
+    const maxPages = Math.ceil(MAX_VIDEOS / POSTS_PER_PAGE); // 3 pages max (300 posts)
 
     while (page <= maxPages && allPosts.length < MAX_VIDEOS) {
       const response = await fetch(
