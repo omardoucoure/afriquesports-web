@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
 
     // Fetch article view events
     const articleViewsResponse = await fetch(
-      `https://us.i.posthog.com/api/projects/${posthogProjectId}/events?event=Article_View&after=${dateFrom}&before=${dateTo}`,
+      `https://us.i.posthog.com/api/projects/${posthogProjectId}/events?event=Article_View_Page&after=${dateFrom}&before=${dateTo}`,
       {
         headers: {
           'Authorization': `Bearer ${posthogPersonalApiKey}`,
@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
 
     // Aggregate article views by author
     articleViewsData.results?.forEach((event: any) => {
-      const author = event.properties?.author || 'Unknown';
+      const author = event.properties?.article_author || event.properties?.author || 'Unknown';
       const articleId = event.properties?.article_id || event.properties?.article_slug || 'unknown';
 
       if (!articlesByAuthor[author]) {
