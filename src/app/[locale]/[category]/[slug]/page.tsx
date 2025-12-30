@@ -11,7 +11,7 @@ import { Breadcrumb } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
 import { CommentSection } from "@/components/comments/comment-section-dynamic";
-import { VisitTracker } from "@/components/tracking";
+import { VisitTracker, ArticleAnalyticsTracker } from "@/components/tracking";
 import { InArticleAd, SidebarAd } from "@/components/ads";
 import { ADSENSE_CONFIG } from "@/lib/ad-config";
 import { DataFetcher } from "@/lib/data-fetcher";
@@ -384,6 +384,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         postAuthor={authorName}
         postCategory={category}
         postSource="afriquesports"
+      />
+
+      {/* Track article view with PostHog (includes author) */}
+      <ArticleAnalyticsTracker
+        articleId={article.id.toString()}
+        title={title}
+        category={category}
+        author={authorName}
+        publishDate={article.date}
+        slug={slug}
       />
 
       <main className="min-h-screen bg-[#F6F6F6] pt-header pb-20 lg:pb-0">

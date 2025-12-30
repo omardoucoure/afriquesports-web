@@ -35,6 +35,7 @@ export interface ArticleReadProgressEvent extends BaseEventProperties {
   article_title: string
   progress_percentage: 25 | 50 | 75 | 100
   time_spent_seconds: number
+  author?: string
 }
 
 export interface ArticleReadStartEvent extends BaseEventProperties {
@@ -78,6 +79,7 @@ export interface SocialShareEvent extends BaseEventProperties {
   article_title: string
   platform: SharePlatform
   share_url: string
+  author?: string
 }
 
 // ============================================================================
