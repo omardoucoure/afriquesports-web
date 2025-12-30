@@ -68,9 +68,9 @@ function stripHtml(html: string): string {
 
 export async function GET() {
   try {
-    // Fetch recent posts with videos (last 1000 posts should cover most video content)
+    // Fetch recent posts (with content to extract video URLs)
     const response = await fetch(
-      `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&_embed&orderby=modified&order=desc`,
+      `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&_embed&orderby=date&order=desc`,
       {
         headers: {
           'User-Agent': 'afriquesports-sitemap/1.0',
@@ -83,7 +83,7 @@ export async function GET() {
       throw new Error(`WordPress API error: ${response.status}`);
     }
 
-    const posts: VideoPost[] = await response.json();
+    const posts: any[] = await response.json();
 
     // Filter posts that have videos
     const videoPosts: Array<{
@@ -97,28 +97,35 @@ export async function GET() {
     }> = [];
 
     for (const post of posts) {
-      // Check ACF fields first
-      let videoUrl = post.acf?.video_url || null;
+      let videoUrl = null;
+
+      // Try to extract video from rendered content
+      if (post.content?.rendered) {
+        videoUrl = extractVideoUrl(post.content.rendered);
+      }
+
+      // Fallback: Check ACF fields
+      if (!videoUrl && post.acf?.video_url) {
+        videoUrl = post.acf.video_url;
+      }
 
       if (!videoUrl && post.acf?.youtube_video_id) {
         videoUrl = `https://www.youtube.com/embed/${post.acf.youtube_video_id}`;
       }
 
-      // If no ACF video, try to extract from content
-      if (!videoUrl) {
-        // We'd need the content here, but it's not in the initial fetch
-        // For now, we'll rely on ACF fields
-        // In a future optimization, we could fetch full post content
-        continue;
-      }
-
       if (videoUrl) {
+        // Get thumbnail from featured image or default
+        let thumbnailUrl = SITE_URL + '/opengraph-image.png';
+        if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
+          thumbnailUrl = post._embedded['wp:featuredmedia'][0].source_url;
+        }
+
         videoPosts.push({
           url: post.link,
           title: stripHtml(post.title.rendered),
-          description: stripHtml(post.excerpt.rendered || ''),
+          description: stripHtml(post.excerpt.rendered || post.title.rendered),
           videoUrl: videoUrl,
-          thumbnailUrl: post.featured_media_url || '',
+          thumbnailUrl: thumbnailUrl,
           uploadDate: post.date,
           videoType: getVideoType(videoUrl),
         });
