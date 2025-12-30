@@ -12,7 +12,8 @@ export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (videos don't change as often)
 
 const SITE_URL = 'https://www.afriquesports.net';
-const POSTS_PER_PAGE = 100; // Fetch in batches
+const POSTS_PER_PAGE = 100; // WordPress max per page
+const MAX_VIDEOS = 200; // Limit to 200 videos to avoid edge timeout (30s limit)
 const VIDEO_CATEGORY_ID = 9791; // Afrique Sports TV category (909 posts)
 const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2';
 
@@ -70,14 +71,14 @@ function stripHtml(html: string): string {
 export async function GET() {
   try {
     // Fetch posts from Afrique Sports TV category (video-heavy category)
-    // We'll fetch multiple pages to get all video posts
+    // Limit to MAX_VIDEOS to avoid edge function timeout
     const allPosts: any[] = [];
     let page = 1;
-    const maxPages = 10; // Fetch up to 1000 posts (10 pages × 100)
+    const maxPages = Math.ceil(MAX_VIDEOS / POSTS_PER_PAGE); // 2 pages max (200 posts)
 
-    while (page <= maxPages) {
+    while (page <= maxPages && allPosts.length < MAX_VIDEOS) {
       const response = await fetch(
-        `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&page=${page}&categories=${VIDEO_CATEGORY_ID}&_embed&orderby=date&order=desc`,
+        `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&page=${page}&categories=${VIDEO_CATEGORY_ID}&orderby=date&order=desc`,
         {
           headers: {
             'User-Agent': 'afriquesports-sitemap/1.0',
@@ -87,7 +88,7 @@ export async function GET() {
       );
 
       if (!response.ok) {
-        // No more pages
+        // No more pages or error
         break;
       }
 
@@ -100,7 +101,7 @@ export async function GET() {
       page++;
     }
 
-    const posts: any[] = allPosts;
+    const posts: any[] = allPosts.slice(0, MAX_VIDEOS); // Ensure we don't exceed limit
 
     // Filter posts that have videos
     const videoPosts: Array<{
@@ -131,11 +132,8 @@ export async function GET() {
       }
 
       if (videoUrl) {
-        // Get thumbnail from featured image or default
-        let thumbnailUrl = SITE_URL + '/opengraph-image.png';
-        if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
-          thumbnailUrl = post._embedded['wp:featuredmedia'][0].source_url;
-        }
+        // Use default thumbnail (no _embed for faster loading)
+        const thumbnailUrl = SITE_URL + '/opengraph-image.png';
 
         videoPosts.push({
           url: post.link,
