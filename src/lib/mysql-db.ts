@@ -24,12 +24,15 @@ export function getPool(): mysql.Pool | null {
     password: process.env.WORDPRESS_DB_PASSWORD,
     database: process.env.WORDPRESS_DB_NAME || 'wordpress',
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 15, // Increased from 10 to handle bursts
     queueLimit: 0,
     // Connection timeouts and keepalive to prevent ECONNRESET errors
     connectTimeout: 10000, // 10 seconds to establish connection
     enableKeepAlive: true, // Keep connections alive
     keepAliveInitialDelay: 0, // Start keepalive immediately
+    // Connection recycling to prevent MySQL server from closing idle connections
+    idleTimeout: 60000, // Close idle connections after 60 seconds
+    maxIdle: 5, // Keep max 5 idle connections in pool
   };
 
   if (!config.user || !config.password) {
