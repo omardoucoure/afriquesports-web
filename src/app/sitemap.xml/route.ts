@@ -18,7 +18,7 @@ export const runtime = "edge";
 export const revalidate = 3600;
 
 const SITE_URL = "https://www.afriquesports.net";
-const POSTS_PER_SITEMAP = 1000;
+const POSTS_PER_SITEMAP = 500; // CRITICAL: Must match posts/[page]/route.ts (reduced to prevent timeout)
 
 // Known post count - updated periodically, avoids API call on each request
 // This should be updated via a cron job or manually

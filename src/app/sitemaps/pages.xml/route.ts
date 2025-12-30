@@ -22,6 +22,12 @@ const STATIC_PAGES = [
   { path: "/", priority: 1.0 }, // Homepage - highest priority
   { path: "/can-2025", priority: 0.9 }, // CAN 2025 - hot topic, very important
   { path: "/classements", priority: 0.9 }, // Rankings - important feature
+  { path: "/mercato", priority: 0.8 }, // Mercato - popular section
+  { path: "/articles", priority: 0.7 }, // Articles archive
+  { path: "/live-match", priority: 0.8 }, // Live matches - important
+  { path: "/match-en-direct", priority: 0.8 }, // Live matches (French)
+  { path: "/partido-en-vivo", priority: 0.8 }, // Live matches (Spanish)
+  { path: "/a-propos", priority: 0.6 }, // About page
   { path: "/contact", priority: 0.5 }, // Contact - low priority
   { path: "/confidentialite", priority: 0.5 }, // Privacy - low priority
 ];

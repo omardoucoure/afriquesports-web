@@ -117,9 +117,11 @@ Crawl-delay: 2
 # Sitemaps
 Sitemap: ${SITE_URL}/sitemap.xml
 Sitemap: ${SITE_URL}/news-sitemap.xml
+Sitemap: ${SITE_URL}/video-sitemap.xml
 Sitemap: ${SITE_URL}/sitemaps/pages.xml
 Sitemap: ${SITE_URL}/sitemaps/categories.xml
 Sitemap: ${SITE_URL}/sitemaps/can-2025.xml
+Sitemap: ${SITE_URL}/sitemaps/can2025-matches.xml
 
 # Host
 Host: ${SITE_URL}
