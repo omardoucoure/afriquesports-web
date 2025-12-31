@@ -52,8 +52,8 @@ export function getPool(): mysql.Pool | null {
 }
 
 /**
- * Execute database operation with retry logic for connection errors
- * Implements exponential backoff to handle transient network issues
+ * Execute database operation with retry logic for connection errors and deadlocks
+ * Implements exponential backoff to handle transient network issues and transaction conflicts
  */
 async function executeWithRetry<T>(
   operation: () => Promise<T>,
@@ -68,18 +68,28 @@ async function executeWithRetry<T>(
     } catch (error: any) {
       lastError = error;
 
-      // Only retry on connection errors
-      if (
+      // Retry on connection errors OR deadlocks
+      const isRetryable =
         error.code === 'ECONNRESET' ||
         error.code === 'ETIMEDOUT' ||
         error.code === 'ENOTFOUND' ||
         error.code === 'PROTOCOL_CONNECTION_LOST' ||
-        error.errno === -104 // ECONNRESET errno
-      ) {
-        const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff
+        error.code === 'ER_LOCK_DEADLOCK' || // MySQL deadlock
+        error.errno === -104 || // ECONNRESET errno
+        error.errno === 1213; // MySQL deadlock errno
+
+      if (isRetryable) {
+        // Add random jitter to prevent thundering herd on deadlock retries
+        const jitter = Math.random() * 500; // 0-500ms random delay
+        const delay = (baseDelay * Math.pow(2, attempt - 1)) + jitter;
+
+        const errorType = error.code === 'ER_LOCK_DEADLOCK' || error.errno === 1213
+          ? 'Deadlock'
+          : 'Connection';
+
         console.warn(
-          `[MySQL] Connection error (${error.code || error.errno}) on attempt ${attempt}/${maxRetries}, ` +
-          `retrying in ${delay}ms...`
+          `[MySQL] ${errorType} error (${error.code || error.errno}) on attempt ${attempt}/${maxRetries}, ` +
+          `retrying in ${Math.round(delay)}ms...`
         );
 
         if (attempt < maxRetries) {
@@ -247,7 +257,12 @@ export const getTrendingPostsByRange = unstable_cache(
 /**
  * Batch record multiple visits in a single query
  * Used by the batch processor to reduce database load
- * Includes automatic retry logic for connection errors
+ * Includes automatic retry logic for connection errors and deadlocks
+ *
+ * DEADLOCK PREVENTION:
+ * - Sorts visits by post_id to ensure consistent lock ordering
+ * - Uses exponential backoff with jitter on retry
+ * - Reduces batch size to minimize lock contention
  */
 export async function batchRecordVisits(visits: VisitData[]): Promise<mysql.ResultSetHeader | null> {
   if (visits.length === 0) return null;
@@ -257,11 +272,16 @@ export async function batchRecordVisits(visits: VisitData[]): Promise<mysql.Resu
     if (!db) throw new Error('No database connection pool available');
 
     const visitDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // CRITICAL: Sort visits by post_id to ensure consistent lock ordering across batches
+    // This prevents deadlocks by ensuring all transactions acquire locks in the same order
+    const sortedVisits = [...visits].sort((a, b) => a.postId.localeCompare(b.postId));
+
     // Build bulk INSERT ... ON DUPLICATE KEY UPDATE query
     const values: any[] = [];
     const placeholders: string[] = [];
 
-    for (const visit of visits) {
+    for (const visit of sortedVisits) {
       const {
         postId,
         postSlug,

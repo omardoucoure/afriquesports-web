@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
+import { generateMatchPath } from "@/lib/match-url";
 
 // Inline SVG icons
 const CalendarIcon = ({ className }: { className?: string }) => (
@@ -97,14 +98,25 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Get localized commentary page URL
-  const getCommentaryUrl = () => {
-    const urls: Record<string, string> = {
-      'fr': '/match-en-direct',
-      'en': '/live-match',
-      'es': '/partido-en-vivo',
-    };
-    return urls[locale] || '/match-en-direct';
+  // Get match URL - use actual match path instead of generic page
+  const getMatchUrl = () => {
+    if (!matchData?.hasMatch || !matchData.id || !matchData.homeTeam || !matchData.awayTeam) {
+      // Fallback to generic page if match data is incomplete
+      const urls: Record<string, string> = {
+        'fr': '/match-en-direct',
+        'en': '/live-match',
+        'es': '/partido-en-vivo',
+      };
+      return urls[locale] || '/match-en-direct';
+    }
+
+    // Generate proper match URL: /can-2025/match/senegal-vs-congo-dr-732152
+    return generateMatchPath(
+      matchData.homeTeam.name,
+      matchData.awayTeam.name,
+      matchData.id,
+      locale
+    );
   };
 
   // Fix hydration mismatch
@@ -287,7 +299,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
               {/* Watch Button */}
               <Link
-                href={getCommentaryUrl()}
+                href={getMatchUrl()}
                 className="flex items-center gap-1.5 bg-white hover:bg-white/95 text-red-600 font-bold px-3 py-1.5 rounded-lg transition-all shadow-md flex-shrink-0"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -407,7 +419,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
 
               {/* Watch Button */}
               <Link
-                href={getCommentaryUrl()}
+                href={getMatchUrl()}
                 className="flex items-center gap-2 bg-white hover:bg-white/95 text-red-600 font-bold px-5 py-2.5 rounded-lg transition-all hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">

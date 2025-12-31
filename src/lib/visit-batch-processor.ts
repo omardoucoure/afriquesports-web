@@ -21,7 +21,7 @@ class VisitBatchProcessor {
   private queue: QueuedVisit[] = [];
   private isProcessing = false;
   private flushInterval: NodeJS.Timeout | null = null;
-  private readonly BATCH_SIZE = 50; // Max visits per batch
+  private readonly BATCH_SIZE = 30; // Max visits per batch (reduced from 50 to prevent deadlocks)
   private readonly FLUSH_INTERVAL_MS = 30000; // 30 seconds
   private readonly MAX_QUEUE_SIZE = 1000; // Alert threshold
 
