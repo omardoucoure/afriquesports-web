@@ -105,8 +105,8 @@ function getWordPressBaseUrl(locale?: string): string {
 }
 const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
-const MAX_RETRIES = 1; // Reduced to 1 retry to prevent cascade failures when WordPress is overloaded
-const RETRY_DELAY_MS = 5000; // 5 seconds - give WordPress server time to recover between retries
+const MAX_RETRIES = 3; // Increased from 1 to 3 for better resilience against 503 errors
+const RETRY_DELAY_MS = 3000; // 3 seconds base delay - exponential backoff will increase this
 const FETCH_TIMEOUT_MS = 120000; // 120 seconds - WordPress server under heavy load (87s response times observed)
 
 // Cloudflare/server error codes that should trigger retry
@@ -134,9 +134,9 @@ export class DataFetcher {
   // ============================================================================
 
   /**
-   * Retry wrapper for fetch with exponential backoff and timeout
-   * Handles transient Cloudflare errors (520, 521, etc.) and server errors
-   * Each request has a 10-second timeout to prevent hanging
+   * Retry wrapper for fetch with exponential backoff, jitter, and timeout
+   * Handles transient Cloudflare errors (520, 521, etc.), server overload (503), and network errors
+   * Each request has a 120-second timeout to prevent hanging
    */
   private static async fetchWithRetry(
     url: string,
@@ -162,12 +162,23 @@ export class DataFetcher {
           RETRYABLE_STATUS_CODES.includes(response.status) &&
           attempt < retries - 1
         ) {
-          const delay = RETRY_DELAY_MS * Math.pow(2, attempt); // Exponential backoff
+          // Exponential backoff with random jitter to prevent thundering herd
+          const exponentialDelay = RETRY_DELAY_MS * Math.pow(2, attempt);
+          const jitter = Math.random() * 1000; // 0-1000ms random jitter
+          const delay = exponentialDelay + jitter;
+
           console.warn(
-            `[DataFetcher] Retryable error ${response.status} from ${url}, retrying in ${delay}ms (attempt ${attempt + 1}/${retries})`
+            `[DataFetcher] ⚠️  WordPress returned ${response.status} (${response.statusText}), retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${retries})`
           );
           await new Promise((resolve) => setTimeout(resolve, delay));
           continue;
+        }
+
+        // Success or non-retryable error
+        if (response.ok) {
+          if (attempt > 0) {
+            console.log(`[DataFetcher] ✓ Request succeeded after ${attempt + 1} attempts`);
+          }
         }
 
         return response;
@@ -179,11 +190,14 @@ export class DataFetcher {
         const isTimeout = error instanceof Error && error.name === 'AbortError';
         const errorType = isTimeout ? 'Timeout' : 'Network error';
 
-        // Retry with backoff
+        // Retry with backoff and jitter
         if (attempt < retries - 1) {
-          const delay = RETRY_DELAY_MS * Math.pow(2, attempt);
+          const exponentialDelay = RETRY_DELAY_MS * Math.pow(2, attempt);
+          const jitter = Math.random() * 1000; // 0-1000ms random jitter
+          const delay = exponentialDelay + jitter;
+
           console.warn(
-            `[DataFetcher] ${errorType} fetching ${url}, retrying in ${delay}ms (attempt ${attempt + 1}/${retries}): ${lastError.message}`
+            `[DataFetcher] ⚠️  ${errorType} - retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${retries}): ${lastError.message}`
           );
           await new Promise((resolve) => setTimeout(resolve, delay));
         }
@@ -284,6 +298,8 @@ export class DataFetcher {
 
   /**
    * Fetch a single post by slug
+   * Uses Next.js cache by default (revalidate: 300 = 5 minutes)
+   * This reduces WordPress server load by caching individual posts
    */
   static async fetchPostBySlug(
     slug: string,
@@ -291,6 +307,13 @@ export class DataFetcher {
     options?: FetchOptions
   ): Promise<WordPressPost | null> {
     try {
+      // Apply default caching if not explicitly provided
+      // 5 minute cache helps reduce 503 errors from WordPress server overload
+      const cacheOptions: FetchOptions = {
+        revalidate: 300, // 5 minutes default cache
+        ...options, // Allow override
+      };
+
       const posts = await this.fetchPosts(
         {
           slug,
@@ -298,7 +321,7 @@ export class DataFetcher {
           per_page: "1",
           _embed: "true",
         },
-        options
+        cacheOptions
       );
 
       return posts.length > 0 ? posts[0] : null;
