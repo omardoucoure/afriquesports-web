@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const pool = getPool();
     if (!pool) {
       return NextResponse.json(
-        { error: 'Database connection not available' },
+        { error: 'Database connection not available', timestamp: new Date().toISOString() },
         { status: 503 }
       );
     }
@@ -40,54 +40,67 @@ export async function GET(request: NextRequest) {
     dateFrom.setDate(dateFrom.getDate() - days);
     const fromDate = dateFrom.toISOString().split('T')[0];
 
-    // Get total views
-    const [totalViewsRows] = await pool.query<mysql.RowDataPacket[]>(
+    // Set query timeout to 15 seconds to prevent Edge runtime timeout
+    const QUERY_TIMEOUT = 15000;
+
+    // Create a timeout promise
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Query timeout')), QUERY_TIMEOUT);
+    });
+
+    // Get total views - optimized with index hint
+    const totalViewsPromise = pool.query<mysql.RowDataPacket[]>(
       `SELECT SUM(count) as total
-       FROM wp_afriquesports_visits
+       FROM wp_afriquesports_visits USE INDEX (idx_visit_date)
        WHERE visit_date >= ?`,
       [fromDate]
     );
+    const [totalViewsRows] = await Promise.race([totalViewsPromise, timeoutPromise]);
     const totalViews = parseInt(totalViewsRows[0]?.total) || 0;
 
-    // Get unique pages count
-    const [uniquePagesRows] = await pool.query<mysql.RowDataPacket[]>(
+    // Get unique pages count - optimized
+    const uniquePagesPromise = pool.query<mysql.RowDataPacket[]>(
       `SELECT COUNT(DISTINCT post_id) as total
-       FROM wp_afriquesports_visits
+       FROM wp_afriquesports_visits USE INDEX (idx_visit_date)
        WHERE visit_date >= ?`,
       [fromDate]
     );
+    const [uniquePagesRows] = await Promise.race([uniquePagesPromise, timeoutPromise]);
     const uniquePages = parseInt(uniquePagesRows[0]?.total) || 0;
 
-    // Get daily stats
-    const [dailyStatsRows] = await pool.query<mysql.RowDataPacket[]>(
+    // Get daily stats - limited to requested period
+    const dailyStatsPromise = pool.query<mysql.RowDataPacket[]>(
       `SELECT
         visit_date as date,
         SUM(count) as totalViews
-       FROM wp_afriquesports_visits
+       FROM wp_afriquesports_visits USE INDEX (idx_visit_date)
        WHERE visit_date >= ?
        GROUP BY visit_date
-       ORDER BY visit_date ASC`,
-      [fromDate]
+       ORDER BY visit_date DESC
+       LIMIT ?`,
+      [fromDate, days]
     );
+    const [dailyStatsRows] = await Promise.race([dailyStatsPromise, timeoutPromise]);
 
     const dailyStats = dailyStatsRows.map((row) => ({
       date: row.date,
       totalViews: parseInt(row.totalViews) || 0,
     }));
 
-    // Get top pages
-    const [topPagesRows] = await pool.query<mysql.RowDataPacket[]>(
+    // Get top pages - reduced limit for faster queries
+    const topPagesPromise = pool.query<mysql.RowDataPacket[]>(
       `SELECT
         CONCAT('https://www.afriquesports.net/', post_slug) as url,
         post_title as title,
         SUM(count) as views
-       FROM wp_afriquesports_visits
-       WHERE visit_date >= ?
+       FROM wp_afriquesports_visits USE INDEX (idx_visit_date)
+       WHERE visit_date >= ? AND post_title IS NOT NULL
        GROUP BY post_id, post_slug, post_title
        ORDER BY views DESC
-       LIMIT 50`,
+       LIMIT 20`,
       [fromDate]
     );
+    const [topPagesRows] = await Promise.race([topPagesPromise, timeoutPromise]);
 
     const topPages = topPagesRows.map((row) => ({
       url: row.url,
@@ -95,17 +108,41 @@ export async function GET(request: NextRequest) {
       views: parseInt(row.views) || 0,
     }));
 
-    return NextResponse.json({
-      totalViews,
-      uniquePages,
-      dailyStats,
-      topPages,
-    });
+    return NextResponse.json(
+      {
+        totalViews,
+        uniquePages,
+        dailyStats,
+        topPages,
+        period,
+        dateFrom: fromDate,
+        timestamp: new Date().toISOString(),
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
+        },
+      }
+    );
   } catch (error: any) {
     console.error('[API /api/website-stats] Error:', error);
+
+    // Return more helpful error messages
+    let errorMessage = 'Failed to fetch website stats';
+    if (error.message === 'Query timeout') {
+      errorMessage = 'Database query timeout - try a shorter time period';
+    } else if (error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT') {
+      errorMessage = 'Database connection error';
+    }
+
     return NextResponse.json(
-      { error: 'Failed to fetch website statistics', details: error.message },
-      { status: 500 }
+      {
+        error: errorMessage,
+        timestamp: new Date().toISOString(),
+      },
+      {
+        status: error.message === 'Query timeout' ? 504 : 500,
+      }
     );
   }
 }

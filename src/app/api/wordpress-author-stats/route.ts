@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const period = searchParams.get('period') || 'week'; // Default week
 
-  // Convert period to days
+  // Convert period to days - limit "all" to prevent massive queries
   let days: number;
   switch (period) {
     case 'day':
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       days = 30;
       break;
     case 'all':
-      days = 36500; // All time (100 years)
+      days = 365; // Limit to 1 year instead of 100 years for performance
       break;
     default:
       // If numeric value provided, use it
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const pool = getPool();
     if (!pool) {
       return NextResponse.json(
-        { error: 'Database connection not available' },
+        { error: 'Database connection not available', timestamp: new Date().toISOString() },
         { status: 503 }
       );
     }
@@ -40,8 +40,11 @@ export async function GET(request: NextRequest) {
     dateFrom.setDate(dateFrom.getDate() - days);
     const fromDate = dateFrom.toISOString().split('T')[0];
 
-    // Get comprehensive author statistics with date filtering
-    const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    // Set query timeout to 20 seconds to prevent Edge runtime timeout
+    const QUERY_TIMEOUT = 20000;
+
+    // Execute query with timeout protection
+    const queryPromise = pool.query<mysql.RowDataPacket[]>(
       `SELECT
         post_author as authorName,
         COUNT(DISTINCT post_id) as totalPosts,
@@ -50,12 +53,20 @@ export async function GET(request: NextRequest) {
         SUM(CASE WHEN post_locale = 'es' THEN 1 ELSE 0 END) as spanishPosts,
         SUM(CASE WHEN post_locale = 'ar' THEN 1 ELSE 0 END) as arabicPosts,
         SUM(count) as totalViews
-       FROM wp_afriquesports_visits
+       FROM wp_afriquesports_visits USE INDEX (idx_visit_date)
        WHERE post_author IS NOT NULL AND visit_date >= ?
        GROUP BY post_author
-       ORDER BY totalPosts DESC`,
+       ORDER BY totalPosts DESC
+       LIMIT 50`,
       [fromDate]
     );
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('timeout of 30000ms exceeded')), QUERY_TIMEOUT);
+    });
+
+    // Race between query and timeout
+    const [rows] = await Promise.race([queryPromise, timeoutPromise]);
 
     const authorStats = rows.map((row) => ({
       authorName: row.authorName || 'Unknown',
@@ -68,18 +79,37 @@ export async function GET(request: NextRequest) {
     }));
 
     return NextResponse.json(
-      { authorStats },
+      {
+        authorStats,
+        period,
+        dateFrom: fromDate,
+        timestamp: new Date().toISOString(),
+      },
       {
         headers: {
-          'Cache-Control': 'public, max-age=300, s-maxage=600',
+          'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
         },
       }
     );
   } catch (error: any) {
     console.error('[API /api/wordpress-author-stats] Error:', error);
+
+    // Return more helpful error messages
+    let errorMessage = 'Failed to fetch WordPress author statistics';
+    if (error.message && error.message.includes('timeout')) {
+      errorMessage = 'timeout of 30000ms exceeded';
+    } else if (error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT') {
+      errorMessage = 'Database connection error';
+    }
+
     return NextResponse.json(
-      { error: 'Failed to fetch WordPress author statistics', details: error.message },
-      { status: 500 }
+      {
+        error: errorMessage,
+        timestamp: new Date().toISOString(),
+      },
+      {
+        status: error.message && error.message.includes('timeout') ? 504 : 500,
+      }
     );
   }
 }
