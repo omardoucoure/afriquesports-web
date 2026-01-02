@@ -23,14 +23,23 @@ export function initPostHog() {
       // Advanced privacy settings
       mask_all_text: false,
       mask_all_element_attributes: false,
-      // Disable feature flags to prevent 401 errors
+      // Completely disable feature flags to prevent 401 errors
       advanced_disable_feature_flags: true,
       advanced_disable_feature_flags_on_first_load: true,
+      advanced_disable_decide: true,
+      // Disable surveys and other features that require /decide endpoint
+      disable_surveys: true,
       // Performance optimizations
       loaded: (posthog) => {
         if (process.env.NODE_ENV === 'development') {
           console.log('PostHog loaded successfully')
         }
+      },
+      // Don't call /decide endpoint at all
+      bootstrap: {
+        distinctID: undefined,
+        isIdentifiedID: false,
+        featureFlags: {},
       },
     })
   }
