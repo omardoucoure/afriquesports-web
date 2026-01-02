@@ -8,7 +8,7 @@ import {
   LoadMoreArticles,
   ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
@@ -378,6 +378,11 @@ export default async function Home({ params }: HomePageProps) {
                   <MostReadSection locale={locale} />
                 </Suspense>
 
+                {/* AFCON 2025 Top Scorers */}
+                <Suspense fallback={<AFCONScorersWidgetSkeleton />}>
+                  <AFCONScorersWidget />
+                </Suspense>
+
                 {/* Top African Scorers in Europe */}
                 <Suspense fallback={<TopScorersWidgetSkeleton />}>
                   <TopScorersWidget title={t("topScorers")} />
@@ -402,6 +407,19 @@ export default async function Home({ params }: HomePageProps) {
             </div>
             <Suspense fallback={<MostReadWidgetSkeleton />}>
               <MostReadSection locale={locale} />
+            </Suspense>
+          </section>
+
+          {/* AFCON 2025 Top Scorers - mobile */}
+          <section>
+            <div className="flex items-center gap-3 mb-5">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
+                CAN 2025
+              </h2>
+              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
+            </div>
+            <Suspense fallback={<AFCONScorersWidgetSkeleton />}>
+              <AFCONScorersWidget />
             </Suspense>
           </section>
 
