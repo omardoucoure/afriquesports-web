@@ -1,0 +1,2 @@
+PostHog environment variables update: 2026-01-02
+Trigger deployment to pick up NEXT_PUBLIC_POSTHOG_PROJECT_ID
