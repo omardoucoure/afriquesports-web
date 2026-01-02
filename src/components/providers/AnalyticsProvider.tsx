@@ -11,7 +11,6 @@ import { useEffect, ReactNode } from 'react'
 import { getAnalyticsManager } from '@/lib/analytics'
 import { PostHogProvider } from '@/lib/analytics/providers/posthog-provider'
 import { GoogleAnalyticsProvider } from '@/lib/analytics/providers/google-analytics-provider'
-import { VercelAnalyticsProvider } from '@/lib/analytics/providers/vercel-provider'
 import { ConsentManager } from '@/lib/analytics/utils/consent'
 
 interface AnalyticsProviderProps {
@@ -31,7 +30,6 @@ export function AnalyticsProvider({ children, locale }: AnalyticsProviderProps) 
     // Register all providers
     manager.registerProvider('posthog', new PostHogProvider())
     manager.registerProvider('ga4', new GoogleAnalyticsProvider())
-    manager.registerProvider('vercel', new VercelAnalyticsProvider())
 
     // Set initial consent
     const hasConsent = ConsentManager.hasConsent()

@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from 'next/script';
 import { Rubik } from 'next/font/google';
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, Clarity } from "@/components/analytics";
 import { generateOrganizationJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -174,8 +172,6 @@ export default function RootLayout({
         {children}
         <GoogleAnalytics />
         <Clarity />
-        <Analytics />
-        <SpeedInsights />
 
         {/* Grow.me Analytics - Deferred to lazyOnload for better performance */}
         <Script
