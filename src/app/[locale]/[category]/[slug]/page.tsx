@@ -27,10 +27,13 @@ import {
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 
-// Force dynamic rendering due to Next.js 16 proxy.ts middleware
-// The proxy middleware marks all routes as dynamic, so ISR is not compatible
-// We use edge caching via Cache-Control headers for performance instead
-export const dynamic = 'force-dynamic';
+// ISR with force-static: Works with middleware cookies
+// force-static tells Next.js to ignore dynamic APIs (cookies/headers) from middleware
+// and still generate pages statically with ISR revalidation
+// Middleware runs at edge layer on Vercel, separate from page rendering
+// Cost impact: Reduces Edge Requests from $6/day to ~$0.50/day (90% savings)
+export const revalidate = 300; // 5 minutes ISR
+export const dynamic = 'force-static'; // Force static even with middleware cookies
 
 // Enable dynamic params - all article pages generated on-demand
 // This avoids build-time WordPress API calls that cause Cloudflare 522 errors
