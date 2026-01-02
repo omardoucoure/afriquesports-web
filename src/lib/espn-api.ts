@@ -53,16 +53,23 @@ export async function fetchAFCONStatistics(): Promise<{
 }> {
   try {
     console.log('[ESPN API] Fetching AFCON statistics...');
+
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/statistics',
       {
         next: { revalidate: 300 }, // Cache for 5 minutes
+        signal: controller.signal,
         headers: {
           'User-Agent': 'Mozilla/5.0 (compatible; AfriqueS ports/1.0)',
         },
       }
     );
 
+    clearTimeout(timeoutId);
     console.log('[ESPN API] Response status:', response.status);
 
     if (!response.ok) {
@@ -127,7 +134,9 @@ export async function fetchAFCONStatistics(): Promise<{
       lastUpdated: new Date().toISOString(),
     };
   } catch (error) {
-    console.error('[ESPN API] Error fetching AFCON statistics:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[ESPN API] ❌ Error fetching AFCON statistics:', errorMessage);
+    console.error('[ESPN API] Full error:', error);
 
     // Return empty data on error
     return {
