@@ -210,7 +210,7 @@
   .article-content [class*="twitter"],
   .article-content blockquote.twitter-tweet {
     @apply mx-auto my-6;
-    max-width: 550px !important;
+    max-width: 700px !important;
     width: 100% !important;
     overflow: visible !important;
   }
