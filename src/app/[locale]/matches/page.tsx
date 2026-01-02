@@ -48,7 +48,7 @@ async function fetchAFCONMatches(): Promise<ESPNMatch[]> {
     const todayResponse = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
       {
-        next: { revalidate: 60 },
+        next: { revalidate: 120 }, // 2 minutes (cost optimized)
         headers: {
           'Accept': 'application/json',
         },
@@ -72,7 +72,7 @@ async function fetchAFCONMatches(): Promise<ESPNMatch[]> {
       const tomorrowResponse = await fetch(
         `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard?dates=${tomorrowDate}`,
         {
-          next: { revalidate: 60 },
+          next: { revalidate: 120 }, // 2 minutes (cost optimized)
           headers: {
             'Accept': 'application/json',
           },

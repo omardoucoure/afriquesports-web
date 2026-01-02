@@ -9,7 +9,7 @@ async function getLatestMatch() {
   try {
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 120 } } // 2 minutes (cost optimized)
     );
 
     if (!response.ok) {

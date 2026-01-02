@@ -46,7 +46,7 @@ async function getMatchHistory(
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/match-history?match_id=${matchId}&locale=${locale}`,
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 120 } } // 2 minutes (cost optimized)
     );
 
     if (!response.ok) {
@@ -65,7 +65,7 @@ async function getMatchInfo(matchId: string) {
   try {
     const response = await fetch(
       `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/summary?event=${matchId}`,
-      { next: { revalidate: 60 } }
+      { next: { revalidate: 120 } } // 2 minutes (cost optimized)
     );
 
     if (!response.ok) return null;

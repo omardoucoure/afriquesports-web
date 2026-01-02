@@ -249,7 +249,7 @@ export const getTrendingPostsByRange = unstable_cache(
   },
   ['trending-posts'], // Cache key
   {
-    revalidate: 1800, // 30 minutes cache
+    revalidate: 3600, // 1 hour cache (cost optimized)
     tags: ['trending-posts'],
   }
 );

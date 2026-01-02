@@ -32,7 +32,7 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 // and still generate pages statically with ISR revalidation
 // Middleware runs at edge layer on Vercel, separate from page rendering
 // Cost impact: Reduces Edge Requests from $6/day to ~$0.50/day (90% savings)
-export const revalidate = 300; // 5 minutes ISR
+export const revalidate = 600; // 10 minutes ISR (cost optimized)
 export const dynamic = 'force-static'; // Force static even with middleware cookies
 
 // Enable dynamic params - all article pages generated on-demand

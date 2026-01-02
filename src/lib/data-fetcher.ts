@@ -298,7 +298,7 @@ export class DataFetcher {
 
   /**
    * Fetch a single post by slug
-   * Uses Next.js cache by default (revalidate: 300 = 5 minutes)
+   * Uses Next.js cache by default (revalidate: 600 = 10 minutes)
    * This reduces WordPress server load by caching individual posts
    */
   static async fetchPostBySlug(
@@ -308,9 +308,9 @@ export class DataFetcher {
   ): Promise<WordPressPost | null> {
     try {
       // Apply default caching if not explicitly provided
-      // 5 minute cache helps reduce 503 errors from WordPress server overload
+      // 10 minute cache helps reduce 503 errors from WordPress server overload
       const cacheOptions: FetchOptions = {
-        revalidate: 300, // 5 minutes default cache
+        revalidate: 600, // 10 minutes default cache (cost optimized)
         ...options, // Allow override
       };
 

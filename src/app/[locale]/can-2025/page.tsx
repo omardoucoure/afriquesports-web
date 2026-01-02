@@ -22,7 +22,7 @@ interface CAN2025PageProps {
 async function fetchStandings() {
   try {
     const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/standings', {
-      next: { revalidate: 300 }
+      next: { revalidate: 600 } // 10 minutes (cost optimized)
     });
     if (!response.ok) return null;
     return await response.json();
@@ -50,7 +50,7 @@ async function fetchTeams() {
 async function fetchTopScorers() {
   try {
     const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/leaders', {
-      next: { revalidate: 300 }
+      next: { revalidate: 600 } // 10 minutes (cost optimized)
     });
     if (!response.ok) return null;
     const data = await response.json();
@@ -66,7 +66,7 @@ async function fetchTopScorers() {
 async function fetchLiveMatch() {
   try {
     const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard', {
-      next: { revalidate: 10 } // Revalidate every 10 seconds for live data
+      next: { revalidate: 60 } // Revalidate every 1 minute for live data (cost optimized)
     });
     if (!response.ok) return null;
     const data = await response.json();
@@ -230,7 +230,7 @@ export default async function CAN2025Page({ params }: CAN2025PageProps) {
     fetchTeams(),
     fetchTopScorers(),
     fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/can2025/schedule`, {
-      next: { revalidate: 300 }
+      next: { revalidate: 600 } // 10 minutes (cost optimized)
     }).then(res => res.json()).catch(() => null),
     fetchLiveMatch(),
   ]);

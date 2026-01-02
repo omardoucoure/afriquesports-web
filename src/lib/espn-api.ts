@@ -155,7 +155,7 @@ export async function fetchAFCONScoreboard() {
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
       {
-        next: { revalidate: 60 }, // Cache for 1 minute during live matches
+        next: { revalidate: 120 }, // Cache for 2 minutes during live matches (cost optimized)
       }
     );
 
