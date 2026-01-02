@@ -52,12 +52,18 @@ export async function fetchAFCONStatistics(): Promise<{
   lastUpdated: string;
 }> {
   try {
+    console.log('[ESPN API] Fetching AFCON statistics...');
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/statistics',
       {
         next: { revalidate: 300 }, // Cache for 5 minutes
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; AfriqueS ports/1.0)',
+        },
       }
     );
+
+    console.log('[ESPN API] Response status:', response.status);
 
     if (!response.ok) {
       throw new Error(`ESPN API error: ${response.status}`);

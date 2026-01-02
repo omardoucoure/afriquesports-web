@@ -6,6 +6,9 @@ import { Header, Footer } from "@/components/layout";
 import { Breadcrumb } from "@/components/ui";
 import { fetchAFCONStatistics, getCountryFlag, getGoalsPerMatch } from "@/lib/espn-api";
 
+// Force dynamic rendering to fetch ESPN API on each request (not during build)
+export const dynamic = 'force-dynamic';
+
 interface ButeursPageProps {
   params: Promise<{ locale: string }>;
 }
