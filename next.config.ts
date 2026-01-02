@@ -90,9 +90,6 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false, // Disable source maps in production
   // Note: SWC minification is enabled by default in Next.js 16+
 
-  // Enable instrumentation for PostHog and other monitoring tools
-  instrumentation: true,
-
   // Experimental Next.js 15 optimizations
   experimental: {
     optimizePackageImports: [

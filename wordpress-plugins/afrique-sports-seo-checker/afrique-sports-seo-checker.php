@@ -3,7 +3,7 @@
  * Plugin Name: Afrique Sports SEO Checker
  * Plugin URI: https://www.afriquesports.net
  * Description: Custom SEO checklist plugin ensuring all articles meet Google News and SEO best practices for 2025. Validates title length, featured images (1200x628, <200KB), word count, meta descriptions, internal links, and more.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Afrique Sports
  * Author URI: https://www.afriquesports.net
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants.
-define('AFRIQUE_SEO_VERSION', '1.0.0');
+define('AFRIQUE_SEO_VERSION', '1.0.1');
 define('AFRIQUE_SEO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('AFRIQUE_SEO_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('AFRIQUE_SEO_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -79,6 +79,9 @@ class Afrique_Sports_SEO_Checker {
      * Initialize WordPress hooks
      */
     private function init_hooks() {
+        // Load translations
+        add_action('plugins_loaded', array($this, 'load_textdomain'));
+
         // Activation and deactivation hooks
         register_activation_hook(__FILE__, array($this, 'activate'));
         register_deactivation_hook(__FILE__, array($this, 'deactivate'));
@@ -89,6 +92,20 @@ class Afrique_Sports_SEO_Checker {
         // Publishing validation
         add_action('wp_insert_post', array($this, 'validate_before_publish'), 10, 3);
         add_filter('wp_insert_post_data', array($this, 'prevent_invalid_publish'), 99, 2);
+
+        // Additional validation after insert (for API posts with meta_input)
+        add_action('wp_after_insert_post', array($this, 'validate_after_insert'), 10, 4);
+    }
+
+    /**
+     * Load plugin text domain for translations
+     */
+    public function load_textdomain() {
+        load_plugin_textdomain(
+            'afrique-sports-seo',
+            false,
+            dirname(AFRIQUE_SEO_PLUGIN_BASENAME) . '/languages/'
+        );
     }
 
     /**
@@ -257,6 +274,11 @@ class Afrique_Sports_SEO_Checker {
             return $data;
         }
 
+        // Skip if this is an API post with meta_input (will be validated in wp_after_insert_post)
+        if (isset($postarr['meta_input']) && !empty($postarr['meta_input'])) {
+            return $data;
+        }
+
         // Get post ID (for updates)
         $post_id = isset($postarr['ID']) ? $postarr['ID'] : 0;
 
@@ -284,6 +306,65 @@ class Afrique_Sports_SEO_Checker {
         }
 
         return $data;
+    }
+
+    /**
+     * Validate after post insert (catches API posts with meta_input)
+     *
+     * @param int     $post_id     Post ID.
+     * @param WP_Post $post        Post object.
+     * @param bool    $update      Whether this is an update.
+     * @param WP_Post $post_before Previous post object (if update).
+     */
+    public function validate_after_insert($post_id, $post, $update, $post_before) {
+        // Skip if not blocking
+        if (!$this->get_setting('block_publishing')) {
+            return;
+        }
+
+        // Skip autosaves and revisions
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+
+        if (wp_is_post_revision($post_id)) {
+            return;
+        }
+
+        // Only check configured post types
+        if (!in_array($post->post_type, $this->get_setting('post_types'))) {
+            return;
+        }
+
+        // Only check if post is published
+        if ($post->post_status !== 'publish') {
+            return;
+        }
+
+        // Run validation with full post data (meta is now saved)
+        $validator = new Afrique_SEO_Validators();
+        $results = $validator->validate_post($post_id);
+
+        // Check for required failures
+        $has_errors = false;
+        foreach ($results as $check) {
+            if ($check['status'] === 'error' && !empty($check['required'])) {
+                $has_errors = true;
+                break;
+            }
+        }
+
+        // If validation failed, unpublish the post
+        if ($has_errors) {
+            wp_update_post(array(
+                'ID' => $post_id,
+                'post_status' => 'draft',
+            ));
+
+            // Store validation results
+            update_post_meta($post_id, '_afrique_seo_validation', $results);
+            update_post_meta($post_id, '_afrique_seo_last_check', current_time('mysql'));
+        }
     }
 
     /**

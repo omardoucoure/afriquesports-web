@@ -1,0 +1,428 @@
+# French translations for Afrique Sports SEO Checker
+# Copyright (C) 2025 Afrique Sports
+# This file is distributed under the same license as the plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Afrique Sports SEO Checker 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-31 10:00+0000\n"
+"PO-Revision-Date: 2025-12-31 10:00+0000\n"
+"Last-Translator: Afrique Sports\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# Meta box title
+msgid "SEO Checklist - Afrique Sports"
+msgstr "Liste de contrôle SEO - Afrique Sports"
+
+# Meta box description
+msgid "All items must pass before publishing. Click \"Run Check\" to validate."
+msgstr "Tous les éléments doivent être validés avant publication. Cliquez sur \"Vérifier\" pour valider."
+
+# Buttons
+msgid "Run Check"
+msgstr "Vérifier"
+
+msgid "Enable"
+msgstr "Activer"
+
+msgid "Save Settings"
+msgstr "Enregistrer les paramètres"
+
+# Time
+msgid "Last checked: %s"
+msgstr "Dernière vérification : %s"
+
+msgid "ago"
+msgstr "il y a"
+
+# Status messages
+msgid "Checking..."
+msgstr "Vérification en cours..."
+
+msgid "Passed"
+msgstr "Validé"
+
+msgid "Failed"
+msgstr "Échoué"
+
+msgid "Warning"
+msgstr "Avertissement"
+
+# Publishing blocked notice
+msgid "Publishing Blocked: SEO Requirements Not Met"
+msgstr "Publication bloquée : Exigences SEO non satisfaites"
+
+msgid "Your post does not meet the required SEO standards. Please check the SEO Checklist meta box below the editor and fix all required items before publishing."
+msgstr "Votre article ne répond pas aux normes SEO requises. Veuillez consulter la liste de contrôle SEO sous l'éditeur et corriger tous les éléments requis avant de publier."
+
+# Summary
+msgid "%d Passed"
+msgstr "%d Validés"
+
+msgid "%d Failed"
+msgstr "%d Échoués"
+
+msgid "%d Warnings"
+msgstr "%d Avertissements"
+
+msgid "Publishing blocked: %d required items must pass."
+msgstr "Publication bloquée : %d éléments requis doivent être validés."
+
+# Validation checks - Title
+msgid "Title Length"
+msgstr "Longueur du titre"
+
+msgid "Title should be between %d and %d characters for optimal SEO and display in search results."
+msgstr "Le titre doit contenir entre %d et %d caractères pour un SEO optimal et un bon affichage dans les résultats de recherche."
+
+msgid "Title is too short (%d characters). Minimum: %d characters."
+msgstr "Le titre est trop court (%d caractères). Minimum : %d caractères."
+
+msgid "Title is too long (%d characters). Maximum: %d characters."
+msgstr "Le titre est trop long (%d caractères). Maximum : %d caractères."
+
+msgid "Title length is perfect (%d characters)."
+msgstr "La longueur du titre est parfaite (%d caractères)."
+
+# Validation checks - Word Count
+msgid "Word Count"
+msgstr "Nombre de mots"
+
+msgid "Content should contain between %d and %d words for optimal article length."
+msgstr "Le contenu doit contenir entre %d et %d mots pour une longueur d'article optimale."
+
+msgid "Content is too short (%d words). Minimum: %d words."
+msgstr "Le contenu est trop court (%d mots). Minimum : %d mots."
+
+msgid "Content is too long (%d words). Maximum: %d words."
+msgstr "Le contenu est trop long (%d mots). Maximum : %d mots."
+
+msgid "Word count is good (%d words)."
+msgstr "Le nombre de mots est bon (%d mots)."
+
+# Validation checks - Featured Image
+msgid "Featured Image"
+msgstr "Image à la une"
+
+msgid "Featured image should be at least %dx%d pixels, under %dKB, with alt text under %d characters."
+msgstr "L'image à la une doit faire au moins %dx%d pixels, peser moins de %dKB, avec un texte alternatif de moins de %d caractères."
+
+msgid "No featured image set."
+msgstr "Aucune image à la une définie."
+
+msgid "Image dimensions (%dx%d) are too small. Minimum: %dx%d pixels."
+msgstr "Les dimensions de l'image (%dx%d) sont trop petites. Minimum : %dx%d pixels."
+
+msgid "Image file size (%dKB) is too large. Maximum: %dKB for fast loading."
+msgstr "La taille du fichier image (%dKB) est trop grande. Maximum : %dKB pour un chargement rapide."
+
+msgid "Featured image is missing alt text. Alt text is required for accessibility and SEO."
+msgstr "L'image à la une n'a pas de texte alternatif. Le texte alternatif est requis pour l'accessibilité et le SEO."
+
+msgid "Alt text is too long (%d characters). Maximum recommended: %d characters."
+msgstr "Le texte alternatif est trop long (%d caractères). Maximum recommandé : %d caractères."
+
+msgid "Featured image meets all requirements (%s, %s)."
+msgstr "L'image à la une répond à toutes les exigences (%s, %s)."
+
+msgid "Image quality issues detected: "
+msgstr "Problèmes de qualité d'image détectés : "
+
+msgid "None"
+msgstr "Aucun"
+
+# Image quality messages
+msgid "Image appears blurry (sharpness: %.2f, minimum: %d)"
+msgstr "L'image semble floue (netteté : %.2f, minimum : %d)"
+
+msgid "Image is too dark (brightness: %.2f, minimum: %d)"
+msgstr "L'image est trop sombre (luminosité : %.2f, minimum : %d)"
+
+msgid "Image is too bright/overexposed (brightness: %.2f, maximum: %d)"
+msgstr "L'image est trop claire/surexposée (luminosité : %.2f, maximum : %d)"
+
+msgid "Image has low contrast (contrast: %.2f, minimum: %d)"
+msgstr "L'image a un faible contraste (contraste : %.2f, minimum : %d)"
+
+msgid "Image compression quality is low (quality: %d%%, recommended: %d%%+)"
+msgstr "La qualité de compression de l'image est faible (qualité : %d%%, recommandé : %d%%+)"
+
+# Validation checks - Meta Description
+msgid "Meta Description"
+msgstr "Méta-description"
+
+msgid "Meta description should be between %d and %d characters for optimal display in search results."
+msgstr "La méta-description doit contenir entre %d et %d caractères pour un affichage optimal dans les résultats de recherche."
+
+msgid "No meta description set. Use Yoast SEO, Rank Math, or All in One SEO to add one."
+msgstr "Aucune méta-description définie. Utilisez Yoast SEO, Rank Math ou All in One SEO pour en ajouter une."
+
+msgid "Meta description is too short (%d characters). Minimum: %d characters."
+msgstr "La méta-description est trop courte (%d caractères). Minimum : %d caractères."
+
+msgid "Meta description is too long (%d characters). Maximum: %d characters."
+msgstr "La méta-description est trop longue (%d caractères). Maximum : %d caractères."
+
+msgid "Meta description length is perfect (%d characters)."
+msgstr "La longueur de la méta-description est parfaite (%d caractères)."
+
+# Validation checks - Internal Links
+msgid "Internal Links"
+msgstr "Liens internes"
+
+msgid "Posts should have between %d and %d internal links for better SEO and user engagement."
+msgstr "Les articles doivent contenir entre %d et %d liens internes pour un meilleur SEO et engagement des utilisateurs."
+
+msgid "No links found. Add at least %d internal links to related articles."
+msgstr "Aucun lien trouvé. Ajoutez au moins %d liens internes vers des articles connexes."
+
+msgid "Too few internal links (%d found). Minimum recommended: %d links."
+msgstr "Trop peu de liens internes (%d trouvés). Minimum recommandé : %d liens."
+
+msgid "Too many internal links (%d found). Maximum recommended: %d links."
+msgstr "Trop de liens internes (%d trouvés). Maximum recommandé : %d liens."
+
+msgid "Good number of internal links (%d links)."
+msgstr "Bon nombre de liens internes (%d liens)."
+
+# Validation checks - Categories
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Posts should have between %d and %d categories for proper organization."
+msgstr "Les articles doivent avoir entre %d et %d catégories pour une bonne organisation."
+
+msgid "No categories assigned. Assign at least %d category."
+msgstr "Aucune catégorie assignée. Assignez au moins %d catégorie."
+
+msgid "Too few categories (%d assigned). Minimum: %d category."
+msgstr "Trop peu de catégories (%d assignées). Minimum : %d catégorie."
+
+msgid "Too many categories (%d assigned). Maximum recommended: %d categories."
+msgstr "Trop de catégories (%d assignées). Maximum recommandé : %d catégories."
+
+msgid "Good number of categories (%d assigned)."
+msgstr "Bon nombre de catégories (%d assignées)."
+
+# Validation checks - Tags
+msgid "Tags"
+msgstr "Étiquettes"
+
+msgid "Posts should have between %d and %d tags for better discoverability."
+msgstr "Les articles doivent avoir entre %d et %d étiquettes pour une meilleure découvrabilité."
+
+msgid "Few tags (%d assigned). Recommended minimum: %d tags."
+msgstr "Peu d'étiquettes (%d assignées). Minimum recommandé : %d étiquettes."
+
+msgid "Too many tags (%d assigned). Maximum recommended: %d tags."
+msgstr "Trop d'étiquettes (%d assignées). Maximum recommandé : %d étiquettes."
+
+msgid "Good number of tags (%d assigned)."
+msgstr "Bon nombre d'étiquettes (%d assignées)."
+
+# Validation checks - Permalink
+msgid "Permalink"
+msgstr "Permalien"
+
+msgid "Permalink should be under %d characters for better SEO."
+msgstr "Le permalien doit contenir moins de %d caractères pour un meilleur SEO."
+
+msgid "Permalink is too long (%d characters). Maximum recommended: %d characters."
+msgstr "Le permalien est trop long (%d caractères). Maximum recommandé : %d caractères."
+
+msgid "Permalink length is good (%d characters)."
+msgstr "La longueur du permalien est bonne (%d caractères)."
+
+# Validation checks - Subheadings
+msgid "Subheadings (H2/H3)"
+msgstr "Sous-titres (H2/H3)"
+
+msgid "Content should have at least %d subheadings (H2 or H3 tags) for better structure."
+msgstr "Le contenu doit avoir au moins %d sous-titres (balises H2 ou H3) pour une meilleure structure."
+
+msgid "Not enough subheadings (%d found). Minimum: %d subheadings."
+msgstr "Pas assez de sous-titres (%d trouvés). Minimum : %d sous-titres."
+
+msgid "Good use of subheadings (%d found)."
+msgstr "Bon usage des sous-titres (%d trouvés)."
+
+# Validation checks - SEO Plugin
+msgid "SEO Plugin Score"
+msgstr "Score du plugin SEO"
+
+msgid "No SEO plugin detected. Consider installing Yoast SEO or Rank Math."
+msgstr "Aucun plugin SEO détecté. Envisagez d'installer Yoast SEO ou Rank Math."
+
+msgid "Yoast SEO score is low. Improve your content for better SEO."
+msgstr "Le score Yoast SEO est faible. Améliorez votre contenu pour un meilleur SEO."
+
+msgid "Rank Math SEO score is low. Improve your content for better SEO."
+msgstr "Le score Rank Math SEO est faible. Améliorez votre contenu pour un meilleur SEO."
+
+msgid "Good SEO score from %s."
+msgstr "Bon score SEO de %s."
+
+# Settings page
+msgid "Afrique Sports SEO Settings"
+msgstr "Paramètres SEO Afrique Sports"
+
+msgid "SEO Checker"
+msgstr "Vérificateur SEO"
+
+msgid "Settings saved successfully."
+msgstr "Paramètres enregistrés avec succès."
+
+msgid "Configure SEO requirements for your content. These settings ensure all articles meet Google News and SEO best practices for 2025."
+msgstr "Configurez les exigences SEO pour votre contenu. Ces paramètres garantissent que tous les articles respectent les meilleures pratiques Google News et SEO pour 2025."
+
+# Settings sections
+msgid "Title Settings"
+msgstr "Paramètres du titre"
+
+msgid "Configure title length requirements for SEO optimization."
+msgstr "Configurez les exigences de longueur de titre pour l'optimisation SEO."
+
+msgid "Content Settings"
+msgstr "Paramètres du contenu"
+
+msgid "Set content quality requirements including word count and heading structure."
+msgstr "Définissez les exigences de qualité du contenu incluant le nombre de mots et la structure des titres."
+
+msgid "Featured Image Settings"
+msgstr "Paramètres de l'image à la une"
+
+msgid "Featured image requirements for Google News and social sharing (recommended: 1200x628px, <200KB)."
+msgstr "Exigences pour l'image à la une pour Google News et le partage social (recommandé : 1200x628px, <200KB)."
+
+msgid "Meta Description Settings"
+msgstr "Paramètres de la méta-description"
+
+msgid "Meta description requirements. Integrates with Yoast SEO, Rank Math, and All in One SEO."
+msgstr "Exigences de méta-description. S'intègre avec Yoast SEO, Rank Math et All in One SEO."
+
+msgid "Internal Links Settings"
+msgstr "Paramètres des liens internes"
+
+msgid "Internal linking requirements for better SEO and user experience."
+msgstr "Exigences de liens internes pour un meilleur SEO et une meilleure expérience utilisateur."
+
+msgid "Categories & Tags Settings"
+msgstr "Paramètres des catégories et étiquettes"
+
+msgid "Category and tag requirements for content organization."
+msgstr "Exigences de catégories et d'étiquettes pour l'organisation du contenu."
+
+msgid "General Settings"
+msgstr "Paramètres généraux"
+
+msgid "General plugin settings and enforcement options."
+msgstr "Paramètres généraux du plugin et options d'application."
+
+# Settings fields
+msgid "Minimum Characters"
+msgstr "Caractères minimum"
+
+msgid "Maximum Characters"
+msgstr "Caractères maximum"
+
+msgid "Required"
+msgstr "Requis"
+
+msgid "Minimum Word Count"
+msgstr "Nombre de mots minimum"
+
+msgid "Maximum Word Count"
+msgstr "Nombre de mots maximum"
+
+msgid "Minimum Headings (H2/H3)"
+msgstr "Sous-titres minimum (H2/H3)"
+
+msgid "Minimum Width (px)"
+msgstr "Largeur minimum (px)"
+
+msgid "Minimum Height (px)"
+msgstr "Hauteur minimum (px)"
+
+msgid "Maximum File Size (KB)"
+msgstr "Taille de fichier maximum (KB)"
+
+msgid "Alt Text Required"
+msgstr "Texte alternatif requis"
+
+msgid "Alt Text Max Characters"
+msgstr "Caractères maximum du texte alternatif"
+
+msgid "Enable Quality Check"
+msgstr "Activer la vérification de qualité"
+
+msgid "Check for blur, brightness, and contrast issues"
+msgstr "Vérifier les problèmes de flou, luminosité et contraste"
+
+msgid "Minimum Internal Links"
+msgstr "Liens internes minimum"
+
+msgid "Maximum Internal Links"
+msgstr "Liens internes maximum"
+
+msgid "Category Required"
+msgstr "Catégorie requise"
+
+msgid "Minimum Categories"
+msgstr "Catégories minimum"
+
+msgid "Maximum Categories"
+msgstr "Catégories maximum"
+
+msgid "Minimum Tags"
+msgstr "Étiquettes minimum"
+
+msgid "Maximum Tags"
+msgstr "Étiquettes maximum"
+
+msgid "Permalink Max Length"
+msgstr "Longueur maximum du permalien"
+
+msgid "Post Types to Check"
+msgstr "Types de contenu à vérifier"
+
+msgid "Block Publishing on Failure"
+msgstr "Bloquer la publication en cas d'échec"
+
+# SEO Best Practices section
+msgid "SEO Best Practices 2025"
+msgstr "Meilleures pratiques SEO 2025"
+
+msgid "Title:"
+msgstr "Titre :"
+
+msgid "45-60 characters optimal for Google search results"
+msgstr "45-60 caractères optimal pour les résultats de recherche Google"
+
+msgid "Featured Image:"
+msgstr "Image à la une :"
+
+msgid "1200x628px minimum for social sharing and Google News"
+msgstr "1200x628px minimum pour le partage social et Google News"
+
+msgid "Meta Description:"
+msgstr "Méta-description :"
+
+msgid "140-160 characters for best SERP display"
+msgstr "140-160 caractères pour un meilleur affichage dans les SERP"
+
+msgid "Word Count:"
+msgstr "Nombre de mots :"
+
+msgid "400-2000 words for news articles"
+msgstr "400-2000 mots pour les articles d'actualité"
+
+msgid "Internal Links:"
+msgstr "Liens internes :"
+
+msgid "2-5 links improve site structure and engagement"
+msgstr "2-5 liens améliorent la structure du site et l'engagement"

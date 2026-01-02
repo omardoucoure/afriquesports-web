@@ -57,7 +57,7 @@ class Afrique_SEO_Validators {
         $results['featured_image'] = $this->validate_featured_image($post_id, $postarr);
 
         // 4. Meta description validation
-        $results['meta_description'] = $this->validate_meta_description($post_id);
+        $results['meta_description'] = $this->validate_meta_description($post_id, $postarr);
 
         // 5. Internal links validation
         $results['internal_links'] = $this->validate_internal_links($content);
@@ -179,7 +179,12 @@ class Afrique_SEO_Validators {
         // Check if featured image is set
         $thumbnail_id = get_post_thumbnail_id($post_id);
 
-        // For new posts, check if thumbnail is being set
+        // For new posts or API posts, check meta_input
+        if (!$thumbnail_id && isset($postarr['meta_input']['_thumbnail_id'])) {
+            $thumbnail_id = $postarr['meta_input']['_thumbnail_id'];
+        }
+
+        // Also check direct _thumbnail_id key
         if (!$thumbnail_id && isset($postarr['_thumbnail_id'])) {
             $thumbnail_id = $postarr['_thumbnail_id'];
         }
@@ -297,7 +302,7 @@ class Afrique_SEO_Validators {
      * @param int $post_id Post ID.
      * @return array Validation result.
      */
-    public function validate_meta_description($post_id) {
+    public function validate_meta_description($post_id, $postarr = array()) {
         $required = $this->plugin->get_setting('meta_desc_required');
         $min = $this->plugin->get_setting('meta_desc_min');
         $max = $this->plugin->get_setting('meta_desc_max');
@@ -321,6 +326,17 @@ class Afrique_SEO_Validators {
         // Check for All in One SEO
         if (empty($meta_desc)) {
             $meta_desc = get_post_meta($post_id, '_aioseo_description', true);
+        }
+
+        // For API posts, check meta_input
+        if (empty($meta_desc) && isset($postarr['meta_input'])) {
+            if (isset($postarr['meta_input']['_yoast_wpseo_metadesc'])) {
+                $meta_desc = $postarr['meta_input']['_yoast_wpseo_metadesc'];
+            } elseif (isset($postarr['meta_input']['rank_math_description'])) {
+                $meta_desc = $postarr['meta_input']['rank_math_description'];
+            } elseif (isset($postarr['meta_input']['_aioseo_description'])) {
+                $meta_desc = $postarr['meta_input']['_aioseo_description'];
+            }
         }
 
         $length = mb_strlen($meta_desc);
