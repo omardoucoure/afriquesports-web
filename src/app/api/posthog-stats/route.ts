@@ -15,13 +15,34 @@ export async function GET(request: NextRequest) {
   const posthogProjectId = process.env.POSTHOG_PROJECT_ID || '21827'; // Default project ID
   const posthogPersonalApiKey = process.env.POSTHOG_PERSONAL_API_KEY;
 
+  // If no API key, return empty data gracefully (don't crash the dashboard)
   if (!posthogPersonalApiKey) {
     return NextResponse.json(
       {
-        error: 'PostHog Personal API Key not configured',
-        instructions: 'Set POSTHOG_PERSONAL_API_KEY in environment variables'
+        period,
+        dateFrom: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+        dateTo: new Date().toISOString(),
+        summary: {
+          totalPageViews: 0,
+          totalArticleViews: 0,
+          uniqueVisitors: 0,
+          totalAuthors: 0,
+        },
+        authorStats: [],
+        topPages: [],
+        metadata: {
+          source: 'PostHog (unavailable)',
+          cacheMaxAge: 300,
+          error: 'PostHog Personal API Key not configured',
+          instructions: 'Set POSTHOG_PERSONAL_API_KEY in environment variables to enable PostHog analytics',
+        },
       },
-      { status: 503 }
+      {
+        status: 200, // Return 200 instead of 503 to prevent dashboard errors
+        headers: {
+          'Cache-Control': 'public, max-age=60, s-maxage=120', // Shorter cache for error state
+        },
+      }
     );
   }
 
@@ -69,8 +90,40 @@ export async function GET(request: NextRequest) {
       }
     );
 
+    // Handle PostHog API errors gracefully (e.g., 403 Forbidden, expired API key)
     if (!pageViewsResponse.ok) {
-      throw new Error(`PostHog API error: ${pageViewsResponse.status} ${pageViewsResponse.statusText}`);
+      console.warn(`[API /api/posthog-stats] PostHog API error: ${pageViewsResponse.status} ${pageViewsResponse.statusText}`);
+
+      // Return empty data instead of crashing
+      return NextResponse.json(
+        {
+          period,
+          dateFrom,
+          dateTo,
+          summary: {
+            totalPageViews: 0,
+            totalArticleViews: 0,
+            uniqueVisitors: 0,
+            totalAuthors: 0,
+          },
+          authorStats: [],
+          topPages: [],
+          metadata: {
+            source: 'PostHog (unavailable)',
+            cacheMaxAge: 300,
+            error: `PostHog API returned ${pageViewsResponse.status}`,
+            instructions: pageViewsResponse.status === 403
+              ? 'PostHog API key is invalid or expired. Please update POSTHOG_PERSONAL_API_KEY in Vercel environment variables.'
+              : 'PostHog service is temporarily unavailable. Please try again later.',
+          },
+        },
+        {
+          status: 200, // Return 200 so dashboard doesn't break
+          headers: {
+            'Cache-Control': 'public, max-age=60, s-maxage=120', // Shorter cache for error state
+          },
+        }
+      );
     }
 
     const pageViewsData = await pageViewsResponse.json();
@@ -160,14 +213,36 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error: any) {
-    console.error('[API /api/posthog-stats] Error:', error);
+    console.error('[API /api/posthog-stats] Unexpected error:', error);
+
+    // Return empty data instead of error to prevent dashboard crashes
     return NextResponse.json(
       {
-        error: 'Failed to fetch PostHog analytics',
-        details: error.message,
-        instructions: 'Ensure POSTHOG_PERSONAL_API_KEY and POSTHOG_PROJECT_ID are set',
+        period,
+        dateFrom: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+        dateTo: new Date().toISOString(),
+        summary: {
+          totalPageViews: 0,
+          totalArticleViews: 0,
+          uniqueVisitors: 0,
+          totalAuthors: 0,
+        },
+        authorStats: [],
+        topPages: [],
+        metadata: {
+          source: 'PostHog (error)',
+          cacheMaxAge: 300,
+          error: 'Failed to fetch PostHog analytics',
+          details: error.message,
+          instructions: 'Check PostHog configuration: POSTHOG_PERSONAL_API_KEY and POSTHOG_PROJECT_ID',
+        },
       },
-      { status: 500 }
+      {
+        status: 200, // Return 200 so dashboard doesn't break
+        headers: {
+          'Cache-Control': 'public, max-age=60, s-maxage=120',
+        },
+      }
     );
   }
 }
