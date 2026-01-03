@@ -22,8 +22,9 @@ const POSTS_PER_SITEMAP = 500; // CRITICAL: Must match posts/[page]/route.ts (re
 
 // Known post count - updated periodically, avoids API call on each request
 // This should be updated via a cron job or manually
-// Updated 2026-01-03: 155,527 posts across all 4 multisite instances
-const ESTIMATED_TOTAL_POSTS = 155527;
+// Updated 2026-01-03: 45,299 posts from French WordPress API
+// Note: en/es/ar sites exist but REST API doesn't expose them properly
+const ESTIMATED_TOTAL_POSTS = 45299;
 
 export async function GET() {
   // Calculate sitemap count based on estimated posts
