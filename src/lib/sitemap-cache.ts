@@ -69,14 +69,14 @@ export async function getCachedPostCount(): Promise<number> {
       "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=1",
       { next: { revalidate: 86400 } }
     );
-    const total = parseInt(response.headers.get("x-wp-total") || "135000", 10);
+    const total = parseInt(response.headers.get("x-wp-total") || "155527", 10);
 
     // Cache for 7 days (post count rarely changes significantly)
     setInCache(cacheKey, total, 604800);
     return total;
   } catch (error) {
     console.error("Error fetching post count:", error);
-    return 135000; // Fallback
+    return 155527; // Fallback - updated 2026-01-03: all 4 multisite instances
   }
 }
 
