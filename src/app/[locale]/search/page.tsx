@@ -156,6 +156,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   name="q"
                   defaultValue={query}
                   placeholder="Rechercher un article, un joueur, une équipe..."
+                  autoComplete="off"
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                 />
                 <svg

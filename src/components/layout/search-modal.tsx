@@ -113,6 +113,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Rechercher un article, un joueur, une équipe..."
+                autoComplete="off"
                 className="flex-1 text-lg md:text-xl font-medium text-gray-900 placeholder-gray-400 bg-transparent border-none outline-none"
               />
 

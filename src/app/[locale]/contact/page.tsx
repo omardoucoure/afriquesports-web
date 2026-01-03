@@ -136,6 +136,7 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       required
+                      autoComplete="name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                       placeholder="Votre nom"
                     />
@@ -150,6 +151,7 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
+                      autoComplete="email"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#04453f] focus:border-transparent outline-none transition-shadow"
                       placeholder="votre@email.com"
                     />
