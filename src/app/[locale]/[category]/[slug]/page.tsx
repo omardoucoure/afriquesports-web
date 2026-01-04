@@ -100,6 +100,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
           "fr-FR": `${baseUrl}${articlePath}`,
           "en-US": `${baseUrl}/en${articlePath}`,
           "es-ES": `${baseUrl}/es${articlePath}`,
+          "ar-SA": `${baseUrl}/ar${articlePath}`,
           "x-default": `${baseUrl}${articlePath}`,
         },
       },

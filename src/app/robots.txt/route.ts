@@ -23,7 +23,11 @@ Disallow: /search
 Disallow: /_next
 Disallow: /api
 
-# Block query strings (cache busting, pagination params)
+# Block ALL query parameters (catch-all)
+Disallow: /*?*
+Disallow: /*&*
+
+# Block specific query strings (defense-in-depth)
 Disallow: /*?*cb=
 Disallow: /*?*query-0-page=
 Disallow: /*?*dcb=
