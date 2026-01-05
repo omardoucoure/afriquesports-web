@@ -29,6 +29,13 @@ export function middleware(request: NextRequest) {
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0] || '';
 
+  // Handle root path - redirect to default locale
+  if (pathname === '/' || pathname === '') {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${DEFAULT_LOCALE}`;
+    return NextResponse.redirect(url);
+  }
+
   // Check if first segment looks like a file (contains a dot and matches file extension pattern)
   if (firstSegment.includes('.')) {
     // Check if it's a known file extension
@@ -56,7 +63,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Valid locale or no locale - continue
+  // Valid locale - continue
   return NextResponse.next();
 }
 
