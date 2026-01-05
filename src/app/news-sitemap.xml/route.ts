@@ -23,11 +23,19 @@ const PUBLICATION_NAME = "Afrique Sports";
 
 export async function GET() {
   try {
-    // Get posts from last 48 hours
-    const posts = await getRecentPostsForNews("fr");
+    // Fetch posts from all locales (not just FR) for better coverage
+    const frPosts = await getRecentPostsForNews("fr");
+    const enPosts = await getRecentPostsForNews("en");
+    const esPosts = await getRecentPostsForNews("es");
+    const arPosts = await getRecentPostsForNews("ar");
+
+    // Combine all posts
+    const allPosts = [...frPosts, ...enPosts, ...esPosts, ...arPosts];
+
+    console.log(`[news-sitemap] Fetched ${frPosts.length} FR, ${enPosts.length} EN, ${esPosts.length} ES, ${arPosts.length} AR posts = ${allPosts.length} total`);
 
     // Limit to 1000 (Google News sitemap limit)
-    const limitedPosts = posts.slice(0, 1000);
+    const limitedPosts = allPosts.slice(0, 1000);
 
     // Build news sitemap XML with priority and lastmod
     const urlEntries = limitedPosts.map((post) => {
@@ -75,7 +83,21 @@ ${urlEntries.join("\n")}
       },
     });
   } catch (error) {
-    console.error("Error generating news sitemap:", error);
-    return new NextResponse("Error generating news sitemap", { status: 500 });
+    console.error("[news-sitemap] Error generating news sitemap:", error);
+
+    // Return empty sitemap on error instead of 500
+    const emptyXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+</urlset>`;
+
+    return new NextResponse(emptyXml, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/xml; charset=utf-8",
+        "Cache-Control": "public, max-age=300",
+      },
+    });
   }
 }

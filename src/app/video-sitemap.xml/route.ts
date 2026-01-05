@@ -20,17 +20,31 @@ const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdema
 
 interface VideoPost {
   id: number;
+  slug: string;
   link: string;
   title: { rendered: string };
   excerpt: { rendered: string };
   date: string;
   modified: string;
   categories: number[];
+  content?: { rendered: string };
   acf?: {
     video_url?: string;
     youtube_video_id?: string;
   };
   featured_media_url?: string;
+  _embedded?: {
+    'wp:term'?: Array<Array<{ slug: string; name: string }>>;
+    'wp:featuredmedia'?: Array<{
+      source_url: string;
+      media_details?: {
+        sizes?: {
+          large?: { source_url: string };
+          medium?: { source_url: string };
+        };
+      };
+    }>;
+  };
 }
 
 function extractVideoUrl(content: string): string | null {
@@ -79,7 +93,7 @@ export async function GET() {
 
     while (page <= maxPages && allPosts.length < MAX_VIDEOS) {
       const response = await fetch(
-        `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&page=${page}&categories=${VIDEO_CATEGORY_ID}&orderby=date&order=desc`,
+        `${WORDPRESS_API_URL}/posts?per_page=${POSTS_PER_PAGE}&page=${page}&categories=${VIDEO_CATEGORY_ID}&orderby=date&order=desc&_embed`,
         {
           headers: {
             'User-Agent': 'afriquesports-sitemap/1.0',
@@ -133,11 +147,40 @@ export async function GET() {
       }
 
       if (videoUrl) {
-        // Use default thumbnail (no _embed for faster loading)
-        const thumbnailUrl = SITE_URL + '/opengraph-image.png';
+        // Get category slug from embedded data
+        let category = 'afrique-sports-tv'; // Default fallback
+        if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0]) {
+          const primaryCategory = post._embedded['wp:term'][0][0];
+          if (primaryCategory && primaryCategory.slug) {
+            category = primaryCategory.slug;
+          }
+        }
+
+        // CRITICAL FIX: Sanitize slug to remove malformed https:/ or http:/ prefixes
+        // This fixes the 2,485 video sitemap warnings
+        let sanitizedSlug = post.slug;
+        if (sanitizedSlug.startsWith('https:/') || sanitizedSlug.startsWith('http:/')) {
+          sanitizedSlug = sanitizedSlug.replace(/^https?:\//, '');
+        } else if (sanitizedSlug.startsWith('https://') || sanitizedSlug.startsWith('http://')) {
+          sanitizedSlug = sanitizedSlug.replace(/^https?:\/\//, '');
+        }
+
+        // Construct proper URL instead of using post.link
+        const properUrl = `${SITE_URL}/${category}/${sanitizedSlug}`;
+
+        // Get real featured image from embedded data
+        let thumbnailUrl = SITE_URL + '/opengraph-image.png'; // Fallback
+        if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
+          const media = post._embedded['wp:featuredmedia'][0];
+          // Prefer large size, fallback to medium, then source_url
+          thumbnailUrl = media.media_details?.sizes?.large?.source_url
+            || media.media_details?.sizes?.medium?.source_url
+            || media.source_url
+            || thumbnailUrl;
+        }
 
         videoPosts.push({
-          url: post.link,
+          url: properUrl,  // Use constructed URL instead of post.link
           title: stripHtml(post.title.rendered),
           description: stripHtml(post.excerpt.rendered || post.title.rendered),
           videoUrl: videoUrl,
