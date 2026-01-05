@@ -330,7 +330,7 @@ export class DataFetcher {
         // Response is not JSON (probably HTML error page from Cloudflare/WordPress)
         const responseText = await response.text();
         console.error(
-          `[DataFetcher] ❌ Expected JSON, got ${contentType || 'unknown content-type'}`
+          `[DataFetcher] ❌ Expected JSON, got ${contentType || 'unknown content-type'} from URL: ${fullUrl}`
         );
         console.error(
           `[DataFetcher] Response preview:`,
