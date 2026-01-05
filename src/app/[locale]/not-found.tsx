@@ -10,7 +10,7 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col bg-[#F6F6F6]">
       <Header />
 
-      <main className="flex-grow flex items-center justify-center px-4 py-16">
+      <main className="flex-grow flex items-center justify-center px-4 py-16 pt-32 md:pt-40">
         <div className="max-w-2xl w-full text-center">
           {/* 404 Illustration */}
           <div className="mb-8">
