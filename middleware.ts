@@ -15,6 +15,13 @@ const STATIC_PATHS = [
   '/robots.txt',
   '/sitemap.xml',
   '/manifest.json',
+  '/logo.jpg',
+  '/fonts/',
+  '/images/',
+  '/assets/',
+  '/opengraph-image.png',
+  '/apple-icon.png',
+  '/icon.svg',
 ];
 
 export function middleware(request: NextRequest) {
@@ -41,6 +48,14 @@ export function middleware(request: NextRequest) {
   if (firstSegment.includes('.')) {
     // Check if it's a known file extension
     if (FILE_EXTENSIONS.test(firstSegment)) {
+      // Allow root-level static files (depth = 1, e.g., /logo.jpg, /icon.png)
+      // These are legitimate static assets served from public/
+      if (segments.length === 1) {
+        // Root-level file - allow it through to Next.js static file handling
+        return NextResponse.next();
+      }
+
+      // Files in deeper paths that aren't in locale structure are invalid
       console.warn(
         `[Middleware] ⚠️ File detected in locale position: ${firstSegment} - Path: ${pathname}`
       );
