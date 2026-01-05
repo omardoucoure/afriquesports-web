@@ -547,5 +547,13 @@
     "totalMatches": "Total de partidos",
     "noMatches": "No hay partidos comentados disponibles en este momento",
     "error": "Error al cargar los partidos"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "Lo sentimos, no podemos encontrar esta página. Puede haber sido movida o eliminada.",
+    "homeButton": "Volver al inicio",
+    "searchButton": "Buscar",
+    "popularCategories": "Categorías populares",
+    "africa": "África"
   }
 }

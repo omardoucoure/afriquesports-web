@@ -547,5 +547,13 @@
     "totalMatches": "Total matches",
     "noMatches": "No commented matches available at the moment",
     "error": "Error loading matches"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, we can't find this page. It may have been moved or deleted.",
+    "homeButton": "Back to home",
+    "searchButton": "Search",
+    "popularCategories": "Popular categories",
+    "africa": "Africa"
   }
 }
