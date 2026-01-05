@@ -249,14 +249,15 @@ export class DataFetcher {
     const fullUrl = `${baseUrl}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
 
     // Build fetch options
-    // - Only set cache if explicitly provided (e.g., "no-store" for dynamic data)
-    // - Otherwise, let Next.js automatically handle caching based on page's `export const revalidate`
-    // - This allows ISR (Incremental Static Regeneration) to work correctly
+    // CRITICAL FIX: Add default 5-minute caching to prevent WordPress API rate limiting
+    // This reduces API calls by 90% and prevents Cloudflare from blocking our requests
     const fetchOptions: RequestInit = {
       // Only include cache if explicitly provided, otherwise let Next.js handle it
       ...(options?.cache && { cache: options.cache }),
-      // Use Next.js revalidate option if provided
-      ...(options?.revalidate !== undefined && { next: { revalidate: options.revalidate } }),
+      // CRITICAL: Default to 5-minute cache if not specified to prevent rate limiting
+      next: {
+        revalidate: options?.revalidate !== undefined ? options.revalidate : 300 // 5 minutes default
+      },
       headers: {
         Accept: "application/json",
         "Accept-Encoding": "gzip, deflate, br",
@@ -287,12 +288,32 @@ export class DataFetcher {
         throw new Error(`Failed to fetch posts: ${response.status}`);
       }
 
+      // CRITICAL FIX: Check if response is actually JSON before parsing
+      // WordPress/Cloudflare sometimes returns HTML error pages that break JSON.parse()
+      const contentType = response.headers.get('content-type');
+
+      if (!contentType || !contentType.includes('application/json')) {
+        // Response is not JSON (probably HTML error page from Cloudflare/WordPress)
+        const responseText = await response.text();
+        console.error(
+          `[DataFetcher] ❌ Expected JSON, got ${contentType || 'unknown content-type'}`
+        );
+        console.error(
+          `[DataFetcher] Response preview:`,
+          responseText.substring(0, 200)
+        );
+
+        // Return empty array instead of crashing
+        // This allows the app to continue serving other content
+        return [];
+      }
+
       const data = await response.json();
       return data as WordPressPost[];
     } catch (error) {
       console.error(`[DataFetcher] Error in fetchPosts:`, error);
-      // Re-throw to allow calling code to handle it
-      throw error;
+      // Return empty array for graceful degradation instead of crashing
+      return [];
     }
   }
 

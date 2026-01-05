@@ -449,20 +449,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     </span>
                   </div>
 
-                  {/* Ad #1 - Top In-Article Ad - Highest RPM position */}
-                  <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_TOP} position="top" />
-
                   {/* Featured image - Only rendered on desktop for LCP optimization */}
                   {imageUrl && imageUrl !== "/images/placeholder.svg" && (
                     <ArticleFeaturedImage imageUrl={imageUrl} title={title} priority />
                   )}
 
-                  {/* Social share buttons */}
-                  <div className="pb-4 mb-4 border-b border-gray-100">
-                    <ShareButtons url={articleUrl} title={title} />
-                  </div>
-
-                  {/* Ad #2 - Middle In-Article Ad - Good RPM position */}
+                  {/* Ad #1 - Middle In-Article Ad - Good RPM position */}
                   <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_MIDDLE} position="middle" />
 
                   {/* Article content with enhanced embed handling */}
@@ -470,11 +462,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <ArticleContent content={article.content.rendered} />
                   </div>
 
-                  {/* Ad #3 - Bottom In-Article Ad - Standard RPM position */}
+                  {/* Ad #2 - Bottom In-Article Ad - Standard RPM position */}
                   <InArticleAd adSlot={ADSENSE_CONFIG.AD_SLOTS.ARTICLE_BOTTOM} position="bottom" />
 
-                  {/* Bottom share buttons for mobile */}
-                  <div className="mt-8 pt-6 border-t border-gray-200 lg:hidden">
+                  {/* Social share buttons - moved to end of post */}
+                  <div className="mt-8 pt-6 border-t border-gray-200">
                     <ShareButtons url={articleUrl} title={title} />
                   </div>
                 </div>
