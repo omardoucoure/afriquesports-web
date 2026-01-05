@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
+import { Header, HeaderSpacer, Footer } from '@/components/layout';
 
 export default function NotFound() {
   const t = useTranslations('notFound');
@@ -9,8 +8,9 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F6F6]">
       <Header />
+      <HeaderSpacer />
 
-      <main className="flex-grow flex items-center justify-center px-4 py-16 pt-32 md:pt-40">
+      <main className="flex-grow flex items-center justify-center px-4 py-16">
         <div className="max-w-2xl w-full text-center">
           {/* 404 Illustration */}
           <div className="mb-8">
