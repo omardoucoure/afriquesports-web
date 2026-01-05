@@ -209,12 +209,23 @@ const nextConfig: NextConfig = {
         ],
       },
       // Cache API responses at Vercel Edge to reduce origin requests and costs
+      // EXCEPT next-match endpoint which needs real-time updates
       {
-        source: "/api/can2025/:path*",
+        source: "/api/can2025/:path((?!next-match).*)",
         headers: [
           {
             key: "Cache-Control",
             value: "s-maxage=60, stale-while-revalidate=300",
+          },
+        ],
+      },
+      // No cache for live match endpoint
+      {
+        source: "/api/can2025/next-match",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, no-cache, must-revalidate, max-age=0",
           },
         ],
       },
