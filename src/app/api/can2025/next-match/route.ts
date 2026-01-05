@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 
+// Force dynamic rendering - disable all caching
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const ESPN_API_BASE = 'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations';
 
 // Map team names to country codes for flags
@@ -50,6 +54,21 @@ function getCountryCode(teamName: string): string {
   return 'xx';
 }
 
+// Helper to add no-cache headers (prevent Cloudflare caching)
+function jsonResponse(data: any, status?: number) {
+  return NextResponse.json(data, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      'CDN-Cache-Control': 'no-store',
+      'Cloudflare-CDN-Cache-Control': 'no-store',
+      'Vercel-CDN-Cache-Control': 'no-store',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    },
+  });
+}
+
 export async function GET() {
   try {
     // No cache for live match updates - always fetch fresh data
@@ -84,7 +103,7 @@ export async function GET() {
       // Get clock/period info
       const statusDetail = competition.status?.type?.detail || 'LIVE';
 
-      return NextResponse.json({
+      return jsonResponse({
         hasMatch: true,
         id: liveMatch.id,
         competition: 'CAN 2025',
@@ -124,7 +143,7 @@ export async function GET() {
       const homeTeam = competition.competitors?.find((c: any) => c.homeAway === 'home')?.team;
       const awayTeam = competition.competitors?.find((c: any) => c.homeAway === 'away')?.team;
 
-      return NextResponse.json({
+      return jsonResponse({
         hasMatch: true,
         id: nextMatch.id,
         competition: 'CAN 2025',
@@ -162,7 +181,7 @@ export async function GET() {
       const homeTeam = homeCompetitor?.team;
       const awayTeam = awayCompetitor?.team;
 
-      return NextResponse.json({
+      return jsonResponse({
         hasMatch: true,
         id: recentMatch.id,
         competition: 'CAN 2025',
@@ -188,18 +207,18 @@ export async function GET() {
     }
 
     // No matches found at all
-    return NextResponse.json({
+    return jsonResponse({
       hasMatch: false,
       message: 'No matches available'
     });
   } catch (error) {
     console.error('Error fetching next CAN 2025 match:', error);
-    return NextResponse.json(
+    return jsonResponse(
       {
         hasMatch: false,
         error: 'Failed to fetch next match data'
       },
-      { status: 500 }
+      500
     );
   }
 }
