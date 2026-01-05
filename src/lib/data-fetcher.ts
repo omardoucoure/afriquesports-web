@@ -2,10 +2,13 @@
 // TYPE DEFINITIONS
 // ============================================================================
 
+import { fetchWithCache, CacheKeys, CacheTTL } from './redis';
+
 export interface FetchOptions {
   cache?: RequestCache;
   revalidate?: number;
   headers?: Record<string, string>;
+  skipRedis?: boolean; // Allow skipping Redis cache for specific requests
 }
 
 export interface WordPressPost {
@@ -221,7 +224,7 @@ export class DataFetcher {
     params?: Record<string, string>,
     options?: FetchOptions
   ): Promise<WordPressPost[]> {
-    const locale = params?.locale;
+    const locale = params?.locale || 'fr';
 
     // Remove locale from params since it's handled by URL selection
     const filteredParams = { ...params };
@@ -242,12 +245,43 @@ export class DataFetcher {
       filteredParams.order = "desc";
     }
 
-    const searchParams = new URLSearchParams(filteredParams);
-
     // Build URL based on locale (each locale has its own WordPress site)
     const baseUrl = getWordPressBaseUrl(locale);
+    const searchParams = new URLSearchParams(filteredParams);
     const fullUrl = `${baseUrl}${WORDPRESS_API_PATH}?${searchParams.toString()}`;
 
+    // Generate Redis cache key
+    const cacheKey = CacheKeys.posts(filteredParams, locale);
+
+    // Use Redis cache if available (unless explicitly disabled)
+    if (!options?.skipRedis) {
+      try {
+        return await fetchWithCache(
+          cacheKey,
+          async () => {
+            // Fetch from WordPress if not in Redis
+            return await this.fetchPostsFromWordPress(fullUrl, options);
+          },
+          CacheTTL.posts
+        );
+      } catch (error) {
+        console.error(`[DataFetcher] Redis error, falling back to WordPress:`, error);
+        // Fall through to direct WordPress fetch
+      }
+    }
+
+    // Fallback: Direct WordPress fetch without Redis
+    return await this.fetchPostsFromWordPress(fullUrl, options);
+  }
+
+  /**
+   * Internal method to fetch posts from WordPress
+   * Separated to support Redis caching wrapper
+   */
+  private static async fetchPostsFromWordPress(
+    fullUrl: string,
+    options?: FetchOptions
+  ): Promise<WordPressPost[]> {
     // Build fetch options
     // CRITICAL FIX: Add default 5-minute caching to prevent WordPress API rate limiting
     // This reduces API calls by 90% and prevents Cloudflare from blocking our requests
@@ -311,7 +345,7 @@ export class DataFetcher {
       const data = await response.json();
       return data as WordPressPost[];
     } catch (error) {
-      console.error(`[DataFetcher] Error in fetchPosts:`, error);
+      console.error(`[DataFetcher] Error in fetchPostsFromWordPress:`, error);
       // Return empty array for graceful degradation instead of crashing
       return [];
     }
@@ -319,26 +353,60 @@ export class DataFetcher {
 
   /**
    * Fetch a single post by slug
-   * Uses Next.js cache by default (revalidate: 600 = 10 minutes)
-   * This reduces WordPress server load by caching individual posts
+   * Uses Redis cache (5min) + Next.js cache (10min) for maximum performance
+   * This reduces WordPress server load and eliminates cold start issues
    */
   static async fetchPostBySlug(
     slug: string,
     locale?: string,
     options?: FetchOptions
   ): Promise<WordPressPost | null> {
+    const actualLocale = locale || "fr";
+    const cacheKey = CacheKeys.post(slug, actualLocale);
+
+    // Use Redis cache if available (unless explicitly disabled)
+    if (!options?.skipRedis) {
+      try {
+        return await fetchWithCache(
+          cacheKey,
+          async () => {
+            // Fetch from WordPress if not in Redis
+            const cacheOptions: FetchOptions = {
+              revalidate: 600, // 10 minutes Next.js cache
+              ...options,
+            };
+
+            const posts = await this.fetchPosts(
+              {
+                slug,
+                locale: actualLocale,
+                per_page: "1",
+                _embed: "true",
+              },
+              { ...cacheOptions, skipRedis: true } // Avoid double Redis lookup
+            );
+
+            return posts.length > 0 ? posts[0] : null;
+          },
+          CacheTTL.post
+        );
+      } catch (error) {
+        console.error(`[DataFetcher] Redis error for slug "${slug}":`, error);
+        // Fall through to direct fetch
+      }
+    }
+
+    // Fallback: Direct fetch without Redis
     try {
-      // Apply default caching if not explicitly provided
-      // 10 minute cache helps reduce 503 errors from WordPress server overload
       const cacheOptions: FetchOptions = {
-        revalidate: 600, // 10 minutes default cache (cost optimized)
-        ...options, // Allow override
+        revalidate: 600, // 10 minutes default cache
+        ...options,
       };
 
       const posts = await this.fetchPosts(
         {
           slug,
-          locale: locale || "fr",
+          locale: actualLocale,
           per_page: "1",
           _embed: "true",
         },
@@ -348,8 +416,6 @@ export class DataFetcher {
       return posts.length > 0 ? posts[0] : null;
     } catch (error) {
       console.error(`[DataFetcher] Error fetching post by slug "${slug}":`, error);
-      // Return null instead of throwing to prevent 500 errors
-      // The calling code should handle null gracefully (show 404 page)
       return null;
     }
   }
