@@ -127,7 +127,9 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   useEffect(() => {
     async function fetchNextMatch() {
       try {
-        const response = await fetch('/api/can2025/next-match');
+        const response = await fetch('/api/can2025/next-match', {
+          cache: 'no-store' // Always fetch fresh data
+        });
         const data = await response.json();
         setMatchData(data);
       } catch (error) {
@@ -138,7 +140,16 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
       }
     }
 
+    // Initial fetch
     fetchNextMatch();
+
+    // Poll for updates every 60 seconds (1 minute)
+    const pollInterval = setInterval(() => {
+      fetchNextMatch();
+    }, 60000); // 60 seconds
+
+    // Cleanup interval on unmount
+    return () => clearInterval(pollInterval);
   }, []);
 
   // Format date based on locale

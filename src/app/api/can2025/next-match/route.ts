@@ -52,8 +52,9 @@ function getCountryCode(teamName: string): string {
 
 export async function GET() {
   try {
+    // No cache for live match updates - always fetch fresh data
     const response = await fetch(`${ESPN_API_BASE}/scoreboard`, {
-      next: { revalidate: 15 } // Cache for 15 seconds for live matches
+      cache: 'no-store'
     });
 
     if (!response.ok) {
