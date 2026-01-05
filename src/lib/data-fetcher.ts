@@ -327,15 +327,21 @@ export class DataFetcher {
       const contentType = response.headers.get('content-type');
 
       if (!contentType || !contentType.includes('application/json')) {
-        // Response is not JSON (probably HTML error page from Cloudflare/WordPress)
-        const responseText = await response.text();
-        console.error(
-          `[DataFetcher] ❌ Expected JSON, got ${contentType || 'unknown content-type'} from URL: ${fullUrl}`
-        );
-        console.error(
-          `[DataFetcher] Response preview:`,
-          responseText.substring(0, 200)
-        );
+        // Response is not JSON (probably HTML 404 page from WordPress)
+        // This is EXPECTED when querying for posts that don't exist in this locale
+        // (e.g., French articles queried from EN/ES/AR WordPress sites)
+
+        // Only log errors for non-404 HTML responses (real issues)
+        if (response.status !== 404 && response.status !== 200) {
+          const responseText = await response.text();
+          console.error(
+            `[DataFetcher] ❌ Expected JSON, got ${contentType || 'unknown content-type'} (${response.status}) from URL: ${fullUrl}`
+          );
+          console.error(
+            `[DataFetcher] Response preview:`,
+            responseText.substring(0, 200)
+          );
+        }
 
         // Return empty array instead of crashing
         // This allows the app to continue serving other content
