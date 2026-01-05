@@ -13,7 +13,6 @@ export type { AnalyticsProvider } from './providers/base'
 export { BaseProvider } from './providers/base'
 export { PostHogProvider } from './providers/posthog-provider'
 export { GoogleAnalyticsProvider } from './providers/google-analytics-provider'
-export { VercelAnalyticsProvider } from './providers/vercel-provider'
 
 // Utils
 export { ConsentManager, useConsent } from './utils/consent'
