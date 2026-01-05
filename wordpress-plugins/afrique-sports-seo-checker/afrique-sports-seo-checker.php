@@ -406,8 +406,8 @@ add_action('admin_notices', function() {
     if (isset($_GET['afrique_seo_failed']) && $_GET['afrique_seo_failed'] === '1') {
         ?>
         <div class="notice notice-error is-dismissible">
-            <p><strong><?php _e('Publishing Blocked: SEO Requirements Not Met', 'afrique-sports-seo'); ?></strong></p>
-            <p><?php _e('Your post does not meet the required SEO standards. Please check the SEO Checklist meta box below the editor and fix all required items before publishing.', 'afrique-sports-seo'); ?></p>
+            <p><strong><?php echo 'Publication bloquée : Les exigences SEO ne sont pas respectées'; ?></strong></p>
+            <p><?php echo 'Votre article ne répond pas aux normes SEO requises. Veuillez vérifier la boîte SEO sous l\'éditeur et corriger tous les éléments obligatoires avant de publier.'; ?></p>
         </div>
         <?php
     }

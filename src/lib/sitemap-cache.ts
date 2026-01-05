@@ -177,8 +177,20 @@ async function fetchSitemapPosts(
         }
       }
 
+      // CRITICAL FIX: Sanitize slug to remove malformed https:/ or http:/ prefixes
+      // English WordPress site has database corruption with slugs like "https:/article-name"
+      // This was causing 1000+ GSC errors with URLs like: /en/https:/article-name
+      let sanitizedSlug = post.slug;
+      if (sanitizedSlug.startsWith('https:/') || sanitizedSlug.startsWith('http:/')) {
+        // Remove the malformed protocol prefix
+        sanitizedSlug = sanitizedSlug.replace(/^https?:\//, '');
+      } else if (sanitizedSlug.startsWith('https://') || sanitizedSlug.startsWith('http://')) {
+        // Also handle properly formatted URLs (just in case)
+        sanitizedSlug = sanitizedSlug.replace(/^https?:\/\//, '');
+      }
+
       allPosts.push({
-        slug: post.slug,
+        slug: sanitizedSlug,
         category,
         modified: post.modified,
         publishDate: post.date,
@@ -284,8 +296,16 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
           imageUrl = media.media_details?.sizes?.large?.source_url || media.source_url || "";
         }
 
+        // CRITICAL FIX: Sanitize slug to remove malformed https:/ or http:/ prefixes
+        let sanitizedSlug = post.slug;
+        if (sanitizedSlug.startsWith('https:/') || sanitizedSlug.startsWith('http:/')) {
+          sanitizedSlug = sanitizedSlug.replace(/^https?:\//, '');
+        } else if (sanitizedSlug.startsWith('https://') || sanitizedSlug.startsWith('http://')) {
+          sanitizedSlug = sanitizedSlug.replace(/^https?:\/\//, '');
+        }
+
         allPosts.push({
-          slug: post.slug,
+          slug: sanitizedSlug,
           category,
           modified: post.date, // Use publish date for news sitemap
           publishDate: post.date, // For priority calculation

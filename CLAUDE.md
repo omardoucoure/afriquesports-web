@@ -77,7 +77,7 @@ When you need to run database migrations or schema updates:
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **i18n:** next-intl (French, English, Spanish)
-- **Deployment:** Vercel
+- **Deployment:** DigitalOcean VPS with PM2
 
 ## WordPress source configuration
 

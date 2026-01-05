@@ -94,8 +94,8 @@ class Afrique_SEO_Validators {
         $length = mb_strlen($title);
 
         $result = array(
-            'name' => __('Title Length', 'afrique-sports-seo'),
-            'description' => sprintf(__('Title should be between %d and %d characters for optimal SEO and display in search results.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Longueur du titre',
+            'description' => sprintf('Le titre doit contenir entre %d et %d caractères pour un SEO optimal et un affichage correct dans les résultats de recherche.', $min, $max),
             'required' => $required,
             'status' => 'success',
             'message' => '',
@@ -104,12 +104,12 @@ class Afrique_SEO_Validators {
 
         if ($length < $min) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Title is too short (%d characters). Minimum: %d characters.', 'afrique-sports-seo'), $length, $min);
+            $result['message'] = sprintf('Le titre est trop court (%d caractères). Minimum : %d caractères.', $length, $min);
         } elseif ($length > $max) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Title is too long (%d characters). Maximum: %d characters.', 'afrique-sports-seo'), $length, $max);
+            $result['message'] = sprintf('Le titre est trop long (%d caractères). Maximum : %d caractères.', $length, $max);
         } else {
-            $result['message'] = sprintf(__('Title length is perfect (%d characters).', 'afrique-sports-seo'), $length);
+            $result['message'] = sprintf('La longueur du titre est parfaite (%d caractères).', $length);
         }
 
         return $result;
@@ -131,8 +131,8 @@ class Afrique_SEO_Validators {
         $word_count = str_word_count($clean_content);
 
         $result = array(
-            'name' => __('Word Count', 'afrique-sports-seo'),
-            'description' => sprintf(__('Content should be between %d and %d words for Google News and SEO optimization.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Nombre de mots',
+            'description' => sprintf('Le contenu doit contenir entre %d et %d mots pour une optimisation Google News et SEO.', $min, $max),
             'required' => $required,
             'status' => 'success',
             'message' => '',
@@ -141,12 +141,12 @@ class Afrique_SEO_Validators {
 
         if ($word_count < $min) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Content is too short (%d words). Minimum: %d words.', 'afrique-sports-seo'), $word_count, $min);
+            $result['message'] = sprintf('Le contenu est trop court (%d mots). Minimum : %d mots.', $word_count, $min);
         } elseif ($max > 0 && $word_count > $max) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Content is very long (%d words). Consider breaking into multiple articles. Maximum recommended: %d words.', 'afrique-sports-seo'), $word_count, $max);
+            $result['message'] = sprintf('Le contenu est très long (%d mots). Envisagez de diviser en plusieurs articles. Maximum recommandé : %d mots.', $word_count, $max);
         } else {
-            $result['message'] = sprintf(__('Word count is good (%d words).', 'afrique-sports-seo'), $word_count);
+            $result['message'] = sprintf('Le nombre de mots est bon (%d mots).', $word_count);
         }
 
         return $result;
@@ -168,8 +168,8 @@ class Afrique_SEO_Validators {
         $alt_max_chars = $this->plugin->get_setting('image_alt_max_chars');
 
         $result = array(
-            'name' => __('Featured Image', 'afrique-sports-seo'),
-            'description' => sprintf(__('Featured image should be at least %dx%d pixels, under %dKB, with alt text under %d characters.', 'afrique-sports-seo'), $min_width, $min_height, $max_size_kb, $alt_max_chars),
+            'name' => 'Image à la une',
+            'description' => sprintf(__('L\'image à la une doit faire au moins %dx%d pixels, peser moins de %dKB, avec un texte alternatif de moins de %d caractères.', 'afrique-sports-seo'), $min_width, $min_height, $max_size_kb, $alt_max_chars),
             'required' => $required,
             'status' => 'success',
             'message' => '',
@@ -191,7 +191,7 @@ class Afrique_SEO_Validators {
 
         if (!$thumbnail_id) {
             $result['status'] = 'error';
-            $result['message'] = __('No featured image set.', 'afrique-sports-seo');
+            $result['message'] = 'Aucune image à la une définie.';
             return $result;
         }
 
@@ -209,7 +209,7 @@ class Afrique_SEO_Validators {
             if ($width < $min_width || $height < $min_height) {
                 $result['status'] = 'error';
                 $result['message'] = sprintf(
-                    __('Image dimensions (%dx%d) are too small. Minimum: %dx%d pixels.', 'afrique-sports-seo'),
+                    __('Les dimensions de l\'image (%dx%d) sont trop petites. Minimum : %dx%d pixels.', 'afrique-sports-seo'),
                     $width,
                     $height,
                     $min_width,
@@ -229,7 +229,7 @@ class Afrique_SEO_Validators {
             if ($file_size_kb > $max_size_kb) {
                 $result['status'] = 'error';
                 $result['message'] = sprintf(
-                    __('Image file size (%dKB) is too large. Maximum: %dKB for fast loading.', 'afrique-sports-seo'),
+                    'La taille du fichier image (%dKB) est trop grande. Maximum : %dKB pour un chargement rapide.',
                     $file_size_kb,
                     $max_size_kb
                 );
@@ -256,7 +256,7 @@ class Afrique_SEO_Validators {
                     // Check for critical quality issues
                     if (!empty($quality_analysis['issues'])) {
                         $result['status'] = 'warning';
-                        $result['message'] = __('Image quality issues detected: ', 'afrique-sports-seo') .
+                        $result['message'] = 'Image quality issues detected: ' .
                                            implode('; ', $quality_analysis['issues']);
                     }
                 }
@@ -267,18 +267,18 @@ class Afrique_SEO_Validators {
         $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
         $alt_length = mb_strlen($alt_text);
 
-        $result['details']['alt_text'] = $alt_text ? $alt_length . ' chars' : __('None', 'afrique-sports-seo');
+        $result['details']['alt_text'] = $alt_text ? $alt_length . ' chars' : 'None';
 
         if ($alt_required && empty($alt_text)) {
             $result['status'] = 'error';
-            $result['message'] = __('Featured image is missing alt text. Alt text is required for accessibility and SEO.', 'afrique-sports-seo');
+            $result['message'] = 'Featured image is missing alt text. Alt text is required for accessibility and SEO.';
             return $result;
         }
 
         if ($alt_text && $alt_length > $alt_max_chars) {
             $result['status'] = 'warning';
             $result['message'] = sprintf(
-                __('Alt text is too long (%d characters). Maximum recommended: %d characters.', 'afrique-sports-seo'),
+                'Alt text is too long (%d characters). Maximum recommended: %d characters.',
                 $alt_length,
                 $alt_max_chars
             );
@@ -287,7 +287,7 @@ class Afrique_SEO_Validators {
         // All checks passed
         if ($result['status'] === 'success') {
             $result['message'] = sprintf(
-                __('Featured image meets all requirements (%s, %s).', 'afrique-sports-seo'),
+                'Featured image meets all requirements (%s, %s).',
                 $result['details']['dimensions'],
                 $result['details']['file_size']
             );
@@ -308,8 +308,8 @@ class Afrique_SEO_Validators {
         $max = $this->plugin->get_setting('meta_desc_max');
 
         $result = array(
-            'name' => __('Meta Description', 'afrique-sports-seo'),
-            'description' => sprintf(__('Meta description should be between %d and %d characters for optimal display in search results.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Meta Description',
+            'description' => sprintf('La méta description doit contenir entre %d et %d caractères pour un affichage optimal dans les résultats de recherche.', $min, $max),
             'required' => $required,
             'status' => 'success',
             'message' => '',
@@ -344,15 +344,15 @@ class Afrique_SEO_Validators {
 
         if (empty($meta_desc)) {
             $result['status'] = $required ? 'error' : 'warning';
-            $result['message'] = __('No meta description set. Use Yoast SEO, Rank Math, or All in One SEO to add one.', 'afrique-sports-seo');
+            $result['message'] = 'Aucune méta description définie. Utilisez Yoast SEO, Rank Math ou All in One SEO pour en ajouter une.';
         } elseif ($length < $min) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Meta description is too short (%d characters). Minimum: %d characters.', 'afrique-sports-seo'), $length, $min);
+            $result['message'] = sprintf('La méta description est trop courte (%d caractères). Minimum : %d caractères.', $length, $min);
         } elseif ($length > $max) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Meta description is too long (%d characters). Maximum: %d characters.', 'afrique-sports-seo'), $length, $max);
+            $result['message'] = sprintf('La méta description est trop longue (%d caractères). Maximum : %d caractères.', $length, $max);
         } else {
-            $result['message'] = sprintf(__('Meta description length is perfect (%d characters).', 'afrique-sports-seo'), $length);
+            $result['message'] = sprintf('La longueur de la méta description est parfaite (%d caractères).', $length);
         }
 
         return $result;
@@ -369,8 +369,8 @@ class Afrique_SEO_Validators {
         $max = $this->plugin->get_setting('internal_links_max');
 
         $result = array(
-            'name' => __('Internal Links', 'afrique-sports-seo'),
-            'description' => sprintf(__('Should have %d to %d internal links to related content on your site.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Liens internes',
+            'description' => sprintf('Doit contenir %d à %d liens internes vers du contenu connexe sur votre site.', $min, $max),
             'required' => true,
             'status' => 'success',
             'message' => '',
@@ -382,7 +382,7 @@ class Afrique_SEO_Validators {
         if (empty($matches[2])) {
             $result['status'] = 'error';
             $result['value'] = 0;
-            $result['message'] = sprintf(__('No links found. Add at least %d internal links to related articles.', 'afrique-sports-seo'), $min);
+            $result['message'] = sprintf('Aucun lien trouvé. Ajoutez au moins %d liens internes vers des articles connexes.', $min);
             return $result;
         }
 
@@ -401,12 +401,12 @@ class Afrique_SEO_Validators {
 
         if ($internal_count < $min) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Not enough internal links (%d found). Minimum: %d links.', 'afrique-sports-seo'), $internal_count, $min);
+            $result['message'] = sprintf('Pas assez de liens internes (%d trouvé(s)). Minimum : %d liens.', $internal_count, $min);
         } elseif ($internal_count > $max) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Too many internal links (%d found). Maximum recommended: %d links.', 'afrique-sports-seo'), $internal_count, $max);
+            $result['message'] = sprintf('Trop de liens internes (%d trouvé(s)). Maximum recommandé : %d liens.', $internal_count, $max);
         } else {
-            $result['message'] = sprintf(__('Good number of internal links (%d links).', 'afrique-sports-seo'), $internal_count);
+            $result['message'] = sprintf('Bon nombre de liens internes (%d lien(s)).', $internal_count);
         }
 
         return $result;
@@ -425,8 +425,8 @@ class Afrique_SEO_Validators {
         $max = $this->plugin->get_setting('category_max');
 
         $result = array(
-            'name' => __('Categories', 'afrique-sports-seo'),
-            'description' => sprintf(__('Should have %d to %d categories assigned.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Catégories',
+            'description' => sprintf('Doit avoir %d à %d catégories assignées.', $min, $max),
             'required' => $required,
             'status' => 'success',
             'message' => '',
@@ -445,12 +445,12 @@ class Afrique_SEO_Validators {
 
         if ($count < $min) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Not enough categories (%d assigned). Minimum: %d categories.', 'afrique-sports-seo'), $count, $min);
+            $result['message'] = sprintf('Pas assez de catégories (%d assignée(s)). Minimum : %d catégorie(s).', $count, $min);
         } elseif ($count > $max) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Too many categories (%d assigned). Maximum recommended: %d categories.', 'afrique-sports-seo'), $count, $max);
+            $result['message'] = sprintf('Trop de catégories (%d assignée(s)). Maximum recommandé : %d catégorie(s).', $count, $max);
         } else {
-            $result['message'] = sprintf(__('Good number of categories (%d assigned).', 'afrique-sports-seo'), $count);
+            $result['message'] = sprintf('Bon nombre de catégories (%d assignée(s)).', $count);
         }
 
         return $result;
@@ -468,8 +468,8 @@ class Afrique_SEO_Validators {
         $max = $this->plugin->get_setting('tags_max');
 
         $result = array(
-            'name' => __('Tags', 'afrique-sports-seo'),
-            'description' => sprintf(__('Should have %d to %d tags for content organization.', 'afrique-sports-seo'), $min, $max),
+            'name' => 'Étiquettes',
+            'description' => sprintf('Doit avoir %d à %d étiquettes pour organiser le contenu.', $min, $max),
             'required' => false,
             'status' => 'success',
             'message' => '',
@@ -488,12 +488,12 @@ class Afrique_SEO_Validators {
 
         if ($count < $min) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Few tags (%d assigned). Recommended minimum: %d tags.', 'afrique-sports-seo'), $count, $min);
+            $result['message'] = sprintf(__('Peu d\'étiquettes (%d assignée(s)). Minimum recommandé : %d étiquette(s).', 'afrique-sports-seo'), $count, $min);
         } elseif ($count > $max) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Too many tags (%d assigned). Maximum recommended: %d tags.', 'afrique-sports-seo'), $count, $max);
+            $result['message'] = sprintf(__('Trop d\'étiquettes (%d assignée(s)). Maximum recommandé : %d étiquette(s).', 'afrique-sports-seo'), $count, $max);
         } else {
-            $result['message'] = sprintf(__('Good number of tags (%d assigned).', 'afrique-sports-seo'), $count);
+            $result['message'] = sprintf(__('Bon nombre d\'étiquettes (%d assignée(s)).', 'afrique-sports-seo'), $count);
         }
 
         return $result;
@@ -510,8 +510,8 @@ class Afrique_SEO_Validators {
         $max_length = $this->plugin->get_setting('permalink_max_length');
 
         $result = array(
-            'name' => __('Permalink', 'afrique-sports-seo'),
-            'description' => sprintf(__('Permalink should be under %d characters for clean URLs.', 'afrique-sports-seo'), $max_length),
+            'name' => 'Permalien',
+            'description' => sprintf('Le permalien doit contenir moins de %d caractères pour des URL propres.', $max_length),
             'required' => false,
             'status' => 'success',
             'message' => '',
@@ -530,9 +530,9 @@ class Afrique_SEO_Validators {
 
         if ($length > $max_length) {
             $result['status'] = 'warning';
-            $result['message'] = sprintf(__('Permalink is long (%d characters). Consider shortening to under %d characters.', 'afrique-sports-seo'), $length, $max_length);
+            $result['message'] = sprintf('Le permalien est long (%d caractères). Envisagez de le raccourcir à moins de %d caractères.', $length, $max_length);
         } else {
-            $result['message'] = sprintf(__('Permalink length is good (%d characters).', 'afrique-sports-seo'), $length);
+            $result['message'] = sprintf('La longueur du permalien est bonne (%d caractères).', $length);
         }
 
         return $result;
@@ -548,8 +548,8 @@ class Afrique_SEO_Validators {
         $min_headings = $this->plugin->get_setting('content_min_headings');
 
         $result = array(
-            'name' => __('Subheadings (H2/H3)', 'afrique-sports-seo'),
-            'description' => sprintf(__('Should have at least %d subheadings (H2/H3) for better readability.', 'afrique-sports-seo'), $min_headings),
+            'name' => 'Sous-titres (H2/H3)',
+            'description' => sprintf('Doit avoir au moins %d sous-titres (H2/H3) pour une meilleure lisibilité.', $min_headings),
             'required' => true,
             'status' => 'success',
             'message' => '',
@@ -563,9 +563,9 @@ class Afrique_SEO_Validators {
 
         if ($count < $min_headings) {
             $result['status'] = 'error';
-            $result['message'] = sprintf(__('Not enough subheadings (%d found). Minimum: %d subheadings.', 'afrique-sports-seo'), $count, $min_headings);
+            $result['message'] = sprintf('Pas assez de sous-titres (%d trouvé(s)). Minimum : %d sous-titre(s).', $count, $min_headings);
         } else {
-            $result['message'] = sprintf(__('Good use of subheadings (%d found).', 'afrique-sports-seo'), $count);
+            $result['message'] = sprintf('Bonne utilisation des sous-titres (%d trouvé(s)).', $count);
         }
 
         return $result;
@@ -579,8 +579,8 @@ class Afrique_SEO_Validators {
      */
     public function validate_seo_plugin($post_id) {
         $result = array(
-            'name' => __('SEO Plugin Score', 'afrique-sports-seo'),
-            'description' => __('Yoast SEO, Rank Math, or All in One SEO score should be OK or Good.', 'afrique-sports-seo'),
+            'name' => 'SEO Plugin Score',
+            'description' => 'Yoast SEO, Rank Math, or All in One SEO score should be OK or Good.',
             'required' => false,
             'status' => 'info',
             'message' => '',
@@ -595,14 +595,14 @@ class Afrique_SEO_Validators {
 
                 if ($score >= 70) {
                     $result['status'] = 'success';
-                    $result['message'] = sprintf(__('Yoast SEO score: %d (Good)', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Yoast SEO score: %d (Good)', $score);
                 } elseif ($score >= 40) {
                     $result['status'] = 'warning';
-                    $result['message'] = sprintf(__('Yoast SEO score: %d (OK). Consider improving.', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Yoast SEO score: %d (OK). Consider improving.', $score);
                 } else {
                     $result['status'] = 'error';
                     $result['required'] = true;
-                    $result['message'] = sprintf(__('Yoast SEO score: %d (Needs improvement). Please fix SEO issues.', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Yoast SEO score: %d (Needs improvement). Please fix SEO issues.', $score);
                 }
 
                 return $result;
@@ -618,14 +618,14 @@ class Afrique_SEO_Validators {
 
                 if ($score >= 80) {
                     $result['status'] = 'success';
-                    $result['message'] = sprintf(__('Rank Math score: %d (Good)', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Rank Math score: %d (Good)', $score);
                 } elseif ($score >= 51) {
                     $result['status'] = 'warning';
-                    $result['message'] = sprintf(__('Rank Math score: %d (OK). Consider improving.', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Rank Math score: %d (OK). Consider improving.', $score);
                 } else {
                     $result['status'] = 'error';
                     $result['required'] = true;
-                    $result['message'] = sprintf(__('Rank Math score: %d (Needs improvement). Please fix SEO issues.', 'afrique-sports-seo'), $score);
+                    $result['message'] = sprintf('Rank Math score: %d (Needs improvement). Please fix SEO issues.', $score);
                 }
 
                 return $result;
@@ -633,7 +633,7 @@ class Afrique_SEO_Validators {
         }
 
         // No SEO plugin detected or no score
-        $result['message'] = __('No SEO plugin detected. Consider installing Yoast SEO or Rank Math.', 'afrique-sports-seo');
+        $result['message'] = 'No SEO plugin detected. Consider installing Yoast SEO or Rank Math.';
 
         return $result;
     }
