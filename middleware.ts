@@ -29,11 +29,12 @@ export function middleware(request: NextRequest) {
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0] || '';
 
-  // Handle root path - redirect to default locale
+  // Handle root path - rewrite to French locale WITHOUT redirect (SEO friendly)
   if (pathname === '/' || pathname === '') {
     const url = request.nextUrl.clone();
     url.pathname = `/${DEFAULT_LOCALE}`;
-    return NextResponse.redirect(url);
+    // Use rewrite instead of redirect to serve French content at / without changing URL
+    return NextResponse.rewrite(url);
   }
 
   // Check if first segment looks like a file (contains a dot and matches file extension pattern)
