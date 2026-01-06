@@ -107,7 +107,7 @@ export class WordPressRetriever implements ContextSource {
         } else if (query.params.topic) {
           // Fallback: use first 2-3 meaningful words from topic
           const topicWords = query.params.topic.split(' ');
-          const meaningfulWords = topicWords.filter(word => word.length > 3);
+          const meaningfulWords = topicWords.filter((word: string) => word.length > 3);
           keywords.push(...meaningfulWords.slice(0, 2));
         }
         if (query.params.region && query.params.region !== 'Afrique') {
