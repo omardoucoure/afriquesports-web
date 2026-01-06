@@ -144,19 +144,23 @@ export class ContentGenerator {
     switch (request.contentType) {
       case 'match-preview':
       case 'match-report':
-        if (request.params.homeTeam) keywords.push(request.params.homeTeam);
-        if (request.params.awayTeam) keywords.push(request.params.awayTeam);
-        if (request.params.competition) keywords.push(request.params.competition);
+        if ('homeTeam' in request.params && request.params.homeTeam) keywords.push(request.params.homeTeam);
+        if ('awayTeam' in request.params && request.params.awayTeam) keywords.push(request.params.awayTeam);
+        if ('competition' in request.params && request.params.competition) keywords.push(request.params.competition);
         break;
 
       case 'news-article':
-        if (request.params.topic) keywords.push(request.params.topic);
-        if (request.params.keywords) keywords.push(...request.params.keywords);
+        if ('topic' in request.params && request.params.topic) keywords.push(request.params.topic);
+        if ('keywords' in request.params && request.params.keywords) keywords.push(...request.params.keywords);
         break;
 
       case 'player-profile':
-        if (request.params.playerName) keywords.push(request.params.playerName);
-        if (request.params.team) keywords.push(request.params.team);
+        if ('playerName' in request.params && request.params.playerName) keywords.push(request.params.playerName);
+        if ('team' in request.params && request.params.team) keywords.push(request.params.team);
+        break;
+
+      case 'ranking':
+        if ('topic' in request.params && request.params.topic) keywords.push(request.params.topic);
         break;
     }
 
