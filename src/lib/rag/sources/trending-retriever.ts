@@ -97,10 +97,10 @@ export class TrendingRetriever implements ContextSource {
    */
   private async fetchPostById(postId: string, locale: string): Promise<WordPressPost | null> {
     try {
-      const posts = await DataFetcher.getPosts({
+      const posts = await DataFetcher.fetchPosts({
         locale,
-        perPage: 1,
-        include: [parseInt(postId)],
+        per_page: '1',
+        include: String(parseInt(postId)),
       });
 
       return posts.length > 0 ? posts[0] : null;
