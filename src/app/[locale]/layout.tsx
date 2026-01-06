@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
-import { IntlProvider } from "@/components/providers";
+import { IntlProvider, ActiriseProvider } from "@/components/providers";
 import { PostHogProvider } from "@/components/providers/PostHogProvider";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { SessionTracker } from "@/components/tracking/SessionTracker";
@@ -38,12 +38,14 @@ export default async function LocaleLayout({
     <div lang={locale} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen">
       <AnalyticsProvider locale={locale}>
         <PostHogProvider>
-          <IntlProvider locale={locale} messages={messages}>
-            {children}
-            <LocaleModal />
-            <SessionTracker />
-            <ScrollTracker />
-          </IntlProvider>
+          <ActiriseProvider locale={locale}>
+            <IntlProvider locale={locale} messages={messages}>
+              {children}
+              <LocaleModal />
+              <SessionTracker />
+              <ScrollTracker />
+            </IntlProvider>
+          </ActiriseProvider>
         </PostHogProvider>
       </AnalyticsProvider>
     </div>

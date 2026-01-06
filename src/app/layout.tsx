@@ -153,6 +153,22 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
         <link rel="dns-prefetch" href="https://cms.realdemadrid.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.flashb.id" />
+
+        {/* Actirise SDK - Universal script for ad monetization */}
+        {/* IMPORTANT: Do not inject via GTM or control with CMP - Actirise handles this */}
+        <script
+          src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
+          async
+          data-cfasync="false"
+        />
+        <script
+          type="text/javascript"
+          data-cfasync="false"
+          dangerouslySetInnerHTML={{
+            __html: 'window._hbdbrk = window._hbdbrk || [];'
+          }}
+        />
 
         {/* Google AdSense with Auto ads support */}
         {/* IMPORTANT: Enable Auto ads in AdSense dashboard (Ads > Auto ads) for 10-15% revenue boost */}
