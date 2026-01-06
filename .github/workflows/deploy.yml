@@ -21,31 +21,35 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
+          script_stop: true
+          command_timeout: 30m
           script: |
+            set -e  # Exit on any error
+
             echo "🚀 Starting deployment..."
 
             # Navigate to project directory
-            cd /mnt/volume_nyc1_01/nextjs-apps/afriquesports-web
+            cd /mnt/volume_nyc1_01/nextjs-apps/afriquesports-web || exit 1
 
             # Pull latest changes
             echo "📥 Pulling latest code from GitHub..."
-            git pull origin main
+            git pull origin main || exit 1
 
             # Check if package.json changed
             if git diff HEAD@{1} HEAD --name-only | grep -q "package.json"; then
               echo "📦 package.json changed, installing dependencies..."
-              npm install --production
+              npm install --production || exit 1
             else
               echo "✓ No dependency changes detected"
             fi
 
             # Build the application
             echo "🏗️ Building Next.js application..."
-            npm run build
+            npm run build || exit 1
 
             # Reload PM2 (graceful restart)
             echo "🔄 Reloading PM2..."
-            pm2 reload ecosystem.config.js --update-env
+            pm2 reload ecosystem.config.js --update-env || exit 1
 
             # Wait for startup
             sleep 5
