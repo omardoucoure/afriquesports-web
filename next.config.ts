@@ -271,8 +271,8 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year cache for images
-    // Quality levels used across the site (default 75, article cards 85, hero images 95)
-    qualities: [75, 85, 95],
+    // Quality levels used across the site (default 75, article cards 85, featured images 90, hero images 95)
+    qualities: [75, 85, 90, 95],
     // Note: quality must be set per-image using quality prop on Image component (Next.js 16)
     remotePatterns: [
       {
