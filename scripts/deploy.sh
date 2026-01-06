@@ -53,9 +53,9 @@ else
   echo ""
 fi
 
-# Clear build cache
+# Clear build cache (ignore errors if some files are locked)
 echo "🧹 Clearing build cache..."
-rm -rf .next
+rm -rf .next 2>/dev/null || true
 echo ""
 
 # Build the application
