@@ -53,6 +53,11 @@ else
   echo ""
 fi
 
+# Clear build cache
+echo "🧹 Clearing build cache..."
+rm -rf .next
+echo ""
+
 # Build the application
 echo "🏗️ Building Next.js application..."
 npm run build || exit 1
