@@ -37,6 +37,7 @@ export function ArticleCardHorizontal({
             fill
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, 180px"
             className="object-cover"
+            quality={85}
             priority={priority}
           />
         </div>

@@ -82,7 +82,7 @@ export function MostReadWidget({
             ? getArticleUrl(article as WordPressPost)
             : `/${(article as TrendingArticle).category || 'football'}/${article.slug}`;
           const imageUrl = isFullPost
-            ? getFeaturedImageUrl(article as WordPressPost, "medium")
+            ? getFeaturedImageUrl(article as WordPressPost, "medium_large")
             : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.svg');
           const authorName = isFullPost
             ? getAuthorName(article as WordPressPost)
@@ -107,6 +107,7 @@ export function MostReadWidget({
                     fill
                     sizes="(max-width: 768px) 100vw, 340px"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    quality={85}
                   />
                   {/* Gradient overlay for better text readability */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />

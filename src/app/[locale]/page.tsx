@@ -343,27 +343,11 @@ export default async function Home({ params }: HomePageProps) {
 
               <Suspense
                 fallback={
-                  <>
-                    {/* Mobile skeleton */}
-                    <div className="lg:hidden space-y-4">
-                      {Array.from({ length: 20 }).map((_, i) => (
-                        <ArticleCardHorizontalSkeleton key={i} />
-                      ))}
-                    </div>
-                    {/* Desktop skeleton */}
-                    <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                      {Array.from({ length: 18 }).map((_, i) => (
-                        <div key={i} className="bg-white rounded overflow-hidden animate-pulse">
-                          <div className="aspect-video bg-gray-200" />
-                          <div className="p-4 space-y-3">
-                            <div className="h-4 bg-gray-200 rounded w-3/4" />
-                            <div className="h-4 bg-gray-200 rounded w-1/2" />
-                            <div className="h-3 bg-gray-200 rounded w-1/4" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
+                  <div className="space-y-4">
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <ArticleCardHorizontalSkeleton key={i} />
+                    ))}
+                  </div>
                 }
               >
                 <LatestArticlesSection locale={locale} />
