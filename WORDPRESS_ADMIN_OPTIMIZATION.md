@@ -42,7 +42,7 @@ CREATE INDEX meta_value_index ON wp_8_postmeta(meta_value(191));
 **Status:** Connected and working
 **Client:** PhpRedis 5.3.7
 **Redis Version:** 7.0.15
-**Cache Hit Ratio:** ~75% (291,001 hits / 97,778 misses)
+**Cache Hit Ratio:** ~81% (43,884 hits / 10,056 misses) - Updated Jan 5, 2026
 
 **Configuration:**
 ```php
@@ -74,6 +74,51 @@ WP_REDIS_MAXTTL: 604800 (7 days)
 - ✅ Disable Performance
 
 **Why:** Prevents session hijacking, ensures real-time updates
+
+---
+
+### 4. **Browser-Side Performance Optimization** ✅
+
+**Must-Use Plugin:** `admin-performance.php`
+**Location:** `/var/www/html/wp-content/mu-plugins/admin-performance.php`
+**Deployed:** January 5, 2026 17:35 UTC
+
+**Key Optimizations:**
+1. ✅ **Heartbeat API disabled** (major performance killer)
+   - Disabled on frontend completely
+   - Disabled in admin except post editor
+   - Slowed down from 15s to 60s when enabled
+
+2. ✅ **Post revisions limited** to 3 (from unlimited)
+
+3. ✅ **Autosave interval** increased to 5 minutes (from 1 minute)
+
+4. ✅ **Dashboard widgets removed** (WordPress News, Events, Quick Draft, etc.)
+
+5. ✅ **Emoji scripts disabled** (unnecessary overhead)
+
+6. ✅ **Admin memory limit** increased to 512M
+
+7. ✅ **Post count queries cached** (5-minute cache)
+
+8. ✅ **Posts per page limited** to 20 (reduces query time)
+
+9. ✅ **Admin bar disabled** on frontend
+
+10. ✅ **File editor disabled** (security + performance)
+
+**Expected Impact:**
+- **Eliminates constant AJAX requests** (every 15 seconds)
+- **Reduces JavaScript overhead** by 30-40%
+- **Faster page loads** in browser (especially on slower connections)
+- **Reduced network activity** improves perceived performance
+- **Lower CPU usage** in browser
+
+**To Test:**
+1. Clear browser cache (Ctrl+Shift+Delete)
+2. Open WordPress admin: https://cms.realdemadrid.com/afriquesports/wp-admin/
+3. Check browser Network tab - should see NO heartbeat requests
+4. Navigation should feel snappier
 
 ---
 
@@ -286,9 +331,10 @@ bash /tmp/optimize-wordpress-database.sh
 ### ✅ Completed Optimizations:
 1. **Database indexes added** - 2 new indexes on postmeta
 2. **All tables optimized** - Rebuilt and analyzed
-3. **Redis cache working** - 75% hit ratio
+3. **Redis cache working** - 81% hit ratio (updated Jan 5)
 4. **Cloudflare configured** - Admin bypass, high security
 5. **Server tuned** - Redis restarted, cache cleared
+6. **Browser-side optimizations** - Heartbeat API disabled, AJAX optimized (Jan 5)
 
 ### Expected Performance:
 - **Admin Dashboard:** <1 second
@@ -297,11 +343,12 @@ bash /tmp/optimize-wordpress-database.sh
 - **Overall:** **10-20x faster** than before
 
 ### If Still Slow:
-1. Check browser console for JavaScript errors
-2. Disable plugins one by one to find culprit
-3. Install Query Monitor to identify slow queries
-4. Check network tab in browser DevTools
-5. Consider upgrading server resources (RAM/CPU)
+1. **Clear browser cache** - Ctrl+Shift+Delete (critical after browser optimizations)
+2. **Check browser Network tab** - Verify NO heartbeat AJAX requests
+3. **Check Redis hit ratio** - Should be >80% (`redis-cli INFO stats | grep keyspace`)
+4. **Disable plugins one by one** - Find performance culprits
+5. **Install Query Monitor** - Identify slow database queries
+6. **Check server resources** - Monitor RAM/CPU usage with `htop`
 
 ---
 

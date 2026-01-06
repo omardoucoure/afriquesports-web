@@ -137,20 +137,16 @@ export async function GET(request: NextRequest) {
     // Always use French base URL for comments - all posts are stored in main site
     // The /en/ and /es/ paths often return HTML instead of JSON
     const baseUrl = 'https://cms.realdemadrid.com/afriquesports'
-    // Add cache buster to prevent WordPress caching
-    const cacheBuster = `_=${Date.now()}`
-    const wpUrl = `${baseUrl}/wp-json/wp/v2/comments?post=${articleId}&per_page=100&order=desc&orderby=date&${cacheBuster}`
+    const wpUrl = `${baseUrl}/wp-json/wp/v2/comments?post=${articleId}&per_page=100&order=desc&orderby=date`
 
     console.log('[Comments API] Fetching from:', wpUrl)
 
-    // Fetch comments from WordPress (no auth needed for reading)
+    // Fetch comments from WordPress with 60-second cache to reduce load
     const response = await fetch(wpUrl, {
-      cache: 'no-store', // Disable Next.js cache to get fresh comments
+      next: { revalidate: 60 }, // Cache for 60 seconds
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Afrique Sports Website/1.0',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
       }
     })
 

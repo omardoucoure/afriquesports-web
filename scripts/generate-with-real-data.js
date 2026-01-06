@@ -12,8 +12,12 @@
 const fs = require('fs');
 const { parse } = require('csv-parse/sync');
 const { execSync } = require('child_process');
-const FootballAPI = require('./lib/football-api');
+const DataMerger = require('./lib/scrapers/data-merger');
+const PlayerDataCache = require('./lib/player-data-cache');
 const EntityExtractor = require('./lib/entity-extractor');
+const PostTypeDetector = require('./lib/post-type-detector');
+const PromptTemplates = require('./lib/prompt-templates');
+const AutonomousResearcher = require('./lib/autonomous-researcher');
 
 // Parse arguments
 const args = process.argv.slice(2).reduce((acc, arg) => {
@@ -23,8 +27,12 @@ const args = process.argv.slice(2).reduce((acc, arg) => {
 }, {});
 
 const postId = args['post-id'];
-const modelName = args.model || 'qwen2.5:14b';
+const modelName = args.model || 'qwen2.5:14b-instruct';  // 14B model - MacBook Pro M1 Pro (32GB RAM)
 const dryRun = args['dry-run'];
+
+// MacBook Pro M1 Pro Configuration (localhost)
+const OLLAMA_HOST = 'localhost';
+const OLLAMA_PORT = '11434';
 
 async function generateWithRealData() {
   console.log('🤖 Enhanced Content Generation with Real Football Data\n');
@@ -49,58 +57,132 @@ async function generateWithRealData() {
   console.log(`   Category: ${post.category}`);
   console.log(`   Clicks: ${post.clicks}\n`);
 
-  // Step 1: Extract entities from title
-  console.log('🔍 Step 1: Extracting entities...');
+  // Step 1: Detect post type first (needed for autonomous research)
+  const detector = new PostTypeDetector();
+  const postType = detector.detect(post.title, post.category);
+  const rankingNumber = detector.extractRankingNumber(post.title);
+
+  console.log('📋 Step 1: Post type detection');
+  console.log(`   Type: ${postType}`);
+  if (rankingNumber) {
+    console.log(`   Ranking size: Top ${rankingNumber}`);
+  }
+  console.log();
+
+  // Step 2: Autonomous research to find missing entities
+  console.log('🤖 Step 2: Autonomous research...');
+  const researcher = new AutonomousResearcher();
+  const research = await researcher.research(post.title, post.category, postType);
+
+  // Step 3: Extract entities from title (manual extraction)
+  console.log('🔍 Step 3: Extracting entities from title...');
   const extractor = new EntityExtractor();
-  const entities = extractor.extract(post.title);
+  const titleEntities = extractor.extract(post.title);
+
+  // Merge research findings with title entities
+  const entities = {
+    players: [...new Set([...titleEntities.players, ...research.entities.players])],
+    teams: [...new Set([...titleEntities.teams, ...research.entities.teams])],
+    topic: titleEntities.topic
+  };
+
   const dataNeeds = extractor.getDataNeeds(entities);
 
-  console.log(`   Players found: ${entities.players.length ? entities.players.join(', ') : 'None'}`);
+  console.log(`   Total players to fetch: ${entities.players.length}`);
+  console.log(`   Players: ${entities.players.join(', ')}`);
   console.log(`   Teams found: ${entities.teams.length ? entities.teams.join(', ') : 'None'}`);
   console.log(`   Topic type: ${entities.topic}\n`);
 
-  // Step 2: Fetch real football data
+  // Step 4: Fetch real football data from web scrapers with caching
   let factSheet = '';
-  const footballAPI = new FootballAPI();
 
   if (dataNeeds.fetchPlayers && entities.players.length > 0) {
-    console.log('🌐 Step 2: Fetching player data from API-Football...');
+    console.log('🌐 Step 4: Fetching player data from web scrapers...');
 
     try {
-      const playersData = await footballAPI.getPlayersData(entities.players);
+      // Initialize cache
+      const cache = new PlayerDataCache();
+      await cache.init();
 
-      if (playersData.length > 0) {
+      // Check cache first
+      const cachedResults = await cache.getMultiple(entities.players);
+      const playersToFetch = [];
+      const cachedData = [];
+
+      cachedResults.forEach(({ playerName, cached }) => {
+        if (cached) {
+          cachedData.push(cached);
+        } else {
+          playersToFetch.push(playerName);
+        }
+      });
+
+      console.log(`   💾 Cache: ${cachedData.length} hits, ${playersToFetch.length} misses`);
+
+      // Fetch missing players
+      let freshData = [];
+      if (playersToFetch.length > 0) {
+        console.log(`   🌐 Scraping ${playersToFetch.length} players...`);
+        const merger = new DataMerger();
+        freshData = await merger.fetchPlayersData(playersToFetch);
+
+        // Cache the results
+        for (const result of freshData) {
+          await cache.set(result.playerName, result);
+        }
+      }
+
+      // Combine cached and fresh data
+      const allPlayersData = [...cachedData, ...freshData];
+      const successfulPlayers = allPlayersData.filter(p => p.success);
+
+      if (successfulPlayers.length > 0) {
         factSheet += '\n📊 DONNÉES VÉRIFIÉES (2025):\n';
-        playersData.forEach(player => {
+
+        successfulPlayers.forEach(playerResult => {
+          const player = playerResult.data;
+          if (!player) return;
+
           factSheet += `\n- **${player.name}** (${player.nationality})\n`;
           factSheet += `  • Âge: ${player.age} ans\n`;
-          factSheet += `  • Club: ${player.club} (${player.country || 'International'})\n`;
+          factSheet += `  • Club: ${player.currentClub}\n`;
           factSheet += `  • Poste: ${player.position}\n`;
-          if (player.stats.goals > 0 || player.stats.assists > 0) {
-            factSheet += `  • Statistiques 2024: ${player.stats.goals} buts, ${player.stats.assists} passes décisives en ${player.stats.appearances} matchs\n`;
+          factSheet += `  • Valeur marchande: ${player.marketValue}\n`;
+
+          if (player.stats.appearances > 0) {
+            factSheet += `  • Statistiques ${player.stats.season}: ${player.stats.goals} buts, ${player.stats.assists} passes décisives en ${player.stats.appearances} matchs\n`;
+            if (player.stats.rating) {
+              factSheet += `  • Note moyenne: ${player.stats.rating}/10\n`;
+            }
           }
         });
 
-        console.log(`   ✅ Fetched data for ${playersData.length} players`);
+        console.log(`   ✅ Got data for ${successfulPlayers.length}/${entities.players.length} players`);
       } else {
-        console.log('   ⚠️  No player data found');
+        console.log('   ⚠️  No player data found from scrapers');
       }
+
+      // Show cache stats
+      const stats = await cache.getStats();
+      console.log(`   📊 Cache stats: ${stats.valid} valid, ${stats.expired} expired, ${stats.total} total`);
+
+      await cache.close();
     } catch (error) {
-      console.log(`   ⚠️  API unavailable: ${error.message}`);
+      console.log(`   ⚠️  Scraper error: ${error.message}`);
       console.log('   📝 Continuing with general prompt...');
     }
   } else {
-    console.log('ℹ️  Step 2: No specific players detected, using general approach\n');
+    console.log('ℹ️  Step 4: No specific players detected, using general approach\n');
   }
 
-  // Step 3: Build enhanced prompt
-  console.log('📝 Step 3: Building enhanced prompt...\n');
+  // Step 5: Build appropriate prompt using detected post type
+  console.log('📝 Step 5: Building prompt with template...\n');
 
-  const hasRealData = factSheet.length > 0;
+  const prompt = PromptTemplates.getTemplate(postType, post, factSheet, {
+    rankingNumber: rankingNumber || 10,
+  });
 
-  const prompt = hasRealData
-    ? buildPromptWithData(post, factSheet)
-    : buildGeneralPrompt(post);
+  console.log(`   ✅ Using ${postType} template\n`);
 
   if (dryRun) {
     console.log('🔍 DRY RUN - Prompt Preview:\n');
@@ -111,18 +193,42 @@ async function generateWithRealData() {
     return;
   }
 
-  // Step 4: Generate with Ollama
-  console.log(`🚀 Step 4: Generating content with ${modelName}...`);
+  // Step 6: Generate with Ollama (MacBook Pro M1 Pro - 14B model)
+  console.log(`🚀 Step 6: Generating content with ${modelName}...`);
+  console.log(`   Using: MacBook Pro M1 Pro (32GB RAM)`);
   const startTime = Date.now();
 
-  const command = `ssh root@159.223.103.16 "export OLLAMA_MODELS=/mnt/volume_nyc1_01/ollama && cat << 'PROMPT_EOF' | ollama run ${modelName}
-${prompt}
-PROMPT_EOF"`;
+  // Create JSON payload for Ollama API with 32K context window
+  const payload = {
+    model: modelName,
+    prompt: prompt,
+    stream: false,
+    options: {
+      num_ctx: 32768,     // 32K context window (model supports up to 128K)
+      temperature: 0.7,   // Slightly creative for varied content
+      top_p: 0.9,         // Nucleus sampling for diversity
+      repeat_penalty: 1.1, // Avoid repetition
+    }
+  };
 
-  const content = execSync(command, {
+  // Write payload to temp file
+  const tempFile = '/tmp/ollama-payload.json';
+  fs.writeFileSync(tempFile, JSON.stringify(payload));
+
+  // Call Ollama API
+  const command = `curl -s http://${OLLAMA_HOST}:${OLLAMA_PORT}/api/generate -d @${tempFile}`;
+
+  const response = execSync(command, {
     encoding: 'utf-8',
     maxBuffer: 10 * 1024 * 1024,
   });
+
+  // Parse response and extract content
+  const result = JSON.parse(response);
+  const content = result.response || '';
+
+  // Cleanup temp file
+  fs.unlinkSync(tempFile);
 
   const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
@@ -133,97 +239,18 @@ PROMPT_EOF"`;
 
   // Statistics
   const wordCount = content.trim().split(/\s+/).length;
+  const hasRealData = factSheet.length > 0;
   console.log(`\n📊 Statistics:`);
   console.log(`   Word count: ${wordCount} words`);
   console.log(`   Generation time: ${duration}s`);
   console.log(`   Speed: ${(wordCount / parseFloat(duration)).toFixed(1)} words/second`);
+  console.log(`   Post type: ${postType}`);
   console.log(`   Data source: ${hasRealData ? '✅ Real API data' : '📝 General knowledge'}`);
 
   // Save output
   const outputFile = `generated-content-${post.post_id}.txt`;
   fs.writeFileSync(outputFile, content);
   console.log(`\n💾 Saved to: ${outputFile}`);
-}
-
-function buildPromptWithData(post, factSheet) {
-  return `Tu es un journaliste sportif francophone expert.
-
-Sujet: ${post.title}
-Catégorie: ${post.category}
-
-${factSheet}
-
-⚠️ RÈGLES ABSOLUES - TRÈS IMPORTANT:
-✅ Utilise UNIQUEMENT les données vérifiées ci-dessus
-✅ Ces informations sont à jour (2025) et exactes
-✅ N'invente JAMAIS d'autres clubs, âges, ou statistiques
-✅ Si une info manque pour un joueur, reste général sur ce point
-✅ Vise 600-900 mots si tu as assez d'informations réelles
-
-STRUCTURE:
-
-1. INTRODUCTION (100-150 mots)
-   - Présente le contexte du sujet
-   - Explique pourquoi c'est pertinent pour les fans
-
-2. ANALYSE DÉTAILLÉE (400-600 mots)
-   - Développe avec les données réelles fournies
-   - Parle des clubs actuels, positions, statistiques
-   - Compare les profils et qualités
-   - Reste factuel avec les infos vérifiées
-
-3. CONTEXTE & PERSPECTIVES (100-150 mots)
-   - Évolutions récentes dans le football
-   - Impact sur les compétitions
-   - Perspectives pour la suite de la saison
-
-STYLE:
-- Professionnel et informatif
-- Vocabulaire football riche
-- Pas de formules de conclusion ("en conclusion", "pour conclure")
-- Ne PAS écrire le titre (fourni séparément)
-
-Écris l'article maintenant:`;
-}
-
-function buildGeneralPrompt(post) {
-  return `Tu es un journaliste sportif francophone expert.
-
-Sujet: ${post.title}
-Catégorie: ${post.category}
-
-⚠️ RÈGLES ABSOLUES - TRÈS IMPORTANT:
-⚠️ N'invente JAMAIS de clubs, âges, transferts ou statistiques spécifiques
-⚠️ Si tu ne connais pas une information EXACTE, ne la mentionne pas
-⚠️ Reste GÉNÉRAL et analytique sur le sujet
-⚠️ Vise 600-900 mots mais SEULEMENT si tu as assez d'informations réelles
-
-APPROCHE GÉNÉRALE (sans données précises):
-
-1. INTRODUCTION (150-200 mots)
-   - Présente l'importance du sujet dans le football actuel
-   - Contexte général du football moderne
-   - Pourquoi ce sujet intéresse les fans
-
-2. ANALYSE QUALITATIVE (400-500 mots)
-   - Parle des QUALITÉS requises (ne cite pas de joueurs spécifiques si incertain)
-   - Analyse les TENDANCES tactiques
-   - Compare les STYLES de jeu
-   - Évolutions du football moderne au poste/thème concerné
-
-3. PERSPECTIVES (100-150 mots)
-   - Impact sur le football africain/européen
-   - Évolutions attendues
-   - Enjeux pour les prochaines compétitions
-
-STYLE:
-- Professionnel et analytique
-- Focus sur les concepts, pas les détails factuels incertains
-- Vocabulaire technique du football
-- Pas de conclusion artificielle
-- Ne PAS écrire le titre
-
-Écris l'article maintenant:`;
 }
 
 // Run

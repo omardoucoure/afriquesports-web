@@ -127,40 +127,54 @@ async function fetchSitemapPosts(
   const apiPages = Math.ceil(perPage / POSTS_PER_PAGE);
   const startOffset = (page - 1) * perPage;
 
-  // PERFORMANCE FIX: Fetch pages in parallel to avoid 25s Vercel timeout
-  // With 10 sequential calls at 3-4s each = 30-40s (exceeds timeout)
-  // With parallel calls = ~4s total (within timeout)
-  const fetchPromises = [];
-  for (let i = 0; i < apiPages; i++) {
-    const apiPage = Math.floor(startOffset / POSTS_PER_PAGE) + i + 1;
+  // CRITICAL FIX: Limit concurrency to prevent overwhelming WordPress
+  // Without this, requesting sitemap page 100 = 5 parallel requests
+  // If Google crawls 20 sitemaps at once = 100 concurrent requests = server death
+  const MAX_CONCURRENT_REQUESTS = 2; // Only 2 concurrent WordPress API calls
+  const results = [];
 
-    fetchPromises.push(
-      fetch(
-        `${baseUrl}/wp-json/wp/v2/posts?per_page=${POSTS_PER_PAGE}&page=${apiPage}&_fields=slug,modified,link,date,_embedded&_embed&orderby=id&order=asc`,
-        {
-          next: { revalidate: 3600 },
-          headers: {
-            Accept: "application/json",
-          },
-          signal: AbortSignal.timeout(15000), // 15s timeout per request
-        }
-      )
-      .then(async (response) => {
-        if (!response.ok) {
-          if (response.status === 400) return null; // No more pages
-          throw new Error(`API error: ${response.status}`);
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error(`Error fetching sitemap posts page ${apiPage}:`, error);
-        return null; // Return null on error instead of breaking
-      })
-    );
+  // Batch requests to limit concurrency
+  for (let i = 0; i < apiPages; i += MAX_CONCURRENT_REQUESTS) {
+    const batch = [];
+
+    for (let j = 0; j < MAX_CONCURRENT_REQUESTS && i + j < apiPages; j++) {
+      const apiPage = Math.floor(startOffset / POSTS_PER_PAGE) + i + j + 1;
+
+      batch.push(
+        fetch(
+          `${baseUrl}/wp-json/wp/v2/posts?per_page=${POSTS_PER_PAGE}&page=${apiPage}&_fields=slug,modified,link,date,_embedded&_embed&orderby=id&order=asc`,
+          {
+            next: { revalidate: 3600 },
+            headers: {
+              Accept: "application/json",
+            },
+            signal: AbortSignal.timeout(20000), // 20s timeout per request
+          }
+        )
+        .then(async (response) => {
+          if (!response.ok) {
+            if (response.status === 400) return null; // No more pages
+            console.log(`[Sitemap] WordPress API ${response.status} for page ${apiPage}`);
+            return null;
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          console.error(`[Sitemap] Error fetching page ${apiPage}:`, error.message);
+          return null; // Return null on error instead of breaking
+        })
+      );
+    }
+
+    // Wait for this batch to complete before starting next batch
+    const batchResults = await Promise.allSettled(batch);
+    results.push(...batchResults.map(r => r.status === 'fulfilled' ? r.value : null));
+
+    // Add small delay between batches to be gentle on WordPress
+    if (i + MAX_CONCURRENT_REQUESTS < apiPages) {
+      await new Promise(resolve => setTimeout(resolve, 500)); // 500ms between batches
+    }
   }
-
-  // Wait for all requests to complete in parallel
-  const results = await Promise.all(fetchPromises);
 
   // Process results
   for (const posts of results) {

@@ -106,6 +106,21 @@ export async function GET() {
       // Get clock/period info
       const statusDetail = competition.status?.type?.detail || 'LIVE';
 
+      // Fetch match commentary from ESPN summary endpoint
+      let commentary: any[] = [];
+      try {
+        const summaryResponse = await fetch(
+          `${ESPN_API_BASE}/summary?event=${liveMatch.id}`,
+          { cache: 'no-store' }
+        );
+        if (summaryResponse.ok) {
+          const summaryData = await summaryResponse.json();
+          commentary = summaryData.commentary || [];
+        }
+      } catch (error) {
+        console.error('Error fetching commentary:', error);
+      }
+
       return jsonResponse({
         hasMatch: true,
         id: liveMatch.id,
@@ -127,6 +142,10 @@ export async function GET() {
         homeScore,
         awayScore,
         statusDetail,
+        commentary: commentary.slice(0, 10).map((comment: any) => ({
+          time: comment.time?.displayValue || '',
+          text: comment.text || '',
+        })),
       });
     }
 

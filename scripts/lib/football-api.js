@@ -20,9 +20,8 @@ if (!fs.existsSync(CACHE_DIR)) {
 class FootballAPI {
   constructor(apiKey) {
     this.apiKey = apiKey || process.env.API_FOOTBALL_KEY;
-    // Use RapidAPI endpoint
-    this.baseUrl = 'https://api-football-v1.p.rapidapi.com/v3';
-    this.rapidApiHost = 'api-football-v1.p.rapidapi.com';
+    // Use direct API-Football endpoint (v3.football.api-sports.io)
+    this.baseUrl = 'https://v3.football.api-sports.io';
 
     if (!this.apiKey) {
       console.warn('⚠️  API_FOOTBALL_KEY not set. Football API features disabled.');
@@ -58,8 +57,7 @@ class FootballAPI {
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
-          'x-rapidapi-key': this.apiKey,
-          'x-rapidapi-host': this.rapidApiHost
+          'x-apisports-key': this.apiKey
         }
       });
 

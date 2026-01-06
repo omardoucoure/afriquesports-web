@@ -26,10 +26,16 @@ const POSTS_PER_SITEMAP = 500; // CRITICAL: Must match posts/[page]/route.ts (re
 // Note: en/es/ar sites exist but REST API doesn't expose them properly
 const ESTIMATED_TOTAL_POSTS = 45299;
 
+// CRITICAL: Limit maximum sitemaps to prevent overwhelming WordPress
+// Even if we have 155k posts, we don't want to generate 310 sitemaps
+// Google recommends max 50,000 URLs per sitemap index
+const MAX_POST_SITEMAPS = 100; // Cap at 100 sitemaps = 50,000 posts
+
 export async function GET() {
   // Calculate sitemap count based on estimated posts
   // This avoids an API call and potential timeout
-  const totalPostSitemaps = Math.ceil(ESTIMATED_TOTAL_POSTS / POSTS_PER_SITEMAP);
+  const calculatedSitemaps = Math.ceil(ESTIMATED_TOTAL_POSTS / POSTS_PER_SITEMAP);
+  const totalPostSitemaps = Math.min(calculatedSitemaps, MAX_POST_SITEMAPS); // Apply cap
   const lastmod = new Date().toISOString().split("T")[0]; // Just date, no time
 
   // Build sitemap index XML efficiently
