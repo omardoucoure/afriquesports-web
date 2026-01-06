@@ -141,9 +141,9 @@ export async function GET(request: NextRequest) {
 
     console.log('[Comments API] Fetching from:', wpUrl)
 
-    // Fetch comments from WordPress with 60-second cache to reduce load
+    // Fetch comments from WordPress with 5-minute cache to reduce load
     const response = await fetch(wpUrl, {
-      next: { revalidate: 60 }, // Cache for 60 seconds
+      next: { revalidate: 300 }, // Cache for 5 minutes (300 seconds)
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Afrique Sports Website/1.0',
@@ -183,7 +183,16 @@ export async function GET(request: NextRequest) {
 
     const comments = await response.json()
     console.log('[Comments API] Comments received:', comments.length)
-    return NextResponse.json(comments)
+
+    // Return with aggressive caching headers to prevent hammering WordPress
+    return NextResponse.json(comments, {
+      headers: {
+        // Cache for 5 minutes in browser and CDN
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        // Additional caching hint for Cloudflare
+        'CDN-Cache-Control': 'public, max-age=300',
+      }
+    })
 
   } catch (error) {
     console.error('[Comments API] Error fetching comments:', error)
