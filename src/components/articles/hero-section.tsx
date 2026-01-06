@@ -84,6 +84,7 @@ function TrendingCard({
               fill
               sizes="(max-width: 768px) 100vw, 300px"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
+              quality={85}
               priority={priority}
             />
           </div>
@@ -118,7 +119,7 @@ function FeaturedHeroCard({
   byLabel: string;
   isDesktop?: boolean;
 }) {
-  const imageUrl = getFeaturedImageUrl(article, "large");
+  const imageUrl = getFeaturedImageUrl(article, "full");
   const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
   const articleUrl = `/${categorySlug}/${article.slug}`;
@@ -133,6 +134,7 @@ function FeaturedHeroCard({
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            quality={95}
             priority
           />
         )}
