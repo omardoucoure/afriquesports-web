@@ -134,7 +134,7 @@ function FeaturedHeroCard({
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-            quality={95}
+            quality={85}
             priority
           />
         )}
@@ -185,6 +185,7 @@ function SideArticleCard({
             fill
             sizes="80px"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
+            quality={75}
           />
         </div>
       </Link>
