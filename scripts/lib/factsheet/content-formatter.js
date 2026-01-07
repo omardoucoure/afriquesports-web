@@ -19,6 +19,16 @@
 
 const https = require('https');
 const http = require('http');
+const PlayerImageFetcher = require('../player-image-fetcher');
+
+// Initialize image fetcher (singleton)
+let imageFetcher = null;
+function getImageFetcher() {
+  if (!imageFetcher) {
+    imageFetcher = new PlayerImageFetcher();
+  }
+  return imageFetcher;
+}
 
 // Country flag emoji mapping
 const COUNTRY_FLAGS = {
@@ -76,6 +86,7 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
     includeSchema = true,
     includeRadarCharts = true,
     reverseCountdown = true,
+    fetchHdImages = true, // Fetch HD images via SerpAPI and upload to WordPress
     language = 'fr'
   } = options;
 
@@ -132,6 +143,28 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
     };
   });
 
+  // Fetch HD images for all players if enabled
+  let playerImages = new Map();
+  if (includeImages && fetchHdImages) {
+    console.log('\n🖼️ Fetching HD images for players...');
+    const fetcher = getImageFetcher();
+    const playersForImages = ranking.map(p => ({
+      name: p.name,
+      team: p.team,
+      nationality: p.nationality,
+      transfermarktId: p.ids?.transfermarktId
+    }));
+
+    const imageResults = await fetcher.fetchImagesForPlayers(playersForImages);
+
+    for (const [name, result] of Object.entries(imageResults)) {
+      if (result?.url) {
+        playerImages.set(name, result);
+      }
+    }
+    console.log(`   ✅ Fetched ${playerImages.size}/${ranking.length} player images\n`);
+  }
+
   // Generate formatted sections
   const sections = [];
 
@@ -158,7 +191,8 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
       includeInternalLinks,
       evidence,
       language,
-      totalPlayers: ranking.length
+      totalPlayers: ranking.length,
+      playerImages // Pass pre-fetched HD images
     }));
   }
 
@@ -336,7 +370,8 @@ async function formatPlayerSection(player, options) {
     includeRadarCharts,
     evidence,
     language,
-    totalPlayers
+    totalPlayers,
+    playerImages = new Map() // Pre-fetched HD images
   } = options;
 
   const position = player.position;
@@ -430,15 +465,28 @@ async function formatPlayerSection(player, options) {
     html += formatRadarChart(player, language);
   }
 
-  // Player image
+  // Player image - Use HD image from SerpAPI/WordPress, fallback to Transfermarkt
   const transfermarktId = player.ids?.transfermarktId;
-  if (includeImages && transfermarktId) {
-    const imageUrl = `https://img.a.transfermarkt.technology/portrait/big/${transfermarktId}-1.jpg`;
-    html += `
+  if (includeImages) {
+    const hdImage = playerImages.get(name);
+    let imageUrl = hdImage?.url;
+    let imageSource = hdImage?.source === 'wordpress' ? 'Afrique Sports' : (hdImage?.originalSource || '');
+
+    // Fallback to Transfermarkt if no HD image
+    if (!imageUrl && transfermarktId) {
+      imageUrl = `https://img.a.transfermarkt.technology/portrait/big/${transfermarktId}-1.jpg`;
+      imageSource = 'Transfermarkt';
+    }
+
+    if (imageUrl) {
+      // Use larger size for HD images (400px vs 280px)
+      const maxWidth = hdImage?.url ? '400px' : '280px';
+      html += `
       <figure style="margin: 24px 0; text-align: center;">
-        <img src="${imageUrl}" alt="${name}" style="max-width: 280px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
-        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">${name} - ${team} | Photo: Transfermarkt</figcaption>
+        <img src="${imageUrl}" alt="${name}" style="max-width: ${maxWidth}; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">${name} - ${team}${imageSource ? ` | Photo: ${imageSource}` : ''}</figcaption>
       </figure>`;
+    }
   }
 
   // Why ranked here section
