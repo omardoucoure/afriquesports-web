@@ -49,7 +49,7 @@ export function ShareButtons({ url, title, articleId }: ShareButtonsProps) {
 
   return (
     <div className="flex items-center flex-wrap gap-2 sm:gap-3">
-      <span className="text-sm font-medium text-gray-500 hidden sm:inline">{tArticle("shareOn")} :</span>
+      <span className="text-sm font-medium text-gray-600 hidden sm:inline">{tArticle("shareOn")} :</span>
 
       {/* Facebook */}
       <a

@@ -72,15 +72,17 @@ function TrendingCard({
   const categoryName = getCategoryName(article);
   const articleUrl = `/${categorySlug}/${article.slug}`;
 
+  const title = stripHtml(article.title.rendered);
+
   return (
     <article className="group">
-      <Link href={articleUrl} className="block">
+      <Link href={articleUrl} className="block" aria-label={title}>
         {/* Image - Only rendered on desktop for LCP optimization */}
         {isDesktop && (
           <div className="relative aspect-[16/10] overflow-hidden mb-2 rounded-lg">
             <Image
               src={imageUrl}
-              alt={stripHtml(article.title.rendered)}
+              alt={title}
               fill
               sizes="(max-width: 768px) 100vw, 300px"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -93,9 +95,9 @@ function TrendingCard({
       <div className="flex gap-3">
         <span className="text-4xl font-bold text-[#04453f]">{index}</span>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
             <span className="font-medium text-[#04453f] uppercase">{categoryName}</span>
-            <span>/</span>
+            <span className="text-gray-500">/</span>
             <time dateTime={article.date}>{formatDate(article.date)}</time>
           </div>
           <Link href={articleUrl}>
@@ -146,8 +148,8 @@ function FeaturedHeroCard({
           {/* Category and date */}
           <div className="flex items-center gap-2 text-sm mb-3">
             <span className="font-bold text-[#9DFF20] uppercase">{categoryName}</span>
-            <span className="text-white/60">/</span>
-            <time dateTime={article.date} className="text-white/60">
+            <span className="text-white/80">/</span>
+            <time dateTime={article.date} className="text-white/80">
               {formatDate(article.date)}
             </time>
           </div>
@@ -174,14 +176,15 @@ function SideArticleCard({
   const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
   const articleUrl = `/${categorySlug}/${article.slug}`;
+  const title = stripHtml(article.title.rendered);
 
   return (
     <article className="flex gap-3 group">
-      <Link href={articleUrl} className="flex-shrink-0">
+      <Link href={articleUrl} className="flex-shrink-0" aria-label={title}>
         <div className="relative w-20 h-20 overflow-hidden">
           <Image
             src={imageUrl}
-            alt={stripHtml(article.title.rendered)}
+            alt={title}
             fill
             sizes="80px"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -190,9 +193,9 @@ function SideArticleCard({
         </div>
       </Link>
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
+        <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
           <span className="font-medium text-[#04453f] uppercase">{categoryName}</span>
-          <span>/</span>
+          <span className="text-gray-500">/</span>
           <time dateTime={article.date}>{formatDate(article.date)}</time>
         </div>
         <Link href={articleUrl}>

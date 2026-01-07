@@ -100,7 +100,7 @@ export function ArticleCard({
             />
 
             {/* Meta: author and date */}
-            <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+            <div className="mt-3 flex items-center gap-2 text-xs text-gray-600">
               <span className="font-medium">{authorName}</span>
               {showDate && (
                 <>
@@ -117,14 +117,15 @@ export function ArticleCard({
 
   // Compact card (smaller, for sidebar)
   if (variant === "compact") {
+    const title = article.title.rendered.replace(/<[^>]*>/g, '');
     return (
       <article className="group flex gap-3">
-        <Link href={articleUrl} className="flex-shrink-0" onClick={handleClick}>
+        <Link href={articleUrl} className="flex-shrink-0" onClick={handleClick} aria-label={title}>
           <div className="relative w-20 h-20 rounded overflow-hidden">
             {imageUrl ? (
               <Image
                 src={imageUrl}
-                alt={article.title.rendered}
+                alt={title}
                 fill
                 sizes="80px"
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -143,7 +144,7 @@ export function ArticleCard({
             />
           </Link>
           {/* Meta: author and date */}
-          <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
+          <div className="mt-1 flex items-center gap-2 text-xs text-gray-600">
             <span className="font-medium truncate">{authorName}</span>
             {showDate && (
               <>
@@ -205,7 +206,7 @@ export function ArticleCard({
             />
 
             {/* Meta: author and date */}
-            <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+            <div className="mt-3 flex items-center gap-2 text-xs text-gray-600">
               <span className="font-medium">{authorName}</span>
               {showDate && (
                 <>

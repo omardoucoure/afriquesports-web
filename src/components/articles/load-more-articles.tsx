@@ -99,7 +99,7 @@ export function LoadMoreArticles({
             {isLoading || isPending ? displayLoading : displayLoadMore}
           </button>
         ) : (
-          <p className="text-gray-500 text-sm">{displayNoMore}</p>
+          <p className="text-gray-600 text-sm">{displayNoMore}</p>
         )}
       </div>
     </div>

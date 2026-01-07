@@ -34,7 +34,7 @@ export function ArticleGrid({
   if (!articles || articles.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">{tArticle("noArticles")}</p>
+        <p className="text-gray-600">{tArticle("noArticles")}</p>
       </div>
     );
   }
