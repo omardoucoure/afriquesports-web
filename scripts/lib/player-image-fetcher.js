@@ -15,7 +15,8 @@ const SERPAPI_KEY = process.env.SERPAPI_KEY || 'e75b43874237b3f7c922cf794a3e5161
 const SERPAPI_BASE = 'https://serpapi.com/search.json';
 
 // WordPress REST API configuration (same env vars as RAG_SETUP.md)
-const WP_API_URL = process.env.WORDPRESS_URL ? `${process.env.WORDPRESS_URL}/wp-json/wp/v2` : 'https://www.afriquesports.net/wp-json/wp/v2';
+// WordPress is on cms.realdemadrid.com/afriquesports, not afriquesports.net (which is Next.js)
+const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2';
 const WP_USERNAME = process.env.WP_COMMENT_USERNAME || process.env.WORDPRESS_USERNAME;
 const WP_APP_PASSWORD = process.env.WP_COMMENT_APP_PASSWORD || process.env.WORDPRESS_APP_PASSWORD;
 
