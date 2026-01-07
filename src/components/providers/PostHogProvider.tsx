@@ -10,19 +10,16 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    console.log('[PostHogProvider] useEffect called - setting up deferred init');
     // Defer PostHog initialization until user interaction or 3 seconds
     // This improves INP by reducing initial JavaScript execution
     let hasInitialized = false
 
     const initializePostHog = () => {
-      console.log('[PostHogProvider] initializePostHog triggered, hasInitialized:', hasInitialized);
       if (hasInitialized) return
       hasInitialized = true
 
       initPostHog()
       setIsLoaded(true)
-      console.log('[PostHogProvider] PostHog initialization complete, isLoaded set to true');
     }
 
     // Initialize after 3 seconds

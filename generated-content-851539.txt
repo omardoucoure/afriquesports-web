@@ -1,8 +1,4 @@
-### Introduction
-
 Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant les jeux avec une finesse inégalée. Notre classement dévoile les virtuoses qui créent les règles sur les plus grandes scènes du monde. Au-delà des statistiques, nous explorons l'art, le leadership et l'impact de ces merveilles du milieu de terrain.
-
-### Table des matières
 
 <h2>Le Top 10 des Milieux de Terrain</h2>
 <ol>
@@ -10,9 +6,9 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 <li>Pedri (Barcelona, Espagne)</li>
 <li>Vitinha (PSG, Portugal)</li>
 <li>João Neves (PSG, Portugal)</li>
+<li>Rodri (Manchester City, Espagne)</li>
 <li>Declan Rice (Arsenal, Angleterre)</li>
-<li>Rodri (Man City, Espagne)</li>
-<li>Nicolò Barella (Inter, Italie)</li>
+<li>Nicolò Barella (Inter Milan, Italie)</li>
 <li>Jamal Musiala (Bayern Munich, Allemagne)</li>
 <li>Frenkie de Jong (Barcelona, Pays-Bas)</li>
 <li>Eduardo Camavinga (Real Madrid, France)</li>
@@ -20,11 +16,11 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 
 <h3>Jude Bellingham, Real Madrid, Angleterre</h3>
 
-<p>À seulement 22 ans, Jude Bellingham a déjà atteint des sommets inégalés. Son parcours impressionnant avec le Borussia Dortmund et son transfert record au Real Madrid ont établi l'Angleterrisé comme une star mondiale du football. En 2025-26, il a marqué 4 buts et délivré 3 passes décisives en 15 matchs de Liga, contribuant à la victoire du Real Madrid dans le championnat espagnol. Avec une valeur marchande estimée à €160 millions, Bellingham est l'un des joueurs les plus prisés de sa génération. Son style de jeu mêle puissance et technique, rappelant les grandes figures comme Michael Ballack pour son impact sur la défense adverse.</p>
+<p>Avec une maturité et un talent exceptionnels pour son âge, Jude Bellingham a établi son statut de milieu de terrain numéro 1 mondial en 2025. Au Real Madrid, il est le cerveau tactique qui contrôle les tirs de l'équipe. Sa capacité à lire le jeu et à distribuer des passes précises a aidé la formation madrilène à remporter une nouvelle Liga et une Champions League. En 2024/2025, Jude Bellingham a marqué 4 buts et délivré 3 passes décisives en 15 matchs de Liga, ce qui témoigne du rôle crucial qu'il joue pour l'équipe dans la création d'occasions. Avec une valeur marchande estimée à €160 millions, Bellingham est non seulement un joueur étonnant mais aussi un leader sur le terrain qui inspire ses coéquipiers.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/jude-bellingham.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/jude-bellingham-202x300.jpg"
        alt="Jude Bellingham"
        width="1200">
   <p class="wp-caption-text">Source: Real Madrid</p>
@@ -32,11 +28,11 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 
 <h3>Pedri, Barcelona, Espagne</h3>
 
-<p>Le prodige espagnol a encore une fois confirmé sa place parmi les meilleurs milieux de terrain du monde en 2025. À 23 ans, Pedri est un maître dans l'art du football de possession et de la construction offensive. Son leadership naturel a porté le FC Barcelone à la victoire dans la Liga espagnole malgré une saison difficile pour son équipe. En 2025-26, il a marqué 2 buts et délivré 5 passes décisives en seulement 15 matchs de Liga, illustrant sa capacité à se révéler même lors des moments les plus cruciaux. Évalué à €140 millions, Pedri incarne l'avenir du football espagnol avec une maîtrise technique comparable à celle d'Iker Casillas et Xavi.</p>
+<p>Le virtuose du milieu de terrain du FC Barcelone s'est hissé à l'échelon supérieur du football. La vision et les prouesses techniques du prodige espagnol ont transformé le jeu du Barça, lui permettant de remporter la Liga avec le Barca et l'Euro 2024 avec l'Espagne. En 2024/2025, Pedri a inscrit 2 buts et délivré 5 passes décisives en 15 matches de Liga, témoignant de son influence grandissante. Évalué à €140 millions avec un contrat jusqu'en 2030, il incarne l'avenir du FC Barcelone. Son exceptionnelle maîtrise du ballon et sa capacité à donner le tempo rappellent Xavi et Iniesta.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/pedri.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/pedri-703x1024.jpg"
        alt="Pedri"
        width="1200">
   <p class="wp-caption-text">Source: FC Barcelona</p>
@@ -44,71 +40,71 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 
 <h3>Vitinha, PSG, Portugal</h3>
 
-<p>Le milieu défensif portugais du Paris Saint-Germain a établi sa présence incontestable en Europe. Vitinha a démontré son importance avec des performances solides et un jeu de transition efficace dans le club français dominant. En 2025-26, il a marqué 1 but et fourni 6 passes décisives en 16 matchs de Ligue 1, contribuant à la domination continue du PSG. Avec une valeur marchande estimée à €110 millions, Vitinha est un joueur crucial pour le jeu défensif et offensif du club.</p>
+<p>En tant que sentinelle du milieu de terrain pour le Paris Saint-Germain, Vitinha s'est révélé être une pièce maîtresse dans l'organisation et la défense. Son jeu intelligent et sa capacité à contrôler les matches ont été essentiels au titre de champion de France obtenu par le PSG en 2024/2025. Avec des statistiques impressionnantes de 1 but et 6 passes décisives en 16 matchs de Ligue 1, Vitinha a montré qu'il peut non seulement défendre efficacement mais aussi contribuer aux attaques par ses interventions créatives. Valorisé à €110 millions, Vitinha se positionne comme l'un des meilleurs milieux de terrain du monde.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/vitinha.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/vitinha-150x150.png"
        alt="Vitinha"
        width="1200">
-  <p class="wp-caption-text">Source: PSG</p>
+  <p class="wp-caption-text">Source: Paris Saint-Germain</p>
 </div>
 
 <h3>João Neves, PSG, Portugal</h3>
 
-<p>Avec seulement 21 ans, João Neves est déjà l'un des joueurs les plus prometteurs du football européen. Son transfert au Paris Saint-Germain a été immédiatement suivi par une intégration rapide dans le milieu de terrain défensif. En 2025-26, il a marqué 4 buts en 11 matchs de Saudi Pro League, démontrant son potentiel offensif malgré un poste défensif. Évalué à €110 millions, Neves est déjà une figure clé pour le PSG et les équipes nationales portugaises.</p>
+<p>Avec son talent et sa polyvalence, João Neves a rapidement grimpé les échelons du football mondial. Le milieu de terrain portugais est un élément clé dans l'équipe du Paris Saint-Germain, offrant une combinaison unique d'agilité offensive et de robustesse défensive. En 2024/2025, João Neves a marqué 4 buts sans délivrer de passes décisives en 11 matchs disputés dans la Saudi Pro League, un témoignage de son impact offensif malgré une position généralement défensive. Évalué à €110 millions, il est considéré comme l'un des jeunes espoirs les plus prometteurs du football.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
        src="https://www.afriquesports.net/wp-content/uploads/players/joao-neves.jpg"
        alt="João Neves"
        width="1200">
-  <p class="wp-caption-text">Source: PSG</p>
+  <p class="wp-caption-text">Source: Paris Saint-Germain</p>
 </div>
 
-<h3>Declan Rice, Arsenal, Angleterre</h3>
+<h3>Rodri, Manchester City, Espagne</h3>
 
-<p>Avec une carrière en constante ascension depuis son transfert à Arsenal, Declan Rice est devenu un pilier du milieu défensif anglais. En 2025-26, il a marqué 4 buts et délivré 3 passes décisives en 19 matchs de Premier League, contribuant à la domination d'Arsenal sur le plan domestique. Avec une valeur marchande estimée à €120 millions, Rice est un joueur essentiel pour les Gunners avec des performances comparables aux légendes comme Steven Gerrard.</p>
+<p>Le rôle de Rodri en tant que pilier du milieu de terrain pour le Manchester City est indéniable. Son jeu défensif et sa capacité à couvrir les espaces ont été clés dans la performance continue de l'équipe sur le plan national et international. En 2024/2025, Rodri a démontré son importance en termes de distribution et d'organisation sans marquer de buts ni donner de passes décisives en Ligue des Champions malgré une présence constante sur la pelouse. Avec une valeur marchande estimée à €75 millions, il est reconnu pour sa contribution silencieuse mais essentielle.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/declan-rice.jpg"
-       alt="Declan Rice"
-       width="1200">
-  <p class="wp-caption-text">Source: Arsenal</p>
-</div>
-
-<h3>Rodri, Man City, Espagne</h3>
-
-<p>Le joueur espagnol du Manchester City reste un pilier indéboulonnable de l'équipe avec une maîtrise défensive incomparable. En 2025-26, Rodri a affiché des statistiques impressionnantes malgré la concurrence accrue dans le milieu défensif. Avec €75 millions comme valeur marchande, il reste un joueur clé pour Man City et l'Espagne.</p>
-
-<div style="width: 1210px" class="wp-caption aligncenter">
-  <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/rodri.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/rodri.jpg"
        alt="Rodri"
        width="1200">
   <p class="wp-caption-text">Source: Manchester City</p>
 </div>
 
-<h3>Nicolò Barella, Inter, Italie</h3>
+<h3>Declan Rice, Arsenal, Angleterre</h3>
 
-<p>Le milieu italien de l'Inter est un joueur crucial pour les Nerazzurri avec une polyvalence défensive et offensive. En 2025-26, il a marqué 1 but et délivré 4 passes décisives en Serie A, contribuant à la compétitivité de l'équipe italienne. Avec €60 millions comme valeur marchande, Barella est un joueur important pour Inter et l'Italie.</p>
+<p>Avec une carrière fulgurante au centre du milieu de terrain pour Arsenal, Declan Rice a établi son statut comme l'un des meilleurs défenseurs centraux du monde. Sa vision du jeu et sa capacité à anticiper les attaques adverses ont été cruciales dans la lutte contre la domination de Manchester City en Premier League. En 2024/2025, Declan Rice a marqué 4 buts et délivré 3 passes décisives en 19 matchs de Premier League, illustrant l'impact qu'il peut avoir sur les résultats. Évalué à €120 millions, il incarne la stabilité et le leadership pour Arsenal.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/nicolò-barella.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/declan-rice-832x1024.jpg"
+       alt="Declan Rice"
+       width="1200">
+  <p class="wp-caption-text">Source: Arsenal</p>
+</div>
+
+<h3>Nicolò Barella, Inter Milan, Italie</h3>
+
+<p>Inter Milan a trouvé en Nicolò Barella un milieu de terrain capable d'ajuster son jeu pour répondre aux défis tactiques les plus exigeants. Son style dynamique et polyvalent lui permet de jouer à la fois dans l'axe et sur le flanc, démontrant une adaptabilité rare. En 2024/2025, Nicolò Barella a marqué 1 but et délivré 4 passes décisives en Serie A pour Inter Milan, contribuant de manière significative à la réussite de son équipe. Avec une valeur marchande estimée à €60 millions, il est l'un des joueurs les plus importants de l'Inter.</p>
+
+<div style="width: 1210px" class="wp-caption aligncenter">
+  <img decoding="async"
+       src="https://www.afriquesports.net/wp-content/uploads/players/nicol%C3%B2-barella.jpg"
        alt="Nicolò Barella"
        width="1200">
-  <p class="wp-caption-text">Source: Inter</p>
+  <p class="wp-caption-text">Source: Inter Milan</p>
 </div>
 
 <h3>Jamal Musiala, Bayern Munich, Allemagne</h3>
 
-<p>Avec une ascension fulgurante depuis son arrivée au Bayern Munich, Jamal Musiala est un joueur clé pour l'équipe allemande. En 2025-26, il a démontré sa capacité à marquer et à fournir des passes décisives, contribuant de manière significative aux résultats du club. Avec une valeur marchande estimée à €130 millions, Musiala est un talent prometteur pour le football allemand.</p>
+<p>Le jeu fluide et créatif de Jamal Musiala a captivé les fans du football mondial en tant que leader offensif pour le Bayern Munich. Sa capacité à trouver des espaces ouverts et à délivrer des passes décisives précises a été un facteur clé dans la performance continue du club allemand sur la scène européenne. En 2024/2025, Jamal Musiala n'a pas marqué de buts mais a délivré une passe décisive en Ligue des Champions pour le Bayern Munich, soulignant son rôle essentiel dans les attaques du club. Avec une valeur marchande estimée à €130 millions, il est reconnu comme un talent exceptionnel.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/jamal-musiala.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/jamal-musiala-221x300.jpg"
        alt="Jamal Musiala"
        width="1200">
   <p class="wp-caption-text">Source: Bayern Munich</p>
@@ -116,11 +112,11 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 
 <h3>Frenkie de Jong, Barcelona, Pays-Bas</h3>
 
-<p>Le milieu néerlandais du FC Barcelone reste un joueur important malgré des performances mitigées en 2025-26. Avec €45 millions comme valeur marchande, Frenkie de Jong continue d'être une figure clé pour le jeu offensif et défensif du club.</p>
+<p>L'impact de Frenkie de Jong sur le jeu du FC Barcelone est indéniable. Son style de jeu technique et sa vision unique ont permis au club catalan d'afficher une nouvelle dynamique offensive en 2024/2025. Bien que ses statistiques ne soient pas exceptionnelles (avec des chiffres de 0 buts et 3 passes décisives en Liga), il est essentiel pour la distribution du ballon et l'organisation tactique sur le terrain. Valorisé à €45 millions, Frenkie de Jong reste un joueur indispensable au FC Barcelone.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/frenkie-de-jong.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/frenkie-de-jong-150x150.jpg"
        alt="Frenkie de Jong"
        width="1200">
   <p class="wp-caption-text">Source: FC Barcelona</p>
@@ -128,11 +124,11 @@ Les milieux de terrain de 2025 ont redéfini le rythme du football, orchestrant 
 
 <h3>Eduardo Camavinga, Real Madrid, France</h3>
 
-<p>Avec une carrière en constante progression depuis son transfert au Real Madrid, Eduardo Camavinga est devenu un joueur crucial pour le club espagnol. En 2025-26, il a marqué 1 but et affiché des performances défensives solides en Liga. Avec une valeur marchande estimée à €50 millions, Camavinga reste un talent prometteur pour l'avenir du Real Madrid.</p>
+<p>Le jeu robuste et intelligent d'Eduardo Camavinga a permis au Real Madrid de renforcer sa domination en Liga. Son style de jeu défensif lui permet de couvrir efficacement les espaces laissés par les attaquants adverses. En 2024/2025, Eduardo Camavinga n'a pas marqué de buts mais a délivré une passe décisive en Liga pour le Real Madrid, témoignant de son rôle clé dans l'équipe. Avec une valeur marchande estimée à €50 millions, il est reconnu comme un joueur polyvalent qui peut évoluer sur plusieurs postes.</p>
 
 <div style="width: 1210px" class="wp-caption aligncenter">
   <img decoding="async"
-       src="https://www.afriquesports.net/wp-content/uploads/players/eduardo-camavinga.jpg"
+       src="https://www.afriquesports.net/wp-content/uploads/2026/01/eduardo-camavinga-706x1024.jpg"
        alt="Eduardo Camavinga"
        width="1200">
   <p class="wp-caption-text">Source: Real Madrid</p>
