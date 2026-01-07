@@ -44,11 +44,11 @@ STRUCTURE OBLIGATOIRE (exactement comme Tips.gg):
    - Parcours de carrière
    - Impact sur l'équipe et avenir}</p>
 
-   <div style="width: 1210px" class="wp-caption aligncenter">
+   <div class="wp-caption aligncenter" style="max-width: 100%;">
      <img decoding="async"
           src="https://www.afriquesports.net/wp-content/uploads/players/{nom-joueur-slug}.jpg"
           alt="{Nom du joueur}"
-          width="1200">
+          style="max-width: 100%; height: auto; display: block;">
      <p class="wp-caption-text">Source: {Club officiel}</p>
    </div>
 
@@ -76,11 +76,11 @@ EXEMPLE FORMAT:
 
 <p>Le virtuose du milieu de terrain du FC Barcelone s'est hissé à l'échelon supérieur du football. La vision et les prouesses techniques du prodige espagnol ont transformé le jeu du Barça, lui permettant de remporter la Liga avec le Barca et l'Euro 2024 avec l'Espagne. En 2024/2025, Pedri a inscrit 4 buts et délivré 5 passes décisives en 37 matches de Liga, témoignant de son influence grandissante. Évalué à €144,9 millions avec un contrat jusqu'en 2030, il incarne l'avenir du FC Barcelone. Son exceptionnelle maîtrise du ballon et sa capacité à donner le tempo rappellent Xavi et Iniesta.</p>
 
-<div style="width: 1210px" class="wp-caption aligncenter">
+<div class="wp-caption aligncenter" style="max-width: 100%;">
   <img decoding="async"
        src="https://www.afriquesports.net/wp-content/uploads/players/pedri.jpg"
        alt="Pedri"
-       width="1200">
+       style="max-width: 100%; height: auto; display: block;">
   <p class="wp-caption-text">Source: FC Barcelona</p>
 </div>
 
