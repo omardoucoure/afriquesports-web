@@ -82,8 +82,9 @@ function TrendingCard({
             fill
             sizes="(max-width: 768px) 100vw, 300px"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
-            quality={85}
+            quality={75}
             priority={priority}
+            loading={priority ? "eager" : "lazy"}
           />
         </div>
       </Link>
@@ -124,15 +125,16 @@ function FeaturedHeroCard({
   return (
     <article className="relative h-full min-h-[400px] lg:min-h-[480px] overflow-hidden group bg-black rounded-lg">
       <Link href={articleUrl} className="block h-full">
-        {/* Image - Always render, parent container handles visibility */}
+        {/* Image - LCP element, optimized for fast loading */}
         <Image
           src={imageUrl}
           alt={stripHtml(article.title.rendered)}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-          quality={85}
+          quality={75}
           priority
+          fetchPriority="high"
         />
         {/* Gradient overlay - stronger dark gradient at bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />

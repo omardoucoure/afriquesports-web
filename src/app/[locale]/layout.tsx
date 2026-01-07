@@ -65,14 +65,16 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
         />
 
-        {/* Resource hints for critical third-party origins */}
-        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
-        <link rel="preconnect" href="https://res.cloudinary.com" />
+        {/* Resource hints - ONLY for LCP-critical resources */}
+        {/* Preconnect to WordPress image CDN (critical for LCP) */}
+        <link rel="preconnect" href="https://cms.realdemadrid.com" />
+        <link rel="preconnect" href="https://i0.wp.com" />
+
+        {/* DNS prefetch for non-critical third parties (less blocking than preconnect) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
-        <link rel="dns-prefetch" href="https://cms.realdemadrid.com" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="preconnect" href="https://www.flashb.id" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.flashb.id" />
 
         {/* Ad scripts moved to body with lazyOnload for better performance */}
 
@@ -120,10 +122,10 @@ export default async function LocaleLayout({
           crossOrigin="anonymous"
         />
 
-        {/* PostHog Analytics - Deferred to afterInteractive for better LCP */}
+        {/* PostHog Analytics - Deferred to lazyOnload for best LCP (loads after page is fully loaded) */}
         <Script
           id="posthog-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               var isProduction = window.location.hostname === 'www.afriquesports.net' || window.location.hostname === 'afriquesports.net';

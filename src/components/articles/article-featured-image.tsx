@@ -36,9 +36,10 @@ export function ArticleFeaturedImage({
         height={800}
         sizes="(max-width: 768px) 100vw, 1200px"
         className="w-full h-auto"
-        quality={90} // High quality for featured image
+        quality={75} // Reduced for faster LCP
         priority={priority && isDesktop} // Only priority on desktop
         loading={isDesktop ? "eager" : "lazy"} // Lazy load on mobile
+        fetchPriority={isDesktop ? "high" : "auto"}
         showPlaceholderOnError={true}
       />
     </div>
