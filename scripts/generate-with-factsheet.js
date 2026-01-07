@@ -24,6 +24,7 @@ const {
   debugPrint,
   isReadyForGeneration,
   validateRankingRespected,
+  formatRankingContent,
   PostType
 } = require('./lib/factsheet');
 
@@ -278,10 +279,7 @@ async function generateWithFactSheet() {
 
   const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
-  console.log(`\n✅ Generation completed in ${duration}s\n`);
-  console.log('━'.repeat(70));
-  console.log(content);
-  console.log('━'.repeat(70));
+  console.log(`\n✅ LLM generation completed in ${duration}s`);
 
   // Validate output respects locked ranking
   if (postType === 'ranking') {
@@ -296,26 +294,59 @@ async function generateWithFactSheet() {
     }
   }
 
+  // Format content with proper HTML structure
+  console.log('\n🎨 Formatting content with images, stats cards, and SEO...');
+
+  let formattedContent;
+  if (postType === 'ranking') {
+    formattedContent = await formatRankingContent(factSheet, content, {
+      includeImages: true,
+      includeStatsCards: true,
+      includeInternalLinks: true,
+      includeSchema: true,
+      language: 'fr'
+    });
+  } else {
+    // For news articles, use raw content for now (can add news formatter later)
+    formattedContent = content;
+  }
+
+  console.log('   ✅ Content formatted with:');
+  console.log('      - Player images from Transfermarkt');
+  console.log('      - Visual ranking badges');
+  console.log('      - Stats cards');
+  console.log('      - SEO schema markup (JSON-LD)');
+  console.log('      - Internal links to related articles');
+
+  console.log('\n━'.repeat(70));
+  console.log(formattedContent.substring(0, 2000) + '...\n[truncated]');
+  console.log('━'.repeat(70));
+
   // Statistics
-  const wordCount = content.trim().split(/\\s+/).length;
+  const wordCount = formattedContent.trim().split(/\s+/).length;
   console.log(`\n📊 Statistics:`);
-  console.log(`   Word count: ${wordCount} words`);
+  console.log(`   Word count: ~${wordCount} words`);
+  console.log(`   Content length: ${formattedContent.length} characters`);
   console.log(`   Generation time: ${duration}s`);
-  console.log(`   Speed: ${(wordCount / parseFloat(duration)).toFixed(1)} words/second`);
   console.log(`   FactSheet ID: ${factSheet.meta.id}`);
   console.log(`   Source Hash: ${factSheet.meta.sourceLogHash}`);
   console.log(`   Quality Status: ${factSheet.quality.validationStatus}`);
 
   // Save outputs
-  const outputFile = `generated-factsheet-${post.post_id}.txt`;
+  const outputFile = `generated-factsheet-${post.post_id}.html`;
+  const rawOutputFile = `generated-factsheet-${post.post_id}-raw.txt`;
   const factSheetFile = `factsheet-${post.post_id}.json`;
 
-  fs.writeFileSync(outputFile, content);
+  fs.writeFileSync(outputFile, formattedContent);
+  fs.writeFileSync(rawOutputFile, content);
   exportFactSheet(factSheet, factSheetFile);
 
   console.log(`\n💾 Saved:`);
-  console.log(`   Content: ${outputFile}`);
+  console.log(`   Formatted HTML: ${outputFile}`);
+  console.log(`   Raw LLM output: ${rawOutputFile}`);
   console.log(`   FactSheet: ${factSheetFile}`);
+
+  return formattedContent;
 }
 
 // Run

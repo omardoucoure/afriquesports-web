@@ -12,6 +12,7 @@ const evidenceGatherer = require('./evidence-gatherer');
 const rankingScorer = require('./ranking-scorer');
 const qualityValidator = require('./quality-validator');
 const builder = require('./builder');
+const contentFormatter = require('./content-formatter');
 
 module.exports = {
   // Schema and types
@@ -33,5 +34,8 @@ module.exports = {
   ...qualityValidator,
 
   // Builder (main API)
-  ...builder
+  ...builder,
+
+  // Content formatting
+  ...contentFormatter
 };
