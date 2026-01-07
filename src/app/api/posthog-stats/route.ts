@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   // PostHog credentials
   const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  const posthogProjectId = process.env.POSTHOG_PROJECT_ID || '21827'; // Default project ID
+  const posthogProjectId = process.env.POSTHOG_PROJECT_ID || '270285'; // Default project ID
   const posthogPersonalApiKey = process.env.POSTHOG_PERSONAL_API_KEY;
 
   // If no API key, return empty data gracefully (don't crash the dashboard)
