@@ -14,10 +14,10 @@ const FormData = require('form-data');
 const SERPAPI_KEY = process.env.SERPAPI_KEY || 'e75b43874237b3f7c922cf794a3e5161ea2acb9c7db38008e0ac991b5fd7dcd9';
 const SERPAPI_BASE = 'https://serpapi.com/search.json';
 
-// WordPress REST API configuration (same env vars as update-wordpress-post.js)
+// WordPress REST API configuration (same env vars as RAG_SETUP.md)
 const WP_API_URL = process.env.WORDPRESS_URL ? `${process.env.WORDPRESS_URL}/wp-json/wp/v2` : 'https://www.afriquesports.net/wp-json/wp/v2';
-const WP_USERNAME = process.env.WORDPRESS_USERNAME;
-const WP_APP_PASSWORD = process.env.WORDPRESS_APP_PASSWORD;
+const WP_USERNAME = process.env.WP_COMMENT_USERNAME || process.env.WORDPRESS_USERNAME;
+const WP_APP_PASSWORD = process.env.WP_COMMENT_APP_PASSWORD || process.env.WORDPRESS_APP_PASSWORD;
 
 // Local cache for player images
 const CACHE_FILE = path.join(__dirname, '../data/player-images-cache.json');
@@ -26,8 +26,9 @@ class PlayerImageFetcher {
   constructor(options = {}) {
     this.apiKey = options.apiKey || SERPAPI_KEY;
     this.wpApiUrl = options.wpApiUrl || WP_API_URL;
-    this.wpUsername = options.wpUsername || WP_USERNAME;
-    this.wpAppPassword = options.wpAppPassword || WP_APP_PASSWORD;
+    // Read env vars at runtime (after dotenv loads)
+    this.wpUsername = options.wpUsername || process.env.WP_COMMENT_USERNAME || process.env.WORDPRESS_USERNAME || WP_USERNAME;
+    this.wpAppPassword = options.wpAppPassword || process.env.WP_COMMENT_APP_PASSWORD || process.env.WORDPRESS_APP_PASSWORD || WP_APP_PASSWORD;
     this.cache = this.loadCache();
     this.minWidth = options.minWidth || 800; // Minimum HD width
     this.minHeight = options.minHeight || 800; // Minimum HD height
@@ -183,7 +184,7 @@ class PlayerImageFetcher {
    */
   async uploadToWordPress(imageBuffer, filename, contentType, altText) {
     if (!this.wpAppPassword) {
-      console.warn('⚠️ WORDPRESS_APP_PASSWORD not set, skipping WordPress upload');
+      console.warn('⚠️ WP_COMMENT_APP_PASSWORD not set, skipping WordPress upload');
       return null;
     }
 
