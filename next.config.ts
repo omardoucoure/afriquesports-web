@@ -85,8 +85,9 @@ const countrySubcategories = [
 ];
 
 const nextConfig: NextConfig = {
-  // Standalone output for smaller production builds (~70% smaller)
-  output: 'standalone',
+  // Note: standalone output disabled due to middleware.nft.json issue in Next.js 16
+  // TODO: Re-enable when Next.js fixes the issue
+  // output: 'standalone',
 
   // Performance optimizations
   compress: true, // Enable gzip/brotli compression
