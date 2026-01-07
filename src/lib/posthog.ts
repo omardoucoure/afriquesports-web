@@ -50,6 +50,12 @@ export function initPostHog() {
         featureFlags: {},
       },
     })
+
+    // Explicitly attach posthog to window for debugging and external access
+    if (typeof window !== 'undefined') {
+      (window as any).posthog = posthog;
+      console.log('[PostHog] Attached to window.posthog');
+    }
   }
 }
 
