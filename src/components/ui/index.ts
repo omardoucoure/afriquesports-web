@@ -4,3 +4,4 @@ export type { BreadcrumbItem, TranslationFunctions } from "./breadcrumb-utils";
 export { Pagination } from "./pagination";
 export { LanguageSwitcher } from "./language-switcher";
 export { LocaleModal } from "./locale-modal";
+export { ImageWithFallback } from "./image-with-fallback";

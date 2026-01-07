@@ -18,6 +18,80 @@ import Redis from 'ioredis';
 // Singleton Redis client
 let redis: Redis | null = null;
 
+// Circuit breaker state
+interface CircuitBreakerState {
+  failures: number;
+  lastFailure: number;
+  isOpen: boolean;
+  halfOpenAttempts: number;
+}
+
+const circuitBreaker: CircuitBreakerState = {
+  failures: 0,
+  lastFailure: 0,
+  isOpen: false,
+  halfOpenAttempts: 0,
+};
+
+// Circuit breaker configuration
+const CIRCUIT_BREAKER = {
+  failureThreshold: 3,      // Open circuit after 3 failures
+  resetTimeout: 60000,      // Try again after 60 seconds
+  halfOpenMaxAttempts: 2,   // Attempts in half-open state before fully closing
+};
+
+/**
+ * Check if circuit breaker allows Redis operations
+ */
+function isCircuitClosed(): boolean {
+  if (!circuitBreaker.isOpen) {
+    return true;
+  }
+
+  // Check if enough time has passed to try again (half-open state)
+  const timeSinceFailure = Date.now() - circuitBreaker.lastFailure;
+  if (timeSinceFailure >= CIRCUIT_BREAKER.resetTimeout) {
+    // Enter half-open state - allow limited attempts
+    return circuitBreaker.halfOpenAttempts < CIRCUIT_BREAKER.halfOpenMaxAttempts;
+  }
+
+  return false;
+}
+
+/**
+ * Record a successful Redis operation
+ */
+function recordSuccess(): void {
+  if (circuitBreaker.isOpen) {
+    circuitBreaker.halfOpenAttempts++;
+    // If we've had enough successful attempts in half-open, close the circuit
+    if (circuitBreaker.halfOpenAttempts >= CIRCUIT_BREAKER.halfOpenMaxAttempts) {
+      console.log('[Redis] Circuit breaker CLOSED - Redis recovered');
+      circuitBreaker.isOpen = false;
+      circuitBreaker.failures = 0;
+      circuitBreaker.halfOpenAttempts = 0;
+    }
+  } else {
+    circuitBreaker.failures = 0;
+  }
+}
+
+/**
+ * Record a failed Redis operation
+ */
+function recordFailure(): void {
+  circuitBreaker.failures++;
+  circuitBreaker.lastFailure = Date.now();
+  circuitBreaker.halfOpenAttempts = 0;
+
+  if (circuitBreaker.failures >= CIRCUIT_BREAKER.failureThreshold) {
+    if (!circuitBreaker.isOpen) {
+      console.warn(`[Redis] Circuit breaker OPEN - ${circuitBreaker.failures} consecutive failures`);
+    }
+    circuitBreaker.isOpen = true;
+  }
+}
+
 /**
  * Get or create Redis client
  * Uses lazy initialization to avoid connection issues during build
@@ -115,17 +189,28 @@ export const CacheKeys = {
 
 /**
  * Get cached data with automatic JSON parsing
+ * Uses circuit breaker to prevent cascading failures
  */
 export async function getCached<T>(key: string): Promise<T | null> {
+  // Check circuit breaker first
+  if (!isCircuitClosed()) {
+    return null; // Skip Redis when circuit is open
+  }
+
   const client = getRedisClient();
   if (!client) return null;
 
   try {
     const cached = await client.get(key);
-    if (!cached) return null;
+    if (!cached) {
+      recordSuccess(); // Connection worked, just no data
+      return null;
+    }
 
+    recordSuccess();
     return JSON.parse(cached) as T;
   } catch (error) {
+    recordFailure();
     console.error(`[Redis] Error getting key ${key}:`, error);
     return null;
   }
@@ -133,6 +218,7 @@ export async function getCached<T>(key: string): Promise<T | null> {
 
 /**
  * Set cached data with automatic JSON stringification
+ * Uses circuit breaker to prevent cascading failures
  * @param key Cache key
  * @param value Data to cache
  * @param ttl Time to live in seconds (default: 5 minutes)
@@ -142,13 +228,20 @@ export async function setCached<T>(
   value: T,
   ttl: number = 300
 ): Promise<boolean> {
+  // Check circuit breaker first
+  if (!isCircuitClosed()) {
+    return false; // Skip Redis when circuit is open
+  }
+
   const client = getRedisClient();
   if (!client) return false;
 
   try {
     await client.setex(key, ttl, JSON.stringify(value));
+    recordSuccess();
     return true;
   } catch (error) {
+    recordFailure();
     console.error(`[Redis] Error setting key ${key}:`, error);
     return false;
   }
@@ -248,4 +341,23 @@ export async function closeRedis(): Promise<void> {
     await redis.quit();
     redis = null;
   }
+}
+
+/**
+ * Get circuit breaker status for monitoring
+ */
+export function getCircuitBreakerStatus(): {
+  isOpen: boolean;
+  failures: number;
+  lastFailure: Date | null;
+  timeSinceLastFailure: number | null;
+} {
+  return {
+    isOpen: circuitBreaker.isOpen,
+    failures: circuitBreaker.failures,
+    lastFailure: circuitBreaker.lastFailure ? new Date(circuitBreaker.lastFailure) : null,
+    timeSinceLastFailure: circuitBreaker.lastFailure
+      ? Date.now() - circuitBreaker.lastFailure
+      : null,
+  };
 }

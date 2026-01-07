@@ -24,7 +24,7 @@ export function getPool(): mysql.Pool | null {
     password: process.env.WORDPRESS_DB_PASSWORD,
     database: process.env.WORDPRESS_DB_NAME || 'wordpress',
     waitForConnections: true,
-    connectionLimit: 15, // Increased from 10 to handle bursts
+    connectionLimit: 40, // Increased from 15 to handle high traffic and prevent connection saturation
     queueLimit: 0,
     // Connection timeouts and keepalive to prevent ECONNRESET errors
     connectTimeout: 10000, // 10 seconds to establish connection

@@ -110,7 +110,7 @@ const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
 const MAX_RETRIES = 3; // Increased from 1 to 3 for better resilience against 503 errors
 const RETRY_DELAY_MS = 1000; // 1 second base delay - exponential backoff will increase this
-const FETCH_TIMEOUT_MS = 30000; // 30 seconds - reduced from 120s to prevent request pile-up
+const FETCH_TIMEOUT_MS = 60000; // 60 seconds - allows retry logic to work properly
 
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
