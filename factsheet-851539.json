@@ -1,0 +1,1723 @@
+{
+  "meta": {
+    "id": "3b701709-91a5-4bc1-80d5-052ac787d0f0",
+    "createdAt": "2026-01-07T14:48:39.996Z",
+    "sourceLogHash": "1891ba0aed1b1c85",
+    "postType": "ranking",
+    "language": "fr-FR",
+    "title": "Top 10 des milieux de terrain en 2025 : Pedri, Neves, Vitinha… le classement choc !"
+  },
+  "constraints": {
+    "locale": "fr-FR",
+    "targetYear": 2026,
+    "season": "2025-2026",
+    "dateRange": {
+      "from": "2025-08-01",
+      "to": "2026-01-07"
+    },
+    "competitionLocks": [],
+    "lockedTerms": []
+  },
+  "entities": [
+    {
+      "kind": "player",
+      "name": "Pedri",
+      "aliases": [
+        "Pedro González López",
+        "Pedri González"
+      ],
+      "ids": {
+        "internalId": "player_c54a4553",
+        "transfermarktId": "901292",
+        "fbrefId": "pedri",
+        "sofascoreId": "934235"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Vitinha",
+      "aliases": [
+        "Vítor Ferreira",
+        "Vitor Machado Ferreira"
+      ],
+      "ids": {
+        "internalId": "player_8aa31994",
+        "transfermarktId": "485004",
+        "fbrefId": "vitinha",
+        "sofascoreId": "934725"
+      },
+      "disambiguationNotes": "PSG midfielder, not Vitinha from Marseille",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "João Neves",
+      "aliases": [
+        "Joao Neves",
+        "Neves"
+      ],
+      "ids": {
+        "internalId": "player_cfc94345",
+        "transfermarktId": "801890",
+        "fbrefId": "joao-neves",
+        "sofascoreId": "1096472"
+      },
+      "disambiguationNotes": "Young Portuguese midfielder at PSG, not Rúben Neves",
+      "confidence": 0.95
+    },
+    {
+      "kind": "player",
+      "name": "Jude Bellingham",
+      "aliases": [
+        "Jude Victor William Bellingham"
+      ],
+      "ids": {
+        "internalId": "player_a217bbcf",
+        "transfermarktId": "581678",
+        "fbrefId": "jude-bellingham",
+        "sofascoreId": "914561"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Jamal Musiala",
+      "aliases": [
+        "Jamal Musiala"
+      ],
+      "ids": {
+        "internalId": "player_9fdaeab5",
+        "transfermarktId": "580195",
+        "fbrefId": "jamal-musiala",
+        "sofascoreId": "942570"
+      },
+      "disambiguationNotes": "Matched by last name: Musiala",
+      "confidence": 0.8
+    },
+    {
+      "kind": "player",
+      "name": "Declan Rice",
+      "aliases": [],
+      "ids": {
+        "internalId": "player_c2a05817",
+        "transfermarktId": "396823",
+        "fbrefId": "declan-rice",
+        "sofascoreId": "864264"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Moises Caicedo",
+      "aliases": [],
+      "ids": {
+        "internalId": "player_f6ee6e1f"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping or API lookup",
+      "confidence": 0.3
+    },
+    {
+      "kind": "player",
+      "name": "Nico Gonzalez",
+      "aliases": [],
+      "ids": {
+        "internalId": "player_1ac510c9"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping or API lookup",
+      "confidence": 0.3
+    },
+    {
+      "kind": "player",
+      "name": "Ryan Gravenberch",
+      "aliases": [],
+      "ids": {
+        "internalId": "player_64aba780"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping or API lookup",
+      "confidence": 0.3
+    },
+    {
+      "kind": "player",
+      "name": "Nicolò Barella",
+      "aliases": [
+        "Nicolo Barella",
+        "Barella"
+      ],
+      "ids": {
+        "internalId": "player_b0999e9c",
+        "transfermarktId": "255942",
+        "fbrefId": "nicolo-barella",
+        "sofascoreId": "815082"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Florian Wirtz",
+      "aliases": [
+        "Wirtz"
+      ],
+      "ids": {
+        "internalId": "player_ede0f1bb",
+        "transfermarktId": "521361",
+        "fbrefId": "florian-wirtz",
+        "sofascoreId": "929730"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Rodri",
+      "aliases": [
+        "Rodrigo Hernández Cascante",
+        "Rodrigo Hernandez"
+      ],
+      "ids": {
+        "internalId": "player_fd540a07",
+        "transfermarktId": "357565",
+        "fbrefId": "rodrigo-hernandez",
+        "sofascoreId": "827653"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "Frenkie de Jong",
+      "aliases": [
+        "Frenkie",
+        "De Jong"
+      ],
+      "ids": {
+        "internalId": "player_435e0a19",
+        "transfermarktId": "326330",
+        "fbrefId": "frenkie-de-jong",
+        "sofascoreId": "804297"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "player",
+      "name": "James Garner",
+      "aliases": [],
+      "ids": {
+        "internalId": "player_6405a7fd"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping or API lookup",
+      "confidence": 0.3
+    },
+    {
+      "kind": "team",
+      "name": "FC Barcelona",
+      "aliases": [
+        "Barça",
+        "Barca",
+        "FCB"
+      ],
+      "ids": {
+        "internalId": "team_7613d8cf",
+        "transfermarktId": "131",
+        "fbrefId": "barcelona",
+        "sofascoreId": "2817"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "team",
+      "name": "Paris Saint-Germain",
+      "aliases": [
+        "PSG",
+        "Paris SG",
+        "Paris"
+      ],
+      "ids": {
+        "internalId": "team_047184de",
+        "transfermarktId": "583",
+        "fbrefId": "paris-saint-germain",
+        "sofascoreId": "1644"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "team",
+      "name": "Real Madrid",
+      "aliases": [
+        "Madrid",
+        "Real",
+        "Los Blancos"
+      ],
+      "ids": {
+        "internalId": "team_cc87bea7",
+        "transfermarktId": "418",
+        "fbrefId": "real-madrid",
+        "sofascoreId": "2829"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "team",
+      "name": "Arsenal FC",
+      "aliases": [
+        "Arsenal",
+        "Gunners",
+        "AFC"
+      ],
+      "ids": {
+        "internalId": "team_dacfa85c",
+        "transfermarktId": "11",
+        "fbrefId": "arsenal",
+        "sofascoreId": "42"
+      },
+      "disambiguationNotes": "",
+      "confidence": 1
+    },
+    {
+      "kind": "team",
+      "name": "Chelsea",
+      "aliases": [],
+      "ids": {
+        "internalId": "team_c8573d2f"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping",
+      "confidence": 0.3
+    },
+    {
+      "kind": "team",
+      "name": "Manchester City",
+      "aliases": [
+        "Man City",
+        "City",
+        "MCFC"
+      ],
+      "ids": {
+        "internalId": "team_8c10a387",
+        "transfermarktId": "281",
+        "fbrefId": "manchester-city",
+        "sofascoreId": "17"
+      },
+      "disambiguationNotes": "",
+      "confidence": 0.9
+    },
+    {
+      "kind": "team",
+      "name": "Liverpool",
+      "aliases": [],
+      "ids": {
+        "internalId": "team_c56fbc8c"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping",
+      "confidence": 0.3
+    },
+    {
+      "kind": "team",
+      "name": "Inter Milan",
+      "aliases": [
+        "Inter",
+        "Internazionale",
+        "Nerazzurri"
+      ],
+      "ids": {
+        "internalId": "team_be8d2119",
+        "transfermarktId": "46",
+        "fbrefId": "inter-milan",
+        "sofascoreId": "2697"
+      },
+      "disambiguationNotes": "",
+      "confidence": 0.9
+    },
+    {
+      "kind": "team",
+      "name": "Barcelone, Espagne",
+      "aliases": [],
+      "ids": {
+        "internalId": "team_2dc269ba"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping",
+      "confidence": 0.3
+    },
+    {
+      "kind": "team",
+      "name": "Liverpool, Allemagne",
+      "aliases": [],
+      "ids": {
+        "internalId": "team_df714c44"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping",
+      "confidence": 0.3
+    },
+    {
+      "kind": "team",
+      "name": "Everton",
+      "aliases": [],
+      "ids": {
+        "internalId": "team_c0525678"
+      },
+      "disambiguationNotes": "UNRESOLVED - needs manual mapping",
+      "confidence": 0.3
+    }
+  ],
+  "structuredFacts": {
+    "players": [
+      {
+        "entityRef": "player_c54a4553",
+        "fields": {
+          "fullName": "Pedri",
+          "age": 23,
+          "nationality": "Spain",
+          "birthDate": null,
+          "currentClub": "Barcelona",
+          "position": "Midfield - Central Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€140.00m",
+          "marketValueNumeric": 140,
+          "season": "2025-26 LALIGA Stats",
+          "stats": {
+            "competition": "2025-26 LALIGA Stats",
+            "appearances": 15,
+            "goals": 2,
+            "assists": 5,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,74 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.518Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_8aa31994",
+        "fields": {
+          "fullName": "Vitinha",
+          "age": 25,
+          "nationality": "Portugal",
+          "birthDate": null,
+          "currentClub": "PSG",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€110.00m",
+          "marketValueNumeric": 110,
+          "season": "2025-26 Ligue 1 Stats",
+          "stats": {
+            "competition": "2025-26 Ligue 1 Stats",
+            "appearances": 16,
+            "goals": 1,
+            "assists": 6,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,72 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_cfc94345",
+        "fields": {
+          "fullName": "João Neves",
+          "age": 21,
+          "nationality": "Portugal",
+          "birthDate": null,
+          "currentClub": "PSG",
+          "position": "Midfield - Central Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€110.00m",
+          "marketValueNumeric": 110,
+          "season": "2025-26 Ligue 1 Stats",
+          "stats": {
+            "competition": "2025-26 Ligue 1 Stats",
+            "appearances": 10,
+            "goals": 5,
+            "assists": 1,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,74 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_a217bbcf",
+        "fields": {
+          "fullName": "Jude Bellingham",
+          "age": 22,
+          "nationality": "England",
+          "birthDate": null,
+          "currentClub": "Real Madrid",
+          "position": "Midfield - Attacking Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€160.00m",
+          "marketValueNumeric": 160,
+          "season": "2025-26 LALIGA Stats",
+          "stats": {
+            "competition": "2025-26 LALIGA Stats",
+            "appearances": 15,
+            "goals": 4,
+            "assists": 3,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,86 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_9fdaeab5",
+        "fields": {
+          "fullName": "Jamal Musiala",
+          "age": 22,
+          "nationality": "Germany",
+          "birthDate": null,
+          "currentClub": "Bayern Munich",
+          "position": "Midfield - Attacking Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€130.00m",
+          "marketValueNumeric": 130,
+          "season": "2025-26 Bundesliga Stats",
+          "stats": {
+            "competition": "2025-26 Bundesliga Stats",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,84 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_c2a05817",
+        "fields": {
+          "fullName": "Declan Rice",
+          "age": 26,
+          "nationality": "England",
+          "birthDate": null,
+          "currentClub": "Arsenal",
+          "position": "Midfield - Central Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€120.00m",
+          "marketValueNumeric": 120,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 19,
+            "goals": 4,
+            "assists": 3,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,88 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_f6ee6e1f",
+        "fields": {
+          "fullName": "Moisés Caicedo",
+          "age": 24,
+          "nationality": "Ecuador",
+          "birthDate": null,
+          "currentClub": "Chelsea",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€110.00m",
+          "marketValueNumeric": 110,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 15,
+            "goals": 3,
+            "assists": 1,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,78 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_1ac510c9",
+        "fields": {
+          "fullName": "Nico González",
+          "age": 24,
+          "nationality": "Spain",
+          "birthDate": null,
+          "currentClub": "Man City",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€45.00m",
+          "marketValueNumeric": 45,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 18,
+            "goals": 1,
+            "assists": 0,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,88 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_64aba780",
+        "fields": {
+          "fullName": "Ryan Gravenberch",
+          "age": 23,
+          "nationality": "Netherlands",
+          "birthDate": null,
+          "currentClub": "Liverpool",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€90.00m",
+          "marketValueNumeric": 90,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 18,
+            "goals": 4,
+            "assists": 2,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,90 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_b0999e9c",
+        "fields": {
+          "fullName": "Nicolò Barella",
+          "age": 28,
+          "nationality": "Italy",
+          "birthDate": null,
+          "currentClub": "Inter",
+          "position": "Midfield - Central Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€60.00m",
+          "marketValueNumeric": 60,
+          "season": "2025-26 Serie A Stats",
+          "stats": {
+            "competition": "2025-26 Serie A Stats",
+            "appearances": 17,
+            "goals": 1,
+            "assists": 4,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,75 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_ede0f1bb",
+        "fields": {
+          "fullName": "Florian Wirtz",
+          "age": 22,
+          "nationality": "Germany",
+          "birthDate": null,
+          "currentClub": "Liverpool",
+          "position": "Midfield - Attacking Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€110.00m",
+          "marketValueNumeric": 110,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 19,
+            "goals": 2,
+            "assists": 1,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,77 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_fd540a07",
+        "fields": {
+          "fullName": "Rodri",
+          "age": 29,
+          "nationality": "Spain",
+          "birthDate": null,
+          "currentClub": "Man City",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€75.00m",
+          "marketValueNumeric": 75,
+          "season": "2025-26 LALIGA Stats",
+          "stats": {
+            "competition": "2025-26 LALIGA Stats",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,91 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_435e0a19",
+        "fields": {
+          "fullName": "Frenkie de Jong",
+          "age": 28,
+          "nationality": "Netherlands",
+          "birthDate": null,
+          "currentClub": "Barcelona",
+          "position": "Midfield - Central Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€45.00m",
+          "marketValueNumeric": 45,
+          "season": "2025-26 LALIGA Stats",
+          "stats": {
+            "competition": "2025-26 LALIGA Stats",
+            "appearances": 14,
+            "goals": 0,
+            "assists": 3,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,81 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      },
+      {
+        "entityRef": "player_6405a7fd",
+        "fields": {
+          "fullName": "James Garner",
+          "age": 24,
+          "nationality": "England",
+          "birthDate": null,
+          "currentClub": "Everton",
+          "position": "Midfield - Defensive Midfield",
+          "shirtNumber": null,
+          "preferredFoot": null,
+          "contractUntil": null,
+          "marketValue": "€25.00m",
+          "marketValueNumeric": 25,
+          "season": "2025-26 Premier League Stats",
+          "stats": {
+            "competition": "2025-26 Premier League Stats",
+            "appearances": 20,
+            "goals": 2,
+            "assists": 3,
+            "minutesPlayed": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "rating": null
+          },
+          "height": "1,82 m",
+          "weight": null,
+          "agent": null,
+          "transfermarktUrl": null,
+          "espnUrl": null
+        },
+        "retrievedAt": "2026-01-07T14:52:55.519Z",
+        "ttlSeconds": 3600,
+        "source": "transfermarkt+espn"
+      }
+    ],
+    "matches": [],
+    "teams": []
+  },
+  "evidence": [
+    {
+      "id": "ev_58419cb7",
+      "url": "https://www.africatopsports.com/2025/11/21/palmares-des-equipes/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-11-21T09:30:01+01:00",
+      "retrievedAt": "2026-01-07T14:52:55.598Z",
+      "snippet": "Palmarès des équipes : les meilleures équipes de foot",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_c54a4553"
+      ]
+    },
+    {
+      "id": "ev_d36f3c9a",
+      "url": "https://www.africatopsports.com/2025/11/01/actualites-paris-sportifs-2/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-11-01T10:22:43+01:00",
+      "retrievedAt": "2026-01-07T14:52:55.598Z",
+      "snippet": "Paris Sportifs Actualités – Football, Résultats et Analyses",
+      "trustScore": 0.75,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_c54a4553"
+      ]
+    },
+    {
+      "id": "ev_8f8f2778",
+      "url": "https://www.africatopsports.com/2025/07/16/paris-sportifs-et-footaball/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-07-16T21:17:26+02:00",
+      "retrievedAt": "2026-01-07T14:52:55.598Z",
+      "snippet": "Actualités – Paris sportifs et footaball : Pronostics et Résultats",
+      "trustScore": 0.75,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_c54a4553"
+      ]
+    },
+    {
+      "id": "ev_71777338",
+      "url": "https://www.africatopsports.com/2025/12/07/vitinha-revient-sur-la-connaissance-du-jeu-parisien-et-les-adversaires-les-plus-impressionnants/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-12-07T19:57:27+01:00",
+      "retrievedAt": "2026-01-07T14:52:55.764Z",
+      "snippet": "Vitinha revient sur la connaissance du jeu parisien et les adversaires les plus impressionnants",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_8aa31994"
+      ]
+    },
+    {
+      "id": "ev_603ef9ff",
+      "url": "https://le10sport.com/football/mercato/mercato-vitinha-a-lom-lerreur-insolite-766411",
+      "publisher": "le10sport",
+      "publishedAt": "000000",
+      "retrievedAt": "2026-01-07T14:52:55.764Z",
+      "snippet": "Mercato : Vitinha à l’OM, l’erreur insolite !",
+      "trustScore": 0.65,
+      "claimTags": [
+        "transfer_rumor"
+      ],
+      "entityRefs": [
+        "player_8aa31994"
+      ]
+    },
+    {
+      "id": "ev_bfec9078",
+      "url": "https://www.africatopsports.com/2025/11/01/actualites-paris-sportifs-2/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-11-01T10:22:43+01:00",
+      "retrievedAt": "2026-01-07T14:52:55.764Z",
+      "snippet": "Paris Sportifs Actualités – Football, Résultats et Analyses",
+      "trustScore": 0.75,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_8aa31994"
+      ]
+    },
+    {
+      "id": "ev_a9da307e",
+      "url": "https://www.africatopsports.com/2025/05/21/joao-neves-avant-psg-inter-finale-ucl-on-doit-jouer-notre-football/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-05-21T16:42:43+02:00",
+      "retrievedAt": "2026-01-07T14:52:55.932Z",
+      "snippet": "João Neves avant PSG – Inter (finale UCL) : « On doit jouer notre football »",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_cfc94345"
+      ]
+    },
+    {
+      "id": "ev_d54f1fcc",
+      "url": "https://le10sport.com/football/mercato/mercato-barcelone-ronaldinho-livre-les-dessous-de-la-bonne-integration-de-neymar-a-barcelone-251278",
+      "publisher": "le10sport",
+      "publishedAt": "000000",
+      "retrievedAt": "2026-01-07T14:52:55.932Z",
+      "snippet": "Ronaldinho livre les dessous de la bonne intégration de Neymar",
+      "trustScore": 0.65,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_cfc94345"
+      ]
+    },
+    {
+      "id": "ev_954be974",
+      "url": "https://le10sport.com/football/mercato/mercato-psg-le-pere-de-neymar-senflamme-pour-sa-presentation-335304",
+      "publisher": "le10sport",
+      "publishedAt": "000000",
+      "retrievedAt": "2026-01-07T14:52:55.932Z",
+      "snippet": "Mercato - PSG : Le père de Neymar s’enflamme pour sa présentation !",
+      "trustScore": 0.65,
+      "claimTags": [
+        "transfer_rumor"
+      ],
+      "entityRefs": [
+        "player_cfc94345"
+      ]
+    },
+    {
+      "id": "ev_27198afd",
+      "url": "https://real-france.fr/bellingham-fait-le-buzz-avec-un-post-inhabituel/",
+      "publisher": "real-france",
+      "publishedAt": "2023-10-09T19:47:56+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.103Z",
+      "snippet": "Bellingham fait le buzz avec un post\ninhabituel",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_a217bbcf"
+      ]
+    },
+    {
+      "id": "ev_4ebe179a",
+      "url": "https://real-france.fr/la-deconnexion-de-jude-bellingham/",
+      "publisher": "real-france",
+      "publishedAt": "2024-05-02T16:04:44+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.103Z",
+      "snippet": "La déconnexion de Jude Bellingham",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_a217bbcf"
+      ]
+    },
+    {
+      "id": "ev_90c53e6f",
+      "url": "https://real-france.fr/en-liga-personne-narrive-a-detroner-bellingham/",
+      "publisher": "real-france",
+      "publishedAt": "2024-03-11T21:45:20+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.103Z",
+      "snippet": "En Liga, personne n'arrive à détrôner\nBellingham",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_a217bbcf"
+      ]
+    },
+    {
+      "id": "ev_7874ee3e",
+      "url": "https://www.africatopsports.com/2025/08/17/footballeurs-egyptiens-remarquables/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-08-17T15:44:29+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.283Z",
+      "snippet": "Les footballeurs égyptiens remarquables : Légendes du Football",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_9fdaeab5"
+      ]
+    },
+    {
+      "id": "ev_15b4d507",
+      "url": "https://www.africatopsports.com/2025/10/25/dribbleur-du-mois/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-10-25T10:14:41+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.283Z",
+      "snippet": "Le Dribbleur du Mois en Afrique : Actualité Football",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_9fdaeab5"
+      ]
+    },
+    {
+      "id": "ev_30d3c383",
+      "url": "https://www.africatopsports.com/2025/11/01/pronostics-sportifs-2/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-11-01T10:17:37+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.283Z",
+      "snippet": "Pronostics Sportifs – Analyses et Résultats de Football",
+      "trustScore": 0.75,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_9fdaeab5"
+      ]
+    },
+    {
+      "id": "ev_f5ae9c0e",
+      "url": "https://www.africatopsports.com/2025/08/08/officiel-muawiya-ghanem-est-un-joueur-de-newcastle/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-08-08T19:48:04+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.439Z",
+      "snippet": "Officiel : Muawiya Ghanem est un joueur de Newcastle",
+      "trustScore": 0.75,
+      "claimTags": [
+        "contract_news"
+      ],
+      "entityRefs": [
+        "player_c2a05817"
+      ]
+    },
+    {
+      "id": "ev_cad85841",
+      "url": "https://www.africatopsports.com/2025/11/21/business-du-football/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-11-21T10:08:36+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.439Z",
+      "snippet": "Le business du football : une industrie en plein essor",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_c2a05817"
+      ]
+    },
+    {
+      "id": "ev_1a8c06c6",
+      "url": "https://www.africatopsports.com/2025/10/25/arbitrage-video/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-10-25T10:28:16+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.439Z",
+      "snippet": "L’impact de l’arbitrage vidéo sur le football moderne",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_c2a05817"
+      ]
+    },
+    {
+      "id": "ev_a06bd43d",
+      "url": "https://real-france.fr/tchouameni-etait-le-joueur-parfait-pour-prendre-la-releve-de-busquets-au-barca/",
+      "publisher": "real-france",
+      "publishedAt": "2022-12-05T09:19:18+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.614Z",
+      "snippet": "\"Tchouaméni était le joueur parfait pour\nprendre la relève de Busquets au Barça\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_f6ee6e1f"
+      ]
+    },
+    {
+      "id": "ev_eaf0a248",
+      "url": "https://real-france.fr/le-match-de-mbappe-a-ete-lamentable/",
+      "publisher": "real-france",
+      "publishedAt": "2024-12-05T10:43:26+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.614Z",
+      "snippet": "\"Le match de Mbappé a été lamentable\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_f6ee6e1f"
+      ]
+    },
+    {
+      "id": "ev_ae4f32da",
+      "url": "https://real-france.fr/avoir-reussi-a-battre-guardiola-et-maintenant-ancelotti-cest-une-fierte/",
+      "publisher": "real-france",
+      "publishedAt": "2024-10-03T08:06:53+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.614Z",
+      "snippet": "\"Avoir réussi à battre Guardiola et maintenant\nAncelotti, c'est une fierté\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_f6ee6e1f"
+      ]
+    },
+    {
+      "id": "ev_c5216b0c",
+      "url": "https://real-france.fr/le-resultat-est-exagere-trois-des-quatre-buts-du-real-sont-evitables/",
+      "publisher": "real-france",
+      "publishedAt": "2024-09-21T23:44:54+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.779Z",
+      "snippet": "\"Le résultat est exagéré, trois des quatre buts\ndu Real sont évitables\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "match_report",
+        "performance"
+      ],
+      "entityRefs": [
+        "player_1ac510c9"
+      ]
+    },
+    {
+      "id": "ev_e53d9c3c",
+      "url": "https://real-france.fr/lopetegui-isco-je-ne-cache-pas-que-jadmire-ce-joueur/",
+      "publisher": "real-france",
+      "publishedAt": "2022-03-02T09:55:24+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.779Z",
+      "snippet": "Lopetegui : \"Isco ? Je ne cache pas que\nj’admire ce joueur\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_1ac510c9"
+      ]
+    },
+    {
+      "id": "ev_f98c739a",
+      "url": "https://real-france.fr/je-regarde-tres-peu-le-football-je-ne-suis-meme-pas-la-ligue-des-champions/",
+      "publisher": "real-france",
+      "publishedAt": "2024-12-13T20:43:55+01:00",
+      "retrievedAt": "2026-01-07T14:52:56.779Z",
+      "snippet": "\"Je regarde très peu le football... je ne suis\nmême pas la Ligue des champions\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_1ac510c9"
+      ]
+    },
+    {
+      "id": "ev_1ebfa5e1",
+      "url": "https://www.africatopsports.com/2025/05/25/football-2/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-05-25T07:02:02+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.938Z",
+      "snippet": "Football : résultats des matchs et actualité 2023",
+      "trustScore": 0.75,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "player_64aba780"
+      ]
+    },
+    {
+      "id": "ev_c0092dc3",
+      "url": "https://www.africatopsports.com/2025/04/29/pronostics-sportifs/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-04-29T11:05:55+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.938Z",
+      "snippet": "Pronostics Sportifs d’Aujourd’hui – Football et Autres Sports",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_64aba780"
+      ]
+    },
+    {
+      "id": "ev_3d8982fa",
+      "url": "https://www.africatopsports.com/2025/07/16/bookmakers-reputes/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-07-16T21:17:19+02:00",
+      "retrievedAt": "2026-01-07T14:52:56.938Z",
+      "snippet": "Guide des bookmakers réputés pour les amateurs de football",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_64aba780"
+      ]
+    },
+    {
+      "id": "ev_d6b1227c",
+      "url": "https://real-france.fr/lincroyable-but-de-nico-paz-avec-come/",
+      "publisher": "real-france",
+      "publishedAt": "2025-09-16T09:28:54+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.093Z",
+      "snippet": "L’incroyable but de Nico Paz avec Côme",
+      "trustScore": 0.5,
+      "claimTags": [
+        "performance"
+      ],
+      "entityRefs": [
+        "player_b0999e9c"
+      ]
+    },
+    {
+      "id": "ev_a27435c5",
+      "url": "https://le10sport.com/football/ligue1/le-sublime-coup-franc-dantonetti-50606",
+      "publisher": "le10sport",
+      "publishedAt": "000000",
+      "retrievedAt": "2026-01-07T14:52:57.093Z",
+      "snippet": "Le sublime coup franc dAntonetti",
+      "trustScore": 0.65,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_b0999e9c"
+      ]
+    },
+    {
+      "id": "ev_1523fd3a",
+      "url": "https://real-france.fr/ancelotti-que-ce-soit-une-bonne-lecon-pour-les-jeunes-cette-equipe-nabandonne-jamais/",
+      "publisher": "real-france",
+      "publishedAt": "2024-01-11T00:27:18+01:00",
+      "retrievedAt": "2026-01-07T14:52:57.093Z",
+      "snippet": "Ancelotti : \"Que ce soit une bonne leçon pour\nles jeunes : cette équipe n'abandonne jamais\"",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "player_b0999e9c"
+      ]
+    },
+    {
+      "id": "ev_76c15a6f",
+      "url": "https://real-france.fr/barca-real-5-choses-a-retenir-du-match/",
+      "publisher": "real-france",
+      "publishedAt": "2025-05-11T18:52:25+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.243Z",
+      "snippet": "Barça-Real : 5 choses à retenir du match",
+      "trustScore": 0.5,
+      "claimTags": [
+        "match_report"
+      ],
+      "entityRefs": [
+        "team_7613d8cf"
+      ]
+    },
+    {
+      "id": "ev_ef7cd803",
+      "url": "https://real-france.fr/notes-clasico-barcelone-real-madrid-2/",
+      "publisher": "real-france",
+      "publishedAt": "2021-10-24T19:00:37+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.243Z",
+      "snippet": "Notes : FC Barcelone - Real Madrid",
+      "trustScore": 0.5,
+      "claimTags": [
+        "performance"
+      ],
+      "entityRefs": [
+        "team_7613d8cf"
+      ]
+    },
+    {
+      "id": "ev_4c744dda",
+      "url": "https://www.africatopsports.com/2025/07/16/clubs-partenaires-des-sites-de-paris-sportifs/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-07-16T21:00:31+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.409Z",
+      "snippet": "Clubs Partenaires des Sites de Paris Sportifs: Guide Complet",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_047184de"
+      ]
+    },
+    {
+      "id": "ev_0969c1bb",
+      "url": "https://www.africatopsports.com/2025/04/29/actualites-paris-sportifs/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-04-29T11:12:57+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.409Z",
+      "snippet": "Actualités Paris Sportifs : Football et Autres Sports",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_047184de"
+      ]
+    },
+    {
+      "id": "ev_fef14461",
+      "url": "https://real-france.fr/le-real-madrid-ne-manque-pas-une-miette-du-mondial/",
+      "publisher": "real-france",
+      "publishedAt": "2022-11-29T10:18:36+01:00",
+      "retrievedAt": "2026-01-07T14:52:57.569Z",
+      "snippet": "Le Real Madrid ne manque pas une miette du\nMondial",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_cc87bea7"
+      ]
+    },
+    {
+      "id": "ev_c7071c04",
+      "url": "https://real-france.fr/notes-real-madrid-athletic-club-3/",
+      "publisher": "real-france",
+      "publishedAt": "2025-04-20T23:00:02+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.569Z",
+      "snippet": "Notes : Real Madrid - Athletic Club",
+      "trustScore": 0.5,
+      "claimTags": [
+        "performance"
+      ],
+      "entityRefs": [
+        "team_cc87bea7"
+      ]
+    },
+    {
+      "id": "ev_0998617b",
+      "url": "https://real-france.fr/notes-arsenal-real-madrid/",
+      "publisher": "real-france",
+      "publishedAt": "2025-04-08T23:02:29+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.735Z",
+      "snippet": "Notes : Arsenal - Real Madrid",
+      "trustScore": 0.5,
+      "claimTags": [
+        "performance"
+      ],
+      "entityRefs": [
+        "team_dacfa85c"
+      ]
+    },
+    {
+      "id": "ev_fee8b573",
+      "url": "https://www.africatopsports.com/2025/06/29/arsenal-se-detourne-del-khannouss-leverkusen-se-rapproche/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-06-29T09:31:07+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.735Z",
+      "snippet": "Arsenal se détourne d’El Khannouss, Leverkusen se rapproche",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_dacfa85c"
+      ]
+    },
+    {
+      "id": "ev_0290ea57",
+      "url": "https://www.africatopsports.com/2025/05/19/chelsea-en-pole-position-pour-un-milieu-camerounais/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-05-19T09:44:39+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.992Z",
+      "snippet": "Chelsea en pole position pour un milieu camerounais",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_c8573d2f"
+      ]
+    },
+    {
+      "id": "ev_82c886ec",
+      "url": "https://www.africatopsports.com/2025/10/06/chelsea-pret-a-casser-sa-tirelire-pour-attirer-antoine-semenyo/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-10-06T15:05:35+02:00",
+      "retrievedAt": "2026-01-07T14:52:57.992Z",
+      "snippet": "Chelsea prêt à casser sa tirelire pour attirer Antoine Semenyo",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": [
+        "team_c8573d2f"
+      ]
+    },
+    {
+      "id": "ev_4e90909c",
+      "url": "https://real-france.fr/mondial-2022-quelles-equipes-ont-le-plus-de-chances-de-sortir-des-phases-de-groupes/",
+      "publisher": "real-france",
+      "publishedAt": "2022-11-16T11:48:44+01:00",
+      "retrievedAt": "2026-01-07T14:52:58.130Z",
+      "snippet": "Mondial 2022 : Quelles équipes ont le plus de\nchances de sortir des phases de groupes ?",
+      "trustScore": 0.5,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": []
+    },
+    {
+      "id": "ev_7dd5db26",
+      "url": "https://www.africatopsports.com/2025/08/11/marseille-aubameyang-gouiri-qui-serale-numero-1/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-08-11T11:33:37+02:00",
+      "retrievedAt": "2026-01-07T14:52:58.130Z",
+      "snippet": "Marseille : Aubameyang – Gouiri, qui sera le numéro 1 ?",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": []
+    },
+    {
+      "id": "ev_75d653c4",
+      "url": "https://www.africatopsports.com/2025/12/19/can-2025-les-milieux-de-terrain-plus-influents-a-suivre/",
+      "publisher": "africatopsports",
+      "publishedAt": "2025-12-19T11:52:52+01:00",
+      "retrievedAt": "2026-01-07T14:52:58.130Z",
+      "snippet": "CAN 2025 : 10 milieux de terrain à suivre dans la compétition",
+      "trustScore": 0.75,
+      "claimTags": [
+        "general"
+      ],
+      "entityRefs": []
+    }
+  ],
+  "lockedFacts": {
+    "rankingLocked": [
+      "player_a217bbcf",
+      "player_c2a05817",
+      "player_c54a4553",
+      "player_64aba780",
+      "player_8aa31994",
+      "player_ede0f1bb",
+      "player_f6ee6e1f",
+      "player_cfc94345",
+      "player_6405a7fd",
+      "player_b0999e9c"
+    ],
+    "eventFacts": {}
+  },
+  "decisions": {
+    "scoringModel": "v1.0-weighted-stats",
+    "scores": [
+      {
+        "entityRef": "player_a217bbcf",
+        "name": "Jude Bellingham",
+        "score": 356.77,
+        "components": {
+          "goals": 40,
+          "assists": 30,
+          "appearances": 30,
+          "rating": 100,
+          "marketValue": 110.34129380159249,
+          "age": 20,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_c2a05817",
+        "name": "Declan Rice",
+        "score": 356.55,
+        "components": {
+          "goals": 40,
+          "assists": 30,
+          "appearances": 38,
+          "rating": 100,
+          "marketValue": 104.1392685158225,
+          "age": 12,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_c54a4553",
+        "name": "Pedri",
+        "score": 351.5,
+        "components": {
+          "goals": 20,
+          "assists": 50,
+          "appearances": 30,
+          "rating": 100,
+          "marketValue": 107.46095563276899,
+          "age": 18,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_64aba780",
+        "name": "Ryan Gravenberch",
+        "score": 343.15,
+        "components": {
+          "goals": 40,
+          "assists": 20,
+          "appearances": 36,
+          "rating": 100,
+          "marketValue": 97.95206961605467,
+          "age": 18,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_8aa31994",
+        "name": "Vitinha",
+        "score": 324.63,
+        "components": {
+          "goals": 10,
+          "assists": 60,
+          "appearances": 32,
+          "rating": 100,
+          "marketValue": 102.26614893933288,
+          "age": 14,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_ede0f1bb",
+        "name": "Florian Wirtz",
+        "score": 319.29,
+        "components": {
+          "goals": 20,
+          "assists": 10,
+          "appearances": 38,
+          "rating": 100,
+          "marketValue": 102.26614893933288,
+          "age": 20,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_f6ee6e1f",
+        "name": "Moises Caicedo",
+        "score": 317.09,
+        "components": {
+          "goals": 30,
+          "assists": 10,
+          "appearances": 30,
+          "rating": 100,
+          "marketValue": 102.26614893933288,
+          "age": 16,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_cfc94345",
+        "name": "João Neves",
+        "score": 310.35,
+        "components": {
+          "goals": 50,
+          "assists": 10,
+          "appearances": 20,
+          "rating": 100,
+          "marketValue": 102.26614893933288,
+          "age": 22,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_6405a7fd",
+        "name": "James Garner",
+        "score": 304.42,
+        "components": {
+          "goals": 20,
+          "assists": 30,
+          "appearances": 40,
+          "rating": 100,
+          "marketValue": 70.7486673985409,
+          "age": 16,
+          "minutesPlayed": 0
+        }
+      },
+      {
+        "entityRef": "player_b0999e9c",
+        "name": "Nicolò Barella",
+        "score": 295.33,
+        "components": {
+          "goals": 10,
+          "assists": 40,
+          "appearances": 34,
+          "rating": 100,
+          "marketValue": 89.26649175053836,
+          "age": 8,
+          "minutesPlayed": 0
+        }
+      }
+    ],
+    "outline": []
+  },
+  "quality": {
+    "validationStatus": "warn",
+    "checks": [
+      {
+        "name": "entity_count",
+        "status": "pass",
+        "details": "Found 25 entities (min: 5)"
+      },
+      {
+        "name": "player_facts",
+        "status": "pass",
+        "details": "Found 14 player facts (min: 5)"
+      },
+      {
+        "name": "evidence_count",
+        "status": "pass",
+        "details": "Found 43 evidence items (min: 3)"
+      },
+      {
+        "name": "locked_ranking",
+        "status": "pass",
+        "details": "Ranking locked with 10 items"
+      },
+      {
+        "name": "entity_confidence",
+        "status": "warn",
+        "details": "9 entities with low confidence: Moises Caicedo, Nico Gonzalez, Ryan Gravenberch, James Garner, Chelsea, Liverpool, Barcelone, Espagne, Liverpool, Allemagne, Everton"
+      },
+      {
+        "name": "entity_resolution",
+        "status": "warn",
+        "details": "4 unresolved: Moises Caicedo, Nico Gonzalez, Ryan Gravenberch, James Garner"
+      },
+      {
+        "name": "evidence_freshness",
+        "status": "warn",
+        "details": "42 stale evidence items"
+      },
+      {
+        "name": "evidence_trust",
+        "status": "pass",
+        "details": "Average trust score: 64%"
+      },
+      {
+        "name": "facts_completeness",
+        "status": "pass",
+        "details": "All player facts are complete"
+      },
+      {
+        "name": "stats_availability",
+        "status": "pass",
+        "details": "All players have stats"
+      }
+    ]
+  }
+}

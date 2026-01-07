@@ -1,8 +1,5 @@
-'use client';
-
 import Image from "next/image";
 import Link from "next/link";
-import { useIsDesktop } from "@/hooks/use-media-query";
 import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
@@ -77,20 +74,18 @@ function TrendingCard({
   return (
     <article className="group">
       <Link href={articleUrl} className="block" aria-label={title}>
-        {/* Image - Only rendered on desktop for LCP optimization */}
-        {isDesktop && (
-          <div className="relative aspect-[16/10] overflow-hidden mb-2 rounded-lg">
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              sizes="(max-width: 768px) 100vw, 300px"
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              quality={85}
-              priority={priority}
-            />
-          </div>
-        )}
+        {/* Image - Always render, parent container handles visibility */}
+        <div className="relative aspect-[16/10] overflow-hidden mb-2 rounded-lg">
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            quality={85}
+            priority={priority}
+          />
+        </div>
       </Link>
       <div className="flex gap-3">
         <span className="text-4xl font-bold text-[#04453f]">{index}</span>
@@ -129,17 +124,16 @@ function FeaturedHeroCard({
   return (
     <article className="relative h-full min-h-[400px] lg:min-h-[480px] overflow-hidden group bg-black rounded-lg">
       <Link href={articleUrl} className="block h-full">
-        {isDesktop && (
-          <Image
-            src={imageUrl}
-            alt={stripHtml(article.title.rendered)}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-            quality={85}
-            priority
-          />
-        )}
+        {/* Image - Always render, parent container handles visibility */}
+        <Image
+          src={imageUrl}
+          alt={stripHtml(article.title.rendered)}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          quality={85}
+          priority
+        />
         {/* Gradient overlay - stronger dark gradient at bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
@@ -215,8 +209,6 @@ export function HeroSection({
   rightArticles,
   translations,
 }: HeroSectionProps) {
-  const isDesktop = useIsDesktop();
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:min-h-[480px]">
       {/* Left column - Afrique Sports TV */}
@@ -234,7 +226,7 @@ export function HeroSection({
               article={article}
               index={index + 1}
               priority={index === 0}
-              isDesktop={isDesktop}
+              isDesktop={true}
             />
           ))}
         </div>
@@ -249,7 +241,7 @@ export function HeroSection({
           <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
         </div>
         <div className="flex-1">
-          <FeaturedHeroCard article={featuredArticle} byLabel={translations.by} isDesktop={isDesktop} />
+          <FeaturedHeroCard article={featuredArticle} byLabel={translations.by} isDesktop={true} />
         </div>
       </div>
 
@@ -283,7 +275,7 @@ export function HeroSection({
               article={article}
               index={index + 1}
               priority={false}
-              isDesktop={isDesktop}
+              isDesktop={false}
             />
           ))}
         </div>

@@ -71,28 +71,7 @@ export default async function LocaleLayout({
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://www.flashb.id" />
 
-        {/* Actirise SDK - Universal script for ad monetization */}
-        {/* IMPORTANT: Do not inject via GTM or control with CMP - Actirise handles this */}
-        <script
-          src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
-          async
-          data-cfasync="false"
-        />
-        <script
-          type="text/javascript"
-          data-cfasync="false"
-          dangerouslySetInnerHTML={{
-            __html: 'window._hbdbrk = window._hbdbrk || [];'
-          }}
-        />
-
-        {/* Google AdSense with Auto ads support */}
-        {/* IMPORTANT: Enable Auto ads in AdSense dashboard (Ads > Auto ads) for 10-15% revenue boost */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
-          crossOrigin="anonymous"
-        />
+        {/* Ad scripts moved to body with lazyOnload for better performance */}
 
         {/* Organization Schema - appears on all pages */}
         <script
@@ -115,6 +94,28 @@ export default async function LocaleLayout({
         </AnalyticsProvider>
         <GoogleAnalytics />
         <Clarity />
+
+        {/* Actirise SDK - Deferred with lazyOnload for better LCP */}
+        <Script
+          id="actirise-init"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: 'window._hbdbrk = window._hbdbrk || [];'
+          }}
+        />
+        <Script
+          id="actirise-sdk"
+          src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
+          strategy="lazyOnload"
+        />
+
+        {/* Google AdSense - Deferred with lazyOnload for better LCP */}
+        <Script
+          id="google-adsense"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
 
         {/* PostHog Analytics - Deferred to afterInteractive for better LCP */}
         <Script

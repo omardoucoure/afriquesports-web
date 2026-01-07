@@ -19,6 +19,7 @@ const PostTypeDetector = require('./lib/post-type-detector');
 const PromptTemplates = require('./lib/prompt-templates');
 const AutonomousResearcher = require('./lib/autonomous-researcher');
 const ImageManager = require('./lib/image-manager');
+const RAGContext = require('./lib/rag-context');
 
 // Parse arguments
 const args = process.argv.slice(2).reduce((acc, arg) => {
@@ -28,12 +29,13 @@ const args = process.argv.slice(2).reduce((acc, arg) => {
 }, {});
 
 const postId = args['post-id'];
-const modelName = args.model || 'qwen2.5:14b-instruct';  // 14B model - MacBook Pro M1 Pro (32GB RAM)
+const modelName = args.model || 'qwen2.5:14b-instruct';  // 14B model - MacBook Pro M1 Pro (32GB)
 const dryRun = args['dry-run'];
 
-// MacBook Pro M1 Pro Configuration (localhost)
-const OLLAMA_HOST = 'localhost';
-const OLLAMA_PORT = '11434';
+// Ollama Configuration - MacBook Pro M1 Pro (32GB) for fast generation
+// RAG API stays on iMac (192.168.2.217:8100) - configured in lib/rag-context.js
+const OLLAMA_HOST = process.env.OLLAMA_HOST || 'localhost';
+const OLLAMA_PORT = process.env.OLLAMA_PORT || '11434';
 
 async function generateWithRealData() {
   console.log('🤖 Enhanced Content Generation with Real Football Data\n');
@@ -180,6 +182,25 @@ async function generateWithRealData() {
     console.log('ℹ️  Step 4: No specific players detected, using general approach\n');
   }
 
+  // Step 4b: Enrich with RAG context (news/articles)
+  console.log('🔍 Step 4b: Fetching RAG context (news/articles)...');
+  const rag = new RAGContext();
+
+  if (await rag.isAvailable()) {
+    const ragSection = await rag.buildFactSheetSection(entities, {
+      topic: post.title
+    });
+
+    if (ragSection) {
+      factSheet += '\n' + ragSection;
+      console.log('   ✅ RAG context added to factSheet\n');
+    } else {
+      console.log('   ℹ️  No relevant RAG context found\n');
+    }
+  } else {
+    console.log('   ⚠️  RAG API not available (iMac offline?)\n');
+  }
+
   // Step 5: Build appropriate prompt using detected post type
   console.log('📝 Step 5: Building prompt with template...\n');
 
@@ -200,7 +221,7 @@ async function generateWithRealData() {
 
   // Step 6: Generate with Ollama (MacBook Pro M1 Pro - 14B model)
   console.log(`🚀 Step 6: Generating content with ${modelName}...`);
-  console.log(`   Using: MacBook Pro M1 Pro (32GB RAM)`);
+  console.log(`   Using: ${OLLAMA_HOST === 'localhost' ? 'MacBook Pro M1 Pro' : 'iMac M3'} (${OLLAMA_HOST}:${OLLAMA_PORT})`);
   const startTime = Date.now();
 
   // Create JSON payload for Ollama API with 32K context window
@@ -278,12 +299,15 @@ async function generateWithRealData() {
   // Statistics
   const wordCount = content.trim().split(/\s+/).length;
   const hasRealData = factSheet.length > 0;
+  const hasRAGData = factSheet.includes('ACTUALITÉS') || factSheet.includes('CONTEXTE RÉCENT');
   console.log(`\n📊 Statistics:`);
   console.log(`   Word count: ${wordCount} words`);
   console.log(`   Generation time: ${duration}s`);
   console.log(`   Speed: ${(wordCount / parseFloat(duration)).toFixed(1)} words/second`);
   console.log(`   Post type: ${postType}`);
-  console.log(`   Data source: ${hasRealData ? '✅ Real API data' : '📝 General knowledge'}`);
+  console.log(`   Data sources:`);
+  console.log(`     - Player stats: ${hasRealData && !hasRAGData ? '✅' : hasRealData ? '✅' : '❌'}`);
+  console.log(`     - RAG context:  ${hasRAGData ? '✅' : '❌'}`);
 
   // Save output
   const outputFile = `generated-content-${post.post_id}.txt`;
