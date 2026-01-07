@@ -200,6 +200,14 @@ const nextConfig: NextConfig = {
             key: "Cache-Control",
             value: "public, s-maxage=300, stale-while-revalidate=600",
           },
+          {
+            key: "CDN-Cache-Control",
+            value: "public, max-age=300, stale-while-revalidate=600",
+          },
+          {
+            key: "Cloudflare-CDN-Cache-Control",
+            value: "public, max-age=300, stale-while-revalidate=600",
+          },
         ],
       },
       // Cache homepage and category pages (shorter cache time for freshness)
@@ -209,6 +217,32 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, s-maxage=60, stale-while-revalidate=300",
+          },
+          {
+            key: "CDN-Cache-Control",
+            value: "public, max-age=60, stale-while-revalidate=300",
+          },
+          {
+            key: "Cloudflare-CDN-Cache-Control",
+            value: "public, max-age=60, stale-while-revalidate=300",
+          },
+        ],
+      },
+      // Cache homepage root path
+      {
+        source: "/:locale(fr|en|es|ar)?",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=60, stale-while-revalidate=300",
+          },
+          {
+            key: "CDN-Cache-Control",
+            value: "public, max-age=60, stale-while-revalidate=300",
+          },
+          {
+            key: "Cloudflare-CDN-Cache-Control",
+            value: "public, max-age=60, stale-while-revalidate=300",
           },
         ],
       },

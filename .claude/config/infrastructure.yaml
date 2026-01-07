@@ -247,28 +247,55 @@ local_machines:
       vector_db: chromadb
       embedding_model: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
       languages: [fr, en, es]
-      data_source: WordPress (afriquesports.net)
       base_path: ~/afrique-sports-rag
-      status: pending_setup
+      status: active  # ✅ RUNNING
+
+      # API endpoint (FastAPI)
+      api:
+        url: http://192.168.2.217:8100
+        docs: http://192.168.2.217:8100/docs
+        endpoints:
+          health: GET /health
+          stats: GET /stats
+          search: POST /search
+          context: POST /context
+          ask: POST /ask
+        screen_session: rag_api
+
+      # Data sources
+      sources:
+        - name: real-france
+          domain: real-france.fr
+          articles: 9900
+          topic: Real Madrid (French)
+        - name: africatopsports
+          domain: africatopsports.com
+          articles: 8899
+          topic: African football
+        - name: le10sport
+          domain: le10sport.com
+          articles: 4399  # Growing to 20k
+          topic: French football
+
+      # Collection stats
+      collection:
+        name: afrique_sports_articles
+        documents: 23196
+        last_ingested: 2026-01-07
 
       directories:
         project: ~/afrique-sports-rag
         data: ~/afrique-sports-rag/data
         vector_db: ~/afrique-sports-rag/chromadb
         scripts: ~/afrique-sports-rag/scripts
+        api: ~/afrique-sports-rag/api
         cache: ~/afrique-sports-rag/.cache
-
-      components:
-        ingestion: "Fetch WordPress articles and create embeddings"
-        storage: "Store embeddings in ChromaDB vector database"
-        retrieval: "Semantic search for similar content"
-        api: "FastAPI endpoint for RAG queries"
 
       features:
         - semantic_search
         - multilingual_embeddings
-        - category_filtering
-        - date_range_filtering
+        - source_filtering
+        - context_for_llm
         - similarity_scoring
 
   # MacBook Pro M1 Pro - Main development machine
