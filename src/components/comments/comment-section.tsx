@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useAuth } from "@/hooks/use-auth"
 import Image from "next/image"
 
@@ -152,11 +152,14 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
   const [newComment, setNewComment] = useState("")
   const [replyingTo, setReplyingTo] = useState<number | null>(null)
   const [replyContent, setReplyContent] = useState("")
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [posting, setPosting] = useState(false)
   const [expandedReplies, setExpandedReplies] = useState<Set<number>>(new Set())
   const [isMounted, setIsMounted] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
 
+  const sectionRef = useRef<HTMLElement>(null)
   const maxCommentLength = 1000
 
   // Fix hydration mismatch by only rendering dynamic dates on client
@@ -164,8 +167,34 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
     setIsMounted(true)
   }, [])
 
-  // Fetch comments from WordPress via API route
+  // Intersection Observer - detect when comments section is visible
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        root: null,
+        rootMargin: '100px', // Start loading 100px before section is visible
+        threshold: 0.1
+      }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
+  }, [])
+
+  // Fetch comments only when section becomes visible
+  useEffect(() => {
+    if (!isVisible) return
+
     const fetchComments = async () => {
       try {
         setLoading(true)
@@ -178,6 +207,7 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
         if (response.ok) {
           const data = await response.json()
           setComments(data)
+          setHasLoadedOnce(true)
         }
       } catch (error) {
         console.error("Error fetching comments:", error)
@@ -186,12 +216,13 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
       }
     }
 
+    // Fetch immediately when visible
     fetchComments()
 
-    // Poll for new comments every 30 seconds
+    // Poll for new comments every 30 seconds only when visible
     const interval = setInterval(fetchComments, 30000)
     return () => clearInterval(interval)
-  }, [articleId, locale])
+  }, [isVisible, articleId, locale])
 
   // Post new comment to WordPress via API route
   const handlePostComment = async () => {
@@ -530,6 +561,7 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
 
   return (
     <section
+      ref={sectionRef}
       id="comment-section"
       className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6"
       aria-label={t.title}
@@ -628,7 +660,18 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
       )}
 
       {/* Comments List */}
-      {loading ? (
+      {!hasLoadedOnce && !isVisible ? (
+        <div className="text-center py-12 text-gray-400">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-3">
+            <MessageCircleIcon />
+          </div>
+          <p className="text-sm font-medium">
+            {locale === 'fr' ? 'Faites défiler pour voir les commentaires' :
+             locale === 'es' ? 'Desplázate para ver los comentarios' :
+             'Scroll to view comments'}
+          </p>
+        </div>
+      ) : loading ? (
         <div className="flex items-center justify-center py-8">
           <LoaderIcon />
           <span className="ml-2 text-gray-600 text-sm">{t.loading}</span>
@@ -639,7 +682,9 @@ export function CommentSection({ articleId, locale = 'fr' }: CommentSectionProps
         </div>
       ) : (
         <div className="text-center py-8 text-gray-500">
-          <MessageCircleIcon />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 mb-2">
+            <MessageCircleIcon />
+          </div>
           <p className="mt-2">{t.noComments}</p>
         </div>
       )}

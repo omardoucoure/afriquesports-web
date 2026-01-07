@@ -18,6 +18,7 @@ const EntityExtractor = require('./lib/entity-extractor');
 const PostTypeDetector = require('./lib/post-type-detector');
 const PromptTemplates = require('./lib/prompt-templates');
 const AutonomousResearcher = require('./lib/autonomous-researcher');
+const ImageManager = require('./lib/image-manager');
 
 // Parse arguments
 const args = process.argv.slice(2).reduce((acc, arg) => {
@@ -95,6 +96,7 @@ async function generateWithRealData() {
 
   // Step 4: Fetch real football data from web scrapers with caching
   let factSheet = '';
+  let playerDataList = []; // Store player data for image processing
 
   if (dataNeeds.fetchPlayers && entities.players.length > 0) {
     console.log('🌐 Step 4: Fetching player data from web scrapers...');
@@ -135,6 +137,9 @@ async function generateWithRealData() {
       // Combine cached and fresh data
       const allPlayersData = [...cachedData, ...freshData];
       const successfulPlayers = allPlayersData.filter(p => p.success);
+
+      // Store player data for image processing later
+      playerDataList = successfulPlayers.map(p => p.data).filter(Boolean);
 
       if (successfulPlayers.length > 0) {
         factSheet += '\n📊 DONNÉES VÉRIFIÉES (2025):\n';
@@ -225,7 +230,7 @@ async function generateWithRealData() {
 
   // Parse response and extract content
   const result = JSON.parse(response);
-  const content = result.response || '';
+  let content = result.response || ''; // Use 'let' to allow modification for image URLs
 
   // Cleanup temp file
   fs.unlinkSync(tempFile);
@@ -236,6 +241,39 @@ async function generateWithRealData() {
   console.log('━'.repeat(70));
   console.log(content);
   console.log('━'.repeat(70));
+
+  // Step 7: Process player images (for ranking posts)
+  if (postType === 'ranking' && playerDataList.length > 0) {
+    console.log(`\n🖼️  Step 7: Processing player images...`);
+    const imageManager = new ImageManager();
+
+    // Extract player-club pairs from the playerDataList array
+    const playerImages = [];
+    for (const playerData of playerDataList) {
+      const playerName = playerData.name;
+      const club = playerData.currentClub || playerData.team || 'Unknown';
+
+      console.log(`\n📸 Processing: ${playerName} (${club})`);
+      const imageUrl = await imageManager.getPlayerImage(playerName, club);
+
+      playerImages.push({
+        name: playerName,
+        url: imageUrl,
+        normalized: imageManager.normalizePlayerName(playerName)
+      });
+    }
+
+    // Replace placeholder image URLs in content with actual WordPress URLs
+    for (const img of playerImages) {
+      const placeholderPattern = new RegExp(
+        `https://www\\.afriquesports\\.net/wp-content/uploads/players/${img.normalized}\\.jpg`,
+        'g'
+      );
+      content = content.replace(placeholderPattern, img.url);
+    }
+
+    console.log(`\n✅ Processed ${playerImages.length} player images`);
+  }
 
   // Statistics
   const wordCount = content.trim().split(/\s+/).length;

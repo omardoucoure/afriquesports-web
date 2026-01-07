@@ -1,15 +1,23 @@
 import posthog from 'posthog-js'
 
 export function initPostHog() {
+  console.log('[PostHog] initPostHog called');
   if (typeof window !== 'undefined') {
     const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
     const host = process.env.NEXT_PUBLIC_POSTHOG_HOST
 
+    console.log('[PostHog] Environment check:', {
+      keyExists: !!key,
+      hostExists: !!host,
+      keyPreview: key ? key.substring(0, 10) + '...' : 'undefined'
+    });
+
     if (!key || !host) {
-      console.warn('PostHog environment variables not configured')
+      console.warn('[PostHog] Environment variables not configured - key:', !!key, 'host:', !!host)
       return
     }
 
+    console.log('[PostHog] Calling posthog.init()');
     posthog.init(key, {
       api_host: host,
       person_profiles: 'identified_only',
