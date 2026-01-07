@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { deleteCached, CacheKeys } from "@/lib/redis";
 
 /**
  * On-Demand Revalidation API
@@ -7,6 +8,8 @@ import { NextRequest, NextResponse } from "next/server";
  * This endpoint is called by WordPress webhooks when a post is published/updated.
  * It immediately purges the cache for affected pages, ensuring fresh content
  * while maintaining fast CDN performance for other pages.
+ *
+ * Now also clears Redis cache for the specific post to ensure immediate updates.
  *
  * Usage:
  * POST /api/revalidate
@@ -42,6 +45,18 @@ export async function POST(request: NextRequest) {
     }
 
     const revalidatedPaths: string[] = [];
+    const clearedRedisKeys: string[] = [];
+
+    // Clear Redis cache for this specific post (all locales)
+    const locales = ["fr", "en", "es", "ar"];
+    for (const locale of locales) {
+      const cacheKey = CacheKeys.post(slug, locale);
+      const deleted = await deleteCached(cacheKey);
+      if (deleted) {
+        clearedRedisKeys.push(cacheKey);
+      }
+    }
+    console.log(`[Revalidate] Cleared Redis keys:`, clearedRedisKeys);
 
     // Always revalidate homepage for fresh content
     revalidatePath("/");
@@ -82,6 +97,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       revalidated: true,
       paths: revalidatedPaths,
+      redisCleared: clearedRedisKeys,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
