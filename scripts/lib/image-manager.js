@@ -82,14 +82,16 @@ class ImageManager {
       ];
 
       for (const pattern of searchPatterns) {
-        const cmd = `ssh root@${this.wpServer} "find ${this.uploadDir} -type f \\( -iname '*${pattern}*.jpg' -o -iname '*${pattern}*.png' -o -iname '*${pattern}*.jpeg' \\) | head -1"`;
+        // Search for original images first (exclude WordPress auto-generated sizes like -150x150, -300x200, etc.)
+        const cmd = `ssh root@${this.wpServer} "find ${this.uploadDir} -type f \\( -iname '*${pattern}.jpg' -o -iname '*${pattern}.png' -o -iname '*${pattern}.jpeg' \\) ! -name '*-[0-9]*x[0-9]*.*' | head -1"`;
 
         const result = execSync(cmd, { encoding: 'utf-8' }).trim();
 
         if (result) {
           // Convert server path to URL
-          const relativePath = result.replace(this.uploadDir, '');
-          return `https://www.afriquesports.net/wp-content/uploads${relativePath}`;
+          // Use WordPress backend URL for multisite images
+          const relativePath = result.replace('/var/www/html/wp-content/uploads', '');
+          return `https://cms.realdemadrid.com/wp-content/uploads${relativePath}`;
         }
       }
 
