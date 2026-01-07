@@ -89,7 +89,7 @@ export function Pagination({
               </svg>
             </Link>
           ) : (
-            <span className="flex items-center justify-center w-10 h-10 text-gray-300 cursor-not-allowed">
+            <span className="flex items-center justify-center w-10 h-10 text-gray-400 cursor-not-allowed">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -111,7 +111,7 @@ export function Pagination({
         {pageNumbers.map((page, index) => (
           <li key={index}>
             {page === "..." ? (
-              <span className="flex items-center justify-center w-10 h-10 text-gray-400">
+              <span className="flex items-center justify-center w-10 h-10 text-gray-500">
                 ...
               </span>
             ) : page === currentPage ? (
@@ -155,7 +155,7 @@ export function Pagination({
               </svg>
             </Link>
           ) : (
-            <span className="flex items-center justify-center w-10 h-10 text-gray-300 cursor-not-allowed">
+            <span className="flex items-center justify-center w-10 h-10 text-gray-400 cursor-not-allowed">
               <svg
                 className="w-5 h-5"
                 fill="none"

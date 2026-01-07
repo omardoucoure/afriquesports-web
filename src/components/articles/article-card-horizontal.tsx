@@ -57,7 +57,7 @@ export function ArticleCardHorizontal({
           {/* Meta */}
           <div className="mt-auto pt-1 sm:pt-2 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-500">
             <span className="font-medium truncate">{authorName}</span>
-            <span className="text-gray-300 hidden sm:inline">•</span>
+            <span className="text-gray-500 hidden sm:inline">•</span>
             <time dateTime={article.date} className="whitespace-nowrap hidden sm:inline">{formatDate(article.date)}</time>
           </div>
         </div>

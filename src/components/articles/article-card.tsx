@@ -72,7 +72,7 @@ export function ArticleCard({
                 />
               ) : (
                 <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
+                  <span className="text-gray-600 text-sm">{tCommon("noImage")}</span>
                 </div>
               )}
 
@@ -104,7 +104,7 @@ export function ArticleCard({
               <span className="font-medium">{authorName}</span>
               {showDate && (
                 <>
-                  <span className="text-gray-300">•</span>
+                  <span className="text-gray-500">•</span>
                   <time dateTime={article.date}>{formattedDate}</time>
                 </>
               )}
@@ -147,7 +147,7 @@ export function ArticleCard({
             <span className="font-medium truncate">{authorName}</span>
             {showDate && (
               <>
-                <span className="text-gray-300">•</span>
+                <span className="text-gray-500">•</span>
                 <time dateTime={article.date} className="whitespace-nowrap">{formattedDate}</time>
               </>
             )}
@@ -177,7 +177,7 @@ export function ArticleCard({
                 />
               ) : (
                 <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">{tCommon("noImage")}</span>
+                  <span className="text-gray-600 text-sm">{tCommon("noImage")}</span>
                 </div>
               )}
 
@@ -209,7 +209,7 @@ export function ArticleCard({
               <span className="font-medium">{authorName}</span>
               {showDate && (
                 <>
-                  <span className="text-gray-300">•</span>
+                  <span className="text-gray-500">•</span>
                   <time dateTime={article.date}>{formattedDate}</time>
                 </>
               )}
