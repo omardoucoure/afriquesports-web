@@ -3,12 +3,12 @@
  *
  * Smart caching strategy:
  * 1. Uses in-memory cache with TTL
- * 2. Relies on Vercel Edge caching (CDN level) for primary caching
+ * 2. Relies on CDN edge caching for primary caching
  * 3. WordPress API responses are cached via Next.js fetch cache
  * 4. Trigger regeneration via webhook when WordPress publishes
  *
  * The actual heavy caching happens at the CDN level via Cache-Control headers.
- * This in-memory cache reduces redundant API calls within the same edge function.
+ * This in-memory cache reduces redundant API calls within the same server process.
  */
 
 export interface SitemapPost {

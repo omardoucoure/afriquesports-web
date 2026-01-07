@@ -88,7 +88,7 @@ const req = https.request(options, (res) => {
 
       console.log('If you DON\'T see site events ($pageview):');
       console.log('   • Check browser console for errors');
-      console.log('   • Verify environment variables in Vercel');
+      console.log('   • Verify environment variables are set');
       console.log('   • Wait 1-2 minutes for events to appear');
       console.log('   • Try incognito/private browsing mode\n');
 

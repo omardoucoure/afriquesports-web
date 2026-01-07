@@ -1,7 +1,7 @@
 /**
  * SEO Weekly Report Cron Endpoint
  *
- * Runs every Monday at 8am (configured in vercel.json)
+ * Runs every Monday at 8am (configured via system cron or PM2)
  * Sends comprehensive weekly SEO report email
  */
 

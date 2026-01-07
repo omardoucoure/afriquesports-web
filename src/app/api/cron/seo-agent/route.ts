@@ -1,7 +1,7 @@
 /**
  * SEO Agent Cron Endpoint
  *
- * Runs daily at 6am (configured in vercel.json)
+ * Runs daily at 6am (configured via system cron or PM2)
  * Executes full SEO agent run:
  * - Fetch yesterday's GSC metrics
  * - Submit new articles for indexing
@@ -12,7 +12,7 @@
 import { NextResponse } from 'next/server';
 import { SEOAgentOrchestrator } from '@/lib/seo-agent/orchestrator';
 
-// Vercel Cron secret for authentication
+// Cron secret for authentication
 const CRON_SECRET = process.env.CRON_SECRET;
 
 export const maxDuration = 60; // 60 seconds timeout
@@ -20,7 +20,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
-    // Verify cron secret (Vercel automatically adds this header)
+    // Verify cron secret
     const authHeader = request.headers.get('authorization');
 
     if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {

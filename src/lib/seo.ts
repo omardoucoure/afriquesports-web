@@ -8,7 +8,7 @@ const DEFAULT_LOCALE = "fr";
 
 /**
  * Get optimized og:image URL via Next.js Image Optimization
- * This ensures images are cached on Vercel's CDN and handles special characters in filenames
+ * This ensures images are cached and handles special characters in filenames
  */
 function getOgImageUrl(imageUrl: string | undefined): string {
   if (!imageUrl) {
@@ -16,7 +16,7 @@ function getOgImageUrl(imageUrl: string | undefined): string {
   }
 
   // Use Next.js Image Optimization API for external images
-  // This caches images on Vercel's CDN and normalizes URLs
+  // This caches images on the CDN and normalizes URLs
   const encodedUrl = encodeURIComponent(imageUrl);
   return `${SITE_URL}/_next/image?url=${encodedUrl}&w=1200&q=75`;
 }

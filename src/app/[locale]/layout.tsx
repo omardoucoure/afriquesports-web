@@ -1,12 +1,27 @@
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { getMessages } from "next-intl/server";
 import { IntlProvider, ActiriseProvider } from "@/components/providers";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
-import { SessionTracker } from "@/components/tracking/SessionTracker";
-import { ScrollTracker } from "@/components/tracking/ScrollTracker";
-import { PostHogPageView } from "@/components/tracking/PostHogPageView";
-import { LocaleModal } from "@/components/ui";
 import { locales, type Locale } from "@/i18n/config";
+
+// Lazy-load tracking components to improve initial page load
+const SessionTracker = dynamic(
+  () => import("@/components/tracking/SessionTracker").then(m => ({ default: m.SessionTracker })),
+  { ssr: false }
+);
+const ScrollTracker = dynamic(
+  () => import("@/components/tracking/ScrollTracker").then(m => ({ default: m.ScrollTracker })),
+  { ssr: false }
+);
+const PostHogPageView = dynamic(
+  () => import("@/components/tracking/PostHogPageView").then(m => ({ default: m.PostHogPageView })),
+  { ssr: false }
+);
+const LocaleModal = dynamic(
+  () => import("@/components/ui").then(m => ({ default: m.LocaleModal })),
+  { ssr: false }
+);
 
 // Generate static params for all locales
 export function generateStaticParams() {

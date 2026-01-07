@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
             cacheMaxAge: 300,
             error: `PostHog API returned ${pageViewsResponse.status}`,
             instructions: pageViewsResponse.status === 403
-              ? 'PostHog API key is invalid or expired. Please update POSTHOG_PERSONAL_API_KEY in Vercel environment variables.'
+              ? 'PostHog API key is invalid or expired. Please update POSTHOG_PERSONAL_API_KEY in environment variables.'
               : 'PostHog service is temporarily unavailable. Please try again later.',
           },
         },

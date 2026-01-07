@@ -85,6 +85,9 @@ const countrySubcategories = [
 ];
 
 const nextConfig: NextConfig = {
+  // Standalone output for smaller production builds (~70% smaller)
+  output: 'standalone',
+
   // Performance optimizations
   compress: true, // Enable gzip/brotli compression
   productionBrowserSourceMaps: false, // Disable source maps in production
@@ -187,8 +190,8 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
-      // Cache article pages at Vercel Edge (5 min cache, 10 min stale)
-      // This provides ISR-like performance without ISR (Next.js 16 proxy.ts compatibility)
+      // Cache article pages at CDN edge (5 min cache, 10 min stale)
+      // This provides ISR-like performance without ISR
       {
         source: "/:locale(fr|en|es|ar)?/:category/:slug",
         headers: [
@@ -208,7 +211,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache API responses at Vercel Edge to reduce origin requests and costs
+      // Cache API responses at CDN edge to reduce origin requests
       // EXCEPT next-match endpoint which needs real-time updates
       {
         source: "/api/can2025/:path((?!next-match).*)",

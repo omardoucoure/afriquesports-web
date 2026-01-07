@@ -2,7 +2,7 @@
  * Analytics Manager - Core singleton
  *
  * Coordinates all analytics providers and handles:
- * - Multi-provider support (PostHog, GA4, Vercel)
+ * - Multi-provider support (PostHog, GA4)
  * - Event batching and queuing
  * - Consent management
  * - Session tracking

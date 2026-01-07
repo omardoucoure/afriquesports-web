@@ -6,7 +6,6 @@ import createMiddleware from 'next-intl/middleware';
 // NOTE: Edge caching via middleware headers was attempted but doesn't work.
 // Next.js overrides any Cache-Control headers set in middleware for pages with
 // force-dynamic, reverting them to "private, no-cache, no-store".
-// See VERCEL-COST-OPTIMIZATION-RESEARCH.md for details and alternative approaches.
 export const proxy = createMiddleware({
   // A list of all locales that are supported
   locales: ['fr', 'en', 'es', 'ar'],
@@ -26,8 +25,8 @@ export const config = {
   // Match all pathnames except static files and API routes
   matcher: [
     // Match all pathnames except for:
-    // - … if they start with `/api`, `/_next` or `/_vercel`
+    // - … if they start with `/api` or `/_next`
     // - … the ones containing a dot (e.g. `favicon.ico`)
-    '/((?!api|_next|_vercel|.*\\..*).*)',
+    '/((?!api|_next|.*\\..*).*)',
   ],
 };

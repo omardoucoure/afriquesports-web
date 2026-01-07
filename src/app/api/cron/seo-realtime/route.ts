@@ -1,7 +1,7 @@
 /**
  * SEO Agent Realtime Cron Endpoint
  *
- * Runs hourly during business hours (9am-9pm, configured in vercel.json)
+ * Runs hourly during business hours (9am-9pm, configured via system cron or PM2)
  * Performs lightweight checks:
  * - Check for very recent articles (last 2 hours)
  * - Submit them for indexing immediately

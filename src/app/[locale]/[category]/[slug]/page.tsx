@@ -30,8 +30,7 @@ import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
 // ISR with force-static: Works with middleware cookies
 // force-static tells Next.js to ignore dynamic APIs (cookies/headers) from middleware
 // and still generate pages statically with ISR revalidation
-// Middleware runs at edge layer on Vercel, separate from page rendering
-// Cost impact: Reduces Edge Requests from $6/day to ~$0.50/day (90% savings)
+// Middleware runs at edge layer, separate from page rendering
 export const revalidate = 600; // 10 minutes ISR (cost optimized)
 export const dynamic = 'force-static'; // Force static even with middleware cookies
 
@@ -76,7 +75,6 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
     // Use original WordPress image for og:image (no optimization needed)
     // Social media crawlers download once and cache forever, so no need for Next.js optimization
-    // This saves ~180K image transformations/month on Vercel
     const ogImageUrl = imageUrl || `${baseUrl}/opengraph-image`;
 
     // Determine image type from original URL (before optimization)

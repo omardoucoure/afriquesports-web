@@ -217,6 +217,73 @@ digitalocean:
     - name: youtube-commentary
       script: /opt/afrique-sports-commentary/youtube-commentary-agent.js
 
+local_machines:
+  # iMac (Local Network) - RAG System for Afrique Sports
+  imac:
+    hostname: 192.168.2.217
+    ssh_user: mad
+    ssh_key: ~/.ssh/id_ed25519
+    ssh_port: 22
+    ssh_host_alias: imac  # Use: ssh imac
+
+    # Hardware specs
+    model: iMac (Mac15,4 - M3 chip)
+    memory: 8 GB
+
+    # Ollama configuration
+    ollama:
+      version: 0.13.5
+      api_endpoint: http://localhost:11434
+      models:
+        - name: qwen2.5:14b
+          size: 9.0 GB
+          quantization: Q4_K_M
+          parameter_size: 14.8B
+      status: running
+
+    # RAG system configuration
+    rag:
+      purpose: "Content retrieval and similarity search for Afrique Sports articles"
+      vector_db: chromadb
+      embedding_model: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
+      languages: [fr, en, es]
+      data_source: WordPress (afriquesports.net)
+      base_path: ~/afrique-sports-rag
+      status: pending_setup
+
+      directories:
+        project: ~/afrique-sports-rag
+        data: ~/afrique-sports-rag/data
+        vector_db: ~/afrique-sports-rag/chromadb
+        scripts: ~/afrique-sports-rag/scripts
+        cache: ~/afrique-sports-rag/.cache
+
+      components:
+        ingestion: "Fetch WordPress articles and create embeddings"
+        storage: "Store embeddings in ChromaDB vector database"
+        retrieval: "Semantic search for similar content"
+        api: "FastAPI endpoint for RAG queries"
+
+      features:
+        - semantic_search
+        - multilingual_embeddings
+        - category_filtering
+        - date_range_filtering
+        - similarity_scoring
+
+  # MacBook Pro M1 Pro - Main development machine
+  macbook_pro:
+    model: MacBook Pro M1 Pro
+    memory: 32 GB
+    ollama:
+      version: latest
+      api_endpoint: http://localhost:11434
+      models:
+        - name: qwen2.5:14b-instruct
+          size: 9.0 GB
+      status: running
+    purpose: "Main content generation (14B model with 32K context)"
+
 database:
   provider: supabase
   url: https://kcarlszocimdxmzmljve.supabase.co

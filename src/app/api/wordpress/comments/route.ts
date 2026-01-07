@@ -139,8 +139,6 @@ export async function GET(request: NextRequest) {
     const baseUrl = 'https://cms.realdemadrid.com/afriquesports'
     const wpUrl = `${baseUrl}/wp-json/wp/v2/comments?post=${articleId}&per_page=100&order=desc&orderby=date`
 
-    console.log('[Comments API] Fetching from:', wpUrl)
-
     // Fetch comments from WordPress with 5-minute cache to reduce load
     const response = await fetch(wpUrl, {
       next: { revalidate: 300 }, // Cache for 5 minutes (300 seconds)
@@ -150,25 +148,20 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    console.log('[Comments API] WordPress response status:', response.status)
-
     // Check content-type to ensure we're getting JSON
     const contentType = response.headers.get('content-type') || ''
     if (!contentType.includes('application/json')) {
-      console.error(`[Comments API] Unexpected content-type: ${contentType}, returning empty comments`)
       return NextResponse.json([])
     }
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error(`[Comments API] WordPress comment fetch failed: \n${errorText}`)
 
       // Handle specific WordPress errors gracefully
       try {
         const errorJson = JSON.parse(errorText)
         // If post is not readable (private, draft, or password protected), return empty comments
         if (errorJson.code === 'rest_cannot_read_post' || errorJson.code === 'rest_post_invalid_id') {
-          console.log(`[Comments API] Post ${articleId} is not publicly accessible, returning empty comments`)
           return NextResponse.json([])
         }
       } catch {
@@ -182,7 +175,6 @@ export async function GET(request: NextRequest) {
     }
 
     const comments = await response.json()
-    console.log('[Comments API] Comments received:', comments.length)
 
     // Return with aggressive caching headers to prevent hammering WordPress
     return NextResponse.json(comments, {

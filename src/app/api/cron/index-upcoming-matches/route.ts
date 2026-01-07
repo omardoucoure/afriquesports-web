@@ -4,21 +4,13 @@ import { getGoogleIndexingAPI } from '@/lib/google-indexing';
 /**
  * Cron Job: Index Upcoming Matches
  *
- * Schedule: Every 6 hours (via vercel.json)
+ * Schedule: Every 6 hours (via system cron or PM2)
  *
  * Logic:
  * 1. Fetch all matches starting in next 24 hours
  * 2. Notify Google Indexing API for each match
  * 3. Rate limit to 200 requests/min (Google's limit)
  * 4. Return summary of indexing results
- *
- * Vercel Cron Configuration (add to vercel.json):
- * {
- *   "crons": [{
- *     "path": "/api/cron/index-upcoming-matches",
- *     "schedule": "0 *\/6 * * *"
- *   }]
- * }
  */
 
 export const runtime = 'nodejs';
@@ -26,7 +18,7 @@ export const maxDuration = 300; // 5 minutes max
 
 export async function GET(request: Request) {
   try {
-    // Verify this is a legitimate cron request (Vercel cron secret)
+    // Verify this is a legitimate cron request
     const authHeader = request.headers.get('authorization');
     const expectedAuth = `Bearer ${process.env.CRON_SECRET}`;
 

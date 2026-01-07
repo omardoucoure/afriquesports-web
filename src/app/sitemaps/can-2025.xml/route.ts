@@ -118,7 +118,6 @@ ${urlEntries.join("\n")}
         "Content-Type": "application/xml; charset=utf-8",
         "Cache-Control": "public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400",
         "CDN-Cache-Control": "public, max-age=7200",
-        "Vercel-CDN-Cache-Control": "public, max-age=7200",
       },
     });
   } catch (error) {

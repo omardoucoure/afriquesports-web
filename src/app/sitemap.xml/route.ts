@@ -75,7 +75,6 @@ ${sitemaps.join("\n")}
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
       "CDN-Cache-Control": "public, max-age=86400",
-      "Vercel-CDN-Cache-Control": "public, max-age=86400",
     },
   });
 }

@@ -1,7 +1,7 @@
 /**
  * Base analytics provider interface
  *
- * All analytics providers (PostHog, GA4, Vercel) must implement this interface
+ * All analytics providers (PostHog, GA4) must implement this interface
  */
 
 import type { EventProperties, PageProperties, UserTraits } from '../events'

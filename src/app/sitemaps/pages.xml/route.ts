@@ -95,7 +95,6 @@ ${urlEntries.join("\n")}
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000",
       "CDN-Cache-Control": "public, max-age=604800",
-      "Vercel-CDN-Cache-Control": "public, max-age=604800",
     },
   });
 }

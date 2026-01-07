@@ -133,7 +133,6 @@ export async function GET(request: Request) {
           // Cache for 15 seconds, allow stale for 30 seconds
           'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
           'CDN-Cache-Control': 'public, s-maxage=15',
-          'Vercel-CDN-Cache-Control': 'public, s-maxage=15'
         }
       }
     );

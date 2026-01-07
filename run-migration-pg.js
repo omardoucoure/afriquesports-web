@@ -90,7 +90,7 @@ async function runMigration() {
     console.log('1. ✅ Database migration complete');
     console.log('2. ⏭️  Integrate LiveMatchCommentary component into /can-2025 page');
     console.log('3. ⏭️  Test with sample data');
-    console.log('4. ⏭️  Deploy to Vercel\n');
+    console.log('4. ⏭️  Deploy to production\n');
 
   } catch (error) {
     console.error('\n❌ Migration failed:', error.message);

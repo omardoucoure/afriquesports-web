@@ -221,7 +221,6 @@ ${videoEntries}
         'Content-Type': 'application/xml; charset=utf-8',
         'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
         'CDN-Cache-Control': 'public, max-age=86400',
-        'Vercel-CDN-Cache-Control': 'public, max-age=86400',
       },
     });
   } catch (error) {

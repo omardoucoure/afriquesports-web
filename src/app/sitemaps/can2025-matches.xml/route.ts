@@ -141,7 +141,6 @@ export async function GET() {
         'Content-Type': 'application/xml',
         'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
         'CDN-Cache-Control': 'public, s-maxage=3600',
-        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600'
       }
     });
   } catch (error) {

@@ -2,7 +2,7 @@
 
 /**
  * Force revalidation of CAN 2025 page cache
- * This will clear Vercel ISR cache and Cloudflare CDN cache
+ * This will clear Cloudflare CDN cache
  */
 
 const https = require('https');

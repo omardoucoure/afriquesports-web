@@ -119,7 +119,7 @@ async function runMigration() {
       console.log('='.repeat(70));
       console.log('\nNext steps:');
       console.log('1. ✅ Database ready');
-      console.log('2. ⏭️  Deploy to Vercel');
+      console.log('2. ⏭️  Deploy to production');
       console.log('3. ⏭️  Update AI agent on DigitalOcean\n');
 
       await client.end();

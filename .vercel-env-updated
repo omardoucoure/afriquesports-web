@@ -1,4 +1,0 @@
-PostHog configuration updated: 2026-01-02
-- POSTHOG_PERSONAL_API_KEY: Updated
-- POSTHOG_PROJECT_ID: 270285
-This file triggers a redeployment to pick up the new environment variables.
