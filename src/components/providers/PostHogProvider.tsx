@@ -1,65 +1,42 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { initPostHog, posthog } from '@/lib/posthog'
 
+/**
+ * PostHogProvider - Tracks SPA navigation pageviews
+ *
+ * Note: PostHog is initialized via inline script in layout.tsx with capture_pageview:true
+ * This component only handles client-side navigation (SPA transitions)
+ */
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    // Defer PostHog initialization until user interaction or 3 seconds
-    // This improves INP by reducing initial JavaScript execution
-    let hasInitialized = false
+    // Track pageview on client-side navigation (SPA)
+    // Initial pageview is handled by PostHog's capture_pageview:true
+    if (!pathname) return
 
-    const initializePostHog = () => {
-      if (hasInitialized) return
-      hasInitialized = true
-
-      initPostHog()
-      setIsLoaded(true)
+    // Skip first render (initial pageview handled by PostHog automatically)
+    const isInitialLoad = !window.__posthog_initial_tracked
+    if (isInitialLoad) {
+      window.__posthog_initial_tracked = true
+      return
     }
 
-    // Initialize after 3 seconds
-    const timeout = setTimeout(initializePostHog, 3000)
+    // Track SPA navigation
+    if (typeof window !== 'undefined' && window.posthog) {
+      let url = window.origin + pathname
+      if (searchParams && searchParams.toString()) {
+        url = url + `?${searchParams.toString()}`
+      }
 
-    // Or initialize on first user interaction (whichever comes first)
-    const events = ['scroll', 'mousemove', 'touchstart', 'click']
-    const onInteraction = () => {
-      clearTimeout(timeout)
-      initializePostHog()
-      events.forEach(event =>
-        document.removeEventListener(event, onInteraction)
-      )
+      window.posthog.capture('$pageview', {
+        $current_url: url,
+      })
     }
-
-    events.forEach(event =>
-      document.addEventListener(event, onInteraction, { once: true, passive: true })
-    )
-
-    return () => {
-      clearTimeout(timeout)
-      events.forEach(event =>
-        document.removeEventListener(event, onInteraction)
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    // Track pageviews only after PostHog is loaded
-    if (!isLoaded || !pathname) return
-
-    let url = window.origin + pathname
-    if (searchParams && searchParams.toString()) {
-      url = url + `?${searchParams.toString()}`
-    }
-
-    posthog.capture('$pageview', {
-      $current_url: url,
-    })
-  }, [pathname, searchParams, isLoaded])
+  }, [pathname, searchParams])
 
   return <>{children}</>
 }

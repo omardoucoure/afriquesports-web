@@ -31,9 +31,12 @@ export class ConsentManager {
 
   /**
    * Check if analytics consent is granted
+   * Default to true unless explicitly declined (opt-out model for analytics)
    */
   static hasConsent(): boolean {
-    return this.getConsent() === 'accepted'
+    const consent = this.getConsent()
+    // Allow analytics unless user explicitly declined
+    return consent !== 'declined'
   }
 
   /**

@@ -1,47 +1,40 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
+/**
+ * PostHogPageView - Tracks SPA navigation pageviews
+ *
+ * Initial pageview is handled by PostHog's capture_pageview:true in layout.tsx
+ * This component tracks subsequent client-side navigation (SPA transitions)
+ */
 export function PostHogPageView() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const isFirstRender = useRef(true)
 
   useEffect(() => {
-    // Track pageview when route changes
-    if (typeof window !== 'undefined') {
-      // PostHog snippet creates a queue, so we can call capture immediately
-      // even if the library hasn't loaded yet
-      const trackPageview = () => {
-        if (window.posthog) {
-          let url = window.origin + pathname
-          if (searchParams && searchParams.toString()) {
-            url = url + `?${searchParams.toString()}`
-          }
+    // Skip first render - initial pageview handled by PostHog automatically
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
 
-          window.posthog.capture('$pageview', {
-            $current_url: url,
-          })
-        }
+    // Track SPA navigation pageviews
+    if (typeof window !== 'undefined' && window.posthog) {
+      let url = window.origin + pathname
+      if (searchParams && searchParams.toString()) {
+        url = url + `?${searchParams.toString()}`
       }
 
-      // If PostHog is already loaded, track immediately
-      if ((window.posthog as any)?.__loaded) {
-        trackPageview()
-      } else {
-        // Otherwise, wait for it to load
-        const checkLoaded = setInterval(() => {
-          if ((window.posthog as any)?.__loaded) {
-            clearInterval(checkLoaded)
-            trackPageview()
-          }
-        }, 100)
-
-        // Clear interval after 10 seconds to prevent memory leak
-        setTimeout(() => clearInterval(checkLoaded), 10000)
-      }
+      window.posthog.capture('$pageview', {
+        $current_url: url,
+      })
     }
   }, [pathname, searchParams])
 
   return null
 }
+
+// Note: Window.posthog type is declared in article-analytics-tracker.tsx

@@ -1,10 +1,10 @@
 /**
  * PostHog analytics provider
  *
- * Wraps existing PostHog integration from /lib/posthog.ts
+ * Uses window.posthog from inline script in layout.tsx
+ * PostHog snippet queues events even before full load
  */
 
-import { posthog } from '@/lib/posthog'
 import { BaseProvider } from './base'
 import type { EventProperties, PageProperties, UserTraits } from '../events'
 
@@ -12,11 +12,22 @@ export class PostHogProvider extends BaseProvider {
   name = 'PostHog'
 
   /**
+   * Get PostHog instance from window
+   */
+  private getPostHog(): any {
+    if (typeof window !== 'undefined') {
+      return window.posthog
+    }
+    return null
+  }
+
+  /**
    * Track custom event
    */
   track(eventName: string, properties: Partial<EventProperties>): void {
-    if (!this.isEnabled()) {
-      this.log('Provider not enabled, skipping track')
+    const ph = this.getPostHog()
+    if (!ph) {
+      this.log('PostHog not available, skipping track')
       return
     }
 
@@ -25,7 +36,7 @@ export class PostHogProvider extends BaseProvider {
       const formattedName = this.formatEventName(eventName)
       const formattedProps = this.formatProperties(properties)
 
-      posthog.capture(formattedName, formattedProps)
+      ph.capture(formattedName, formattedProps)
 
       this.log('Event tracked:', formattedName, formattedProps)
     } catch (error) {
@@ -37,15 +48,16 @@ export class PostHogProvider extends BaseProvider {
    * Track page view
    */
   page(pageName: string, properties: Partial<PageProperties>): void {
-    if (!this.isEnabled()) {
-      this.log('Provider not enabled, skipping page')
+    const ph = this.getPostHog()
+    if (!ph) {
+      this.log('PostHog not available, skipping page')
       return
     }
 
     try {
       const formattedProps = this.formatProperties(properties as any)
 
-      posthog.capture('$pageview', {
+      ph.capture('$pageview', {
         $current_url: window.location.href,
         page_title: pageName,
         ...formattedProps,
@@ -61,13 +73,14 @@ export class PostHogProvider extends BaseProvider {
    * Identify user
    */
   identify(userId: string, traits?: UserTraits): void {
-    if (!this.isEnabled()) {
-      this.log('Provider not enabled, skipping identify')
+    const ph = this.getPostHog()
+    if (!ph) {
+      this.log('PostHog not available, skipping identify')
       return
     }
 
     try {
-      posthog.identify(userId, traits)
+      ph.identify(userId, traits)
 
       this.log('User identified:', userId, traits)
     } catch (error) {
@@ -79,12 +92,11 @@ export class PostHogProvider extends BaseProvider {
    * Reset user identity
    */
   reset(): void {
-    if (!this.isEnabled()) {
-      return
-    }
+    const ph = this.getPostHog()
+    if (!ph) return
 
     try {
-      posthog.reset()
+      ph.reset()
 
       this.log('User reset')
     } catch (error) {
@@ -93,10 +105,11 @@ export class PostHogProvider extends BaseProvider {
   }
 
   /**
-   * Check if PostHog is enabled
+   * Check if PostHog is available (stub or loaded)
+   * PostHog snippet creates a queue, so it's available immediately
    */
   isEnabled(): boolean {
-    return typeof window !== 'undefined' && posthog && posthog.__loaded
+    return typeof window !== 'undefined' && !!window.posthog
   }
 
   /**

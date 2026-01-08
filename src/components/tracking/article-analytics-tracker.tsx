@@ -53,11 +53,12 @@ export function ArticleAnalyticsTracker({
   return null // This component doesn't render anything
 }
 
-// Extend window type for PostHog
+// Extend window type for PostHog and tracking
 declare global {
   interface Window {
     posthog?: {
       capture: (event: string, properties?: Record<string, any>) => void
     }
+    __posthog_initial_tracked?: boolean
   }
 }
