@@ -48,16 +48,32 @@ function StatBar({ homeValue, awayValue, label }: StatBarProps) {
 
 export function StatisticsTab({ matchData }: StatisticsTabProps) {
   const t = useTranslations('can2025.match.stats');
-  const competition = matchData.header.competitions[0];
-  const homeTeam = competition.competitors[0];
-  const awayTeam = competition.competitors[1];
 
-  const homeStats = homeTeam.statistics || [];
-  const awayStats = awayTeam.statistics || [];
+  // Get stats from boxscore.teams (primary source) or fallback to header.competitions
+  const boxscoreTeams = matchData.boxscore?.teams || [];
+  const homeBoxscoreTeam = boxscoreTeams.find((t: any) => t.homeAway === 'home') || boxscoreTeams[0];
+  const awayBoxscoreTeam = boxscoreTeams.find((t: any) => t.homeAway === 'away') || boxscoreTeams[1];
+
+  // Fallback to header competitors if boxscore not available
+  const competition = matchData.header?.competitions?.[0];
+  const homeCompetitor = competition?.competitors?.find((c: any) => c.homeAway === 'home') || competition?.competitors?.[0];
+  const awayCompetitor = competition?.competitors?.find((c: any) => c.homeAway === 'away') || competition?.competitors?.[1];
+
+  // Use boxscore stats first, then competitor stats
+  const homeStats = homeBoxscoreTeam?.statistics || homeCompetitor?.statistics || [];
+  const awayStats = awayBoxscoreTeam?.statistics || awayCompetitor?.statistics || [];
 
   const getStat = (stats: any[], name: string) => {
-    const stat = stats.find((s: any) => s.name === name);
-    return stat ? parseFloat(stat.displayValue) : 0;
+    // Try multiple possible field names
+    const possibleNames = [name, name.toLowerCase()];
+    if (name === 'fouls') possibleNames.push('foulsCommitted');
+    if (name === 'corners') possibleNames.push('wonCorners');
+
+    for (const n of possibleNames) {
+      const stat = stats.find((s: any) => s.name === n || s.name?.toLowerCase() === n.toLowerCase());
+      if (stat) return parseFloat(stat.displayValue) || 0;
+    }
+    return 0;
   };
 
   const hasStats = homeStats.length > 0 || awayStats.length > 0;

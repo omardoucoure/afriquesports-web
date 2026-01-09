@@ -140,173 +140,155 @@ export default function MatchPageClient({
         {/* Main Content: Hero + Live Commentary (2/3 width on desktop) */}
         <div className="lg:col-span-2 space-y-4 lg:space-y-6">
           {/* Match Banner */}
-          <div className="relative overflow-hidden rounded-xl shadow-lg">
+          <div className="relative overflow-hidden rounded-2xl shadow-xl">
             {/* Premium gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-dark via-[#2d5a00] to-primary-dark"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a3d1a] via-[#2d5a2d] to-[#1a4d2e]"></div>
 
-            {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer"></div>
-
-            {/* Subtle dot pattern */}
-            <div className="absolute inset-0 opacity-[0.03]" style={{
-              backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-              backgroundSize: '20px 20px'
+            {/* Subtle pattern overlay */}
+            <div className="absolute inset-0 opacity-5" style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+              backgroundSize: '24px 24px'
             }}></div>
 
-            <div className="relative p-4 sm:p-5 md:p-6">
-              {/* Main Content Row */}
-              <div className="flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
+            <div className="relative p-5 sm:p-6 md:p-8">
+              {/* Top Bar: Stage + Live Status */}
+              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+                {matchStage && (
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20">
+                    <span className="text-sm sm:text-base">🏆</span>
+                    <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-wide">
+                      {matchStage}
+                    </span>
+                  </div>
+                )}
+                {isLive && (
+                  <div className="flex items-center gap-2 bg-red-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-red-600/40">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold uppercase text-white tracking-wider">
+                      {status?.displayClock || 'EN DIRECT'}
+                    </span>
+                  </div>
+                )}
+                {isCompleted && (
+                  <div className="flex items-center gap-2 bg-white/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
+                    <span className="text-xs sm:text-sm font-bold text-white uppercase">
+                      {t('finished')}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Main Score Area */}
+              <div className="flex items-center justify-between gap-2 sm:gap-4">
                 {/* Home Team */}
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
-                  <div className="relative flex-shrink-0">
-                    <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
+                <div className="flex-1 flex flex-col items-center text-center">
+                  <div className="relative mb-2 sm:mb-3">
                     {homeTeam.team.logos?.[0]?.href && !homeLogoError ? (
                       <img
                         src={homeTeam.team.logos[0].href}
                         alt={homeTeam.team.displayName}
-                        className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-lg"
                         onError={() => setHomeLogoError(true)}
                       />
                     ) : (
-                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-xl sm:text-2xl">
                         {(homeTeam.team.abbreviation || homeTeam.team.displayName.slice(0, 3)).toUpperCase()}
                       </div>
                     )}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h1 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-white truncate drop-shadow-md">
-                      {homeTeam.team.displayName}
-                    </h1>
-                    {goalScorers.home.length > 0 && (
-                      <div className="flex flex-col gap-0.5 mt-1">
-                        {goalScorers.home.map((g: any, i: number) => (
-                          <div key={i} className="flex items-center gap-1">
-                            <span className="text-xs text-primary">⚽</span>
-                            <span className="text-[10px] sm:text-xs text-white/90 font-medium">
-                              {g.name} {g.time && <span className="text-white/60">{g.time}'</span>}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Center Score Section */}
-                <div className="flex flex-col items-center gap-1 sm:gap-2 px-2 sm:px-4 md:px-6">
-                  {/* Stage Badge */}
-                  {matchStage && (
-                    <div className="flex items-center gap-1.5 bg-primary/20 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-primary/30 mb-1">
-                      <span className="text-xs sm:text-sm">🏆</span>
-                      <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider">
-                        {matchStage}
-                      </span>
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 drop-shadow-md">
+                    {homeTeam.team.displayName}
+                  </h2>
+                  {goalScorers.home.length > 0 && (
+                    <div className="flex flex-wrap justify-center gap-1 mt-1">
+                      {goalScorers.home.map((g: any, i: number) => (
+                        <span key={i} className="inline-flex items-center gap-1 bg-white/95 text-gray-800 text-xs sm:text-sm px-2 py-0.5 rounded-full font-medium shadow-sm">
+                          ⚽ {g.name} <span className="text-gray-500">{g.time}'</span>
+                        </span>
+                      ))}
                     </div>
                   )}
+                </div>
 
-                  {/* Score Display */}
-                  <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-                    <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white drop-shadow-2xl tabular-nums">
-                      {homeTeam.score || '0'}
-                    </span>
-                    <div className="flex flex-col items-center">
-                      <span className="text-2xl sm:text-3xl font-light text-white/50">-</span>
-                    </div>
-                    <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white drop-shadow-2xl tabular-nums">
-                      {awayTeam.score || '0'}
-                    </span>
-                  </div>
-
-                  {/* Status Row */}
-                  <div className="flex flex-col items-center gap-1 mt-1">
-                    {isLive ? (
-                      <div className="flex items-center gap-2">
-                        <div className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-red-600 rounded-full shadow-lg shadow-red-600/30">
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                          </span>
-                          <span className="text-[10px] sm:text-xs font-bold uppercase text-white tracking-wider">EN DIRECT</span>
-                        </div>
-                        {status?.displayClock && (
-                          <span className="text-sm sm:text-base md:text-lg font-bold text-primary bg-black/30 px-2.5 sm:px-3 py-1 rounded-lg">
-                            {status.displayClock}
-                          </span>
-                        )}
-                      </div>
-                    ) : isCompleted ? (
-                      <span className="px-3 py-1.5 bg-white/15 backdrop-blur-sm text-xs sm:text-sm font-semibold rounded-full text-white border border-white/20">
-                        {t('finished')}
-                      </span>
-                    ) : (
-                      matchDataRaw.header.date && !isNaN(new Date(matchDataRaw.header.date).getTime()) && (
-                        <span className="text-xs sm:text-sm font-medium text-white/80 bg-white/10 px-3 py-1 rounded-full">
-                          {new Date(matchDataRaw.header.date).toLocaleDateString(locale, {
-                            weekday: 'short',
-                            day: 'numeric',
-                            month: 'short',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </span>
-                      )
-                    )}
-                  </div>
+                {/* Score */}
+                <div className="flex items-center gap-2 sm:gap-4 px-2 sm:px-6">
+                  <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white drop-shadow-2xl tabular-nums">
+                    {homeTeam.score || '0'}
+                  </span>
+                  <span className="text-3xl sm:text-4xl font-light text-white/40">-</span>
+                  <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white drop-shadow-2xl tabular-nums">
+                    {awayTeam.score || '0'}
+                  </span>
                 </div>
 
                 {/* Away Team */}
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0 justify-end">
-                  <div className="flex-1 min-w-0 text-right">
-                    <h1 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-white truncate drop-shadow-md">
-                      {awayTeam.team.displayName}
-                    </h1>
-                    {goalScorers.away.length > 0 && (
-                      <div className="flex flex-col gap-0.5 mt-1 items-end">
-                        {goalScorers.away.map((g: any, i: number) => (
-                          <div key={i} className="flex items-center gap-1">
-                            <span className="text-[10px] sm:text-xs text-white/90 font-medium">
-                              {g.name} {g.time && <span className="text-white/60">{g.time}'</span>}
-                            </span>
-                            <span className="text-xs text-primary">⚽</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div className="relative flex-shrink-0">
-                    <div className="absolute inset-0 bg-white/10 rounded-full blur-md"></div>
+                <div className="flex-1 flex flex-col items-center text-center">
+                  <div className="relative mb-2 sm:mb-3">
                     {awayTeam.team.logos?.[0]?.href && !awayLogoError ? (
                       <img
                         src={awayTeam.team.logos[0].href}
                         alt={awayTeam.team.displayName}
-                        className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-lg"
                         onError={() => setAwayLogoError(true)}
                       />
                     ) : (
-                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl md:text-2xl">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-xl sm:text-2xl">
                         {(awayTeam.team.abbreviation || awayTeam.team.displayName.slice(0, 3)).toUpperCase()}
                       </div>
                     )}
                   </div>
+                  <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 drop-shadow-md">
+                    {awayTeam.team.displayName}
+                  </h2>
+                  {goalScorers.away.length > 0 && (
+                    <div className="flex flex-wrap justify-center gap-1 mt-1">
+                      {goalScorers.away.map((g: any, i: number) => (
+                        <span key={i} className="inline-flex items-center gap-1 bg-white/95 text-gray-800 text-xs sm:text-sm px-2 py-0.5 rounded-full font-medium shadow-sm">
+                          ⚽ {g.name} <span className="text-gray-500">{g.time}'</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
-            {/* Bottom Info Bar */}
-            <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/20 flex flex-wrap items-center justify-center sm:justify-between gap-3 sm:gap-4">
-              {/* Venue */}
-              {venue && (
-                <div className="flex items-center gap-1.5 text-white/80 text-xs sm:text-sm">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 text-primary/80" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
-                  </svg>
-                  <span className="font-medium">{venue.fullName}</span>
-                  {venue.address?.city && (
-                    <span className="text-white/60">• {venue.address.city}</span>
-                  )}
-                </div>
-              )}
+              {/* Bottom Info Bar */}
+              <div className="mt-5 sm:mt-6 pt-4 border-t border-white/15 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                {/* Venue */}
+                {venue && (
+                  <div className="flex items-center gap-2 text-white/80 text-xs sm:text-sm">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                    </svg>
+                    <span className="font-medium">{venue.fullName}</span>
+                    {venue.address?.city && (
+                      <span className="text-white/50">• {venue.address.city}</span>
+                    )}
+                  </div>
+                )}
 
-              {/* Viewers or Date */}
+                {/* Date (for non-live) */}
+                {!isLive && !isCompleted && matchDataRaw.header.date && !isNaN(new Date(matchDataRaw.header.date).getTime()) && (
+                  <div className="flex items-center gap-2 text-white/80 text-xs sm:text-sm">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                    </svg>
+                    <time className="font-medium">
+                      {new Date(matchDataRaw.header.date).toLocaleDateString(locale, {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </time>
+                  </div>
+                )}
+
+                {/* Viewers (for live) */}
               {isLive ? (
                 <div className="flex items-center gap-1.5 text-white/80 text-xs sm:text-sm">
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary/80" fill="currentColor" viewBox="0 0 20 20">
