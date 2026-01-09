@@ -336,7 +336,7 @@ export default function MatchPageClient({
             </h2>
             <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black">
               <iframe
-                src="https://www.youtube.com/embed/live_stream?channel=UCwzHiOjPffSwV19T15moss"
+                src="https://www.youtube.com/embed/oq7lse8KIsI?autoplay=1&mute=1"
                 title="Afrique Sports Live"
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
