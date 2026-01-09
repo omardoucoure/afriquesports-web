@@ -11,6 +11,7 @@ const WEBHOOK_SECRET = 'test-secret';
 
 // Track posted events to avoid duplicates
 const postedEvents = new Set();
+const postedTexts = new Set(); // Additional text-based dedup
 let eventCounter = 200;
 
 // French translations for event types
@@ -272,19 +273,34 @@ async function fetchAndProcessCommentary() {
     // Process new events
     let newEvents = 0;
     for (const event of data.commentary) {
-      const eventKey = `${event.sequence}-${event.text?.substring(0, 30)}`;
+      // Use ESPN sequence as primary dedup key
+      const sequenceKey = `seq_${event.sequence}`;
 
-      if (!postedEvents.has(eventKey)) {
-        const translated = translateToFrench(event);
+      // Skip if we've already processed this sequence
+      if (postedEvents.has(sequenceKey)) {
+        continue;
+      }
 
-        if (translated && translated.text) {
-          await postCommentary(translated);
-          postedEvents.add(eventKey);
-          newEvents++;
+      const translated = translateToFrench(event);
 
-          // Small delay between posts
-          await new Promise(r => setTimeout(r, 500));
+      if (translated && translated.text) {
+        // Create text hash for content-based dedup (time + type + first 40 chars)
+        const textKey = `${translated.time}_${translated.type}_${translated.text.substring(0, 40)}`;
+
+        // Skip if similar text was recently posted
+        if (postedTexts.has(textKey)) {
+          console.log(`⏭️  Skipping duplicate: ${translated.text.substring(0, 50)}...`);
+          postedEvents.add(sequenceKey); // Mark as processed to avoid re-checking
+          continue;
         }
+
+        await postCommentary(translated);
+        postedEvents.add(sequenceKey);
+        postedTexts.add(textKey);
+        newEvents++;
+
+        // Small delay between posts
+        await new Promise(r => setTimeout(r, 500));
       }
     }
 

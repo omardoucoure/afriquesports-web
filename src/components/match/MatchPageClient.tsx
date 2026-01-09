@@ -67,11 +67,21 @@ export default function MatchPageClient({
   );
 
   // Use only real commentary data from API or database
-  const currentCommentary = (liveData?.commentary && liveData.commentary.length > 0)
+  const rawCommentary = (liveData?.commentary && liveData.commentary.length > 0)
     ? liveData.commentary
     : (initialCommentary && initialCommentary.length > 0)
     ? initialCommentary
     : [];
+
+  // Deduplicate commentary based on time + type + text content
+  const currentCommentary = rawCommentary.filter((event: any, index: number, arr: any[]) => {
+    // Create a unique key from time, type, and first 50 chars of text
+    const eventKey = `${event.time}_${event.type}_${event.text?.substring(0, 50)}`;
+    // Only keep first occurrence of each unique event
+    return arr.findIndex((e: any) =>
+      `${e.time}_${e.type}_${e.text?.substring(0, 50)}` === eventKey
+    ) === index;
+  });
 
   // Extract goal scorers from commentary with time
   const homeTeamName = homeTeam.team.displayName;
