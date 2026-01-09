@@ -438,6 +438,7 @@
       "live": "EN DIRECT",
       "viewers": "spectateurs",
       "waitingForCommentary": "En attente des commentaires en direct...",
+      "commentaryWillAppear": "Les commentaires apparaîtront ici",
       "finished": "Terminé",
       "venue": "Stade",
       "capacity": "Capacité",

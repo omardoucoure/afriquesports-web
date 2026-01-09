@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 import { CompositionTab } from './tabs/CompositionTab';
 import { StatisticsTab } from './tabs/StatisticsTab';
 import { VideoTab } from './tabs/VideoTab';
+import { getEventIcon, getEventStyle, getTimeBadgeStyle } from './EventIcons';
 
 interface MatchPageClientProps {
   initialMatchData: MatchData;
@@ -348,83 +349,123 @@ export default function MatchPageClient({
             </p>
           </div>
 
-          {/* Live Commentary Section */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-sm border border-gray-100">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 flex flex-wrap items-center gap-2">
-              <span>⚽ {t('liveCommentary')}</span>
+          {/* Live Commentary Section - Redesigned */}
+          <div className="bg-gradient-to-br from-white to-slate-50/50 rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm border border-slate-200/60 backdrop-blur-sm">
+            {/* Header with event count */}
+            <div className="flex items-center justify-between mb-5 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-3">
+                <span className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl shadow-lg shadow-primary/30">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                  </svg>
+                </span>
+                <span>{t('liveCommentary')}</span>
+              </h2>
               {currentCommentary && currentCommentary.length > 0 && (
-                <span className="text-xs sm:text-sm font-normal text-gray-500">
-                  ({currentCommentary.length} {t('events')})
+                <span className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                  {currentCommentary.length} {t('events')}
                 </span>
               )}
-            </h2>
+            </div>
 
-            {/* Commentary Feed - Mobile Optimized */}
+            {/* Commentary Feed - Modern Design */}
             {currentCommentary && currentCommentary.length > 0 ? (
               <div className="space-y-3 sm:space-y-4">
-                {currentCommentary.map((event: any) => (
+                {currentCommentary.map((event: any, index: number) => (
                   <div
                     key={event.id}
-                    className={`flex gap-2.5 sm:gap-3 md:gap-4 p-3 sm:p-4 rounded-xl transition-all active:scale-[0.98] lg:hover:shadow-lg ${
-                      event.is_scoring
-                        ? 'bg-gradient-to-br from-green-100 via-emerald-50 to-green-100 border-2 border-green-400 shadow-lg shadow-green-200/50'
-                        : event.type === 'redCard'
-                        ? 'bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500'
-                        : event.type === 'yellowCard'
-                        ? 'bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500'
-                        : event.type === 'varCheck'
-                        ? 'bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500'
-                        : event.type === 'substitution'
-                        ? 'bg-gradient-to-r from-indigo-50 to-indigo-100 border-l-4 border-indigo-500'
-                        : event.type === 'penaltyAwarded' || event.type === 'penaltyMissed'
-                        ? 'bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500'
-                        : 'bg-gray-50 border-l-4 border-gray-300'
-                    } touch-manipulation`}
+                    className={`group relative flex gap-3 sm:gap-4 p-3.5 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl transition-all duration-300 ease-out
+                      ${getEventStyle(event.type, event.is_scoring)}
+                      ${event.is_scoring ? 'ring-2 ring-emerald-400/50 shadow-xl shadow-emerald-200/40 animate-pulse-once' : ''}
+                      hover:shadow-md hover:translate-y-[-2px] active:scale-[0.99] touch-manipulation`}
+                    style={{
+                      animationDelay: `${index * 50}ms`
+                    }}
                   >
-                    <span className={`flex-shrink-0 leading-none ${event.is_scoring ? 'text-3xl sm:text-4xl animate-pulse' : 'text-xl sm:text-2xl'}`}>
-                      {event.icon}
-                    </span>
+                    {/* Icon container with glow effect */}
+                    <div className={`flex-shrink-0 relative ${event.is_scoring ? 'animate-bounce-soft' : ''}`}>
+                      <div className={`absolute inset-0 rounded-full blur-lg opacity-40 ${event.is_scoring ? 'bg-emerald-400' : 'bg-slate-300'}`}></div>
+                      <div className="relative">
+                        {getEventIcon(event.type, event.is_scoring ? 36 : 28)}
+                      </div>
+                    </div>
+
+                    {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 md:gap-3 mb-1.5 sm:mb-2">
-                        <span className={`font-bold text-base sm:text-lg whitespace-nowrap ${event.is_scoring ? 'text-green-700' : 'text-primary-dark'}`}>
-                          {event.time}
+                      {/* Time and type badges */}
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-2 sm:mb-2.5">
+                        <span className={`inline-flex items-center font-bold text-xs sm:text-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg shadow-sm ${getTimeBadgeStyle(event.type, event.is_scoring)}`}>
+                          {event.time || '--'}
                         </span>
-                        <span className={`text-[10px] sm:text-xs uppercase font-medium px-1.5 sm:px-2 py-0.5 sm:py-1 rounded ${
+                        <span className={`text-[10px] sm:text-xs uppercase font-semibold tracking-wide px-2 sm:px-2.5 py-1 rounded-md ${
                           event.is_scoring
-                            ? 'bg-green-600 text-white'
-                            : 'text-gray-500 bg-white'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : 'bg-white/80 text-slate-600 border border-slate-200'
                         }`}>
                           {tEvents(event.type)}
                         </span>
                         {event.is_scoring && (
-                          <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-green-600 to-emerald-600 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full whitespace-nowrap shadow-md">
-                            ⚽ {tEvents('goalBadge')}
+                          <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-green-500/30 animate-pulse">
+                            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            {tEvents('goalBadge')}
+                          </span>
+                        )}
+                        {event.player_name && event.player_name !== 'null' && event.player_name !== '0' && event.player_name.length > 1 && (
+                          <span className="text-xs sm:text-sm font-semibold text-slate-700 bg-white/90 px-2 py-0.5 rounded border border-slate-200">
+                            {event.player_name}
                           </span>
                         )}
                       </div>
-                      <div className={`text-sm sm:text-base leading-relaxed prose prose-sm max-w-none ${event.is_scoring ? 'text-gray-900 font-semibold' : 'text-gray-900'}`}>
+
+                      {/* Event text with better typography */}
+                      <div className={`text-sm sm:text-base leading-relaxed prose prose-sm max-w-none prose-p:my-1 prose-p:leading-relaxed ${
+                        event.is_scoring
+                          ? 'text-slate-900 font-medium'
+                          : 'text-slate-700'
+                      }`}>
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>
                           {event.text}
                         </ReactMarkdown>
                       </div>
+
+                      {/* Tweet embed if present */}
                       {event.tweet && (
-                        <div className="mt-2 p-2 sm:p-3 bg-white/80 rounded-lg border border-gray-200">
-                          <div className="flex items-start gap-2">
-                            <span className="text-sm flex-shrink-0">🐦</span>
-                            <p className="text-xs sm:text-sm text-gray-600 italic">{event.tweet}</p>
+                        <div className="mt-3 p-3 bg-white/90 rounded-xl border border-slate-200/80 shadow-sm">
+                          <div className="flex items-start gap-2.5">
+                            <svg className="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">{event.tweet}</p>
                           </div>
                         </div>
                       )}
+                    </div>
+
+                    {/* Subtle time indicator on the right (desktop only) */}
+                    <div className="hidden lg:flex flex-col items-end justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-xs text-slate-400 whitespace-nowrap">{event.time}</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 sm:py-12">
-                <div className="text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4">⚽</div>
-                <p className="text-gray-500 text-base sm:text-lg px-4">
+              <div className="text-center py-12 sm:py-16">
+                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full mb-4 sm:mb-5">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                  </svg>
+                </div>
+                <p className="text-slate-500 text-base sm:text-lg font-medium px-4">
                   {isLive ? t('waitingForCommentary') : t('noDataYet')}
                 </p>
+                {isLive && (
+                  <p className="text-slate-400 text-sm mt-2">
+                    {t('commentaryWillAppear') || 'Les commentaires apparaîtront ici'}
+                  </p>
+                )}
               </div>
             )}
           </div>

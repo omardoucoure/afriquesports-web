@@ -437,6 +437,7 @@
       "live": "LIVE",
       "viewers": "viewers",
       "waitingForCommentary": "Waiting for live commentary...",
+      "commentaryWillAppear": "Commentary will appear here",
       "finished": "Finished",
       "venue": "Venue",
       "capacity": "Capacity",

@@ -437,6 +437,7 @@
       "live": "EN VIVO",
       "viewers": "espectadores",
       "waitingForCommentary": "Esperando comentarios en vivo...",
+      "commentaryWillAppear": "Los comentarios aparecerán aquí",
       "finished": "Finalizado",
       "venue": "Estadio",
       "capacity": "Capacidad",
