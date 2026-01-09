@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { generateMatchSlug } from '@/lib/match-url';
 
 const SITE_URL = "https://www.afriquesports.net";
 
@@ -97,8 +98,16 @@ export async function GET() {
         ? new Date(match.date).toISOString()
         : new Date().toISOString();
 
+      // Get team names from competition data
+      const competitors = match.competitions?.[0]?.competitors || [];
+      const homeTeam = competitors.find((c: any) => c.homeAway === 'home')?.team?.displayName || 'Team A';
+      const awayTeam = competitors.find((c: any) => c.homeAway === 'away')?.team?.displayName || 'Team B';
+
+      // Generate SEO-friendly slug: mali-vs-senegal-732177
+      const slug = generateMatchSlug(homeTeam, awayTeam, matchId);
+
       // In production, French (default locale) has no prefix due to localePrefix: "as-needed"
-      const frenchUrl = `${SITE_URL}/can-2025/match/${matchId}`;
+      const frenchUrl = `${SITE_URL}/can-2025/match/${slug}`;
 
       return `
     <url>
@@ -113,15 +122,15 @@ export async function GET() {
       <xhtml:link
         rel="alternate"
         hreflang="en"
-        href="${SITE_URL}/en/can-2025/match/${matchId}" />
+        href="${SITE_URL}/en/can-2025/match/${slug}" />
       <xhtml:link
         rel="alternate"
         hreflang="es"
-        href="${SITE_URL}/es/can-2025/match/${matchId}" />
+        href="${SITE_URL}/es/can-2025/match/${slug}" />
       <xhtml:link
         rel="alternate"
         hreflang="ar"
-        href="${SITE_URL}/ar/can-2025/match/${matchId}" />
+        href="${SITE_URL}/ar/can-2025/match/${slug}" />
       <xhtml:link
         rel="alternate"
         hreflang="x-default"
