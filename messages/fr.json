@@ -450,6 +450,8 @@
       "videosAvailableAfterMatch": "Les vidéos seront disponibles après le match",
       "highlights": "Moments forts",
       "videos": "Vidéos",
+      "liveStream": "Direct YouTube",
+      "watchOnYouTube": "Regardez en direct sur",
       "matchHighlight": "Moment fort du match",
       "tabs": {
         "overview": "Aperçu",

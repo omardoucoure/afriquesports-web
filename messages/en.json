@@ -449,6 +449,8 @@
       "videosAvailableAfterMatch": "Videos will be available after the match",
       "highlights": "Highlights",
       "videos": "Videos",
+      "liveStream": "YouTube Live",
+      "watchOnYouTube": "Watch live on",
       "matchHighlight": "Match highlight",
       "tabs": {
         "overview": "Overview",

@@ -449,6 +449,8 @@
       "videosAvailableAfterMatch": "Los videos estarán disponibles después del partido",
       "highlights": "Momentos destacados",
       "videos": "Videos",
+      "liveStream": "YouTube en vivo",
+      "watchOnYouTube": "Ver en directo en",
       "matchHighlight": "Momento destacado del partido",
       "tabs": {
         "overview": "Resumen",

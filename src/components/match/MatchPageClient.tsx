@@ -33,7 +33,7 @@ export default function MatchPageClient({
   const t = useTranslations('can2025.match');
   const tEvents = useTranslations('can2025.match.eventTypes');
   const [viewers, setViewers] = useState(0); // Initialize with 0 to prevent hydration error
-  const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('video'); // Default to video tab
+  const [activeTab, setActiveTab] = useState<'stats' | 'lineup' | 'video'>('stats'); // Default to stats tab
   const [homeLogoError, setHomeLogoError] = useState(false);
   const [awayLogoError, setAwayLogoError] = useState(false);
 
@@ -326,6 +326,26 @@ export default function MatchPageClient({
               )}
             </div>
           </div>
+          </div>
+
+          {/* YouTube Live Stream Section */}
+          <div className="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-gray-100">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+              <span className="text-red-600">▶️</span>
+              <span>{t('liveStream')}</span>
+            </h2>
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/live_stream?channel=UCwzHiOjPffSwV19T15moss"
+                title="Afrique Sports Live"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <p className="mt-2 text-xs text-gray-500 text-center">
+              {t('watchOnYouTube')} <a href="https://www.youtube.com/@afriquesports" target="_blank" rel="noopener noreferrer" className="text-primary-dark hover:underline">Afrique Sports</a>
+            </p>
           </div>
 
           {/* Live Commentary Section */}
