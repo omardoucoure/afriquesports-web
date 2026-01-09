@@ -56,17 +56,15 @@ export async function GET(request: Request) {
     const isLive = matchStatus === 'in';
 
     // For live matches, disable caching entirely
-    const cacheHeaders = isLive
-      ? {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-        }
-      : {
-          // Cache for 15 seconds for non-live matches
-          'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
-          'CDN-Cache-Control': 'public, s-maxage=15',
-        };
+    const headers = new Headers();
+    if (isLive) {
+      headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      headers.set('Pragma', 'no-cache');
+      headers.set('Expires', '0');
+    } else {
+      headers.set('Cache-Control', 'public, s-maxage=15, stale-while-revalidate=30');
+      headers.set('CDN-Cache-Control', 'public, s-maxage=15');
+    }
 
     return NextResponse.json(
       {
@@ -75,7 +73,7 @@ export async function GET(request: Request) {
         isLive,
         lastUpdate: new Date().toISOString()
       },
-      { headers: cacheHeaders }
+      { headers }
     );
   } catch (error) {
     console.error('Error in match-live-update API:', error);
