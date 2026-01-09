@@ -20,6 +20,7 @@
 const https = require('https');
 const http = require('http');
 const PlayerImageFetcher = require('../player-image-fetcher');
+const { generateAllNarratives, generateFallbackNarrative } = require('./journalist-narrative-generator');
 
 // Initialize image fetcher (singleton)
 let imageFetcher = null;
@@ -87,7 +88,8 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
     includeRadarCharts = true,
     reverseCountdown = true,
     fetchHdImages = true, // Fetch HD images via SerpAPI and upload to WordPress
-    language = 'fr'
+    language = 'fr',
+    generateJournalistNarratives = true // Generate rich journalist-style narratives via vLLM
   } = options;
 
   const entities = factsheet.entities || [];
@@ -165,6 +167,15 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
     console.log(`   ✅ Fetched ${playerImages.size}/${ranking.length} player images\n`);
   }
 
+  // Generate journalist-style narratives for all players using vLLM
+  let playerNarratives = new Map();
+  if (generateJournalistNarratives) {
+    playerNarratives = await generateAllNarratives(ranking, {
+      language,
+      useAI: true // Will automatically use vLLM server
+    });
+  }
+
   // Generate formatted sections
   const sections = [];
 
@@ -192,7 +203,8 @@ async function formatRankingContent(factsheet, generatedText, options = {}) {
       evidence,
       language,
       totalPlayers: ranking.length,
-      playerImages // Pass pre-fetched HD images
+      playerImages, // Pass pre-fetched HD images
+      playerNarratives // Pass pre-generated journalist narratives
     }));
   }
 
@@ -313,50 +325,49 @@ function formatTableOfContents(ranking, language) {
 
 /**
  * Format ranking summary with visual badges
+ * Uses CSS classes defined in globals.css for cleaner WordPress compatibility
  */
 function formatRankingSummary(ranking, language) {
   const title = language === 'fr' ? 'Le Classement Complet' : 'Full Ranking';
 
-  let html = `<div class="ranking-summary" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin: 32px 0;">
-  <h2 style="color: #fff; margin: 0 0 20px 0; font-size: 20px;">${title}</h2>\n`;
+  let html = `<div class="ranking-summary">
+<h2>${title}</h2>
+<div class="ranking-list">\n`;
 
   for (const player of ranking) {
     const position = player.position;
     const flag = COUNTRY_FLAGS[player.nationality] || '🌍';
 
-    // Medal colors for top 3
-    let badgeColor = '#4a5568';
+    // Medal emoji for top 3, number for others
     let badgeEmoji = position.toString();
-    let badgeBg = 'rgba(255,255,255,0.05)';
+    let positionClass = 'rank-default';
 
     if (position === 1) {
-      badgeColor = '#FFD700';
       badgeEmoji = '🥇';
-      badgeBg = 'rgba(255,215,0,0.15)';
+      positionClass = 'rank-gold';
     } else if (position === 2) {
-      badgeColor = '#C0C0C0';
       badgeEmoji = '🥈';
-      badgeBg = 'rgba(192,192,192,0.15)';
+      positionClass = 'rank-silver';
     } else if (position === 3) {
-      badgeColor = '#CD7F32';
       badgeEmoji = '🥉';
-      badgeBg = 'rgba(205,127,50,0.15)';
+      positionClass = 'rank-bronze';
     }
 
-    html += `  <a href="#player-${position}" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: ${badgeBg}; border-radius: 8px; border-left: 4px solid ${badgeColor}; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
-    <div style="font-size: 24px; font-weight: bold; color: ${badgeColor}; min-width: 50px; text-align: center;">${badgeEmoji}</div>
-    <div style="flex: 1; color: #fff;">
-      <div style="font-weight: 600; font-size: 16px;">${player.name}</div>
-      <div style="font-size: 13px; color: #9ca3af;">${player.team} ${flag}</div>
-    </div>
-    <div style="text-align: right;">
-      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">${player.score?.toFixed(2) || '-'}</div>
-      <div style="font-size: 11px; color: #9ca3af;">points</div>
-    </div>
-  </a>\n`;
+    html += `<a href="#player-${position}" class="ranking-entry ${positionClass}">
+<span class="rank-badge">${badgeEmoji}</span>
+<span class="player-info">
+<span class="player-name">${player.name}</span>
+<span class="player-team">${player.team} ${flag}</span>
+</span>
+<span class="player-score">
+<span class="score-value">${player.score?.toFixed(2) || '-'}</span>
+<span class="score-label">points</span>
+</span>
+</a>\n`;
   }
 
-  html += `</div>\n`;
+  html += `</div>
+</div>\n`;
   return html;
 }
 
@@ -371,7 +382,8 @@ async function formatPlayerSection(player, options) {
     evidence,
     language,
     totalPlayers,
-    playerImages = new Map() // Pre-fetched HD images
+    playerImages = new Map(), // Pre-fetched HD images
+    playerNarratives = new Map() // Pre-generated journalist narratives
   } = options;
 
   const position = player.position;
@@ -489,8 +501,9 @@ async function formatPlayerSection(player, options) {
     }
   }
 
-  // Why ranked here section
-  html += formatWhyRankedHere(player, position, totalPlayers, language);
+  // Journalist narrative section (rich analysis)
+  const narrative = playerNarratives.get(name);
+  html += formatJournalistNarrative(player, position, totalPlayers, narrative, language);
 
   // Achievements section
   html += formatAchievements(player, language);
@@ -697,7 +710,54 @@ function formatRadarChart(player, language) {
 }
 
 /**
- * Format "Why ranked here" analysis section
+ * Format journalist narrative section (rich, long-form analysis)
+ * This replaces the old "Why ranked here" with professional journalist-style content
+ */
+function formatJournalistNarrative(player, position, totalPlayers, narrative, language) {
+  const name = player.name;
+  const team = player.team || '';
+
+  // Use pre-generated narrative or generate fallback
+  let content = narrative;
+  if (!content) {
+    content = generateFallbackNarrative(player, position, totalPlayers, language);
+  }
+
+  // Determine section styling based on position
+  let headerGradient, accentColor, headerText;
+
+  if (position === 1) {
+    headerGradient = 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)';
+    accentColor = '#FFD700';
+    headerText = language === 'fr' ? 'Le Meilleur - Portrait' : 'The Best - Profile';
+  } else if (position <= 3) {
+    headerGradient = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)';
+    accentColor = '#9DFF20';
+    headerText = language === 'fr' ? 'Sur le Podium - Portrait' : 'On the Podium - Profile';
+  } else {
+    headerGradient = 'linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%)';
+    accentColor = '#4CAF50';
+    headerText = language === 'fr' ? 'Portrait du Joueur' : 'Player Profile';
+  }
+
+  return `
+      <!-- Journalist Narrative - Rich Analysis -->
+      <div class="player-narrative" style="margin-top: 32px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <div style="width: 4px; height: 32px; background: ${accentColor}; border-radius: 2px;"></div>
+          <h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #1a1a2e; text-transform: uppercase; letter-spacing: 1px;">
+            ${headerText}
+          </h4>
+        </div>
+
+        <div class="narrative-content" style="font-size: 16px; line-height: 1.8; color: #333;">
+          ${content}
+        </div>
+      </div>`;
+}
+
+/**
+ * Format "Why ranked here" analysis section (LEGACY - kept for backward compatibility)
  */
 function formatWhyRankedHere(player, position, totalPlayers, language) {
   const name = player.name;
@@ -711,13 +771,13 @@ function formatWhyRankedHere(player, position, totalPlayers, language) {
 
   if (language === 'fr') {
     if (position === 1) {
-      analysis = `${name} domine ce classement grâce à une combinaison exceptionnelle de productivité offensive, de valeur marchande et d'impact tactique. Son score de ${score.toFixed(2)} points reflète sa capacité à être décisif dans les grands moments pour ${team}.`;
+      analysis = `${name} domine ce classement grace a une combinaison exceptionnelle de productivite offensive, de valeur marchande et d'impact tactique. Son score de ${score.toFixed(2)} points reflete sa capacite a etre decisif dans les grands moments pour ${team}.`;
     } else if (position <= 3) {
-      analysis = `${name} s'installe sur le podium avec un profil complet. Ses ${goals} buts et ${assists} passes décisives cette saison témoignent de sa polyvalence, tandis que sa valeur marchande confirme son statut de joueur d'élite mondiale.`;
+      analysis = `${name} s'installe sur le podium avec un profil complet. Ses ${goals} buts et ${assists} passes decisives cette saison temoignent de sa polyvalence, tandis que sa valeur marchande confirme son statut de joueur d'elite mondiale.`;
     } else if (position <= 5) {
-      analysis = `À la ${position}e place, ${name} fait partie du cercle très fermé des meilleurs milieux mondiaux. Son impact régulier avec ${team} et ses performances constantes justifient pleinement sa position dans le top 5.`;
+      analysis = `A la ${position}e place, ${name} fait partie du cercle tres ferme des meilleurs milieux mondiaux. Son impact regulier avec ${team} et ses performances constantes justifient pleinement sa position dans le top 5.`;
     } else {
-      analysis = `${name} complète ce top 10 avec un profil intéressant. Bien que ${position === totalPlayers ? 'fermant la marche' : `classé ${position}e`}, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.`;
+      analysis = `${name} complete ce top 10 avec un profil interessant. Bien que ${position === totalPlayers ? 'fermant la marche' : `classe ${position}e`}, sa presence dans cette liste temoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.`;
     }
   } else {
     if (position === 1) {
@@ -733,7 +793,7 @@ function formatWhyRankedHere(player, position, totalPlayers, language) {
       <!-- Why Ranked Here -->
       <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
         <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
-          ${language === 'fr' ? '🎯 Pourquoi cette place ?' : '🎯 Why this ranking?'}
+          ${language === 'fr' ? 'Pourquoi cette place ?' : 'Why this ranking?'}
         </div>
         <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">${analysis}</p>
       </div>`;
@@ -1011,5 +1071,6 @@ module.exports = {
   formatPlayerSection,
   formatStatsCard,
   formatRadarChart,
+  formatJournalistNarrative,
   generateSchemaMarkup
 };

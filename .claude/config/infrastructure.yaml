@@ -2,15 +2,43 @@
 # This file is git-tracked and persists across Claude Code sessions
 
 runpod:
-  # OLD PODS (TERMINATED): wfl4o3ns1tizo1, 5x6ah8amw9oo9e
+  # OLD PODS (TERMINATED): wfl4o3ns1tizo1, 5x6ah8amw9oo9e, qbjo7w9adplhia (7B)
 
-  # ACTIVE vLLM TEMPLATE POD (as of 2025-12-27 - migrated)
-  pod_id: qbjo7w9adplhia
-  pod_name: redundant_lavender_alligator-migration
-  template: vllm/vllm-openai:latest  # RunPod vLLM template
-  gpu: RTX A5000 24GB
-  location: CA
-  cost: $0.270/hr
+  # NEW 70B + RAG POD (to be created)
+  # Instructions: scripts/runpod-70b-rag/README.md
+  pod_70b:
+    pod_id: ""  # UPDATE after creating pod
+    pod_name: "afrique-sports-70b-rag"
+    template: runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+    gpu: A100 80GB  # Required for 70B
+    location: EU-RO-1 or US  # Cheapest A100 locations
+    cost: $1.89/hr
+    status: pending_creation
+
+    # Services
+    vllm:
+      port: 8000
+      model: meta-llama/Llama-3.1-70B-Instruct
+      api_key: sk-afrique
+
+    rag:
+      port: 8100
+      collection: afrique_sports_articles
+      documents: 23196
+
+    # Setup
+    setup_script: scripts/runpod-70b-rag/setup.sh
+    sync_script: scripts/runpod-70b-rag/sync-rag-data.sh
+
+  # LEGACY 7B POD (stopped)
+  pod_7b:
+    pod_id: qbjo7w9adplhia
+    pod_name: redundant_lavender_alligator-migration
+    template: vllm/vllm-openai:latest
+    gpu: RTX A5000 24GB
+    location: CA
+    cost: $0.270/hr
+    status: stopped
 
   # SSH (limited functionality on vLLM template - API-first design)
   ssh_tunnel: qbjo7w9adplhia-64411022@ssh.runpod.io

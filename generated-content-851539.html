@@ -1,0 +1,1603 @@
+<!-- Schema markup for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Top 10 des milieux de terrain en 2025 : Pedri, Neves, Vitinha… le classement choc !",
+  "description": "Classement des 10 meilleurs milieux de terrain du football mondial pour la saison 2025-26",
+  "author": {
+    "@type": "Organization",
+    "name": "Afrique Sports",
+    "url": "https://www.afriquesports.net"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Afrique Sports",
+    "url": "https://www.afriquesports.net",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.afriquesports.net/logo.png"
+    }
+  },
+  "datePublished": "2026-01-07T16:40:09.965Z",
+  "dateModified": "2026-01-07T16:40:09.966Z",
+  "image": "https://img.a.transfermarkt.technology/portrait/big/581678-1.jpg",
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Top 10 des milieux de terrain en 2025 : Pedri, Neves, Vitinha… le classement choc !",
+    "description": "Ranking based on statistical performance, market value, and game impact",
+    "numberOfItems": 10,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Person",
+          "name": "Jude Bellingham",
+          "jobTitle": "Professional Football Player",
+          "nationality": "England",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Real Madrid"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Person",
+          "name": "Declan Rice",
+          "jobTitle": "Professional Football Player",
+          "nationality": "England",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Arsenal"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "Person",
+          "name": "Pedri",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Spain",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Barcelona"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "Person",
+          "name": "Ryan Gravenberch",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Netherlands",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Liverpool"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "Person",
+          "name": "Vitinha",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Portugal",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "PSG"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": {
+          "@type": "Person",
+          "name": "Florian Wirtz",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Germany",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Liverpool"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "item": {
+          "@type": "Person",
+          "name": "Moises Caicedo",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Ecuador",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Chelsea"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "item": {
+          "@type": "Person",
+          "name": "João Neves",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Portugal",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "PSG"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 9,
+        "item": {
+          "@type": "Person",
+          "name": "James Garner",
+          "jobTitle": "Professional Football Player",
+          "nationality": "England",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Everton"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 10,
+        "item": {
+          "@type": "Person",
+          "name": "Nicolò Barella",
+          "jobTitle": "Professional Football Player",
+          "nationality": "Italy",
+          "affiliation": {
+            "@type": "SportsTeam",
+            "name": "Inter"
+          }
+        }
+      }
+    ]
+  }
+}
+</script>
+
+<style>
+.ranking-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(0,0,0,0.1);
+  z-index: 9999;
+}
+.ranking-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #9DFF20, #FFD700);
+  width: 0%;
+  transition: width 0.1s ease;
+}
+</style>
+<div class="ranking-progress-container">
+  <div class="ranking-progress-bar" id="rankingProgress"></div>
+</div>
+<script>
+window.addEventListener('scroll', function() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  var progressBar = document.getElementById('rankingProgress');
+  if (progressBar) progressBar.style.width = scrolled + '%';
+});
+</script>
+
+<div class="ranking-intro" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 32px; border-radius: 16px; margin-bottom: 32px;">
+  <p style="font-size: 18px; line-height: 1.7; margin: 0;">
+    <strong style="color: #9DFF20;">Le verdict est tombé.</strong> Notre classement des meilleurs milieux de terrain pour la saison 2025-26 place <strong>Jude Bellingham</strong>, <strong>Declan Rice</strong>, <strong>Pedri</strong> sur le podium.
+    En tête, <strong style="color: #FFD700;">Jude Bellingham</strong> s'impose avec un score de 356.77 points,
+    fruit d'une analyse rigoureuse combinant performances statistiques, valeur marchande et impact décisif sur le terrain.
+  </p>
+  <p style="font-size: 14px; color: #9ca3af; margin: 16px 0 0 0;">
+    📊 Méthodologie : Statistiques officielles • Valeurs Transfermarkt • Coefficients par ligue
+  </p>
+</div>
+
+<nav class="ranking-toc" style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+  <h2 style="margin: 0 0 16px 0; font-size: 18px; color: #1a1a2e;">Sommaire - Accès rapide</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px;">    <a href="#player-1" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #FFD700;">#1</span>
+      <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Jude Bellingham</span>
+    </a>
+    <a href="#player-2" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #FFD700;">#2</span>
+      <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Declan Rice</span>
+    </a>
+    <a href="#player-3" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #FFD700;">#3</span>
+      <span>🇪🇸</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Pedri</span>
+    </a>
+    <a href="#player-4" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#4</span>
+      <span>🇳🇱</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ryan Gravenberch</span>
+    </a>
+    <a href="#player-5" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#5</span>
+      <span>🇵🇹</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Vitinha</span>
+    </a>
+    <a href="#player-6" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#6</span>
+      <span>🇩🇪</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Florian Wirtz</span>
+    </a>
+    <a href="#player-7" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#7</span>
+      <span>🇪🇨</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Moises Caicedo</span>
+    </a>
+    <a href="#player-8" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#8</span>
+      <span>🇵🇹</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">João Neves</span>
+    </a>
+    <a href="#player-9" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#9</span>
+      <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">James Garner</span>
+    </a>
+    <a href="#player-10" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #fff; border-radius: 8px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'" onmouseout="this.style.background='#fff'">
+      <span style="font-weight: bold; color: #666;">#10</span>
+      <span>🇮🇹</span>
+      <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Nicolò Barella</span>
+    </a>
+  </div>
+</nav>
+
+<div class="ranking-summary" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin: 32px 0;">
+  <h2 style="color: #fff; margin: 0 0 20px 0; font-size: 20px;">Le Classement Complet</h2>
+  <a href="#player-1" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,215,0,0.15); border-radius: 8px; border-left: 4px solid #FFD700; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #FFD700; min-width: 50px; text-align: center;">🥇</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Jude Bellingham</div>
+      <div style="font-size: 13px; color: #9ca3af;">Real Madrid 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">356.77</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-2" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(192,192,192,0.15); border-radius: 8px; border-left: 4px solid #C0C0C0; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #C0C0C0; min-width: 50px; text-align: center;">🥈</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Declan Rice</div>
+      <div style="font-size: 13px; color: #9ca3af;">Arsenal 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">356.55</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-3" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(205,127,50,0.15); border-radius: 8px; border-left: 4px solid #CD7F32; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #CD7F32; min-width: 50px; text-align: center;">🥉</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Pedri</div>
+      <div style="font-size: 13px; color: #9ca3af;">Barcelona 🇪🇸</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">351.50</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-4" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">4</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Ryan Gravenberch</div>
+      <div style="font-size: 13px; color: #9ca3af;">Liverpool 🇳🇱</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">343.15</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-5" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">5</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Vitinha</div>
+      <div style="font-size: 13px; color: #9ca3af;">PSG 🇵🇹</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">324.63</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-6" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">6</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Florian Wirtz</div>
+      <div style="font-size: 13px; color: #9ca3af;">Liverpool 🇩🇪</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">319.29</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-7" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">7</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Moises Caicedo</div>
+      <div style="font-size: 13px; color: #9ca3af;">Chelsea 🇪🇨</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">317.09</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-8" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">8</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">João Neves</div>
+      <div style="font-size: 13px; color: #9ca3af;">PSG 🇵🇹</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">310.35</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-9" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">9</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">James Garner</div>
+      <div style="font-size: 13px; color: #9ca3af;">Everton 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">304.42</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+  <a href="#player-10" style="display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; background: rgba(255,255,255,0.05); border-radius: 8px; border-left: 4px solid #4a5568; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(8px)'" onmouseout="this.style.transform='translateX(0)'">
+    <div style="font-size: 24px; font-weight: bold; color: #4a5568; min-width: 50px; text-align: center;">10</div>
+    <div style="flex: 1; color: #fff;">
+      <div style="font-weight: 600; font-size: 16px;">Nicolò Barella</div>
+      <div style="font-size: 13px; color: #9ca3af;">Inter 🇮🇹</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-weight: bold; color: #9DFF20; font-size: 18px;">295.33</div>
+      <div style="font-size: 11px; color: #9ca3af;">points</div>
+    </div>
+  </a>
+</div>
+
+
+<article id="player-10" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">10</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg" alt="Inter" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Nicolò Barella</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Inter 🇮🇹</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">295.3</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Italy
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 28 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu central
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €60.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Score global de <strong>295.33 points</strong>, plaçant Nicolò Barella parmi l'élite des milieux de terrain mondiaux avec une valeur de €60.00m.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Serie A 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">17</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">295.3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="100,84 160.86761704288983,80.22291236000335 131.97551772471053,144.01052449399714 72.01625206674446,138.5163247223555 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="100" cy="84" r="4" fill="#9DFF20"/><circle cx="160.86761704288983" cy="80.22291236000335" r="4" fill="#9DFF20"/><circle cx="131.97551772471053" cy="144.01052449399714" r="4" fill="#9DFF20"/><circle cx="72.01625206674446" cy="138.5163247223555" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2623423367720116" alt="Nicolò Barella" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Nicolò Barella - Inter | Photo: Facebook</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Nicolò Barella complète ce top 10 avec un profil intéressant. Bien que fermant la marche, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-9" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">9</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/7c/Everton_FC_logo.svg" alt="Everton" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">James Garner</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Everton 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">304.4</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 England
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 24 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu défensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €25.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Score global de <strong>304.42 points</strong>, plaçant James Garner parmi l'élite des milieux de terrain mondiaux avec une valeur de €25.00m.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Premier League 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">2</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">20</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">304.4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="100,68 145.65071278216737,85.16718427000251 137.6182561467183,151.77708763999664 77.8213208980226,130.52633293589355 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="100" cy="68" r="4" fill="#9DFF20"/><circle cx="145.65071278216737" cy="85.16718427000251" r="4" fill="#9DFF20"/><circle cx="137.6182561467183" cy="151.77708763999664" r="4" fill="#9DFF20"/><circle cx="77.8213208980226" cy="130.52633293589355" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3201354644804690629" alt="James Garner" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">James Garner - Everton | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">James Garner complète ce top 10 avec un profil intéressant. Bien que classé 9e, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-8" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">8</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg" alt="PSG" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">João Neves</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">PSG 🇵🇹</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">310.4</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Portugal
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 21 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu central
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €110.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;"><strong>6 contributions directes</strong> (5G + 1A) en seulement 10 matchs de Ligue 1 cette saison, soit une contribution tous les <strong>1.7 matchs</strong>.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Ligue 1 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">5</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">10</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">310.4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="99.99999999999999,20 115.21690426072246,95.05572809000084 118.80912807335915,125.88854381999832 67.94104845051444,144.12536130197324 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="99.99999999999999" cy="20" r="4" fill="#9DFF20"/><circle cx="115.21690426072246" cy="95.05572809000084" r="4" fill="#9DFF20"/><circle cx="118.80912807335915" cy="125.88854381999832" r="4" fill="#9DFF20"/><circle cx="67.94104845051444" cy="144.12536130197324" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3428472155993206703" alt="João Neves" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">João Neves - PSG | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">João Neves complète ce top 10 avec un profil intéressant. Bien que classé 8e, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4CAF5022; border: 1px solid #4CAF50; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⚽ Buteur prolifique
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-7" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">7</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" alt="Chelsea" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Moises Caicedo</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Chelsea 🇪🇨</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">317.1</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Ecuador
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 24 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu défensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €110.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Score global de <strong>317.09 points</strong>, plaçant Moises Caicedo parmi l'élite des milieux de terrain mondiaux avec une valeur de €110.00m.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Premier League 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">15</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">317.1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="99.99999999999999,52 115.21690426072246,95.05572809000084 128.21369211003872,138.8328157299975 67.94104845051444,144.12536130197324 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="99.99999999999999" cy="52" r="4" fill="#9DFF20"/><circle cx="115.21690426072246" cy="95.05572809000084" r="4" fill="#9DFF20"/><circle cx="128.21369211003872" cy="138.8328157299975" r="4" fill="#9DFF20"/><circle cx="67.94104845051444" cy="144.12536130197324" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3493342679805535461" alt="Moises Caicedo" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Moises Caicedo - Chelsea | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Moises Caicedo complète ce top 10 avec un profil intéressant. Bien que classé 7e, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-6" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">6</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" alt="Liverpool" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Florian Wirtz</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Liverpool 🇩🇪</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">319.3</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Germany
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 22 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu offensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €110.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Score global de <strong>319.29 points</strong>, plaçant Florian Wirtz parmi l'élite des milieux de terrain mondiaux avec une valeur de €110.00m.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Premier League 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">2</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">19</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">319.3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="100,68 115.21690426072246,95.05572809000084 135.73734333938236,149.18823325799679 67.94104845051444,144.12536130197324 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="100" cy="68" r="4" fill="#9DFF20"/><circle cx="115.21690426072246" cy="95.05572809000084" r="4" fill="#9DFF20"/><circle cx="135.73734333938236" cy="149.18823325799679" r="4" fill="#9DFF20"/><circle cx="67.94104845051444" cy="144.12536130197324" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://backend.liverpoolfc.com/sites/default/files/styles/xl/public/2025-06/florian-wirtz-main-gallery-20062025_98a64d264c5affec66e69fcd1585f8bf.webp?itok=dlRr0rzN" alt="Florian Wirtz" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Florian Wirtz - Liverpool | Photo: Liverpool FC</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Florian Wirtz complète ce top 10 avec un profil intéressant. Bien que classé 6e, sa présence dans cette liste témoigne de son niveau exceptionnel parmi des centaines de milieux de terrain professionnels.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-5" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">5</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg" alt="PSG" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Vitinha</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">PSG 🇵🇹</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">324.6</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Portugal
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 25 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu défensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €110.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;"><strong>6 passes décisives</strong> cette saison - Vitinha est l'un des meilleurs créateurs d'occasions du championnat.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Ligue 1 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">6</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">16</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">324.6</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="100,84 176.0845213036123,75.27864045000419 130.09460491737462,141.42167011199732 67.94104845051444,144.12536130197324 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="100" cy="84" r="4" fill="#9DFF20"/><circle cx="176.0845213036123" cy="75.27864045000419" r="4" fill="#9DFF20"/><circle cx="130.09460491737462" cy="141.42167011199732" r="4" fill="#9DFF20"/><circle cx="67.94104845051444" cy="144.12536130197324" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://static01.nyt.com/athletic/uploads/wp/2025/04/09083552/Vitinha-scaled.jpg" alt="Vitinha" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Vitinha - PSG | Photo: The New York Times</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">À la 5e place, Vitinha fait partie du cercle très fermé des meilleurs milieux mondiaux. Son impact régulier avec PSG et ses performances constantes justifient pleinement sa position dans le top 5.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #2196F322; border: 1px solid #2196F3; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              🎯 Maître passeur
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-4" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">4</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #9DFF20 0%, #7ACC1A 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" alt="Liverpool" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Ryan Gravenberch</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Liverpool 🇳🇱</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">343.1</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Netherlands
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 23 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu défensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €90.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Avec <strong>4 buts</strong> en 18 matchs, Ryan Gravenberch affiche une efficacité offensive remarquable pour un milieu de terrain en Premier League.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Premier League 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">2</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">18</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">343.1</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="99.99999999999999,36 130.43380852144492,90.11145618000168 133.85643053204646,146.59937887599696 69.29344962568396,142.26394077524594 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="99.99999999999999" cy="36" r="4" fill="#9DFF20"/><circle cx="130.43380852144492" cy="90.11145618000168" r="4" fill="#9DFF20"/><circle cx="133.85643053204646" cy="146.59937887599696" r="4" fill="#9DFF20"/><circle cx="69.29344962568396" cy="142.26394077524594" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122114690804959167" alt="Ryan Gravenberch" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Ryan Gravenberch - Liverpool | Photo: Facebook</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">À la 4e place, Ryan Gravenberch fait partie du cercle très fermé des meilleurs milieux mondiaux. Son impact régulier avec Liverpool et ses performances constantes justifient pleinement sa position dans le top 5.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4CAF5022; border: 1px solid #4CAF50; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⚽ Buteur prolifique
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-3" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">3</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg" alt="Barcelona" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Pedri</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Barcelona 🇪🇸</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">351.5</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 Spain
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 23 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu central
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €140.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;"><strong>5 passes décisives</strong> cette saison - Pedri est l'un des meilleurs créateurs d'occasions du championnat.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats La Liga 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">2</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">5</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">15</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">351.5</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="100,68 176.0845213036123,75.27864045000419 128.21369211003872,138.8328157299975 66.31255204362807,146.3667943139639 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="100" cy="68" r="4" fill="#9DFF20"/><circle cx="176.0845213036123" cy="75.27864045000419" r="4" fill="#9DFF20"/><circle cx="128.21369211003872" cy="138.8328157299975" r="4" fill="#9DFF20"/><circle cx="66.31255204362807" cy="146.3667943139639" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3572289522894959311" alt="Pedri" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Pedri - Barcelona | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Pedri s'installe sur le podium avec un profil complet. Ses 2 buts et 5 passes décisives cette saison témoignent de sa polyvalence, tandis que sa valeur marchande confirme son statut de joueur d'élite mondiale.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #9DFF2022; border: 1px solid #9DFF20; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⭐ Score élite (350+)
+            </span>
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #2196F322; border: 1px solid #2196F3; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              🎯 Maître passeur
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-2" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%); background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">2</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" alt="Arsenal" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Declan Rice</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Arsenal 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">356.6</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 England
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 26 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu central
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €120.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Avec <strong>4 buts</strong> en 19 matchs, Declan Rice affiche une efficacité offensive remarquable pour un milieu de terrain en Premier League.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats Premier League 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">19</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">356.6</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="99.99999999999999,36 145.65071278216737,85.16718427000251 135.73734333938236,149.18823325799679 67.35385268366596,144.9335669392407 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="99.99999999999999" cy="36" r="4" fill="#9DFF20"/><circle cx="145.65071278216737" cy="85.16718427000251" r="4" fill="#9DFF20"/><circle cx="135.73734333938236" cy="149.18823325799679" r="4" fill="#9DFF20"/><circle cx="67.35385268366596" cy="144.9335669392407" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3139796109564348352" alt="Declan Rice" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Declan Rice - Arsenal | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Declan Rice s'installe sur le podium avec un profil complet. Ses 4 buts et 3 passes décisives cette saison témoignent de sa polyvalence, tandis que sa valeur marchande confirme son statut de joueur d'élite mondiale.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #9DFF2022; border: 1px solid #9DFF20; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⭐ Score élite (350+)
+            </span>
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4CAF5022; border: 1px solid #4CAF50; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⚽ Buteur prolifique
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article id="player-1" class="player-section" style="margin: 48px 0; scroll-margin-top: 80px;">
+  <!-- Position indicator for countdown -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <span style="display: inline-block; linear-gradient(135deg, #FFD700 0%, #FFA500 100%); background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #000; font-weight: 900; font-size: 48px; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">1</span>
+  </div>
+
+  <!-- Player card -->
+  <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <!-- Header with gradient -->
+    <div style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); padding: 24px; color: #000;">
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg" alt="Real Madrid" style="height: 48px; width: auto;" onerror="this.style.display='none'" />
+        <div style="flex: 1;">
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800;">Jude Bellingham</h3>
+          <div style="font-size: 16px; opacity: 0.9; margin-top: 4px;">Real Madrid 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 32px; font-weight: 900;">356.8</div>
+          <div style="font-size: 12px; text-transform: uppercase;">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player info grid -->
+    <div style="padding: 24px;">
+      <!-- Quick info badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          🌍 England
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          📅 22 ans
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f4f8; border-radius: 20px; font-size: 14px;">
+          ⚽ Milieu offensif
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #e8f5e9; border-radius: 20px; font-size: 14px; font-weight: 600; color: #2e7d32;">
+          💰 €160.00m
+        </span>
+      </div>
+      <!-- STAT TO KNOW - Highlight box -->
+      <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+        <div style="font-size: 12px; text-transform: uppercase; color: #9DFF20; margin-bottom: 8px; letter-spacing: 1px;">
+          📊 Stat à retenir
+        </div>
+        <div style="font-size: 18px; line-height: 1.5;">Avec <strong>4 buts</strong> en 15 matchs, Jude Bellingham affiche une efficacité offensive remarquable pour un milieu de terrain en La Liga.</div>
+      </div>
+      <!-- Season Stats Card -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Stats La Liga 2025-26
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">4</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Buts</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #9DFF20;">3</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Passes D.</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #fff;">15</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Matchs</div>
+          </div>
+          <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px 16px; border-radius: 12px; text-align: center;">
+            <div style="font-size: 32px; font-weight: 800; color: #FFD700;">356.8</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Score</div>
+          </div>
+        </div>
+      </div>
+      <!-- Radar Chart -->
+      <div style="margin: 24px 0;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          Profil du joueur
+        </div>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+          <svg viewBox="0 0 200 200" width="200" height="200" style="max-width: 100%;">
+            <!-- Grid -->
+            <polygon points="100,80 119.02113032590307,93.81966011250105 111.75570504584947,116.18033988749895 88.24429495415055,116.18033988749895 80.97886967409693,93.81966011250104" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,60 138.04226065180615,87.6393202250021 123.51141009169893,132.3606797749979 76.48858990830108,132.3606797749979 61.95773934819386,87.6393202250021" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,40 157.06339097770922,81.45898033750314 135.2671151375484,148.54101966249686 64.73288486245161,148.54101966249686 42.93660902229079,81.45898033750314" fill="none" stroke="#e0e0e0" stroke-width="1"/><polygon points="99.99999999999999,20 176.0845213036123,75.27864045000419 147.02282018339787,164.72135954999578 52.97717981660216,164.72135954999578 23.915478696387723,75.27864045000419" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Axes -->
+            <line x1="100" y1="100" x2="99.99999999999999" y2="20" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="176.0845213036123" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="147.02282018339787" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="52.97717981660216" y2="164.72135954999578" stroke="#e0e0e0" stroke-width="1"/><line x1="100" y1="100" x2="23.915478696387723" y2="75.27864045000419" stroke="#e0e0e0" stroke-width="1"/>
+            <!-- Data polygon -->
+            <polygon points="99.99999999999999,36 145.65071278216737,85.16718427000251 128.21369211003872,138.8328157299975 65.40960788509497,147.60959032896392 23.915478696387723,75.27864045000419" fill="rgba(157, 255, 32, 0.3)" stroke="#9DFF20" stroke-width="2"/>
+            <!-- Data points -->
+            <circle cx="99.99999999999999" cy="36" r="4" fill="#9DFF20"/><circle cx="145.65071278216737" cy="85.16718427000251" r="4" fill="#9DFF20"/><circle cx="128.21369211003872" cy="138.8328157299975" r="4" fill="#9DFF20"/><circle cx="65.40960788509497" cy="147.60959032896392" r="4" fill="#9DFF20"/><circle cx="23.915478696387723" cy="75.27864045000419" r="4" fill="#9DFF20"/>
+            <!-- Labels -->
+            <text x="99.99999999999999" y="0" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Buts</text><text x="195.10565162951536" y="69.09830056250524" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Passes</text><text x="158.77852522924732" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Matchs</text><text x="41.2214747707527" y="180.90169943749476" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Valeur</text><text x="4.89434837048465" y="69.09830056250523" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#666">Note</text>
+          </svg>
+        </div>
+      </div>
+      <figure style="margin: 24px 0; text-align: center;">
+        <img src="https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3124901301636537170" alt="Jude Bellingham" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        <figcaption style="font-size: 13px; color: #666; margin-top: 12px;">Jude Bellingham - Real Madrid | Photo: Instagram</figcaption>
+      </figure>
+      <!-- Why Ranked Here -->
+      <div style="margin-top: 24px; padding: 20px; background: #fff3e0; border-radius: 12px; border-left: 4px solid #ff9800;">
+        <div style="font-size: 13px; font-weight: 600; color: #e65100; margin-bottom: 8px; text-transform: uppercase;">
+          🎯 Pourquoi cette place ?
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333;">Jude Bellingham domine ce classement grâce à une combinaison exceptionnelle de productivité offensive, de valeur marchande et d'impact tactique. Son score de 356.77 points reflète sa capacité à être décisif dans les grands moments pour Real Madrid.</p>
+      </div>
+      <!-- Achievements -->
+      <div style="margin-top: 24px;">
+        <div style="font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; text-transform: uppercase;">
+          🏆 Distinctions
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #FFD70022; border: 1px solid #FFD700; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              👑 N°1 du classement
+            </span>
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #9DFF2022; border: 1px solid #9DFF20; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⭐ Score élite (350+)
+            </span>
+          
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4CAF5022; border: 1px solid #4CAF50; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              ⚽ Buteur prolifique
+            </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div style="margin: 48px 0; padding: 32px; background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%); border-radius: 16px;">
+  <h2 style="margin: 0 0 20px 0; font-size: 22px; color: #1a1a2e;">Notre méthodologie</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+    <div style="padding: 20px; background: #fff; border-radius: 12px;">
+      <div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+      <h4 style="margin: 0 0 8px 0; color: #1a1a2e;">Performances statistiques</h4>
+      <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">
+        Buts, passes décisives et matchs joués avec pondération selon le poste (milieu offensif vs défensif).
+      </p>
+    </div>
+
+    <div style="padding: 20px; background: #fff; border-radius: 12px;">
+      <div style="font-size: 24px; margin-bottom: 8px;">💰</div>
+      <h4 style="margin: 0 0 8px 0; color: #1a1a2e;">Valeur marchande</h4>
+      <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">
+        Données Transfermarkt actualisées, reflet de la valeur perçue par le marché.
+      </p>
+    </div>
+
+    <div style="padding: 20px; background: #fff; border-radius: 12px;">
+      <div style="font-size: 24px; margin-bottom: 8px;">🏆</div>
+      <h4 style="margin: 0 0 8px 0; color: #1a1a2e;">Coefficient par ligue</h4>
+      <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">
+        Multiplicateur basé sur le niveau de la compétition (Premier League 1.10x, La Liga 1.08x, etc.).
+      </p>
+    </div>
+  </div>
+
+  <p style="margin: 24px 0 0 0; font-size: 13px; color: #666; text-align: center;">
+    📌 Sources : Transfermarkt, statistiques officielles des ligues • Données au 7 janvier 2026
+  </p>
+</div>
+
+<div style="margin: 48px 0;">
+  <h3 style="margin: 0 0 20px 0; font-size: 18px; color: #1a1a2e;">
+    📋 Autres classements
+  </h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
+    
+      <a href="/classement/top-10-attaquants-2025" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='translateY(0)'">
+        <span style="font-size: 24px;">⚽</span>
+        <span style="font-size: 14px; font-weight: 500;">Top 10 des Attaquants 2025</span>
+      </a>
+    
+      <a href="/classement/top-10-defenseurs-2025" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='translateY(0)'">
+        <span style="font-size: 24px;">🛡️</span>
+        <span style="font-size: 14px; font-weight: 500;">Top 10 des Défenseurs 2025</span>
+      </a>
+    
+      <a href="/classement/top-10-gardiens-2025" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='translateY(0)'">
+        <span style="font-size: 24px;">🧤</span>
+        <span style="font-size: 14px; font-weight: 500;">Top 10 des Gardiens 2025</span>
+      </a>
+    
+      <a href="/classement/meilleurs-jeunes-talents-u21" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; text-decoration: none; color: #1a1a2e; transition: all 0.2s;" onmouseover="this.style.background='#9DFF20'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f9fa'; this.style.transform='translateY(0)'">
+        <span style="font-size: 24px;">🌟</span>
+        <span style="font-size: 14px; font-weight: 500;">Meilleurs Jeunes Talents U21</span>
+      </a>
+    
+  </div>
+</div>
+

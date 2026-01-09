@@ -1,0 +1,65 @@
+# Axolotl Fine-tuning Configuration
+# For journalist tone on Llama-3.1-70B-Instruct
+# Uses LoRA to reduce memory requirements
+
+base_model: meta-llama/Llama-3.1-70B-Instruct
+model_type: LlamaForCausalLM
+tokenizer_type: AutoTokenizer
+
+# LoRA Configuration (memory efficient)
+adapter: lora
+lora_r: 64
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target_linear: true
+lora_target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# Dataset
+datasets:
+  - path: /workspace/data/journalist_training.jsonl
+    type: alpaca
+    ds_type: json
+
+# Training configuration
+sequence_len: 4096
+sample_packing: true
+pad_to_sequence_len: true
+
+# Hyperparameters
+micro_batch_size: 1
+gradient_accumulation_steps: 8
+num_epochs: 3
+learning_rate: 2e-4
+lr_scheduler: cosine
+warmup_ratio: 0.1
+optimizer: adamw_torch_fused
+
+# Memory optimization
+bf16: true
+tf32: true
+gradient_checkpointing: true
+flash_attention: true
+
+# DeepSpeed ZeRO Stage 2 for 70B
+deepspeed: /workspace/fine-tuning/ds_config.json
+
+# Output
+output_dir: /workspace/lora-adapters/journalist-v1
+hub_model_id: null  # Set to push to HuggingFace
+
+# Evaluation
+val_set_size: 0.05
+eval_steps: 50
+save_steps: 100
+logging_steps: 10
+
+# Misc
+wandb_project: afrique-sports-journalist
+wandb_log_model: false
