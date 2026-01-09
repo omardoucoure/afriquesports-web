@@ -97,7 +97,11 @@ function generateLiveBlogPostingSchema(match: MatchData, locale: string) {
     "description": description,
     "image": {
       "@type": "ImageObject",
-      "url": match.featuredImage || `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`,
+      "url": match.featuredImage || (
+        ['732177'].includes(match.id)
+          ? `${SITE_URL}/api/og-match-special?id=${match.id}&home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}&stage=QUART%20DE%20FINALE`
+          : `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`
+      ),
       "width": 1200,
       "height": 630
     },
@@ -165,7 +169,9 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
     "sport": "Football",
     "startDate": match.date,
     "eventStatus": eventStatus,
-    "image": `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`,
+    "image": ['732177'].includes(match.id)
+      ? `${SITE_URL}/api/og-match-special?id=${match.id}&home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}&stage=QUART%20DE%20FINALE`
+      : `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`,
     "homeTeam": {
       "@type": "SportsTeam",
       "name": match.homeTeam.name,
