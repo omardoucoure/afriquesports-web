@@ -3,6 +3,8 @@
  * Uses ESPN's undocumented but publicly accessible API endpoints
  */
 
+import { cache } from 'react';
+
 export interface ESPNPlayer {
   id: string;
   displayName: string;
@@ -45,12 +47,13 @@ export interface AFCONScorer {
 
 /**
  * Fetch AFCON statistics from ESPN API
+ * Wrapped with React cache() to deduplicate requests within same render
  */
-export async function fetchAFCONStatistics(): Promise<{
+export const fetchAFCONStatistics = cache(async (): Promise<{
   scorers: AFCONScorer[];
   assistLeaders: AFCONScorer[];
   lastUpdated: string;
-}> {
+}> => {
   try {
     console.log('[ESPN API] Fetching AFCON statistics...');
 
@@ -145,12 +148,13 @@ export async function fetchAFCONStatistics(): Promise<{
       lastUpdated: new Date().toISOString(),
     };
   }
-}
+});
 
 /**
  * Fetch AFCON scoreboard for current matches
+ * Wrapped with React cache() to deduplicate requests within same render
  */
-export async function fetchAFCONScoreboard() {
+export const fetchAFCONScoreboard = cache(async () => {
   try {
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
@@ -169,7 +173,7 @@ export async function fetchAFCONScoreboard() {
     console.error('[ESPN API] Error fetching AFCON scoreboard:', error);
     return null;
   }
-}
+});
 
 /**
  * Map country name to flag emoji

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
@@ -9,9 +9,18 @@ import {
   ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
-import { DataFetcher } from "@/lib/data-fetcher";
+import { DataFetcher, getPosts } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
+
+// ============================================================================
+// CACHED DATA FETCHERS - Deduplicate requests within same render
+// ============================================================================
+
+// Cache trending posts fetch to avoid duplicate calls for desktop/mobile
+const getCachedTrendingPosts = cache(async (days: number, limit: number, locale: string) => {
+  return getTrendingPostsByRange(days, limit, locale);
+});
 
 // ISR: Revalidate homepage every 10 minutes as fallback
 // Primary updates happen via on-demand revalidation webhook from WordPress
@@ -213,7 +222,8 @@ async function MostReadSection({ locale }: { locale: string }) {
 
   try {
     // Fetch trending posts directly from database (last 7 days, limit 3) filtered by locale
-    const trending = await getTrendingPostsByRange(7, 3, locale);
+    // Using cached version to deduplicate calls between desktop and mobile sections
+    const trending = await getCachedTrendingPosts(7, 3, locale);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
@@ -244,7 +254,8 @@ async function MostReadSection({ locale }: { locale: string }) {
 
   // Fallback: Show latest articles WITHOUT view counts
   // Real view counts will appear once visits are recorded in the database
-  const articles = await DataFetcher.fetchPosts({ per_page: "3", locale });
+  // Using cached getPosts to deduplicate calls
+  const articles = await getPosts({ per_page: "3", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;

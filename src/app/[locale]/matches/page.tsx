@@ -1,12 +1,13 @@
-import { Suspense } from 'react';
+import { Suspense, cache } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Header, Footer } from '@/components/layout';
 
-// Revalidate every 60 seconds for fresh match data
-export const revalidate = 60;
+// Revalidate every 5 minutes for match data (reduces cold starts)
+// During live matches, client-side polling handles updates
+export const revalidate = 300;
 
 interface ESPNMatch {
   id: string;
@@ -42,58 +43,52 @@ interface ESPNMatch {
   }>;
 }
 
-async function fetchAFCONMatches(): Promise<ESPNMatch[]> {
+// Wrap with React cache() to deduplicate requests within same render
+const fetchAFCONMatches = cache(async (): Promise<ESPNMatch[]> => {
   try {
-    // Fetch today's matches
-    const todayResponse = await fetch(
-      'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
-      {
-        next: { revalidate: 120 }, // 2 minutes (cost optimized)
-        headers: {
-          'Accept': 'application/json',
-        },
-      }
-    );
-
-    if (!todayResponse.ok) {
-      console.error('ESPN API error:', todayResponse.status);
-      return [];
-    }
-
-    const todayData = await todayResponse.json();
-    const todayMatches = todayData.events || [];
-
-    // Try to fetch tomorrow's matches (ESPN API uses current date by default)
+    // Fetch today's and tomorrow's matches in parallel for better performance
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowDate = tomorrow.toISOString().split('T')[0].replace(/-/g, '');
 
-    try {
-      const tomorrowResponse = await fetch(
+    const [todayResponse, tomorrowResponse] = await Promise.all([
+      fetch(
+        'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
+        {
+          next: { revalidate: 300 }, // 5 minutes cache (cost optimized)
+          headers: { 'Accept': 'application/json' },
+        }
+      ),
+      fetch(
         `https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard?dates=${tomorrowDate}`,
         {
-          next: { revalidate: 120 }, // 2 minutes (cost optimized)
-          headers: {
-            'Accept': 'application/json',
-          },
+          next: { revalidate: 300 }, // 5 minutes cache
+          headers: { 'Accept': 'application/json' },
         }
-      );
+      ),
+    ]);
 
-      if (tomorrowResponse.ok) {
-        const tomorrowData = await tomorrowResponse.json();
-        const tomorrowMatches = tomorrowData.events || [];
-        return [...todayMatches, ...tomorrowMatches];
-      }
-    } catch (error) {
-      console.error('Error fetching tomorrow matches:', error);
+    let allMatches: ESPNMatch[] = [];
+
+    if (todayResponse.ok) {
+      const todayData = await todayResponse.json();
+      allMatches = todayData.events || [];
+    } else {
+      console.error('ESPN API error (today):', todayResponse.status);
     }
 
-    return todayMatches;
+    if (tomorrowResponse.ok) {
+      const tomorrowData = await tomorrowResponse.json();
+      const tomorrowMatches = tomorrowData.events || [];
+      allMatches = [...allMatches, ...tomorrowMatches];
+    }
+
+    return allMatches;
   } catch (error) {
     console.error('Error fetching AFCON matches:', error);
     return [];
   }
-}
+});
 
 export async function generateMetadata({
   params,

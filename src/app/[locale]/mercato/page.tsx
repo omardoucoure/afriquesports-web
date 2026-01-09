@@ -1,15 +1,21 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
-import { DataFetcher } from "@/lib/data-fetcher";
+import { DataFetcher, getPostsByCategory, getPosts } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { getTranslations } from "next-intl/server";
 
-// ISR: Revalidate mercato page every 60 seconds
-export const revalidate = 60;
+// Cache trending posts to avoid duplicate calls
+const getCachedTrendingPosts = cache(async (days: number, limit: number, locale: string) => {
+  return getTrendingPostsByRange(days, limit, locale);
+});
+
+// ISR: Revalidate mercato page every 5 minutes (300 seconds)
+// Reduces cold starts and improves average response times
+export const revalidate = 300;
 
 interface MercatoPageProps {
   params: Promise<{ locale: string }>;
@@ -61,14 +67,16 @@ async function MercatoArticles({ page }: { page: number }) {
   const offset = (page - 1) * perPage;
 
   try {
-    const articles = await DataFetcher.fetchPostsByCategory("mercato", {
+    // Use cached getPostsByCategory to deduplicate requests
+    const articles = await getPostsByCategory("mercato", {
       per_page: perPage.toString(),
       offset: offset.toString(),
     });
 
     if (!articles || articles.length === 0) {
       // Fallback to latest posts if mercato category doesn't exist
-      const latestArticles = await DataFetcher.fetchPosts({
+      // Use cached getPosts to deduplicate requests
+      const latestArticles = await getPosts({
         per_page: perPage.toString(),
         offset: offset.toString(),
       });
@@ -127,7 +135,8 @@ async function SidebarMostRead({ locale }: { locale: string }) {
 
   try {
     // Fetch trending posts directly from database (last 7 days, limit 5) filtered by locale
-    const trending = await getTrendingPostsByRange(7, 5, locale);
+    // Using cached version to deduplicate calls
+    const trending = await getCachedTrendingPosts(7, 5, locale);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
@@ -151,7 +160,8 @@ async function SidebarMostRead({ locale }: { locale: string }) {
   }
 
   // Fallback: Show latest articles WITHOUT view counts
-  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
+  // Use cached getPosts to deduplicate requests
+  const articles = await getPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;

@@ -14,7 +14,8 @@ import { CommentSection } from "@/components/comments/comment-section-dynamic";
 import { VisitTracker, ArticleAnalyticsTracker } from "@/components/tracking";
 import { InArticleAd, SidebarAd } from "@/components/ads";
 import { ADSENSE_CONFIG } from "@/lib/ad-config";
-import { DataFetcher } from "@/lib/data-fetcher";
+import { cache } from "react";
+import { DataFetcher, getPostBySlug, getPostsByCategory, getPosts } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import {
   formatDate,
@@ -26,6 +27,11 @@ import {
   getCategoryLabel,
 } from "@/lib/utils";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
+
+// Cache trending posts to avoid duplicate calls between desktop and mobile sections
+const getCachedTrendingPosts = cache(async (days: number, limit: number, locale: string) => {
+  return getTrendingPostsByRange(days, limit, locale);
+});
 
 // ISR with force-static: Works with middleware cookies
 // force-static tells Next.js to ignore dynamic APIs (cookies/headers) from middleware
@@ -54,11 +60,12 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const { locale, category, slug } = await params;
 
   try {
-    let article = await DataFetcher.fetchPostBySlug(slug, locale);
+    // Use cached getPostBySlug to deduplicate with page component
+    let article = await getPostBySlug(slug, locale);
 
     // Fallback to French if article not found in requested locale
     if (!article && locale !== "fr") {
-      article = await DataFetcher.fetchPostBySlug(slug, "fr");
+      article = await getPostBySlug(slug, "fr");
     }
 
     if (!article) {
@@ -235,7 +242,8 @@ async function RelatedArticles({ categorySlug, locale }: { categorySlug: string;
   const tArticle = await getTranslations("article");
 
   try {
-    const articles = await DataFetcher.fetchPostsByCategory(categorySlug, {
+    // Use cached getPostsByCategory to deduplicate requests
+    const articles = await getPostsByCategory(categorySlug, {
       per_page: "3",
       locale,
     });
@@ -265,7 +273,8 @@ async function SidebarMostRead({ locale }: { locale: string }) {
 
   try {
     // Fetch trending posts directly from database (last 7 days, limit 5) filtered by locale
-    const trending = await getTrendingPostsByRange(7, 5, locale);
+    // Using cached version to deduplicate calls between desktop and mobile sections
+    const trending = await getCachedTrendingPosts(7, 5, locale);
 
     if (trending && trending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
@@ -289,7 +298,8 @@ async function SidebarMostRead({ locale }: { locale: string }) {
   }
 
   // Fallback: Show latest articles WITHOUT view counts
-  const articles = await DataFetcher.fetchPosts({ per_page: "5", locale });
+  // Using cached getPosts to deduplicate requests
+  const articles = await getPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
@@ -307,18 +317,19 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const tCountries = await getTranslations("countries");
 
   // Fetch the article - try requested locale first, fallback to French if not found
+  // Using cached getPostBySlug to deduplicate with generateMetadata
   let article;
   let actualLocale = locale;
 
   try {
-    article = await DataFetcher.fetchPostBySlug(slug, locale);
+    article = await getPostBySlug(slug, locale);
 
     // If article not found in requested locale and locale is not French, try French fallback
     if (!article && locale !== "fr") {
       if (process.env.NODE_ENV === 'development') {
         console.log(`Article not found in ${locale}, trying French fallback...`);
       }
-      article = await DataFetcher.fetchPostBySlug(slug, "fr");
+      article = await getPostBySlug(slug, "fr");
       if (article) {
         actualLocale = "fr";
       }

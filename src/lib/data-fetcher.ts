@@ -2,6 +2,7 @@
 // TYPE DEFINITIONS
 // ============================================================================
 
+import { cache } from 'react';
 import { fetchWithCache, CacheKeys, CacheTTL } from './redis';
 
 export interface FetchOptions {
@@ -108,9 +109,9 @@ function getWordPressBaseUrl(locale?: string): string {
 }
 const DEFAULT_PER_PAGE = "20";
 const DEFAULT_EMBED = "true";
-const MAX_RETRIES = 3; // Increased from 1 to 3 for better resilience against 503 errors
-const RETRY_DELAY_MS = 1000; // 1 second base delay - exponential backoff will increase this
-const FETCH_TIMEOUT_MS = 60000; // 60 seconds - allows retry logic to work properly
+const MAX_RETRIES = 2; // Reduced from 3 to 2 for faster failure
+const RETRY_DELAY_MS = 500; // 500ms base delay for faster recovery
+const FETCH_TIMEOUT_MS = 15000; // 15 seconds timeout (reduced from 60s for better UX)
 
 // Cloudflare/server error codes that should trigger retry
 const RETRYABLE_STATUS_CODES = [
@@ -519,3 +520,36 @@ export class DataFetcher {
     );
   }
 }
+
+// ============================================================================
+// REACT CACHE WRAPPERS - Deduplicate requests within same render
+// ============================================================================
+
+/**
+ * Cached version of fetchPostBySlug - deduplicates within same render
+ * Use this in Server Components to avoid duplicate API calls
+ * between generateMetadata() and page component
+ */
+export const getPostBySlug = cache(
+  async (slug: string, locale?: string, options?: FetchOptions) => {
+    return DataFetcher.fetchPostBySlug(slug, locale, options);
+  }
+);
+
+/**
+ * Cached version of fetchPosts - deduplicates within same render
+ */
+export const getPosts = cache(
+  async (params?: Record<string, string>, options?: FetchOptions) => {
+    return DataFetcher.fetchPosts(params, options);
+  }
+);
+
+/**
+ * Cached version of fetchPostsByCategory - deduplicates within same render
+ */
+export const getPostsByCategory = cache(
+  async (categorySlug: string, params?: Record<string, string>, options?: FetchOptions) => {
+    return DataFetcher.fetchPostsByCategory(categorySlug, params, options);
+  }
+);
