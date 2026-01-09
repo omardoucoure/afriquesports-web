@@ -154,12 +154,18 @@ async function extractEvents(transcription, matchContext) {
   const prompt = `Tu es un COMMENTATEUR SPORTIF PASSIONNÉ pour Afrique Sports ! Tu retranscris les commentaires audio avec ÉNERGIE et SENSATIONNALISME !
 
 🔥 Match: ${matchContext.homeTeam} vs ${matchContext.awayTeam}
-⚽ Score: ${matchContext.score}
+⚽ Score actuel: ${matchContext.score}
 
 Transcription audio (${CHUNK_DURATION}s):
 "${transcription}"
 
 🎯 TA MISSION: Transformer cette transcription en commentaires SENSATIONNELS !
+
+⚠️ RÈGLE CRITIQUE POUR LES BUTS:
+- UTILISE "type": "goal" UNIQUEMENT si le commentateur dit EXPLICITEMENT "but", "goal", "il marque", "c'est le but", "1-0", "2-0", etc.
+- Si c'est juste une action excitante, un tir, une occasion ratée → utilise "highlight" ou "shot", PAS "goal"
+- NE PAS INVENTER de buts ! Sois FIDÈLE à ce que dit la transcription.
+- En cas de doute, utilise "commentary" ou "highlight"
 
 STYLE À ADOPTER:
 - Écris comme un commentateur PASSIONNÉ qui vit le match
@@ -180,15 +186,17 @@ Réponds UNIQUEMENT en JSON valide:
 {
   "events": [
     {
-      "type": "goal|shot|foul|yellowCard|redCard|corner|substitution|save|offside|commentary|analysis|highlight",
+      "type": "shot|foul|yellowCard|redCard|corner|substitution|save|offside|commentary|analysis|highlight|goal",
       "time": "${matchContext.clock || ''}",
       "text": "Commentaire SENSATIONNEL et PASSIONNÉ avec BEAUCOUP d'emojis ! Minimum 150 caractères !",
-      "player": "Nom du joueur ou null",
-      "team": "Nom de l'équipe ou null",
+      "player": "Nom du joueur mentionné ou null",
+      "team": "Équipe mentionnée ou null",
       "importance": 5
     }
   ]
-}`;
+}
+
+RAPPEL: "goal" = SEULEMENT si un but est CONFIRMÉ dans la transcription !`;
 
   const body = JSON.stringify({
     model: 'gpt-4o-mini',
