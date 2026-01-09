@@ -207,6 +207,15 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
       "name": "Confederation of African Football",
       "url": "https://www.cafonline.com"
     },
+    "offers": {
+      "@type": "Offer",
+      "url": matchUrl,
+      "availability": "https://schema.org/InStock",
+      "price": "0",
+      "priceCurrency": "USD",
+      "validFrom": match.date,
+      "description": "Free live coverage on Afrique Sports"
+    },
     "superEvent": {
       "@type": "SportsEvent",
       "name": "Africa Cup of Nations 2025",
@@ -333,12 +342,26 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
     }
   }
 
-  // Add end date if match is completed
-  if (match.status === 'completed') {
-    const matchDate = new Date(match.date);
-    const endDate = new Date(matchDate.getTime() + 2 * 60 * 60 * 1000); // Assume 2 hours
-    sportsEvent.endDate = endDate.toISOString();
+  // Add default performers (teams) if no individual performers yet
+  if (!sportsEvent.performer) {
+    sportsEvent.performer = [
+      {
+        "@type": "SportsTeam",
+        "name": match.homeTeam.name,
+        "sport": "Football"
+      },
+      {
+        "@type": "SportsTeam",
+        "name": match.awayTeam.name,
+        "sport": "Football"
+      }
+    ];
   }
+
+  // Always add endDate (estimated for scheduled/live, actual for completed)
+  const matchDate = new Date(match.date);
+  const endDate = new Date(matchDate.getTime() + 2 * 60 * 60 * 1000); // Assume 2 hours
+  sportsEvent.endDate = endDate.toISOString();
 
   return sportsEvent;
 }
