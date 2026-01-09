@@ -495,13 +495,16 @@
         "offside": "Offside",
         "attemptBlocked": "Blocked",
         "freeKick": "Free Kick",
+        "freekick": "Free Kick",
+        "shot": "Shot",
         "shotOnTarget": "Shot on Target",
         "penaltyMissed": "Penalty Missed",
         "penaltyAwarded": "Penalty",
         "missedChance": "Missed Chance",
         "dangerousAttack": "Attack",
         "injury": "Injury",
-        "possession": "Possession"
+        "possession": "Possession",
+        "foul": "Foul"
       }
     }
   },

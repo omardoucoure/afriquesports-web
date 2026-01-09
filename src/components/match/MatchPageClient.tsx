@@ -70,17 +70,39 @@ export default function MatchPageClient({
     ? initialCommentary
     : [];
 
-  // Extract goal scorers from commentary
+  // Extract goal scorers from commentary with time
+  const homeTeamName = homeTeam.team.displayName;
+  const awayTeamName = awayTeam.team.displayName;
+
   const goalScorers = {
     home: currentCommentary
-      .filter((event: any) => event.is_scoring && event.team === 'home')
-      .map((event: any) => event.player_name)
-      .filter(Boolean),
+      .filter((event: any) => event.is_scoring && (
+        event.team === homeTeamName ||
+        event.team === 'home' ||
+        event.team?.toLowerCase() === homeTeamName.toLowerCase()
+      ))
+      .map((event: any) => ({
+        name: event.player_name,
+        time: event.time?.replace("'", '') || ''
+      }))
+      .filter((g: any) => g.name),
     away: currentCommentary
-      .filter((event: any) => event.is_scoring && event.team === 'away')
-      .map((event: any) => event.player_name)
-      .filter(Boolean)
+      .filter((event: any) => event.is_scoring && (
+        event.team === awayTeamName ||
+        event.team === 'away' ||
+        event.team?.toLowerCase() === awayTeamName.toLowerCase()
+      ))
+      .map((event: any) => ({
+        name: event.player_name,
+        time: event.time?.replace("'", '') || ''
+      }))
+      .filter((g: any) => g.name)
   };
+
+  // Get match stage/round from competition
+  const matchStage = competition.type?.abbreviation ||
+                     competition.note ||
+                     (matchId === '732177' ? 'QUART DE FINALE' : '');
 
   // Simulate viewer count changes for live matches
   useEffect(() => {
@@ -156,23 +178,50 @@ export default function MatchPageClient({
                       {homeTeam.team.displayName}
                     </h1>
                     {goalScorers.home.length > 0 && (
-                      <div className="flex items-center gap-1 mt-0.5">
-                        <span className="text-xs sm:text-sm text-primary/90">⚽</span>
-                        <span className="text-[10px] sm:text-xs text-white/90 truncate font-medium">
-                          {goalScorers.home.join(', ')}
-                        </span>
+                      <div className="flex flex-col gap-0.5 mt-1">
+                        {goalScorers.home.map((g: any, i: number) => (
+                          <div key={i} className="flex items-center gap-1">
+                            <span className="text-xs text-primary">⚽</span>
+                            <span className="text-[10px] sm:text-xs text-white/90 font-medium">
+                              {g.name} {g.time && <span className="text-white/60">{g.time}'</span>}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* Center Score Section */}
-                <div className="flex flex-col items-center gap-1.5 sm:gap-2 px-3 sm:px-6">
+                <div className="flex flex-col items-center gap-1 sm:gap-2 px-2 sm:px-4 md:px-6">
+                  {/* Stage Badge */}
+                  {matchStage && (
+                    <div className="flex items-center gap-1.5 bg-primary/20 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-primary/30 mb-1">
+                      <span className="text-xs sm:text-sm">🏆</span>
+                      <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider">
+                        {matchStage}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Score Display */}
+                  <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+                    <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white drop-shadow-2xl tabular-nums">
+                      {homeTeam.score || '0'}
+                    </span>
+                    <div className="flex flex-col items-center">
+                      <span className="text-2xl sm:text-3xl font-light text-white/50">-</span>
+                    </div>
+                    <span className="text-5xl sm:text-6xl md:text-7xl font-black text-white drop-shadow-2xl tabular-nums">
+                      {awayTeam.score || '0'}
+                    </span>
+                  </div>
+
                   {/* Status Row */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col items-center gap-1 mt-1">
                     {isLive ? (
-                      <>
-                        <div className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-red-600 rounded-full shadow-lg">
+                      <div className="flex items-center gap-2">
+                        <div className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1 bg-red-600 rounded-full shadow-lg shadow-red-600/30">
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
@@ -180,46 +229,29 @@ export default function MatchPageClient({
                           <span className="text-[10px] sm:text-xs font-bold uppercase text-white tracking-wider">EN DIRECT</span>
                         </div>
                         {status?.displayClock && (
-                          <span className="text-xs sm:text-sm font-bold text-white bg-white/10 px-2 py-1 rounded-md">
+                          <span className="text-sm sm:text-base md:text-lg font-bold text-primary bg-black/30 px-2.5 sm:px-3 py-1 rounded-lg">
                             {status.displayClock}
                           </span>
                         )}
-                      </>
+                      </div>
                     ) : isCompleted ? (
-                      <span className="px-2.5 py-1 bg-white/15 backdrop-blur-sm text-[10px] sm:text-xs font-semibold rounded-full text-white border border-white/20">
+                      <span className="px-3 py-1.5 bg-white/15 backdrop-blur-sm text-xs sm:text-sm font-semibold rounded-full text-white border border-white/20">
                         {t('finished')}
                       </span>
                     ) : (
-                      <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
-                        <span className="text-xs sm:text-sm">🏆</span>
-                        <span className="text-[10px] sm:text-xs font-semibold text-white">
-                          {competition.name || 'CAN 2025'}
+                      matchDataRaw.header.date && !isNaN(new Date(matchDataRaw.header.date).getTime()) && (
+                        <span className="text-xs sm:text-sm font-medium text-white/80 bg-white/10 px-3 py-1 rounded-full">
+                          {new Date(matchDataRaw.header.date).toLocaleDateString(locale, {
+                            weekday: 'short',
+                            day: 'numeric',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
                         </span>
-                      </div>
+                      )
                     )}
                   </div>
-
-                  {/* Score Display */}
-                  <div className="flex items-center gap-2 sm:gap-4">
-                    <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white drop-shadow-2xl tabular-nums">
-                      {homeTeam.score || '0'}
-                    </span>
-                    <div className="flex flex-col items-center">
-                      <span className="text-xl sm:text-2xl font-light text-white/70">—</span>
-                    </div>
-                    <span className="text-4xl sm:text-5xl md:text-6xl font-black text-white drop-shadow-2xl tabular-nums">
-                      {awayTeam.score || '0'}
-                    </span>
-                  </div>
-
-                  {/* Competition Badge (when not live) */}
-                  {!isLive && (
-                    <div className="flex items-center gap-1 text-white/80">
-                      <span className="text-[10px] sm:text-xs font-medium">
-                        {competition.name || 'CAN 2025'}
-                      </span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Away Team */}
@@ -229,11 +261,15 @@ export default function MatchPageClient({
                       {awayTeam.team.displayName}
                     </h1>
                     {goalScorers.away.length > 0 && (
-                      <div className="flex items-center gap-1 justify-end mt-0.5">
-                        <span className="text-[10px] sm:text-xs text-white/90 truncate font-medium">
-                          {goalScorers.away.join(', ')}
-                        </span>
-                        <span className="text-xs sm:text-sm text-primary/90">⚽</span>
+                      <div className="flex flex-col gap-0.5 mt-1 items-end">
+                        {goalScorers.away.map((g: any, i: number) => (
+                          <div key={i} className="flex items-center gap-1">
+                            <span className="text-[10px] sm:text-xs text-white/90 font-medium">
+                              {g.name} {g.time && <span className="text-white/60">{g.time}'</span>}
+                            </span>
+                            <span className="text-xs text-primary">⚽</span>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>

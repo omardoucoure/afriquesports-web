@@ -495,13 +495,16 @@
         "offside": "Fuera de juego",
         "attemptBlocked": "Tiro bloqueado",
         "freeKick": "Tiro libre",
+        "freekick": "Tiro libre",
+        "shot": "Tiro",
         "shotOnTarget": "Tiro a puerta",
         "penaltyMissed": "Penalti fallado",
         "penaltyAwarded": "Penalti",
         "missedChance": "Ocasión perdida",
         "dangerousAttack": "Ataque peligroso",
         "injury": "Lesión",
-        "possession": "Posesión"
+        "possession": "Posesión",
+        "foul": "Falta"
       }
     }
   },

@@ -496,13 +496,16 @@
         "offside": "Hors-jeu",
         "attemptBlocked": "Tir bloqué",
         "freeKick": "Coup franc",
+        "freekick": "Coup franc",
+        "shot": "Tir",
         "shotOnTarget": "Tir cadré",
         "penaltyMissed": "Penalty raté",
         "penaltyAwarded": "Penalty",
         "missedChance": "Occasion manquée",
         "dangerousAttack": "Attaque dangereuse",
         "injury": "Blessure",
-        "possession": "Possession"
+        "possession": "Possession",
+        "foul": "Faute"
       }
     }
   },
