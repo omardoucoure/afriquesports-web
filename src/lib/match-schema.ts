@@ -97,7 +97,7 @@ function generateLiveBlogPostingSchema(match: MatchData, locale: string) {
     "description": description,
     "image": {
       "@type": "ImageObject",
-      "url": match.featuredImage || `${SITE_URL}/api/og-match?id=${match.id}&locale=${locale}`,
+      "url": match.featuredImage || `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`,
       "width": 1200,
       "height": 630
     },
@@ -146,6 +146,8 @@ function generateLiveBlogPostingSchema(match: MatchData, locale: string) {
  */
 function generateSportsEventSchema(match: MatchData, locale: string) {
   const matchUrl = `${SITE_URL}/${locale}/can-2025/match/${match.id}`;
+  const homeScore = match.homeTeam.score ?? 0;
+  const awayScore = match.awayTeam.score ?? 0;
 
   // Determine event status
   const eventStatus = match.status === 'completed'
@@ -163,7 +165,7 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
     "sport": "Football",
     "startDate": match.date,
     "eventStatus": eventStatus,
-    "image": `${SITE_URL}/api/og-match?id=${match.id}&locale=${locale}`,
+    "image": `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(match.homeTeam.name)}&away=${encodeURIComponent(match.awayTeam.name)}&score=${homeScore}-${awayScore}&live=${match.status === 'live'}`,
     "homeTeam": {
       "@type": "SportsTeam",
       "name": match.homeTeam.name,

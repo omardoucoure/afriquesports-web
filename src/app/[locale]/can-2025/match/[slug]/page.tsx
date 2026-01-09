@@ -265,8 +265,9 @@ export async function generateMetadata({
   const frenchUrl = generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, 'fr');
   const canonicalUrl = locale === 'fr' ? frenchUrl : generateMatchUrl(homeTeam.team.displayName, awayTeam.team.displayName, matchId, locale);
 
-  // OG Image URL (dynamic with match data)
-  const ogImageUrl = `${SITE_URL}/api/og-match?id=${matchId}&locale=${locale}`;
+  // OG Image URL - use static endpoint that doesn't require ESPN API calls
+  const matchTime = status?.displayClock || '';
+  const ogImageUrl = `${SITE_URL}/api/og-can2025?home=${encodeURIComponent(homeTeam.team.displayName)}&away=${encodeURIComponent(awayTeam.team.displayName)}&score=${homeScore}-${awayScore}&live=${isLive}&time=${encodeURIComponent(matchTime)}`;
 
   return {
     title,
