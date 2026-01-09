@@ -51,19 +51,31 @@ export async function GET(request: Request) {
     // Convert ESPN data to MatchData format
     const matchData = espnToMatchData(espnData.header, commentary);
 
+    // Check if match is live
+    const matchStatus = espnData.header?.competitions?.[0]?.status?.type?.state;
+    const isLive = matchStatus === 'in';
+
+    // For live matches, disable caching entirely
+    const cacheHeaders = isLive
+      ? {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        }
+      : {
+          // Cache for 15 seconds for non-live matches
+          'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
+          'CDN-Cache-Control': 'public, s-maxage=15',
+        };
+
     return NextResponse.json(
       {
         match: matchData,
         commentary: commentary,
+        isLive,
         lastUpdate: new Date().toISOString()
       },
-      {
-        headers: {
-          // Cache for 15 seconds, allow stale for 30 seconds
-          'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
-          'CDN-Cache-Control': 'public, s-maxage=15',
-        }
-      }
+      { headers: cacheHeaders }
     );
   } catch (error) {
     console.error('Error in match-live-update API:', error);

@@ -51,18 +51,18 @@ export default function MatchPageClient({
     setViewers(Math.floor(Math.random() * 5000) + 1000);
   }, []);
 
-  // Poll for updates every 15 seconds for all matches
+  // Poll for updates - faster for live matches (5s), slower for completed (30s)
   const { data: liveData } = useSWR(
-    `/api/match-live-update?id=${matchId}&locale=${locale}`,
+    `/api/match-live-update?id=${matchId}&locale=${locale}&t=${isLive ? Math.floor(Date.now() / 5000) : ''}`,
     fetcher,
     {
-      refreshInterval: 15000,
+      refreshInterval: isLive ? 5000 : 30000, // 5s for live, 30s for completed
       fallbackData: { match: initialMatchData, commentary: initialCommentary },
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
       revalidateOnMount: true, // Always fetch fresh data on mount
       revalidateIfStale: true,
-      dedupingInterval: 5000 // Prevent duplicate requests within 5 seconds
+      dedupingInterval: isLive ? 2000 : 5000 // Faster deduping for live
     }
   );
 
