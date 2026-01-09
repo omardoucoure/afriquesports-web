@@ -59,7 +59,10 @@ export default function MatchPageClient({
       refreshInterval: 15000,
       fallbackData: { match: initialMatchData, commentary: initialCommentary },
       revalidateOnFocus: true,
-      revalidateOnReconnect: true
+      revalidateOnReconnect: true,
+      revalidateOnMount: true, // Always fetch fresh data on mount
+      revalidateIfStale: true,
+      dedupingInterval: 5000 // Prevent duplicate requests within 5 seconds
     }
   );
 
