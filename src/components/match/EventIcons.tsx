@@ -168,7 +168,7 @@ export const PenaltyIcon: React.FC<IconProps> = ({ className = '', size = 24 }) 
   </svg>
 );
 
-// Commentary icon (microphone)
+// Commentary icon (microphone) - blue/slate color
 export const CommentaryIcon: React.FC<IconProps> = ({ className = '', size = 24 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
     <circle cx="12" cy="12" r="10" fill="url(#commentaryGradient)"/>
@@ -176,8 +176,8 @@ export const CommentaryIcon: React.FC<IconProps> = ({ className = '', size = 24 
     <path d="M8 12c0 2.21 1.79 4 4 4s4-1.79 4-4M12 16v3M9 19h6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
     <defs>
       <linearGradient id="commentaryGradient" x1="2" y1="2" x2="22" y2="22">
-        <stop stopColor="#ec4899"/>
-        <stop offset="1" stopColor="#db2777"/>
+        <stop stopColor="#64748b"/>
+        <stop offset="1" stopColor="#475569"/>
       </linearGradient>
     </defs>
   </svg>
@@ -290,7 +290,7 @@ export const getEventStyle = (type: string, isScoring: boolean): string => {
     offside: 'bg-gradient-to-r from-slate-50 to-gray-50 border-l-4 border-slate-400',
     penaltyAwarded: 'bg-gradient-to-r from-purple-50 to-fuchsia-50 border-l-4 border-purple-500',
     penaltyMissed: 'bg-gradient-to-r from-purple-50 to-fuchsia-50 border-l-4 border-purple-400',
-    commentary: 'bg-gradient-to-r from-pink-50 to-rose-50 border-l-4 border-pink-400',
+    commentary: 'bg-gradient-to-r from-slate-50 to-gray-50 border-l-4 border-slate-400',
     analysis: 'bg-gradient-to-r from-emerald-50 to-teal-50 border-l-4 border-emerald-400',
     highlight: 'bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500',
     info: 'bg-gradient-to-r from-gray-50 to-slate-50 border-l-4 border-gray-300',
@@ -319,7 +319,7 @@ export const getTimeBadgeStyle = (type: string, isScoring: boolean): string => {
     offside: 'bg-slate-500 text-white',
     penaltyAwarded: 'bg-purple-600 text-white',
     penaltyMissed: 'bg-purple-500 text-white',
-    commentary: 'bg-pink-500 text-white',
+    commentary: 'bg-slate-500 text-white',
     analysis: 'bg-emerald-500 text-white',
     highlight: 'bg-amber-600 text-white',
     info: 'bg-gray-500 text-white',

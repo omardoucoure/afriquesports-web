@@ -371,50 +371,47 @@ export default function MatchPageClient({
 
             {/* Commentary Feed - Modern Design */}
             {currentCommentary && currentCommentary.length > 0 ? (
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-2 sm:space-y-2.5">
                 {currentCommentary.map((event: any, index: number) => (
                   <div
                     key={event.id}
-                    className={`group relative flex gap-3 sm:gap-4 p-3.5 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl transition-all duration-300 ease-out
+                    className={`group relative flex gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-200 ease-out
                       ${getEventStyle(event.type, event.is_scoring)}
-                      ${event.is_scoring ? 'ring-2 ring-emerald-400/50 shadow-xl shadow-emerald-200/40 animate-pulse-once' : ''}
-                      hover:shadow-md hover:translate-y-[-2px] active:scale-[0.99] touch-manipulation`}
+                      ${event.is_scoring ? 'ring-2 ring-emerald-400/50 shadow-lg shadow-emerald-200/40' : ''}
+                      hover:shadow-md active:scale-[0.99] touch-manipulation`}
                     style={{
                       animationDelay: `${index * 50}ms`
                     }}
                   >
-                    {/* Icon container with glow effect */}
-                    <div className={`flex-shrink-0 relative ${event.is_scoring ? 'animate-bounce-soft' : ''}`}>
-                      <div className={`absolute inset-0 rounded-full blur-lg opacity-40 ${event.is_scoring ? 'bg-emerald-400' : 'bg-slate-300'}`}></div>
-                      <div className="relative">
-                        {getEventIcon(event.type, event.is_scoring ? 36 : 28)}
-                      </div>
+                    {/* Icon */}
+                    <div className="flex-shrink-0">
+                      {getEventIcon(event.type, event.is_scoring ? 28 : 22)}
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       {/* Time and type badges */}
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-2 sm:mb-2.5">
-                        <span className={`inline-flex items-center font-bold text-xs sm:text-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg shadow-sm ${getTimeBadgeStyle(event.type, event.is_scoring)}`}>
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                        <span className={`inline-flex items-center font-bold text-xs px-2 py-0.5 sm:py-1 rounded-md shadow-sm ${getTimeBadgeStyle(event.type, event.is_scoring)}`}>
                           {event.time || '--'}
                         </span>
-                        <span className={`text-[10px] sm:text-xs uppercase font-semibold tracking-wide px-2 sm:px-2.5 py-1 rounded-md ${
+                        <span className={`text-[10px] sm:text-xs uppercase font-medium tracking-wide px-1.5 sm:px-2 py-0.5 rounded ${
                           event.is_scoring
                             ? 'bg-emerald-100 text-emerald-700'
-                            : 'bg-white/80 text-slate-600 border border-slate-200'
+                            : 'bg-white/80 text-slate-500 border border-slate-200'
                         }`}>
                           {tEvents(event.type)}
                         </span>
                         {event.is_scoring && (
-                          <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg shadow-green-500/30 animate-pulse">
-                            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <span className="inline-flex items-center gap-1 text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-green-600 px-2 py-0.5 rounded-full shadow-md">
+                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                               <circle cx="12" cy="12" r="10"/>
                             </svg>
                             {tEvents('goalBadge')}
                           </span>
                         )}
                         {event.player_name && event.player_name !== 'null' && event.player_name !== '0' && event.player_name.length > 1 && (
-                          <span className="text-xs sm:text-sm font-semibold text-slate-700 bg-white/90 px-2 py-0.5 rounded border border-slate-200">
+                          <span className="text-xs font-medium text-slate-600 bg-white/90 px-1.5 py-0.5 rounded border border-slate-200">
                             {event.player_name}
                           </span>
                         )}
@@ -433,20 +430,15 @@ export default function MatchPageClient({
 
                       {/* Tweet embed if present */}
                       {event.tweet && (
-                        <div className="mt-3 p-3 bg-white/90 rounded-xl border border-slate-200/80 shadow-sm">
-                          <div className="flex items-start gap-2.5">
-                            <svg className="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <div className="mt-2 p-2 bg-white/90 rounded-lg border border-slate-200/80">
+                          <div className="flex items-start gap-2">
+                            <svg className="w-3.5 h-3.5 text-sky-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                             </svg>
-                            <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">{event.tweet}</p>
+                            <p className="text-xs text-slate-600 italic leading-relaxed">{event.tweet}</p>
                           </div>
                         </div>
                       )}
-                    </div>
-
-                    {/* Subtle time indicator on the right (desktop only) */}
-                    <div className="hidden lg:flex flex-col items-end justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-xs text-slate-400 whitespace-nowrap">{event.time}</span>
                     </div>
                   </div>
                 ))}
