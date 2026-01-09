@@ -203,9 +203,12 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
       "@type": "SportsEvent",
       "name": "Africa Cup of Nations 2025",
       "alternateName": "AFCON 2025",
+      "description": "The 35th edition of the Africa Cup of Nations, the premier international football tournament in Africa, featuring 24 national teams competing for continental glory.",
       "url": `${SITE_URL}/${locale}/can-2025`,
+      "image": `${SITE_URL}/images/afcon-2025-logo.png`,
       "startDate": "2025-12-21T00:00:00Z",
       "endDate": "2026-01-18T00:00:00Z",
+      "eventStatus": "https://schema.org/EventScheduled",
       "location": {
         "@type": "Country",
         "name": "Morocco",
@@ -218,6 +221,21 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
         "@type": "SportsOrganization",
         "name": "Confederation of African Football",
         "url": "https://www.cafonline.com"
+      },
+      "performer": {
+        "@type": "SportsOrganization",
+        "name": "CAF Member National Teams",
+        "memberOf": {
+          "@type": "SportsOrganization",
+          "name": "Confederation of African Football"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.cafonline.com/total-africa-cup-of-nations",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "MAD",
+        "validFrom": "2025-10-01T00:00:00Z"
       }
     }
   };
@@ -319,14 +337,21 @@ function generateSportsEventSchema(match: MatchData, locale: string) {
 
 /**
  * BroadcastEvent schema - Enables Google Indexing API eligibility
+ * isLiveBroadcast is true when:
+ * - Match is currently live (status === 'live')
+ * - Match is scheduled but has live commentary (pre-match coverage started)
  */
 function generateBroadcastEventSchema(match: MatchData, locale: string) {
   const matchUrl = `${SITE_URL}/${locale}/can-2025/match/${match.id}`;
 
+  // Enable live broadcast when match is live OR when pre-match commentary exists
+  const hasLiveCommentary = match.commentary && match.commentary.length > 0;
+  const isLiveBroadcast = match.status === 'live' || (match.status === 'scheduled' && hasLiveCommentary);
+
   return {
     "@type": "BroadcastEvent",
     "name": `${match.homeTeam.name} vs ${match.awayTeam.name} - Live Coverage`,
-    "isLiveBroadcast": match.status === 'live',
+    "isLiveBroadcast": isLiveBroadcast,
     "videoFormat": "application/vnd.apple.mpegURL",
     "startDate": match.date,
     "broadcastOfEvent": {
