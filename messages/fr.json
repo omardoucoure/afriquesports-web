@@ -507,7 +507,10 @@
         "dangerousAttack": "Attaque dangereuse",
         "injury": "Blessure",
         "possession": "Possession",
-        "foul": "Faute"
+        "foul": "Faute",
+        "commentary": "Commentaire",
+        "analysis": "Analyse",
+        "highlight": "Temps fort"
       }
     }
   },

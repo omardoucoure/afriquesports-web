@@ -506,7 +506,10 @@
         "dangerousAttack": "Attack",
         "injury": "Injury",
         "possession": "Possession",
-        "foul": "Foul"
+        "foul": "Foul",
+        "commentary": "Commentary",
+        "analysis": "Analysis",
+        "highlight": "Highlight"
       }
     }
   },

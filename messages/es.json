@@ -506,7 +506,10 @@
         "dangerousAttack": "Ataque peligroso",
         "injury": "Lesión",
         "possession": "Posesión",
-        "foul": "Falta"
+        "foul": "Falta",
+        "commentary": "Comentario",
+        "analysis": "Análisis",
+        "highlight": "Destacado"
       }
     }
   },
