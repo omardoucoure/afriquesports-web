@@ -19,6 +19,27 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
+## Deployment
+
+**Production server:** DigitalOcean VPS (159.223.103.16)
+
+**App location:** `/mnt/volume_nyc1_01/nextjs-apps/afriquesports-web`
+
+**Process manager:** PM2 (process name: `afriquesports-web`)
+
+### Deploy command (from local machine)
+```bash
+ssh root@159.223.103.16 "cd /mnt/volume_nyc1_01/nextjs-apps/afriquesports-web && git pull && rm -rf .next && npm run build && pm2 restart afriquesports-web"
+```
+
+**Note:** Always `rm -rf .next` before build to avoid ENOTEMPTY errors.
+
+### iMac agents location
+- **Host:** `imac` (192.168.2.217)
+- **Agent directory:** `~/afrique-sports-agents/`
+- **Python venv:** `~/afrique-sports-agents/venv/` (Python 3.11 with faster-whisper)
+- **Ollama model:** qwen2.5:14b running locally
+
 ## Database migrations
 
 **CRITICAL: Always use Supabase CLI for database migrations and schema updates**

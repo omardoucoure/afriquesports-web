@@ -410,7 +410,12 @@ export default function MatchPageClient({
                             {tEvents('goalBadge')}
                           </span>
                         )}
-                        {event.player_name && event.player_name !== 'null' && event.player_name !== '0' && event.player_name.length > 1 && (
+                        {event.player_name &&
+                         event.player_name !== 'null' &&
+                         event.player_name !== '0' &&
+                         event.player_name !== 0 &&
+                         String(event.player_name).trim().length > 1 &&
+                         !/^\d+$/.test(String(event.player_name)) && (
                           <span className="text-xs font-medium text-slate-600 bg-white/90 px-1.5 py-0.5 rounded border border-slate-200">
                             {event.player_name}
                           </span>
