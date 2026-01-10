@@ -402,7 +402,7 @@ export default function MatchPageClient({
                         }`}>
                           {tEvents(event.type)}
                         </span>
-                        {event.is_scoring && (
+                        {!!event.is_scoring && (
                           <span className="inline-flex items-center gap-1 text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-green-600 px-2 py-0.5 rounded-full shadow-md">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                               <circle cx="12" cy="12" r="10"/>
