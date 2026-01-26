@@ -365,13 +365,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <>
-      {/* Google AdSense */}
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
-        crossOrigin="anonymous"
-        strategy="afterInteractive"
-      />
+      {/* AdSense disabled - Journey/Grow manages ads */}
 
       <ArticleJsonLd
         title={title}

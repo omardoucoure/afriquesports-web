@@ -6,9 +6,10 @@ const WP_USERNAME = process.env.WP_COMMENT_USERNAME || "admin"
 const WP_APP_PASSWORD = process.env.WP_COMMENT_APP_PASSWORD || ""
 
 // Get base URL based on locale
+// FR uses same domain as frontend for SEO, others use CMS path-based routing
 function getWordPressBaseUrl(locale: string = 'fr') {
   const baseUrls: Record<string, string> = {
-    fr: 'https://cms.realdemadrid.com/afriquesports',
+    fr: 'https://www.afriquesports.net',
     en: 'https://cms.realdemadrid.com/afriquesports-en',
     es: 'https://cms.realdemadrid.com/afriquesports-es',
   }
@@ -136,7 +137,7 @@ export async function GET(request: NextRequest) {
 
     // Always use French base URL for comments - all posts are stored in main site
     // The /en/ and /es/ paths often return HTML instead of JSON
-    const baseUrl = 'https://cms.realdemadrid.com/afriquesports'
+    const baseUrl = 'https://www.afriquesports.net'
     const wpUrl = `${baseUrl}/wp-json/wp/v2/comments?post=${articleId}&per_page=100&order=desc&orderby=date`
 
     // Fetch comments from WordPress with 5-minute cache to reduce load

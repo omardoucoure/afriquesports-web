@@ -196,7 +196,7 @@ When you need to run database migrations or schema updates:
 
 ## Integrations
 
-- Google Analytics: G-0DFBHGV182
+- Google Analytics: G-XGR6DW56B6
 - Google News Publisher
 - Social: Facebook, Twitter, TikTok, Instagram, YouTube, Google News
 - Ads: Actirise

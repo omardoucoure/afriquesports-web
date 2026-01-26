@@ -44,7 +44,7 @@ export async function GET() {
   try {
     // Fetch recent CAN 2025 articles from WordPress
     const response = await fetch(
-      "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=100&categories=30616&_fields=slug,modified,link,_embedded&_embed",
+      "https://www.afriquesports.net/wp-json/wp/v2/posts?per_page=100&categories=30616&_fields=slug,modified,link,_embedded&_embed",
       { next: { revalidate: 3600 } }
     );
 

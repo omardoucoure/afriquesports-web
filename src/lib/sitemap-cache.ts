@@ -66,7 +66,7 @@ export async function getCachedPostCount(): Promise<number> {
 
   try {
     const response = await fetch(
-      "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/posts?per_page=1",
+      "https://www.afriquesports.net/wp-json/wp/v2/posts?per_page=1",
       { next: { revalidate: 86400 } }
     );
     const total = parseInt(response.headers.get("x-wp-total") || "45299", 10);
@@ -113,8 +113,9 @@ async function fetchSitemapPosts(
   perPage: number,
   locale: string
 ): Promise<SitemapPost[]> {
+  // FR uses same domain as frontend for SEO, others use CMS path-based routing
   const baseUrls: Record<string, string> = {
-    fr: "https://cms.realdemadrid.com/afriquesports",
+    fr: "https://www.afriquesports.net",
     en: "https://cms.realdemadrid.com/afriquesports-en",
     es: "https://cms.realdemadrid.com/afriquesports-es",
     ar: "https://cms.realdemadrid.com/afriquesports-ar",
@@ -228,7 +229,7 @@ export async function getCachedCategories(): Promise<Array<{ slug: string; modif
 
   try {
     const response = await fetch(
-      "https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2/categories?per_page=100&_fields=slug",
+      "https://www.afriquesports.net/wp-json/wp/v2/categories?per_page=100&_fields=slug",
       { next: { revalidate: 86400 } }
     );
 
@@ -261,8 +262,9 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
     return cached;
   }
 
+  // FR uses same domain as frontend for SEO, others use CMS path-based routing
   const baseUrls: Record<string, string> = {
-    fr: "https://cms.realdemadrid.com/afriquesports",
+    fr: "https://www.afriquesports.net",
     en: "https://cms.realdemadrid.com/afriquesports-en",
     es: "https://cms.realdemadrid.com/afriquesports-es",
     ar: "https://cms.realdemadrid.com/afriquesports-ar",

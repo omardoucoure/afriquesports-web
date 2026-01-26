@@ -19,8 +19,9 @@ import {
 export const dynamic = 'force-dynamic';
 
 // WordPress API base URLs
+// FR uses same domain as frontend for SEO, others use CMS path-based routing
 const WORDPRESS_API_BASES: Record<Locale, string> = {
-  fr: 'https://cms.realdemadrid.com/afriquesports',
+  fr: 'https://www.afriquesports.net',
   en: 'https://cms.realdemadrid.com/afriquesports-en',
   es: 'https://cms.realdemadrid.com/afriquesports-es',
   ar: 'https://cms.realdemadrid.com/afriquesports-ar',

@@ -2,7 +2,7 @@
  * Google Analytics 4 (GA4) provider
  *
  * Uses window.gtag() for event tracking
- * Measurement ID: G-0DFBHGV182
+ * Measurement ID: G-XGR6DW56B6
  */
 
 import { BaseProvider } from './base'
@@ -18,7 +18,7 @@ declare global {
 
 export class GoogleAnalyticsProvider extends BaseProvider {
   name = 'GA4'
-  private measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-0DFBHGV182'
+  private measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XGR6DW56B6'
 
   /**
    * Track custom event

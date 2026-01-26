@@ -1,6 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+/**
+ * AdSense component - DISABLED
+ * Ads are now managed by Journey/Grow via ScriptWrapper
+ */
 
 interface AdSenseProps {
   adSlot: string;
@@ -17,25 +20,6 @@ export default function AdSense({
   className = '',
   style = {},
 }: AdSenseProps) {
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error('AdSense error:', err);
-    }
-  }, []);
-
-  return (
-    <div className={`ad-container ${className}`} style={style}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block', ...style }}
-        data-ad-client="ca-pub-4765538302983367"
-        data-ad-slot={adSlot}
-        data-ad-format={adFormat}
-        data-full-width-responsive={fullWidthResponsive ? 'true' : 'false'}
-      ></ins>
-    </div>
-  );
+  // AdSense disabled - Journey/Grow manages ads
+  return null;
 }

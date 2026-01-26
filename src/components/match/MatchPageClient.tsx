@@ -140,13 +140,7 @@ export default function MatchPageClient({
 
   return (
     <>
-      {/* Google AdSense */}
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
-        crossOrigin="anonymous"
-        strategy="afterInteractive"
-      />
+      {/* AdSense disabled - Journey/Grow manages ads */}
 
       <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-4 pb-8">
         {/* Main Content Area: Commentary + Sidebar */}

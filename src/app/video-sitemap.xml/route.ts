@@ -16,7 +16,7 @@ const SITE_URL = 'https://www.afriquesports.net';
 const POSTS_PER_PAGE = 100; // WordPress max per page
 const MAX_VIDEOS = 300; // Limit to 300 videos (60s serverless timeout allows ~350 posts max)
 const VIDEO_CATEGORY_ID = 9791; // Afrique Sports TV category (909 posts)
-const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://cms.realdemadrid.com/afriquesports/wp-json/wp/v2';
+const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://www.afriquesports.net/wp-json/wp/v2';
 
 interface VideoPost {
   id: number;

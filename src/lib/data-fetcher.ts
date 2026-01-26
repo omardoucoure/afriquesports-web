@@ -94,8 +94,9 @@ export type WPPost = WordPressPost;
 // ============================================================================
 
 // WordPress API base URLs per locale
+// FR uses same domain as frontend for SEO, others use CMS path-based routing
 const WORDPRESS_API_BASES: Record<string, string> = {
-  fr: "https://cms.realdemadrid.com/afriquesports",
+  fr: "https://www.afriquesports.net",
   en: "https://cms.realdemadrid.com/afriquesports-en",
   es: "https://cms.realdemadrid.com/afriquesports-es",
   ar: "https://cms.realdemadrid.com/afriquesports-ar",
@@ -299,8 +300,8 @@ export class DataFetcher {
         "Accept-Charset": "utf-8",
         "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://cms.realdemadrid.com/afriquesports/",
-        "Origin": "https://cms.realdemadrid.com",
+        "Referer": "https://www.afriquesports.net/",
+        "Origin": "https://www.afriquesports.net",
         "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
         "sec-ch-ua-mobile": "?0",
         "sec-ch-ua-platform": '"macOS"',
