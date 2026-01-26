@@ -99,10 +99,10 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <Clarity />
 
-        {/* Actirise SDK - afterInteractive per Actirise recommendation (lazyOnload interferes with execution) */}
+        {/* Actirise SDK - lazyOnload to avoid blocking React hydration */}
         <Script
           id="actirise-init"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: 'window._hbdbrk = window._hbdbrk || [];'
           }}
@@ -110,13 +110,13 @@ export default async function LocaleLayout({
         <Script
           id="actirise-sdk"
           src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
         {/* ScriptWrapper - Ad Management */}
         <Script
           id="scriptwrapper"
-          src="//scripts.scriptwrapper.com/tags/ee744c2d-139f-4122-afb7-ad29100420b0.js"
+          src="https://scripts.scriptwrapper.com/tags/ee744c2d-139f-4122-afb7-ad29100420b0.js"
           strategy="lazyOnload"
           data-noptimize="1"
           data-cfasync="false"
