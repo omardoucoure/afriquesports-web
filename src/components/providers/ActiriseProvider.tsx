@@ -6,13 +6,12 @@
  *
  * Page types:
  * - home: Homepage
- * - article: Article detail pages
+ * - article: Article detail pages (ALL articles including CAN 2025, etc.)
  * - category: Category listing pages
- * - can-2025: AFCON 2025 special pages
  * - static: Static pages (contact, privacy, etc.)
  *
  * Custom variables:
- * - custom1: Category slug (e.g., "afrique", "mercato", "europe")
+ * - custom1: Category slug (e.g., "afrique", "mercato", "europe", "can-2025")
  * - custom2: Locale (fr, en, es)
  * - custom3: Tags (comma-separated)
  * - custom4: Author name
@@ -27,7 +26,7 @@ import { usePathname } from 'next/navigation'
 interface ActiriseProviderProps {
   children: ReactNode
   locale: string
-  pageType?: 'home' | 'article' | 'category' | 'can-2025' | 'static'
+  pageType?: 'home' | 'article' | 'category' | 'static'
   category?: string
   tags?: string[]
   author?: string
@@ -43,8 +42,10 @@ declare global {
 
 /**
  * Auto-detect page type from pathname
+ * All article pages (including CAN 2025, etc.) return 'article' as page_type
+ * Category context is passed via custom variables (custom1 for category, custom5 for special section)
  */
-function detectPageType(pathname: string): 'home' | 'article' | 'category' | 'can-2025' | 'static' {
+function detectPageType(pathname: string): 'home' | 'article' | 'category' | 'static' {
   // Remove locale prefix (e.g., /en/, /es/)
   const path = pathname.replace(/^\/(en|es|fr)\//, '/')
 
@@ -53,23 +54,19 @@ function detectPageType(pathname: string): 'home' | 'article' | 'category' | 'ca
     return 'home'
   }
 
-  // CAN 2025 pages
-  if (path.startsWith('/can-2025')) {
-    return 'can-2025'
-  }
-
   // Static pages
   if (path.match(/^\/(contact|confidentialite|privacy|live|stories)/)) {
     return 'static'
   }
 
-  // Category pages (e.g., /category/...)
-  if (path.startsWith('/category/') || path.match(/^\/(afrique|europe|mercato|football|autres|ballon-dor|coupe-du-monde)\/?$/)) {
+  // Category pages: /category/* or single-segment paths (e.g., /afrique, /can-2025, /europe)
+  if (path.startsWith('/category/') || path.match(/^\/[^/]+\/?$/)) {
     return 'category'
   }
 
-  // Article pages (e.g., /afrique/article-slug)
-  if (path.match(/\/[^/]+\/[^/]+/)) {
+  // Article pages: two-segment paths (e.g., /afrique/article-slug, /can-2025/article-slug)
+  // All articles use 'article' as page_type regardless of category
+  if (path.match(/^\/[^/]+\/[^/]+/)) {
     return 'article'
   }
 

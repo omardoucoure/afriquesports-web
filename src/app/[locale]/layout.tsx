@@ -66,14 +66,13 @@ export default async function LocaleLayout({
         />
 
         {/* Resource hints - ONLY for LCP-critical resources */}
-        {/* Preconnect to WordPress image CDN (critical for LCP) */}
-        <link rel="preconnect" href="https://cms.realdemadrid.com" />
+        {/* Note: Images are served from same domain (www.afriquesports.net) for SEO */}
         <link rel="preconnect" href="https://i0.wp.com" />
 
         {/* DNS prefetch for non-critical third parties (less blocking than preconnect) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://scripts.scriptwrapper.com" />
         <link rel="dns-prefetch" href="https://www.flashb.id" />
 
         {/* Ad scripts moved to body with lazyOnload for better performance */}
@@ -100,10 +99,10 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <Clarity />
 
-        {/* Actirise SDK - Deferred with lazyOnload for better LCP */}
+        {/* Actirise SDK - afterInteractive per Actirise recommendation (lazyOnload interferes with execution) */}
         <Script
           id="actirise-init"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: 'window._hbdbrk = window._hbdbrk || [];'
           }}
@@ -111,15 +110,16 @@ export default async function LocaleLayout({
         <Script
           id="actirise-sdk"
           src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
 
-        {/* Google AdSense - Deferred with lazyOnload for better LCP */}
+        {/* ScriptWrapper - Ad Management */}
         <Script
-          id="google-adsense"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4765538302983367"
+          id="scriptwrapper"
+          src="//scripts.scriptwrapper.com/tags/ee744c2d-139f-4122-afb7-ad29100420b0.js"
           strategy="lazyOnload"
-          crossOrigin="anonymous"
+          data-noptimize="1"
+          data-cfasync="false"
         />
 
         {/* PostHog Analytics - afterInteractive for reliable event tracking */}
