@@ -157,7 +157,44 @@ export default function SEOPage() {
       }
 
       const result = await response.json();
-      setData(result);
+
+      // Transform API response to match SEOData interface
+      const transformed: SEOData = {
+        googleSearchConsole: {
+          clicks: result.overview?.clicks || 0,
+          impressions: result.overview?.impressions || 0,
+          ctr: result.overview?.avgCtr || 0,
+          avgPosition: result.overview?.avgPosition || 0,
+          clicksChange: result.overview?.clicksChange,
+          impressionsChange: result.overview?.impressionsChange,
+          ctrChange: result.overview?.ctrChange,
+          positionChange: result.overview?.positionChange,
+        },
+        topQueries: (result.topKeywords || []).map(
+          (item: { keyword: string; clicks: number; impressions: number; ctr: number; position: number }) => ({
+            query: item.keyword,
+            clicks: item.clicks,
+            impressions: item.impressions,
+            ctr: item.ctr,
+            position: item.position,
+          })
+        ),
+        topPages: result.topPages || [],
+        indexing: result.indexing || {
+          indexed: 0,
+          notIndexed: 0,
+          excluded: 0,
+          errors: 0,
+        },
+        sitemaps: result.sitemaps || [],
+        coreWebVitals: result.coreWebVitals || {
+          goodUrls: 0,
+          needsImprovement: 0,
+          poorUrls: 0,
+        },
+      };
+
+      setData(transformed);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error occurred");
     } finally {
@@ -366,217 +403,203 @@ export default function SEOPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Indexing Status</h2>
-          </div>
-          <div className="p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-gray-900">Indexed</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.indexing.indexed.toLocaleString()}
-              </span>
+      {(data.indexing.indexed > 0 || data.indexing.notIndexed > 0) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">Indexing Status</h2>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <XCircle className="h-5 w-5 text-red-500" />
-                <span className="text-gray-900">Not Indexed</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.indexing.notIndexed.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Clock className="h-5 w-5 text-yellow-500" />
-                <span className="text-gray-900">Excluded</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.indexing.excluded.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <AlertCircle className="h-5 w-5 text-orange-500" />
-                <span className="text-gray-900">Errors</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.indexing.errors.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="pt-4 border-t border-gray-200">
+            <div className="p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-900 font-medium">Total URLs</span>
-                <span className="text-gray-900 font-bold text-lg">
-                  {(
-                    data.indexing.indexed +
-                    data.indexing.notIndexed +
-                    data.indexing.excluded +
-                    data.indexing.errors
-                  ).toLocaleString()}
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-900">Indexed</span>
+                </div>
+                <span className="text-gray-900 font-semibold">
+                  {data.indexing.indexed.toLocaleString()}
                 </span>
               </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <XCircle className="h-5 w-5 text-red-500" />
+                  <span className="text-gray-900">Not Indexed</span>
+                </div>
+                <span className="text-gray-900 font-semibold">
+                  {data.indexing.notIndexed.toLocaleString()}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-yellow-500" />
+                  <span className="text-gray-900">Excluded</span>
+                </div>
+                <span className="text-gray-900 font-semibold">
+                  {data.indexing.excluded.toLocaleString()}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <AlertCircle className="h-5 w-5 text-orange-500" />
+                  <span className="text-gray-900">Errors</span>
+                </div>
+                <span className="text-gray-900 font-semibold">
+                  {data.indexing.errors.toLocaleString()}
+                </span>
+              </div>
+
+              <div className="pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-900 font-medium">Total URLs</span>
+                  <span className="text-gray-900 font-bold text-lg">
+                    {(
+                      data.indexing.indexed +
+                      data.indexing.notIndexed +
+                      data.indexing.excluded +
+                      data.indexing.errors
+                    ).toLocaleString()}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
+          {(data.coreWebVitals.goodUrls > 0 || data.coreWebVitals.needsImprovement > 0 || data.coreWebVitals.poorUrls > 0) && (
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-lg font-semibold text-gray-900">Core Web Vitals</h2>
+              </div>
+              <div className="p-6 space-y-4">
+                {(() => {
+                  const total = data.coreWebVitals.goodUrls + data.coreWebVitals.needsImprovement + data.coreWebVitals.poorUrls;
+                  return (
+                    <>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                          <span className="text-gray-900">Good URLs</span>
+                        </div>
+                        <span className="text-gray-900 font-semibold">
+                          {data.coreWebVitals.goodUrls.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-2">
+                        <div
+                          className="bg-green-500 h-2 rounded-full transition-all"
+                          style={{ width: `${total > 0 ? (data.coreWebVitals.goodUrls / total) * 100 : 0}%` }}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                          <span className="text-gray-900">Needs Improvement</span>
+                        </div>
+                        <span className="text-gray-900 font-semibold">
+                          {data.coreWebVitals.needsImprovement.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-2">
+                        <div
+                          className="bg-yellow-500 h-2 rounded-full transition-all"
+                          style={{ width: `${total > 0 ? (data.coreWebVitals.needsImprovement / total) * 100 : 0}%` }}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                          <span className="text-gray-900">Poor URLs</span>
+                        </div>
+                        <span className="text-gray-900 font-semibold">
+                          {data.coreWebVitals.poorUrls.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-2">
+                        <div
+                          className="bg-red-500 h-2 rounded-full transition-all"
+                          style={{ width: `${total > 0 ? (data.coreWebVitals.poorUrls / total) * 100 : 0}%` }}
+                        />
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {data.sitemaps.length > 0 && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
           <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Core Web Vitals</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Sitemaps</h2>
           </div>
-          <div className="p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-green-500"></div>
-                <span className="text-gray-900">Good URLs</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.coreWebVitals.goodUrls.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="w-full bg-gray-100 rounded-full h-2">
-              <div
-                className="bg-green-500 h-2 rounded-full transition-all"
-                style={{
-                  width: `${
-                    (data.coreWebVitals.goodUrls /
-                      (data.coreWebVitals.goodUrls +
-                        data.coreWebVitals.needsImprovement +
-                        data.coreWebVitals.poorUrls)) *
-                    100
-                  }%`,
-                }}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-                <span className="text-gray-900">Needs Improvement</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.coreWebVitals.needsImprovement.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="w-full bg-gray-100 rounded-full h-2">
-              <div
-                className="bg-yellow-500 h-2 rounded-full transition-all"
-                style={{
-                  width: `${
-                    (data.coreWebVitals.needsImprovement /
-                      (data.coreWebVitals.goodUrls +
-                        data.coreWebVitals.needsImprovement +
-                        data.coreWebVitals.poorUrls)) *
-                    100
-                  }%`,
-                }}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-red-500"></div>
-                <span className="text-gray-900">Poor URLs</span>
-              </div>
-              <span className="text-gray-900 font-semibold">
-                {data.coreWebVitals.poorUrls.toLocaleString()}
-              </span>
-            </div>
-
-            <div className="w-full bg-gray-100 rounded-full h-2">
-              <div
-                className="bg-red-500 h-2 rounded-full transition-all"
-                style={{
-                  width: `${
-                    (data.coreWebVitals.poorUrls /
-                      (data.coreWebVitals.goodUrls +
-                        data.coreWebVitals.needsImprovement +
-                        data.coreWebVitals.poorUrls)) *
-                    100
-                  }%`,
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Sitemaps</h2>
-        </div>
-        <div className="p-6">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-left text-gray-500 border-b border-gray-200">
-                  <th className="pb-3 font-medium">Sitemap URL</th>
-                  <th className="pb-3 font-medium">Status</th>
-                  <th className="pb-3 font-medium text-right">Submitted</th>
-                  <th className="pb-3 font-medium text-right">Indexed</th>
-                  <th className="pb-3 font-medium">Last Updated</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.sitemaps.map((sitemap, index) => (
-                  <tr key={index} className="border-b border-gray-100 last:border-0">
-                    <td className="py-3 text-gray-900 max-w-xs truncate">
-                      <a
-                        href={sitemap.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-[#9DFF20] flex items-center gap-1"
-                      >
-                        {sitemap.url}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </td>
-                    <td className="py-3">
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium",
-                          sitemap.status === "success" &&
-                            "bg-green-100 text-green-700",
-                          sitemap.status === "error" && "bg-red-100 text-red-700",
-                          sitemap.status === "pending" && "bg-yellow-100 text-yellow-700"
-                        )}
-                      >
-                        {sitemap.status === "success" && <CheckCircle className="h-3 w-3" />}
-                        {sitemap.status === "error" && <XCircle className="h-3 w-3" />}
-                        {sitemap.status === "pending" && <RefreshCw className="h-3 w-3" />}
-                        {sitemap.status}
-                      </span>
-                    </td>
-                    <td className="py-3 text-gray-900 text-right">
-                      {sitemap.urlsSubmitted.toLocaleString()}
-                    </td>
-                    <td className="py-3 text-gray-900 text-right">
-                      {sitemap.urlsIndexed.toLocaleString()}
-                    </td>
-                    <td className="py-3 text-gray-500">
-                      {new Date(sitemap.lastSubmitted).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </td>
+          <div className="p-6">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-gray-500 border-b border-gray-200">
+                    <th className="pb-3 font-medium">Sitemap URL</th>
+                    <th className="pb-3 font-medium">Status</th>
+                    <th className="pb-3 font-medium text-right">Submitted</th>
+                    <th className="pb-3 font-medium text-right">Indexed</th>
+                    <th className="pb-3 font-medium">Last Updated</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data.sitemaps.map((sitemap, index) => (
+                    <tr key={index} className="border-b border-gray-100 last:border-0">
+                      <td className="py-3 text-gray-900 max-w-xs truncate">
+                        <a
+                          href={sitemap.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-[#9DFF20] flex items-center gap-1"
+                        >
+                          {sitemap.url}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </td>
+                      <td className="py-3">
+                        <span
+                          className={cn(
+                            "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium",
+                            sitemap.status === "success" &&
+                              "bg-green-100 text-green-700",
+                            sitemap.status === "error" && "bg-red-100 text-red-700",
+                            sitemap.status === "pending" && "bg-yellow-100 text-yellow-700"
+                          )}
+                        >
+                          {sitemap.status === "success" && <CheckCircle className="h-3 w-3" />}
+                          {sitemap.status === "error" && <XCircle className="h-3 w-3" />}
+                          {sitemap.status === "pending" && <RefreshCw className="h-3 w-3" />}
+                          {sitemap.status}
+                        </span>
+                      </td>
+                      <td className="py-3 text-gray-900 text-right">
+                        {sitemap.urlsSubmitted.toLocaleString()}
+                      </td>
+                      <td className="py-3 text-gray-900 text-right">
+                        {sitemap.urlsIndexed.toLocaleString()}
+                      </td>
+                      <td className="py-3 text-gray-500">
+                        {new Date(sitemap.lastSubmitted).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

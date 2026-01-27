@@ -1,118 +1,92 @@
 import { NextRequest, NextResponse } from "next/server";
+import mysql from "mysql2/promise";
+import { getPool } from "@/lib/mysql-db";
 import { gaClient, type Platform } from "@/lib/ga-client";
 
-// WordPress API base URLs
-const WP_FR_API_URL = process.env.WP_FR_API_URL || "";
-const WP_USERNAME = process.env.WP_USERNAME || "";
-const WP_APP_PASSWORD = process.env.WP_APP_PASSWORD || "";
-
-const AUTH_HEADER = "Basic " + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString("base64");
-
-function getDateRange(period: string): { startDate: string; endDate: string } {
-  const endDate = "today";
-  let startDate: string;
+function getDateRange(period: string): {
+  startDate: string;
+  endDate: string;
+  gaStart: string;
+  gaEnd: string;
+} {
+  const now = new Date();
+  let days: number;
 
   switch (period) {
     case "24h":
-      startDate = "yesterday";
+      days = 1;
       break;
     case "7d":
-      startDate = "7daysAgo";
+      days = 7;
       break;
     case "30d":
-      startDate = "30daysAgo";
+      days = 30;
       break;
     case "90d":
-      startDate = "90daysAgo";
+      days = 90;
       break;
     default:
-      startDate = "7daysAgo";
+      days = 7;
   }
 
-  return { startDate, endDate };
+  const fromDate = new Date(now);
+  fromDate.setDate(fromDate.getDate() - days);
+
+  return {
+    startDate: fromDate.toISOString().split("T")[0],
+    endDate: now.toISOString().split("T")[0],
+    gaStart: `${days}daysAgo`,
+    gaEnd: "today",
+  };
 }
 
-// Extract category slug from page path: /afrique/some-slug or /en/europe/some-slug
+// Extract slug from page path: /afrique/some-slug → some-slug
 function extractSlugFromPath(path: string): string | null {
-  // Match /{category}/{slug} or /{locale}/{category}/{slug}
   const match = path.match(/^(?:\/[a-z]{2})?\/[^/]+\/([^/]+)\/?$/);
   return match ? match[1] : null;
 }
 
-interface WPAuthor {
-  id: number;
-  name: string;
-  slug: string;
-  avatar_urls?: Record<string, string>;
-}
-
-interface WPPost {
-  id: number;
-  slug: string;
-  title: { rendered: string };
-  author: number;
-  link: string;
-}
-
-// Fetch WordPress authors
-async function fetchWPAuthors(): Promise<WPAuthor[]> {
-  if (!WP_FR_API_URL) return [];
-
-  try {
-    const response = await fetch(`${WP_FR_API_URL}/users?per_page=100&context=embed`, {
-      headers: { Authorization: AUTH_HEADER },
-      next: { revalidate: 3600 },
-    });
-
-    if (!response.ok) return [];
-    return await response.json();
-  } catch {
-    return [];
-  }
-}
-
-// Fetch recent posts by author
-async function fetchPostsByAuthor(authorId: number, perPage: number = 10): Promise<WPPost[]> {
-  if (!WP_FR_API_URL) return [];
-
-  try {
-    const response = await fetch(
-      `${WP_FR_API_URL}/posts?author=${authorId}&per_page=${perPage}&_fields=id,slug,title,author,link`,
-      {
-        headers: { Authorization: AUTH_HEADER },
-        next: { revalidate: 3600 },
-      }
-    );
-
-    if (!response.ok) return [];
-    return await response.json();
-  } catch {
-    return [];
-  }
-}
-
 export async function GET(request: NextRequest) {
   try {
-    if (!process.env.GA_PROPERTY_ID) {
-      return NextResponse.json(
-        { error: "GA_PROPERTY_ID not configured", message: "Set GA_PROPERTY_ID in .env.local to enable author analytics." },
-        { status: 503 }
-      );
-    }
-
     const { searchParams } = new URL(request.url);
     const period = searchParams.get("period") || "7d";
     const platform = (searchParams.get("platform") || "all") as Platform;
 
-    const { startDate, endDate } = getDateRange(period);
+    const { startDate, gaStart, gaEnd } = getDateRange(period);
 
-    // Fetch GA top pages and WP authors in parallel
-    const [topPages, wpAuthors] = await Promise.all([
-      gaClient.getTopPages(startDate, endDate, 500, platform),
-      fetchWPAuthors(),
+    const pool = getPool();
+    if (!pool) {
+      return NextResponse.json(
+        { error: "Database not available", message: "MySQL connection not configured." },
+        { status: 503 }
+      );
+    }
+
+    // Fetch author stats from MySQL visits table and GA top pages in parallel
+    const [mysqlResult, gaTopPages] = await Promise.all([
+      pool.query<mysql.RowDataPacket[]>(
+        `SELECT
+          post_author AS authorName,
+          COUNT(DISTINCT post_id) AS totalPosts,
+          SUM(count) AS totalViews,
+          GROUP_CONCAT(DISTINCT CONCAT(post_slug, '||', post_title) ORDER BY count DESC SEPARATOR ':::') AS topSlugs
+        FROM wp_afriquesports_visits
+        WHERE post_author IS NOT NULL
+          AND post_author != ''
+          AND visit_date >= ?
+        GROUP BY post_author
+        ORDER BY totalViews DESC
+        LIMIT 50`,
+        [startDate]
+      ),
+      process.env.GA_PROPERTY_ID
+        ? gaClient.getTopPages(gaStart, gaEnd, 500, platform).catch(() => [])
+        : Promise.resolve([]),
     ]);
 
-    if (wpAuthors.length === 0) {
+    const [rows] = mysqlResult;
+
+    if (rows.length === 0) {
       return NextResponse.json({
         summary: { totalAuthors: 0, totalArticles: 0, avgArticlesPerAuthor: 0 },
         authors: [],
@@ -121,9 +95,9 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Build a slug-to-GA-data map from top pages
+    // Build slug → GA visitors map
     const slugToGA = new Map<string, { visitors: number; pageViews: number }>();
-    for (const page of topPages) {
+    for (const page of gaTopPages) {
       const slug = extractSlugFromPath(page.path);
       if (slug) {
         const existing = slugToGA.get(slug);
@@ -136,22 +110,26 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // For each author, fetch their posts and match with GA data
-    const authorDataPromises = wpAuthors.map(async (author) => {
-      const posts = await fetchPostsByAuthor(author.id, 50);
-
-      let totalVisitors = 0;
-      let totalPageviews = 0;
+    // Build author data combining MySQL + GA
+    const authors = rows.map((row, index) => {
+      const slugParts = (row.topSlugs as string || "").split(":::").filter(Boolean);
+      let gaVisitors = 0;
+      let gaPageviews = 0;
       const topArticles: Array<{ title: string; url: string; visitors: number }> = [];
 
-      for (const post of posts) {
-        const gaData = slugToGA.get(post.slug);
+      for (const part of slugParts) {
+        const [slug, title] = part.split("||");
+        if (!slug) continue;
+        const gaData = slugToGA.get(slug);
         if (gaData) {
-          totalVisitors += gaData.visitors;
-          totalPageviews += gaData.pageViews;
+          gaVisitors += gaData.visitors;
+          gaPageviews += gaData.pageViews;
           topArticles.push({
-            title: post.title.rendered.replace(/&#8217;/g, "'").replace(/&#8211;/g, "–").replace(/&amp;/g, "&"),
-            url: post.link,
+            title: (title || slug)
+              .replace(/&#8217;/g, "'")
+              .replace(/&#8211;/g, "–")
+              .replace(/&amp;/g, "&"),
+            url: `https://www.afriquesports.net/${slug}`,
             visitors: gaData.visitors,
           });
         }
@@ -160,25 +138,17 @@ export async function GET(request: NextRequest) {
       topArticles.sort((a, b) => b.visitors - a.visitors);
 
       return {
-        id: author.id,
-        name: author.name,
-        slug: author.slug,
-        avatar: author.avatar_urls?.["96"] || author.avatar_urls?.["48"],
-        articleCount: posts.length,
-        visitors: totalVisitors,
-        pageviews: totalPageviews,
-        avgDuration: 0, // GA4 doesn't provide per-page session duration easily
+        id: index + 1,
+        name: row.authorName as string,
+        slug: (row.authorName as string).toLowerCase().replace(/\s+/g, "-"),
+        articleCount: parseInt(row.totalPosts as string) || 0,
+        visitors: gaVisitors || parseInt(row.totalViews as string) || 0,
+        pageviews: gaPageviews || parseInt(row.totalViews as string) || 0,
+        avgDuration: 0,
         bounceRate: 0,
         topArticles: topArticles.slice(0, 10),
       };
     });
-
-    const allAuthors = await Promise.all(authorDataPromises);
-
-    // Filter out authors with no traffic and sort by visitors
-    const authors = allAuthors
-      .filter((a) => a.articleCount > 0)
-      .sort((a, b) => b.visitors - a.visitors);
 
     const totalArticles = authors.reduce((sum, a) => sum + a.articleCount, 0);
 
