@@ -106,6 +106,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
         'fr': '/match-en-direct',
         'en': '/live-match',
         'es': '/partido-en-vivo',
+        'ar': '/match-en-direct',
       };
       return urls[locale] || '/match-en-direct';
     }
@@ -156,7 +157,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const formatDate = (dateString: string) => {
     if (!isMounted) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString(locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : 'fr-FR', {
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : locale === 'ar' ? 'ar-SA' : 'fr-FR', {
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -166,7 +167,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const formatTime = (dateString: string) => {
     if (!isMounted) return '';
     const date = new Date(dateString);
-    return date.toLocaleTimeString(locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : 'fr-FR', {
+    return date.toLocaleTimeString(locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : locale === 'ar' ? 'ar-SA' : 'fr-FR', {
       hour: "2-digit",
       minute: "2-digit",
     });

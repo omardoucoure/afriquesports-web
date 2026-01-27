@@ -3,6 +3,7 @@ import { after } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { fetchFrenchPostBySlug, translateToAllLocales } from '@/lib/translate-post';
 import { getGoogleIndexingAPI } from '@/lib/google-indexing';
+import { getIndexNowAPI } from '@/lib/bing-indexnow';
 
 /**
  * Webhook endpoint called by WordPress when a French article is published.
@@ -14,7 +15,8 @@ import { getGoogleIndexingAPI } from '@/lib/google-indexing';
  * 4. Translates to EN, ES, AR in parallel via OpenAI
  * 5. Publishes translations to respective WordPress instances
  * 6. Submits all locale URLs to Google Indexing API
- * 7. Revalidates Next.js cache for all locales
+ * 7. Submits all locale URLs to IndexNow (Bing, Yandex)
+ * 8. Revalidates Next.js cache for all locales
  *
  * Usage:
  * POST /api/webhooks/post-published
@@ -91,7 +93,16 @@ export async function POST(request: Request) {
           console.error(`[post-published] Google Indexing error: ${indexErr.message}`);
         }
 
-        // 5. Revalidate Next.js cache for all locales
+        // 5. Submit all locale URLs to IndexNow (Bing, Yandex)
+        try {
+          const indexNow = getIndexNowAPI();
+          const indexNowSuccess = await indexNow.notifyArticleAllLocales(categorySlug, slug);
+          console.log(`[post-published] IndexNow (Bing): ${indexNowSuccess ? 'success' : 'failed'}`);
+        } catch (indexNowErr: any) {
+          console.error(`[post-published] IndexNow error: ${indexNowErr.message}`);
+        }
+
+        // 6. Revalidate Next.js cache for all locales
         const locales = ['fr', 'en', 'es', 'ar'];
         for (const locale of locales) {
           try {

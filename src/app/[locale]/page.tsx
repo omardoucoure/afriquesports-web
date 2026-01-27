@@ -179,8 +179,8 @@ async function HeroArticlesSection({ locale }: { locale: string }) {
         rightArticles={rightArticles} // Fil Actu - 8 flash feed posts with timestamps
         locale={locale}
         translations={{
-          trending: "FIL ACTU",
-          latest: "AFRIQUE SPORTS TV",
+          trending: t("trending"),
+          latest: t("latest"),
           by: tArticle("by"),
           spotlight: t("spotlight"),
         }}

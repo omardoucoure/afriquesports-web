@@ -30,7 +30,8 @@ function FlashFeedCard({ article, locale = "fr" }: { article: WordPressPost; loc
   // Format time as HH:MM
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString("fr-FR", {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES', ar: 'ar-SA', fr: 'fr-FR' };
+    return date.toLocaleTimeString(localeMap[locale] || 'fr-FR', {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -96,7 +97,7 @@ function TrendingCard({
           <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
             <span className="font-medium text-[#04453f] uppercase">{categoryName}</span>
             <span className="text-gray-500">/</span>
-            <time dateTime={article.date}>{formatDate(article.date)}</time>
+            <time dateTime={article.date}>{formatDate(article.date, locale)}</time>
           </div>
           <Link href={articleUrl}>
             <h3
@@ -149,7 +150,7 @@ function FeaturedHeroCard({
             <span className="font-bold text-[#9DFF20] uppercase">{categoryName}</span>
             <span className="text-white/80">/</span>
             <time dateTime={article.date} className="text-white/80">
-              {formatDate(article.date)}
+              {formatDate(article.date, locale)}
             </time>
           </div>
 
@@ -196,7 +197,7 @@ function SideArticleCard({
         <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
           <span className="font-medium text-[#04453f] uppercase">{categoryName}</span>
           <span className="text-gray-500">/</span>
-          <time dateTime={article.date}>{formatDate(article.date)}</time>
+          <time dateTime={article.date}>{formatDate(article.date, locale)}</time>
         </div>
         <Link href={articleUrl}>
           <h3
