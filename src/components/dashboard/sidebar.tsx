@@ -2,7 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Search, ScrollText, Trophy, Users, Bell, Newspaper } from "lucide-react";
+import {
+  BarChart3,
+  Search,
+  ScrollText,
+  Users,
+  Bell,
+  Newspaper,
+  ExternalLink,
+  Zap,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -18,13 +27,27 @@ export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white flex flex-col">
-      <div className="flex h-16 items-center gap-3 px-6 border-b border-gray-800">
-        <Trophy className="h-8 w-8 text-[#9DFF20]" />
-        <span className="font-semibold text-lg">Dashboard</span>
+    <aside className="fixed inset-y-0 left-0 z-50 w-[260px] bg-[#0E0E14] border-r border-white/[0.06] flex flex-col">
+      {/* Logo area */}
+      <div className="flex h-[72px] items-center gap-3 px-6 border-b border-white/[0.06]">
+        <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-[#9DFF20] shadow-[0_0_20px_rgba(157,255,32,0.2)]">
+          <Zap className="h-5 w-5 text-[#0A0A0F]" strokeWidth={2.5} />
+        </div>
+        <div className="flex flex-col">
+          <span className="font-bold text-[15px] text-white tracking-tight leading-none">
+            Afrique Sports
+          </span>
+          <span className="text-[11px] text-white/40 font-medium tracking-wide uppercase mt-0.5">
+            Dashboard
+          </span>
+        </div>
       </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-1">
+      {/* Navigation */}
+      <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
+        <p className="text-[10px] font-semibold text-white/30 uppercase tracking-[0.12em] px-3 mb-3">
+          Menu
+        </p>
         {navigation.map((item) => {
           const isActive = pathname.startsWith(item.href);
           return (
@@ -32,27 +55,38 @@ export function DashboardSidebar() {
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                "group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200",
                 isActive
-                  ? "bg-[#9DFF20] text-black"
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                  ? "bg-[#9DFF20]/10 text-[#9DFF20]"
+                  : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
               )}
             >
-              <item.icon className="h-5 w-5" />
+              {isActive && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#9DFF20] rounded-r-full" />
+              )}
+              <item.icon
+                className={cn(
+                  "h-[18px] w-[18px] transition-colors duration-200",
+                  isActive
+                    ? "text-[#9DFF20]"
+                    : "text-white/30 group-hover:text-white/60"
+                )}
+              />
               {item.name}
             </Link>
           );
         })}
       </nav>
 
-      <div className="px-4 py-4 border-t border-gray-800">
+      {/* Bottom */}
+      <div className="px-3 py-4 border-t border-white/[0.06]">
         <Link
           href="https://www.afriquesports.net"
           target="_blank"
-          className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+          className="flex items-center justify-between px-3 py-2.5 rounded-xl text-[13px] text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-all duration-200"
         >
-          <span>View Site</span>
-          <span>&rarr;</span>
+          <span className="font-medium">View site</span>
+          <ExternalLink className="h-3.5 w-3.5" />
         </Link>
       </div>
     </aside>
