@@ -249,7 +249,7 @@ export class GoogleIndexingAPI {
    * Notify Google about article for all locales
    */
   async notifyArticleAllLocales(category: string, slug: string): Promise<boolean> {
-    const locales = ['fr', 'en', 'es'];
+    const locales = ['fr', 'en', 'es', 'ar'];
     const results = await Promise.allSettled(
       locales.map(locale => this.notifyArticlePublished(category, slug, locale))
     );
