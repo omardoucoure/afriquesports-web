@@ -47,7 +47,7 @@ declare global {
  */
 function detectPageType(pathname: string): 'home' | 'article' | 'category' | 'static' {
   // Remove locale prefix (e.g., /en/, /es/)
-  const path = pathname.replace(/^\/(en|es|fr)\//, '/')
+  const path = pathname.replace(/^\/(en|es|fr|ar)\//, '/')
 
   // Homepage
   if (path === '/' || path === '') {
@@ -78,7 +78,7 @@ function detectPageType(pathname: string): 'home' | 'article' | 'category' | 'st
  */
 function extractCategory(pathname: string): string | undefined {
   // Remove locale prefix
-  const path = pathname.replace(/^\/(en|es|fr)\//, '/')
+  const path = pathname.replace(/^\/(en|es|fr|ar)\//, '/')
 
   // Match category in URL (e.g., /afrique/article-slug -> afrique)
   const categoryMatch = path.match(/^\/([^/]+)/)
