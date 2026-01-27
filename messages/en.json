@@ -109,7 +109,10 @@
     "placeholder": "Search for an article...",
     "results": "results for",
     "noResults": "No results found for",
-    "tryAgain": "Try different keywords"
+    "tryAgain": "Try different keywords",
+    "searchPlaceholder": "Search for an article, a player, a team...",
+    "close": "Close search",
+    "popularSearches": "Popular searches"
   },
   "rankings": {
     "title": "Rankings",

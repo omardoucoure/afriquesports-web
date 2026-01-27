@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAnalytics } from "@/hooks/use-analytics";
 
 interface SearchModalProps {
@@ -13,6 +14,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const tSearch = useTranslations("search");
   const { trackSearchOpen, trackSearchSubmit, trackSearchPopularTerm } = useAnalytics();
 
   // Focus input when modal opens and track search modal open
@@ -112,7 +114,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Rechercher un article, un joueur, une équipe..."
+                placeholder={tSearch("searchPlaceholder")}
                 autoComplete="off"
                 className="flex-1 text-lg md:text-xl font-medium text-gray-900 placeholder-gray-400 bg-transparent border-none outline-none"
               />
@@ -122,7 +124,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 type="button"
                 onClick={onClose}
                 className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Fermer la recherche"
+                aria-label={tSearch("close")}
               >
                 <svg
                   className="w-6 h-6"
@@ -146,7 +148,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             {/* Quick links */}
             <div className="mt-4">
               <p className="text-sm font-medium text-gray-500 mb-3">
-                Recherches populaires
+                {tSearch("popularSearches")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {[

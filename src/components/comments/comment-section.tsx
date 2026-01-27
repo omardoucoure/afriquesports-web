@@ -101,6 +101,30 @@ const translations = {
     deleteConfirm: "¿Estás seguro de que quieres eliminar este comentario?",
     errorPosting: "Se produjo un error al publicar.",
     errorDeleting: "No tienes permiso para eliminar este comentario."
+  },
+  ar: {
+    title: "التعليقات",
+    writeComment: "اكتب تعليقاً",
+    placeholder: "شاركنا رأيك في هذا المقال...",
+    signInRequired: "سجل الدخول للتعليق",
+    signIn: "تسجيل الدخول عبر Google",
+    signOut: "تسجيل الخروج",
+    submit: "نشر",
+    reply: "رد",
+    delete: "حذف",
+    charactersLeft: "حرف متبقي",
+    posting: "جارٍ النشر...",
+    loading: "جارٍ تحميل التعليقات...",
+    replyTo: "الرد على",
+    cancel: "إلغاء",
+    viewReplies: "عرض الردود",
+    hideReplies: "إخفاء الردود",
+    comment: "تعليق",
+    comments: "تعليقات",
+    noComments: "كن أول من يعلق",
+    deleteConfirm: "هل أنت متأكد من حذف هذا التعليق؟",
+    errorPosting: "حدث خطأ أثناء النشر.",
+    errorDeleting: "ليس لديك صلاحية لحذف هذا التعليق."
   }
 }
 

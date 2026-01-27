@@ -109,7 +109,10 @@
     "placeholder": "ابحث عن مقال...",
     "results": "نتائج ل",
     "noResults": "لم يتم العثور على نتائج ل",
-    "tryAgain": "جرب كلمات مفتاحية أخرى"
+    "tryAgain": "جرب كلمات مفتاحية أخرى",
+    "searchPlaceholder": "ابحث عن مقال، لاعب، فريق...",
+    "close": "إغلاق البحث",
+    "popularSearches": "عمليات البحث الشائعة"
   },
   "rankings": {
     "title": "الترتيب",

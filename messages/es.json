@@ -109,7 +109,10 @@
     "placeholder": "Buscar un artículo...",
     "results": "resultados para",
     "noResults": "No se encontraron resultados para",
-    "tryAgain": "Intenta con otras palabras clave"
+    "tryAgain": "Intenta con otras palabras clave",
+    "searchPlaceholder": "Buscar un artículo, un jugador, un equipo...",
+    "close": "Cerrar búsqueda",
+    "popularSearches": "Búsquedas populares"
   },
   "rankings": {
     "title": "Clasificaciones",
