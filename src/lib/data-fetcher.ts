@@ -95,12 +95,12 @@ export type WPPost = WordPressPost;
 // ============================================================================
 
 // WordPress API base URLs per locale
-// FR uses same domain as frontend for SEO, others use CMS path-based routing
+// Configurable via environment variables, with sensible defaults
 const WORDPRESS_API_BASES: Record<string, string> = {
-  fr: "https://www.afriquesports.net",
-  en: "https://cms.realdemadrid.com/afriquesports-en",
-  es: "https://cms.realdemadrid.com/afriquesports-es",
-  ar: "https://cms.realdemadrid.com/afriquesports-ar",
+  fr: process.env.WP_FR_API_BASE || "https://www.afriquesports.net",
+  en: process.env.WP_EN_API_BASE || "https://www.afriquesports.net/en",
+  es: process.env.WP_ES_API_BASE || "https://www.afriquesports.net/es",
+  ar: process.env.WP_AR_API_BASE || "https://www.afriquesports.net/ar",
 };
 const WORDPRESS_API_PATH = "/wp-json/wp/v2/posts";
 const WORDPRESS_CATEGORIES_PATH = "/wp-json/wp/v2/categories";

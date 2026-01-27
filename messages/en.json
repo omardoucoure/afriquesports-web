@@ -569,5 +569,18 @@
     "searchButton": "Search",
     "popularCategories": "Popular categories",
     "africa": "Africa"
+  },
+  "ballonDor": {
+    "title": "Top 5 African Ballon d'Or",
+    "player": "Player",
+    "score": "Score",
+    "notAvailable": "Ranking not available at the moment",
+    "updatedWeekly": "Updated weekly",
+    "keyStat": {
+      "goals": "goals",
+      "assists": "assists",
+      "rating": "rating",
+      "cleanSheets": "clean sheets"
+    }
   }
 }

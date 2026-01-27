@@ -1,0 +1,40 @@
+-- Ballon d'Or africain ranking table
+-- Stores weekly computed rankings for top African players
+-- Based on real CAF voting criteria: individual stats, club success, national team, consistency
+
+CREATE TABLE IF NOT EXISTS wp_afriquesports_ballon_dor (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  player_api_id INT NOT NULL,
+  player_name VARCHAR(200) NOT NULL,
+  player_photo TEXT,
+  nationality VARCHAR(100) NOT NULL,
+  country_code VARCHAR(5) NOT NULL,
+  position VARCHAR(50) NOT NULL,
+  team_name VARCHAR(100),
+  team_logo TEXT,
+  league_name VARCHAR(100),
+  goals INT DEFAULT 0,
+  assists INT DEFAULT 0,
+  appearances INT DEFAULT 0,
+  minutes_played INT DEFAULT 0,
+  clean_sheets INT DEFAULT 0,
+  player_rating DECIMAL(4,2),
+  league_position INT,
+  cl_stage VARCHAR(50),
+  nt_goals INT DEFAULT 0,
+  nt_assists INT DEFAULT 0,
+  nt_appearances INT DEFAULT 0,
+  total_score DECIMAL(6,2) NOT NULL,
+  score_individual DECIMAL(5,2) DEFAULT 0,
+  score_club_success DECIMAL(5,2) DEFAULT 0,
+  score_national_team DECIMAL(5,2) DEFAULT 0,
+  score_consistency DECIMAL(5,2) DEFAULT 0,
+  rank_position INT NOT NULL,
+  key_stat_label VARCHAR(50),
+  key_stat_value VARCHAR(50),
+  season VARCHAR(10) DEFAULT '2024-2025',
+  computed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_rank (rank_position, computed_at DESC),
+  INDEX idx_latest (computed_at DESC, rank_position)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -76,17 +76,3 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
   );
 }
 
-// Featured article skeleton for loading states
-export function FeaturedArticleSkeleton() {
-  return (
-    <div className="relative rounded-xl overflow-hidden animate-pulse">
-      <div className="aspect-[16/9] md:aspect-[21/9] bg-gray-300" />
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
-        <div className="h-6 w-24 bg-gray-400 rounded mb-3" />
-        <div className="h-8 md:h-12 w-3/4 bg-gray-400 rounded mb-2" />
-        <div className="hidden md:block h-4 w-1/2 bg-gray-400 rounded" />
-        <div className="h-4 w-32 bg-gray-400 rounded mt-4" />
-      </div>
-    </div>
-  );
-}

@@ -106,24 +106,3 @@ export function RankingsWidget({
   );
 }
 
-// Skeleton for loading state
-export function RankingsWidgetSkeleton() {
-  return (
-    <div className="bg-white rounded p-4 animate-pulse">
-      <div className="flex items-center justify-between mb-4">
-        <div className="h-5 w-24 bg-gray-200 rounded" />
-        <div className="h-5 w-16 bg-gray-200 rounded" />
-      </div>
-      <div className="space-y-3">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-gray-200 rounded" />
-            <div className="flex-1 h-4 bg-gray-200 rounded" />
-            <div className="w-8 h-4 bg-gray-200 rounded" />
-            <div className="w-8 h-4 bg-gray-200 rounded" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}

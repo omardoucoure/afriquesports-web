@@ -4,11 +4,9 @@ import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
-  HeroSectionSkeleton,
   LoadMoreArticles,
-  ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
+import { MostReadWidget, PlayersWidget, TopScorersWidget, AFCONScorersWidget, BallonDorWidget, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher, getPosts, type WordPressPost } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
@@ -395,6 +393,11 @@ export default async function Home({ params }: HomePageProps) {
                   <TopScorersWidget title={t("topScorers")} />
                 </Suspense>
 
+                {/* African Ballon d'Or ranking */}
+                <Suspense fallback={<BallonDorWidgetSkeleton />}>
+                  <BallonDorWidget />
+                </Suspense>
+
                 {/* Key players */}
                 <PlayersWidget />
               </div>
@@ -440,6 +443,13 @@ export default async function Home({ params }: HomePageProps) {
             </div>
             <Suspense fallback={<TopScorersWidgetSkeleton />}>
               <TopScorersWidget title={t("topScorers")} />
+            </Suspense>
+          </section>
+
+          {/* African Ballon d'Or - mobile */}
+          <section>
+            <Suspense fallback={<BallonDorWidgetSkeleton />}>
+              <BallonDorWidget />
             </Suspense>
           </section>
         </div>

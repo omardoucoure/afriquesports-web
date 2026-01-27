@@ -569,5 +569,18 @@
     "searchButton": "Buscar",
     "popularCategories": "Categorías populares",
     "africa": "África"
+  },
+  "ballonDor": {
+    "title": "Top 5 Balón de Oro africano",
+    "player": "Jugador",
+    "score": "Puntuación",
+    "notAvailable": "Clasificación no disponible en este momento",
+    "updatedWeekly": "Actualizado semanalmente",
+    "keyStat": {
+      "goals": "goles",
+      "assists": "asistencias",
+      "rating": "nota",
+      "cleanSheets": "porterías imbatidas"
+    }
   }
 }

@@ -82,23 +82,3 @@ export function RecentArticlesWidget({
   );
 }
 
-// Skeleton for loading state
-export function RecentArticlesWidgetSkeleton({ count = 5 }: { count?: number }) {
-  return (
-    <div className="bg-white rounded p-4 animate-pulse">
-      <div className="h-5 w-32 bg-gray-200 rounded mb-4" />
-      <div className="space-y-4">
-        {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className="flex gap-3">
-            <div className="w-20 h-14 bg-gray-200 rounded flex-shrink-0" />
-            <div className="flex-1">
-              <div className="h-4 bg-gray-200 rounded w-full mb-1" />
-              <div className="h-4 bg-gray-200 rounded w-2/3 mb-2" />
-              <div className="h-3 bg-gray-100 rounded w-20" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}

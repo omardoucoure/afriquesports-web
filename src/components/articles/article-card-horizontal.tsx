@@ -77,30 +77,3 @@ export function ArticleCardHorizontal({
   );
 }
 
-export function ArticleCardHorizontalSkeleton() {
-  return (
-    <div className="bg-white rounded-lg overflow-hidden p-3 sm:p-4 animate-pulse">
-      <div className="flex gap-3 sm:gap-4">
-        <div className="w-[100px] h-[75px] sm:w-[140px] sm:h-[100px] md:w-[180px] md:h-[120px] bg-gray-200 flex-shrink-0 rounded-lg" />
-        <div className="flex flex-col flex-1 min-w-0">
-          {/* Category badge */}
-          <div className="mb-1.5">
-            <div className="h-4 bg-gray-200 rounded w-16" />
-          </div>
-          {/* Title */}
-          <div className="h-4 sm:h-5 bg-gray-200 rounded w-full mb-1" />
-          <div className="h-4 sm:h-5 bg-gray-200 rounded w-3/4 mb-1" />
-          {/* Excerpt */}
-          <div className="h-3 bg-gray-200 rounded w-full mb-1 hidden sm:block" />
-          <div className="h-3 bg-gray-200 rounded w-2/3 mb-2 sm:mb-3 hidden sm:block" />
-          {/* Meta */}
-          <div className="mt-auto pt-1 sm:pt-2 flex items-center gap-2 sm:gap-3">
-            <div className="h-2.5 sm:h-3 bg-gray-200 rounded w-20" />
-            <div className="h-2.5 sm:h-3 bg-gray-200 rounded w-1 hidden sm:block" />
-            <div className="h-2.5 sm:h-3 bg-gray-200 rounded w-24 hidden sm:block" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
