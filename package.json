@@ -36,6 +36,7 @@
     "remark-gfm": "^4.0.1",
     "sqlite3": "^5.1.7",
     "swr": "^2.3.8",
+    "web-push": "^3.6.7",
     "youtube-transcript": "^1.2.1"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "@types/pg": "^8.11.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",

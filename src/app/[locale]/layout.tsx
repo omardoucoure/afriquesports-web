@@ -8,6 +8,7 @@ import { ScrollTracker } from "@/components/tracking/ScrollTracker";
 import { PostHogPageView } from "@/components/tracking/PostHogPageView";
 import { LanguageDetector } from "@/components/layout";
 import { GoogleAnalytics, Clarity } from "@/components/analytics";
+import { PushProvider } from "@/components/push/push-provider";
 import { generateOrganizationJsonLd } from "@/lib/seo";
 import { locales, type Locale } from "@/i18n/config";
 import { rubikClassName, rubikVariable } from "../layout";
@@ -87,6 +88,7 @@ export default async function LocaleLayout({
               <SessionTracker />
               <ScrollTracker />
               <PostHogPageView />
+              <PushProvider />
             </IntlProvider>
           </ActiriseProvider>
         </AnalyticsProvider>

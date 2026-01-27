@@ -39,5 +39,6 @@
   ],
   "categories": ["sports", "news"],
   "lang": "fr",
-  "dir": "ltr"
+  "dir": "ltr",
+  "gcm_sender_id": "317070880464"
 }
