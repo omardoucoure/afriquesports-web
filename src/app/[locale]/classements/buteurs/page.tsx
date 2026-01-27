@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: ButeursPageProps): Promise<Me
       type: "website",
       siteName: "Afrique Sports",
       url: canonicalUrl,
-      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
       images: [{ url: "https://www.afriquesports.net/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {

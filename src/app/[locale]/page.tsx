@@ -40,12 +40,14 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
     fr: "Afrique Sports - Actualités Football Africain | CAN 2025, Mercato, Résultats en Direct",
     en: "Afrique Sports - African Football News | AFCON 2025, Transfers, Live Results",
     es: "Afrique Sports - Noticias Fútbol Africano | CAN 2025, Fichajes, Resultados en Vivo",
+    ar: "أفريك سبورتس - أخبار كرة القدم الأفريقية | كأس أمم أفريقيا 2025، الانتقالات، النتائج المباشرة",
   };
 
   const descriptions: Record<string, string> = {
     fr: "Toute l'actualité du football africain : CAN 2025 au Maroc, mercato, résultats, classements. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Sénégal, Maroc, Algérie, Nigeria, Cameroun.",
     en: "All African football news: AFCON 2025 in Morocco, transfers, results, standings. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Senegal, Morocco, Algeria, Nigeria, Cameroon.",
     es: "Todas las noticias del fútbol africano: CAN 2025 en Marruecos, fichajes, resultados, clasificaciones. Mohamed Salah, Victor Osimhen, Achraf Hakimi. Senegal, Marruecos, Argelia, Nigeria.",
+    ar: "جميع أخبار كرة القدم الأفريقية: كأس أمم أفريقيا 2025 في المغرب، سوق الانتقالات، النتائج، الترتيب. محمد صلاح، فيكتور أوسيمين، أشرف حكيمي. السنغال، المغرب، الجزائر، نيجيريا، الكاميرون.",
   };
 
   const keywords = getPageKeywords("home");
@@ -70,7 +72,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       url: canonicalUrl,
       type: "website",
       siteName: "Afrique Sports",
-      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
       images: [
         {
           url: "https://www.afriquesports.net/opengraph-image",

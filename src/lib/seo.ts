@@ -220,7 +220,7 @@ export function generateArticleMetadata(
         },
       ],
       url: articleUrl,
-      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
     },
     twitter: {
       card: "summary_large_image",
@@ -274,7 +274,7 @@ export function generateCategoryMetadata(
       type: "website",
       siteName: SITE_NAME,
       url: categoryUrl,
-      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
     },
     twitter: {
       card: "summary",

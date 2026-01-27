@@ -150,7 +150,7 @@ export async function generateMetadata({ params }: CAN2025PageProps): Promise<Me
       url: canonicalUrl,
       type: "website",
       siteName: "Afrique Sports",
-      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+      locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
       images: [
         {
           url: "https://www.afriquesports.net/opengraph-image",

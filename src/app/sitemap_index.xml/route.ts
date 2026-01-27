@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 /**
  * Sitemap Index Redirect
@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * This redirects to /sitemap.xml which is the actual sitemap index.
  */
 
-export async function GET(request: NextRequest) {
-  // Redirect to the main sitemap
-  return NextResponse.redirect(new URL('/sitemap.xml', request.url), 301);
+export async function GET() {
+  // Redirect to the main sitemap using production URL
+  return NextResponse.redirect('https://www.afriquesports.net/sitemap.xml', 301);
 }

@@ -117,7 +117,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
         publishedTime: article.date,
         modifiedTime: article.modified,
         url: canonicalUrl,
-        locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : "es_ES",
+        locale: locale === "fr" ? "fr_FR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "es_ES",
         images: [{
           url: ogImageUrl,
           width: 1200,
