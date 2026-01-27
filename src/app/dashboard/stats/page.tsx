@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import {
   Users,
   Eye,
@@ -21,6 +21,7 @@ import {
   ArrowDownRight,
   Minus,
   Search,
+  Radio,
 } from "lucide-react";
 import { DateFilter } from "@/components/dashboard/date-filter";
 import { AnalyticsChart } from "@/components/dashboard/analytics-chart";
@@ -300,6 +301,7 @@ interface AnalyticsData {
     bounceRate: number;
     bounceRateChange?: number;
   };
+  realtimeUsers: number;
   timeseries: Array<{ date: string; visitors: number; isHourly?: boolean }>;
   topPages: Array<{ page: string; visitors: number; change?: number }>;
   countries: Array<{ country: string; code: string; visitors: number; change?: number }>;
@@ -533,6 +535,31 @@ export default function StatsPage() {
     "pages" | "countries" | "events" | "referrers" | null
   >(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [realtimeUsers, setRealtimeUsers] = useState<number>(0);
+  const realtimeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Fetch real-time users every 30 seconds
+  const fetchRealtimeUsers = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/dashboard/analytics?period=24h&platform=${platform}`
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setRealtimeUsers(result.realtime?.activeUsers || 0);
+      }
+    } catch {
+      // Silently fail for realtime — don't disrupt the UI
+    }
+  }, [platform]);
+
+  useEffect(() => {
+    // Start auto-refresh for realtime users
+    realtimeIntervalRef.current = setInterval(fetchRealtimeUsers, 30000);
+    return () => {
+      if (realtimeIntervalRef.current) clearInterval(realtimeIntervalRef.current);
+    };
+  }, [fetchRealtimeUsers]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -548,6 +575,7 @@ export default function StatsPage() {
       }
 
       const result = await response.json();
+      setRealtimeUsers(result.realtime?.activeUsers || 0);
 
       // Transform API response to match AnalyticsData interface
       const transformed: AnalyticsData = {
@@ -560,6 +588,7 @@ export default function StatsPage() {
           bounceRate: result.overview?.bounceRate || 0,
           bounceRateChange: result.overview?.bounceRateChange,
         },
+        realtimeUsers: result.realtime?.activeUsers || 0,
         timeseries: (result.trafficByDate || []).map(
           (item: { date: string; visitors: number; isHourly?: boolean }) => ({
             date: item.date,
@@ -654,7 +683,20 @@ export default function StatsPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white -m-4 sm:-m-6 lg:-m-8 p-4 sm:p-6 lg:p-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Analytics</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold">Analytics</h1>
+          {realtimeUsers > 0 && (
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full">
+              <Radio className="h-3.5 w-3.5 text-green-400 animate-pulse" />
+              <span className="text-sm font-semibold text-green-400">
+                {realtimeUsers}
+              </span>
+              <span className="text-xs text-green-400/70 hidden sm:inline">
+                online
+              </span>
+            </div>
+          )}
+        </div>
         <DateFilter value={dateRange} onChange={setDateRange} />
       </div>
 

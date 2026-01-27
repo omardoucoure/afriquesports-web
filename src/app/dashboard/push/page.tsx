@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Bell,
   Send,
@@ -13,6 +13,10 @@ import {
   Eye,
   Globe,
   Clock,
+  Search,
+  Newspaper,
+  ExternalLink,
+  ArrowRight,
 } from "lucide-react";
 
 interface NotificationHistoryEntry {
@@ -49,6 +53,19 @@ interface SendResult {
   error?: string;
 }
 
+interface WordPressPost {
+  id: number;
+  title: { rendered: string };
+  excerpt: { rendered: string };
+  slug: string;
+  date: string;
+  link: string;
+  _embedded?: {
+    "wp:featuredmedia"?: Array<{ source_url: string }>;
+    "wp:term"?: Array<Array<{ slug: string; name: string }>>;
+  };
+}
+
 function formatTime(timestamp: number): string {
   return new Date(timestamp).toLocaleString("fr-FR", {
     day: "2-digit",
@@ -73,10 +90,41 @@ function formatRelativeTime(timestamp: number): string {
   return formatTime(timestamp);
 }
 
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&hellip;/g, "...")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
+function formatPostDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffHours < 1) return "Just now";
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "short",
+  });
+}
+
 export default function PushPage() {
   const [stats, setStats] = useState<SubscriptionStats | null>(null);
   const [history, setHistory] = useState<NotificationHistoryEntry[]>([]);
+  const [recentPosts, setRecentPosts] = useState<WordPressPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const [isSending, setIsSending] = useState(false);
   const [sendResult, setSendResult] = useState<SendResult | null>(null);
 
@@ -87,6 +135,10 @@ export default function PushPage() {
   const [targetUrl, setTargetUrl] = useState("");
   const [language, setLanguage] = useState("all");
   const [testMode, setTestMode] = useState(false);
+
+  // Search state
+  const [historySearch, setHistorySearch] = useState("");
+  const [postsSearch, setPostsSearch] = useState("");
 
   const fetchData = useCallback(async () => {
     try {
@@ -103,9 +155,24 @@ export default function PushPage() {
     }
   }, []);
 
+  const fetchRecentPosts = useCallback(async () => {
+    try {
+      const response = await fetch("/api/posts?per_page=20&locale=fr");
+      if (response.ok) {
+        const posts = await response.json();
+        setRecentPosts(Array.isArray(posts) ? posts : []);
+      }
+    } catch (error) {
+      console.error("Error fetching recent posts:", error);
+    } finally {
+      setIsLoadingPosts(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    fetchRecentPosts();
+  }, [fetchData, fetchRecentPosts]);
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,6 +216,43 @@ export default function PushPage() {
     }
   };
 
+  const handleSelectPost = (post: WordPressPost) => {
+    const postTitle = stripHtml(post.title.rendered);
+    const postExcerpt = stripHtml(post.excerpt.rendered).slice(0, 150);
+    const featuredImage =
+      post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "";
+    const categorySlug =
+      post._embedded?.["wp:term"]?.[0]?.[0]?.slug || "football";
+    const articleUrl = `https://www.afriquesports.net/${categorySlug}/${post.slug}`;
+
+    setTitle(postTitle);
+    setBody(postExcerpt || postTitle);
+    setImageUrl(featuredImage);
+    setTargetUrl(articleUrl);
+
+    // Scroll to form on mobile
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Filtered lists
+  const filteredHistory = useMemo(() => {
+    if (!historySearch.trim()) return history;
+    const query = historySearch.toLowerCase();
+    return history.filter(
+      (n) =>
+        n.title.toLowerCase().includes(query) ||
+        n.body.toLowerCase().includes(query)
+    );
+  }, [history, historySearch]);
+
+  const filteredPosts = useMemo(() => {
+    if (!postsSearch.trim()) return recentPosts;
+    const query = postsSearch.toLowerCase();
+    return recentPosts.filter((p) =>
+      stripHtml(p.title.rendered).toLowerCase().includes(query)
+    );
+  }, [recentPosts, postsSearch]);
+
   return (
     <div className="min-h-screen bg-gray-950 text-white -m-4 sm:-m-6 lg:-m-8 p-4 sm:p-6 lg:p-8">
       {/* Header */}
@@ -166,6 +270,8 @@ export default function PushPage() {
           onClick={() => {
             setIsLoading(true);
             fetchData();
+            setIsLoadingPosts(true);
+            fetchRecentPosts();
           }}
           disabled={isLoading}
           className="flex items-center gap-2 px-4 py-2 text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors self-start sm:self-auto"
@@ -255,7 +361,7 @@ export default function PushPage() {
       )}
 
       {/* Main content: form + history */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
         {/* Send form */}
         <div className="bg-gray-900 rounded-xl border border-gray-800 p-4 sm:p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -376,10 +482,31 @@ export default function PushPage() {
 
         {/* Notification history */}
         <div className="bg-gray-900 rounded-xl border border-gray-800 p-4 sm:p-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Clock className="h-5 w-5 text-[#9DFF20]" />
-            Notification history
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold flex items-center gap-2">
+              <Clock className="h-5 w-5 text-[#9DFF20]" />
+              Notification history
+            </h2>
+            {history.length > 0 && (
+              <span className="text-xs text-gray-500 bg-gray-800 px-2 py-1 rounded">
+                {history.length} sent
+              </span>
+            )}
+          </div>
+
+          {/* History search */}
+          {history.length > 3 && (
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+              <input
+                type="text"
+                value={historySearch}
+                onChange={(e) => setHistorySearch(e.target.value)}
+                placeholder="Search notifications..."
+                className="w-full pl-9 pr-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9DFF20]/50 focus:border-[#9DFF20]/50"
+              />
+            </div>
+          )}
 
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
@@ -392,9 +519,14 @@ export default function PushPage() {
                 No notifications sent yet
               </p>
             </div>
+          ) : filteredHistory.length === 0 ? (
+            <div className="text-center py-8">
+              <Search className="h-8 w-8 mx-auto text-gray-700 mb-2" />
+              <p className="text-gray-500 text-sm">No results found</p>
+            </div>
           ) : (
             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-              {history.map((n) => (
+              {filteredHistory.map((n) => (
                 <div
                   key={n.id}
                   className="bg-gray-800 rounded-lg p-3 border border-gray-700/50"
@@ -448,6 +580,101 @@ export default function PushPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Recent posts section */}
+      <div className="bg-gray-900 rounded-xl border border-gray-800 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <Newspaper className="h-5 w-5 text-[#9DFF20]" />
+            Recent articles
+            <span className="text-xs text-gray-500 font-normal ml-1">
+              Click to pre-fill notification
+            </span>
+          </h2>
+
+          {/* Posts search */}
+          <div className="relative w-full sm:w-72">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+            <input
+              type="text"
+              value={postsSearch}
+              onChange={(e) => setPostsSearch(e.target.value)}
+              placeholder="Search articles..."
+              className="w-full pl-9 pr-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#9DFF20]/50 focus:border-[#9DFF20]/50"
+            />
+          </div>
+        </div>
+
+        {isLoadingPosts ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-6 w-6 animate-spin text-gray-500" />
+          </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="text-center py-8">
+            <Newspaper className="h-10 w-10 mx-auto text-gray-700 mb-3" />
+            <p className="text-gray-500 text-sm">
+              {postsSearch ? "No articles found" : "No recent articles"}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            {filteredPosts.map((post) => {
+              const postTitle = stripHtml(post.title.rendered);
+              const postExcerpt = stripHtml(post.excerpt.rendered).slice(
+                0,
+                100
+              );
+              const featuredImage =
+                post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+              const categoryName =
+                post._embedded?.["wp:term"]?.[0]?.[0]?.name || "";
+
+              return (
+                <button
+                  key={post.id}
+                  onClick={() => handleSelectPost(post)}
+                  className="bg-gray-800 rounded-lg border border-gray-700/50 hover:border-[#9DFF20]/30 hover:bg-gray-750 transition-all text-left group p-3 flex gap-3"
+                >
+                  {/* Thumbnail */}
+                  {featuredImage && (
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden shrink-0 bg-gray-700">
+                      <img
+                        src={featuredImage}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  {/* Content */}
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-white line-clamp-2 group-hover:text-[#9DFF20] transition-colors">
+                      {postTitle}
+                    </p>
+                    {postExcerpt && (
+                      <p className="text-xs text-gray-500 mt-1 line-clamp-1">
+                        {postExcerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center gap-2 mt-1.5">
+                      {categoryName && (
+                        <span className="text-[10px] bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded uppercase">
+                          {categoryName}
+                        </span>
+                      )}
+                      <span className="text-[10px] text-gray-600">
+                        {formatPostDate(post.date)}
+                      </span>
+                      <ArrowRight className="h-3 w-3 text-gray-600 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
