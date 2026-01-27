@@ -19,7 +19,7 @@ export function getPool(): mysql.Pool | null {
   if (pool) return pool;
 
   const config = {
-    host: process.env.WORDPRESS_DB_HOST || '159.223.103.16',
+    host: process.env.WORDPRESS_DB_HOST || 'localhost',
     user: process.env.WORDPRESS_DB_USER,
     password: process.env.WORDPRESS_DB_PASSWORD,
     database: process.env.WORDPRESS_DB_NAME || 'wordpress',

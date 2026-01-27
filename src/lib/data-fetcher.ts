@@ -34,6 +34,7 @@ export interface WordPressPost {
     protected: boolean;
   };
   author: number;
+  author_name?: string;
   featured_media: number;
   comment_status: string;
   ping_status: string;

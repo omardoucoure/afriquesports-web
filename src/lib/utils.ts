@@ -251,42 +251,46 @@ export function buildArticleUrl(category: string, slug: string): string {
 }
 
 /**
- * Author ID to name mapping (source database user IDs to display names)
+ * Author ID to name mapping
+ * IDs from WordPress multisite wp_users table (shared across all blogs)
  */
 const AUTHOR_MAP: Record<number, string> = {
-  1: "Ousmane Ba",
-  6: "Momar Touré",
-  7: "Carinos Satya",
-  36: "Noyine Touré",
-  38: "Birane Bassoum",
-  57: "Sobour Magadji",
-  73: "Omar Doucouré",
-  88: "Équipe Youtube",
-  97: "Josué",
-  103: "Boris Adakanou",
-  109: "Sakho Malick",
-  110: "Sidy Touré",
-  111: "Diop",
-  115: "Sada",
-  116: "Edouard Agbetou",
-  118: "Dianga",
-  119: "Ibrahim",
-  120: "Cakpo",
-  121: "Pascal",
-  122: "Ouattara",
+  1: "Afrique Sports",
+  2: "Josué",
+  3: "Pascal",
+  4: "Ousmane Ba",
+  5: "Momar Touré",
+  6: "Carinos Satya",
+  7: "Sobour Magadji",
+  8: "Noyine Touré",
+  9: "Birane Bassoum",
+  10: "Boris Adakanou",
+  11: "Sidy Touré",
+  12: "Équipe Youtube",
+  13: "Sakho Malick",
+  14: "Noyine Bakayoko",
+  15: "Afrique Sports",
+  16: "Cakpo",
+  17: "Ouattara",
+  18: "Edouard Agbetou",
 };
 
 /**
  * Get author name from a post
  */
 export function getAuthorName(post: WordPressPost): string {
-  // First try embedded author data
+  // Primary: use author_name field from REST API (added by mu-plugin)
+  if (post.author_name) {
+    return post.author_name;
+  }
+
+  // Fallback: try embedded author data
   const author = post._embedded?.author?.[0];
   if (author?.name && !author.name.includes("invalid")) {
     return author.name;
   }
 
-  // Fallback to author ID mapping
+  // Fallback: author ID mapping
   if (post.author && AUTHOR_MAP[post.author]) {
     return AUTHOR_MAP[post.author];
   }
