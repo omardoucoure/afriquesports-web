@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: MercatoPageProps): Promise<Me
         "fr-FR": `${baseUrl}${pagePath}`,
         "en-US": `${baseUrl}/en${pagePath}`,
         "es-ES": `${baseUrl}/es${pagePath}`,
+        "ar-SA": `${baseUrl}/ar${pagePath}`,
         "x-default": `${baseUrl}${pagePath}`,
       },
     },

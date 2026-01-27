@@ -116,9 +116,9 @@ async function fetchSitemapPosts(
   // FR uses same domain as frontend for SEO, others use CMS path-based routing
   const baseUrls: Record<string, string> = {
     fr: "https://www.afriquesports.net",
-    en: "https://cms.realdemadrid.com/afriquesports-en",
-    es: "https://cms.realdemadrid.com/afriquesports-es",
-    ar: "https://cms.realdemadrid.com/afriquesports-ar",
+    en: "https://cms.afriquesports.net/afriquesports-en",
+    es: "https://cms.afriquesports.net/afriquesports-es",
+    ar: "https://cms.afriquesports.net/afriquesports-ar",
   };
 
   const baseUrl = baseUrls[locale] || baseUrls.fr;
@@ -265,9 +265,9 @@ export async function getRecentPostsForNews(locale: string = "fr"): Promise<Site
   // FR uses same domain as frontend for SEO, others use CMS path-based routing
   const baseUrls: Record<string, string> = {
     fr: "https://www.afriquesports.net",
-    en: "https://cms.realdemadrid.com/afriquesports-en",
-    es: "https://cms.realdemadrid.com/afriquesports-es",
-    ar: "https://cms.realdemadrid.com/afriquesports-ar",
+    en: "https://cms.afriquesports.net/afriquesports-en",
+    es: "https://cms.afriquesports.net/afriquesports-es",
+    ar: "https://cms.afriquesports.net/afriquesports-ar",
   };
 
   const baseUrl = baseUrls[locale] || baseUrls.fr;

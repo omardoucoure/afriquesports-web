@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface Player {
   number: number;
@@ -28,6 +29,7 @@ interface MatchLineupProps {
 }
 
 export function MatchLineup({ homeTeam, awayTeam }: MatchLineupProps) {
+  const tMatchStats = useTranslations("matchStats");
   // Parse formation to get player rows (e.g., "4-3-3" -> [1, 4, 3, 3])
   const parseFormation = (formation: string): number[] => {
     const lines = formation.split('-').map(n => parseInt(n, 10));
@@ -106,7 +108,7 @@ export function MatchLineup({ homeTeam, awayTeam }: MatchLineupProps) {
         {/* Substitutes */}
         {team.substitutes && team.substitutes.length > 0 && (
           <div className="pt-3 border-t border-gray-200">
-            <h4 className="text-xs font-semibold text-gray-600 mb-2 uppercase">Remplaçants</h4>
+            <h4 className="text-xs font-semibold text-gray-600 mb-2 uppercase">{tMatchStats("substitutes")}</h4>
             <div className="space-y-1">
               {team.substitutes.map((player) => (
                 <div key={player.number} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded transition-colors opacity-75">

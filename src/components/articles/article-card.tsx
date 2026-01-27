@@ -36,7 +36,7 @@ export function ArticleCard({
   const isDesktop = useIsDesktop();
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryLabel = getCategoryLabel(article);
-  const articleUrl = getArticleUrl(article);
+  const articleUrl = getArticleUrl(article, locale);
   const formattedDate = formatDate(article.date, locale);
   const authorName = getAuthorName(article);
 

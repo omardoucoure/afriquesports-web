@@ -168,10 +168,15 @@ export function getCategoryName(post: WordPressPost): string {
 /**
  * Generate article URL based on the original permalink structure
  * Pattern: /{category}/{slug}
+ * For non-fr locales, prepends /{locale} prefix
  */
-export function getArticleUrl(post: WordPressPost): string {
+export function getArticleUrl(post: WordPressPost, locale: string = "fr"): string {
   const categorySlug = getCategorySlug(post);
-  return `/${categorySlug}/${post.slug}`;
+  const path = `/${categorySlug}/${post.slug}`;
+  if (locale && locale !== "fr") {
+    return `/${locale}${path}`;
+  }
+  return path;
 }
 
 /**
@@ -237,8 +242,9 @@ export function extractUrlParts(url: string): { category: string; slug: string }
 /**
  * Build a safe article URL from category and slug
  * Validates and sanitizes inputs to prevent malformed URLs
+ * For non-fr locales, prepends /{locale} prefix
  */
-export function buildArticleUrl(category: string, slug: string): string {
+export function buildArticleUrl(category: string, slug: string, locale: string = "fr"): string {
   const safeCategory = sanitizeSlug(category) || 'football';
   const safeSlug = sanitizeSlug(slug);
 
@@ -247,7 +253,11 @@ export function buildArticleUrl(category: string, slug: string): string {
     return '/football';
   }
 
-  return `/${safeCategory}/${safeSlug}`;
+  const path = `/${safeCategory}/${safeSlug}`;
+  if (locale && locale !== "fr") {
+    return `/${locale}${path}`;
+  }
+  return path;
 }
 
 /**

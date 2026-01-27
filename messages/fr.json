@@ -45,7 +45,18 @@
     "nigeria": "Nigeria",
     "egypt": "Égypte",
     "ghana": "Ghana",
-    "mali": "Mali"
+    "mali": "Mali",
+    "drCongo": "RD Congo",
+    "guinea": "Guinée",
+    "tunisia": "Tunisie",
+    "southAfrica": "Afrique du Sud",
+    "burkinaFaso": "Burkina Faso",
+    "equatorialGuinea": "Guinée équatoriale",
+    "mozambique": "Mozambique",
+    "tanzania": "Tanzanie",
+    "comoros": "Comores",
+    "zambia": "Zambie",
+    "angola": "Angola"
   },
   "categories": {
     "africa": "Afrique",
@@ -78,7 +89,8 @@
     "topScorers": "Top buteurs africains",
     "can2025Title": "Coupe d'Afrique des Nations 2025",
     "can2025Description": "Suivez toute l'actualité de la CAN 2025 au Maroc. Résultats, classements, compositions d'équipes et analyses.",
-    "can2025Button": "Voir les articles CAN 2025"
+    "can2025Button": "Voir les articles CAN 2025",
+    "spotlight": "À LA UNE"
   },
   "article": {
     "by": "Par",
@@ -400,6 +412,7 @@
     "goal": "BUT",
     "events": "événements",
     "aiGeneratedCommentary": "Commentaires générés par IA",
+    "competition": "CAN 2025",
     "results": {
       "title": "Résultats CAN 2025",
       "subtitle": "Tous les matchs de la Coupe d'Afrique des Nations 2025",
@@ -514,6 +527,25 @@
         "highlight": "Temps fort"
       }
     }
+  },
+  "positions": {
+    "forward": "Attaquant",
+    "winger": "Ailier",
+    "defender": "Défenseur",
+    "midfielder": "Milieu",
+    "goalkeeper": "Gardien"
+  },
+  "matchStats": {
+    "shots": "Tirs",
+    "shotsOnTarget": "Tirs cadrés",
+    "corners": "Corners",
+    "fouls": "Fautes",
+    "possession": "Possession",
+    "offside": "Hors-jeu",
+    "yellowCards": "Cartons jaunes",
+    "redCards": "Cartons rouges",
+    "passesCompleted": "Passes réussies",
+    "substitutes": "Remplaçants"
   },
   "about": {
     "title": "À propos de nous",

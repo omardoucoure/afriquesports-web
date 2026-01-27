@@ -142,6 +142,7 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
         "fr-FR": `${baseUrl}${categoryPath}${pageQuery}`,
         "en-US": `${baseUrl}/en${categoryPath}${pageQuery}`,
         "es-ES": `${baseUrl}/es${categoryPath}${pageQuery}`,
+        "ar-SA": `${baseUrl}/ar${categoryPath}${pageQuery}`,
         "x-default": `${baseUrl}${categoryPath}${pageQuery}`,
       },
     },

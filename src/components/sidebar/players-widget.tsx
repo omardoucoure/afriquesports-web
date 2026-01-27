@@ -9,8 +9,10 @@ interface Player {
   slug: string;
   team: string;
   position: string;
+  positionKey?: string;
   image?: string;
   country?: string;
+  countryKey?: string;
   countryFlag?: string;
 }
 
@@ -25,7 +27,9 @@ const defaultPlayers: Player[] = [
     slug: "victor-osimhen",
     team: "Galatasaray",
     position: "Attaquant",
+    positionKey: "forward",
     country: "Nigeria",
+    countryKey: "nigeria",
     countryFlag: "🇳🇬",
   },
   {
@@ -33,7 +37,9 @@ const defaultPlayers: Player[] = [
     slug: "sadio-mane",
     team: "Al-Nassr",
     position: "Ailier",
+    positionKey: "winger",
     country: "Sénégal",
+    countryKey: "senegal",
     countryFlag: "🇸🇳",
   },
   {
@@ -41,7 +47,9 @@ const defaultPlayers: Player[] = [
     slug: "mohamed-salah",
     team: "Liverpool",
     position: "Ailier",
+    positionKey: "winger",
     country: "Égypte",
+    countryKey: "egypt",
     countryFlag: "🇪🇬",
   },
   {
@@ -49,7 +57,9 @@ const defaultPlayers: Player[] = [
     slug: "kalidou-koulibaly",
     team: "Al-Hilal",
     position: "Défenseur",
+    positionKey: "defender",
     country: "Sénégal",
+    countryKey: "senegal",
     countryFlag: "🇸🇳",
   },
   {
@@ -57,7 +67,9 @@ const defaultPlayers: Player[] = [
     slug: "riyad-mahrez",
     team: "Al-Ahli",
     position: "Ailier",
+    positionKey: "winger",
     country: "Algérie",
+    countryKey: "algeria",
     countryFlag: "🇩🇿",
   },
 ];
@@ -67,6 +79,8 @@ export function PlayersWidget({
   players = defaultPlayers,
 }: PlayersWidgetProps) {
   const tHome = useTranslations("home");
+  const tPositions = useTranslations("positions");
+  const tCountries = useTranslations("countries");
   const displayTitle = title || tHome("keyPlayers");
 
   return (
@@ -112,7 +126,7 @@ export function PlayersWidget({
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 <span>{player.team}</span>
                 <span>•</span>
-                <span>{player.position}</span>
+                <span>{player.positionKey ? tPositions(player.positionKey) : player.position}</span>
               </div>
             </div>
 

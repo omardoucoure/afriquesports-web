@@ -4,7 +4,7 @@ import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
   getFeaturedImageUrl,
-  getCategorySlug,
+  getArticleUrl,
   getCategoryName,
   stripHtml,
 } from "@/lib/utils";
@@ -13,18 +13,19 @@ interface HeroSectionProps {
   featuredArticle: WordPressPost;
   leftArticles: WordPressPost[];
   rightArticles: WordPressPost[];
+  locale?: string;
   translations: {
     trending: string;
     latest: string;
     by: string;
+    spotlight: string;
   };
 }
 
 // Flash Feed Card - List format with timestamp
-function FlashFeedCard({ article }: { article: WordPressPost }) {
-  const categorySlug = getCategorySlug(article);
+function FlashFeedCard({ article, locale = "fr" }: { article: WordPressPost; locale?: string }) {
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article, locale);
 
   // Format time as HH:MM
   const formatTime = (dateString: string) => {
@@ -58,16 +59,17 @@ function TrendingCard({
   index,
   priority = false,
   isDesktop = true,
+  locale = "fr",
 }: {
   article: WordPressPost;
   index: number;
   priority?: boolean;
   isDesktop?: boolean;
+  locale?: string;
 }) {
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
-  const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article, locale);
 
   const title = stripHtml(article.title.rendered);
 
@@ -112,15 +114,16 @@ function FeaturedHeroCard({
   article,
   byLabel,
   isDesktop = true,
+  locale = "fr",
 }: {
   article: WordPressPost;
   byLabel: string;
   isDesktop?: boolean;
+  locale?: string;
 }) {
   const imageUrl = getFeaturedImageUrl(article, "full");
-  const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article, locale);
 
   return (
     <article className="relative h-full min-h-[400px] lg:min-h-[480px] overflow-hidden group bg-black rounded-lg">
@@ -164,14 +167,15 @@ function FeaturedHeroCard({
 function SideArticleCard({
   article,
   byLabel,
+  locale = "fr",
 }: {
   article: WordPressPost;
   byLabel: string;
+  locale?: string;
 }) {
   const imageUrl = getFeaturedImageUrl(article, "thumbnail");
-  const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article, locale);
   const title = stripHtml(article.title.rendered);
 
   return (
@@ -209,6 +213,7 @@ export function HeroSection({
   featuredArticle,
   leftArticles,
   rightArticles,
+  locale = "fr",
   translations,
 }: HeroSectionProps) {
   return (
@@ -229,6 +234,7 @@ export function HeroSection({
               index={index + 1}
               priority={index === 0}
               isDesktop={true}
+              locale={locale}
             />
           ))}
         </div>
@@ -238,12 +244,12 @@ export function HeroSection({
       <div className="hidden lg:flex lg:col-span-6 lg:flex-col">
         <div className="flex items-center gap-2 mb-4">
           <span className="bg-[#04453f] text-white text-xs font-bold px-3 py-1 relative" style={{ clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%)' }}>
-            À LA UNE
+            {translations.spotlight}
           </span>
           <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
         </div>
         <div className="flex-1">
-          <FeaturedHeroCard article={featuredArticle} byLabel={translations.by} isDesktop={true} />
+          <FeaturedHeroCard article={featuredArticle} byLabel={translations.by} isDesktop={true} locale={locale} />
         </div>
       </div>
 
@@ -257,7 +263,7 @@ export function HeroSection({
         </div>
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           {rightArticles.map((article) => (
-            <FlashFeedCard key={article.id} article={article} />
+            <FlashFeedCard key={article.id} article={article} locale={locale} />
           ))}
         </div>
       </div>
@@ -278,6 +284,7 @@ export function HeroSection({
               index={index + 1}
               priority={false}
               isDesktop={false}
+              locale={locale}
             />
           ))}
         </div>

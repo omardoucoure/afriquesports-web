@@ -45,7 +45,18 @@
     "nigeria": "نيجيريا",
     "egypt": "مصر",
     "ghana": "غانا",
-    "mali": "مالي"
+    "mali": "مالي",
+    "drCongo": "الكونغو الديمقراطية",
+    "guinea": "غينيا",
+    "tunisia": "تونس",
+    "southAfrica": "جنوب أفريقيا",
+    "burkinaFaso": "بوركينا فاسو",
+    "equatorialGuinea": "غينيا الاستوائية",
+    "mozambique": "موزمبيق",
+    "tanzania": "تنزانيا",
+    "comoros": "جزر القمر",
+    "zambia": "زامبيا",
+    "angola": "أنغولا"
   },
   "categories": {
     "africa": "أفريقيا",
@@ -78,7 +89,8 @@
     "topScorers": "أفضل الهدافين الأفارقة",
     "can2025Title": "كأس الأمم الأفريقية 2025",
     "can2025Description": "تابع جميع أخبار كأس الأمم الأفريقية 2025 في المغرب. النتائج، الترتيب، التشكيلات والتحليلات.",
-    "can2025Button": "مقالات كأس الأمم الأفريقية 2025"
+    "can2025Button": "مقالات كأس الأمم الأفريقية 2025",
+    "spotlight": "الأبرز"
   },
   "article": {
     "by": "بواسطة",
@@ -367,6 +379,7 @@
     }
   },
   "can2025": {
+    "competition": "CAN 2025",
     "match": {
       "preMatchAnalysis": "تحليل ما قبل المباراة",
       "liveCommentary": "تعليقات مباشرة",
@@ -441,6 +454,25 @@
     "live": "مباشر",
     "viewers": "المشاهدون",
     "waitingForCommentary": "في انتظار التعليقات المباشرة..."
+  },
+  "positions": {
+    "forward": "مهاجم",
+    "winger": "جناح",
+    "defender": "مدافع",
+    "midfielder": "وسط",
+    "goalkeeper": "حارس مرمى"
+  },
+  "matchStats": {
+    "shots": "التسديدات",
+    "shotsOnTarget": "التسديدات على المرمى",
+    "corners": "الركنيات",
+    "fouls": "الأخطاء",
+    "possession": "الاستحواذ",
+    "offside": "التسلل",
+    "yellowCards": "البطاقات الصفراء",
+    "redCards": "البطاقات الحمراء",
+    "passesCompleted": "التمريرات الناجحة",
+    "substitutes": "البدلاء"
   },
   "about": {
     "title": "من نحن",

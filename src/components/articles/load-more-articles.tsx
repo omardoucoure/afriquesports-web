@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { ArticleCard } from "./article-card";
 import { ArticleCardHorizontal, ArticleCardHorizontalSkeleton } from "./article-card-horizontal";
 import type { WPPost } from "@/lib/data-fetcher";
@@ -24,6 +24,7 @@ export function LoadMoreArticles({
   noMoreText,
 }: LoadMoreArticlesProps) {
   const tHome = useTranslations("home");
+  const locale = useLocale();
   const displayLoadMore = loadMoreText || tHome("loadMore");
   const displayLoading = loadingText || tHome("loading");
   const displayNoMore = noMoreText || tHome("noMoreArticles");
@@ -75,6 +76,7 @@ export function LoadMoreArticles({
             key={article.id}
             article={article}
             priority={index < 3}
+            locale={locale}
           />
         ))}
 

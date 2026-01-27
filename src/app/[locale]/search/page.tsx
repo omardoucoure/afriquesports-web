@@ -6,6 +6,7 @@ import { Breadcrumb, Pagination } from "@/components/ui";
 import { DataFetcher } from "@/lib/data-fetcher";
 
 interface SearchPageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }
 
@@ -33,9 +34,11 @@ const breadcrumbItems = [
 async function SearchResults({
   query,
   page,
+  locale = "fr",
 }: {
   query: string;
   page: number;
+  locale?: string;
 }) {
   if (!query) {
     return (
@@ -99,6 +102,7 @@ async function SearchResults({
           showDate
           showExcerpt
           priorityCount={page === 1 ? 6 : 0}
+          locale={locale}
         />
 
         {(page > 1 || hasMore) && (
@@ -124,7 +128,8 @@ async function SearchResults({
   }
 }
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
+export default async function SearchPage({ params, searchParams }: SearchPageProps) {
+  const { locale } = await params;
   const { q, page: pageParam } = await searchParams;
   const query = q || "";
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
@@ -208,7 +213,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         {/* Search results */}
         <div className="container-main py-6">
           <Suspense fallback={<ArticleGridSkeleton count={12} />}>
-            <SearchResults query={query} page={currentPage} />
+            <SearchResults query={query} page={currentPage} locale={locale} />
           </Suspense>
         </div>
       </main>

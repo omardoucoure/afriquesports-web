@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
+import { getArticleUrl, buildArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
 import { useAnalytics } from "@/hooks/use-analytics";
 import type { WordPressPost } from "@/lib/data-fetcher";
 
@@ -88,6 +89,8 @@ export function MostReadWidget({
   articles,
   maxArticles = 3,
 }: MostReadWidgetProps) {
+  const locale = useLocale();
+  const tHome = useTranslations("home");
   const { trackWidgetClick } = useAnalytics();
   const displayArticles = articles.slice(0, maxArticles);
 
@@ -95,7 +98,7 @@ export function MostReadWidget({
     return null;
   }
 
-  const displayTitle = title || "Les Plus Lus";
+  const displayTitle = title || tHome("mostRead");
 
   const handleArticleClick = (article: WordPressPost | TrendingArticle, position: number) => {
     const articleTitle = stripHtml(article.title.rendered);
@@ -113,8 +116,8 @@ export function MostReadWidget({
     const isFullPost = 'date' in article;
     return {
       url: isFullPost
-        ? getArticleUrl(article as WordPressPost)
-        : `/${(article as TrendingArticle).category || 'football'}/${article.slug}`,
+        ? getArticleUrl(article as WordPressPost, locale)
+        : buildArticleUrl((article as TrendingArticle).category || 'football', article.slug, locale),
       imageUrl: isFullPost
         ? getFeaturedImageUrl(article as WordPressPost, "medium_large")
         : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.svg'),

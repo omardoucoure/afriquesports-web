@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 interface MatchStatsProps {
   stats: {
@@ -19,6 +20,7 @@ interface MatchStatsProps {
 }
 
 export function MatchStats({ stats, homeTeamName, awayTeamName }: MatchStatsProps) {
+  const tMatchStats = useTranslations("matchStats");
   const StatBar = ({ label, home, away, isPercentage = false }: { label: string; home: number; away: number; isPercentage?: boolean }) => {
     const total = home + away || 1;
     const homePercentage = (home / total) * 100;
@@ -57,17 +59,17 @@ export function MatchStats({ stats, homeTeamName, awayTeamName }: MatchStatsProp
 
   return (
     <div className="bg-white rounded-xl p-6 space-y-2">
-      <StatBar label="Possession" home={stats.possession.home} away={stats.possession.away} isPercentage />
-      <StatBar label="Tirs" home={stats.shots.home} away={stats.shots.away} />
-      <StatBar label="Tirs cadrés" home={stats.shotsOnTarget.home} away={stats.shotsOnTarget.away} />
-      <StatBar label="Corners" home={stats.corners.home} away={stats.corners.away} />
-      <StatBar label="Fautes" home={stats.fouls.home} away={stats.fouls.away} />
-      <StatBar label="Cartons jaunes" home={stats.yellowCards.home} away={stats.yellowCards.away} />
+      <StatBar label={tMatchStats("possession")} home={stats.possession.home} away={stats.possession.away} isPercentage />
+      <StatBar label={tMatchStats("shots")} home={stats.shots.home} away={stats.shots.away} />
+      <StatBar label={tMatchStats("shotsOnTarget")} home={stats.shotsOnTarget.home} away={stats.shotsOnTarget.away} />
+      <StatBar label={tMatchStats("corners")} home={stats.corners.home} away={stats.corners.away} />
+      <StatBar label={tMatchStats("fouls")} home={stats.fouls.home} away={stats.fouls.away} />
+      <StatBar label={tMatchStats("yellowCards")} home={stats.yellowCards.home} away={stats.yellowCards.away} />
       {(stats.redCards.home > 0 || stats.redCards.away > 0) && (
-        <StatBar label="Cartons rouges" home={stats.redCards.home} away={stats.redCards.away} />
+        <StatBar label={tMatchStats("redCards")} home={stats.redCards.home} away={stats.redCards.away} />
       )}
-      <StatBar label="Hors-jeu" home={stats.offsides.home} away={stats.offsides.away} />
-      <StatBar label="Précision passes" home={stats.passAccuracy.home} away={stats.passAccuracy.away} isPercentage />
+      <StatBar label={tMatchStats("offside")} home={stats.offsides.home} away={stats.offsides.away} />
+      <StatBar label={tMatchStats("passesCompleted")} home={stats.passAccuracy.home} away={stats.passAccuracy.away} isPercentage />
     </div>
   );
 }

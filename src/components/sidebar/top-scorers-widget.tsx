@@ -6,6 +6,7 @@ export interface TopScorerData {
   name: string;
   photo: string;
   nationality: string;
+  nationalityKey: string;
   team: string;
   teamLogo: string;
   goals: number;
@@ -23,6 +24,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Mohamed Salah",
     photo: "https://resources.premierleague.com/premierleague/photos/players/250x250/p118748.png",
     nationality: "Égypte",
+    nationalityKey: "egypt",
     team: "Liverpool",
     teamLogo: "https://resources.premierleague.com/premierleague/badges/50/t14.png",
     goals: 29,
@@ -34,6 +36,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Bryan Mbeumo",
     photo: "https://resources.premierleague.com/premierleague/photos/players/250x250/p219847.png",
     nationality: "Cameroun",
+    nationalityKey: "cameroon",
     team: "Brentford",
     teamLogo: "https://resources.premierleague.com/premierleague/badges/50/t94.png",
     goals: 20,
@@ -45,6 +48,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Yoane Wissa",
     photo: "https://resources.premierleague.com/premierleague/photos/players/250x250/p222044.png",
     nationality: "RD Congo",
+    nationalityKey: "drCongo",
     team: "Brentford",
     teamLogo: "https://resources.premierleague.com/premierleague/badges/50/t94.png",
     goals: 19,
@@ -56,6 +60,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Ademola Lookman",
     photo: "https://img.a.transfermarkt.technology/portrait/big/300073-1698673305.jpg",
     nationality: "Nigeria",
+    nationalityKey: "nigeria",
     team: "Atalanta",
     teamLogo: "https://tmssl.akamaized.net/images/wappen/small/800.png",
     goals: 15,
@@ -67,6 +72,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Ismaïl Saibari",
     photo: "https://img.a.transfermarkt.technology/portrait/big/586434-1698587040.jpg",
     nationality: "Maroc",
+    nationalityKey: "morocco",
     team: "PSV",
     teamLogo: "https://tmssl.akamaized.net/images/wappen/small/383.png",
     goals: 11,
@@ -78,6 +84,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Antoine Semenyo",
     photo: "https://resources.premierleague.com/premierleague/photos/players/250x250/p453628.png",
     nationality: "Ghana",
+    nationalityKey: "ghana",
     team: "Bournemouth",
     teamLogo: "https://resources.premierleague.com/premierleague/badges/50/t91.png",
     goals: 11,
@@ -89,6 +96,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Iñaki Williams",
     photo: "https://img.a.transfermarkt.technology/portrait/big/205445-1661506800.jpg",
     nationality: "Ghana",
+    nationalityKey: "ghana",
     team: "Athletic Bilbao",
     teamLogo: "https://tmssl.akamaized.net/images/wappen/small/621.png",
     goals: 6,
@@ -100,6 +108,7 @@ const TOP_SCORERS: TopScorerData[] = [
     name: "Frank Anguissa",
     photo: "https://img.a.transfermarkt.technology/portrait/big/258735-1663946286.jpg",
     nationality: "Cameroun",
+    nationalityKey: "cameroon",
     team: "Napoli",
     teamLogo: "https://tmssl.akamaized.net/images/wappen/small/6195.png",
     goals: 6,
@@ -148,6 +157,7 @@ export async function TopScorersWidget({
 }: TopScorersWidgetProps) {
   const tHome = await getTranslations("home");
   const tRankings = await getTranslations("rankings");
+  const tCountries = await getTranslations("countries");
   const displayTitle = title || tHome("topScorers");
 
   const displayScorers = TOP_SCORERS.slice(0, maxScorers);
@@ -179,7 +189,7 @@ export async function TopScorersWidget({
         {/* Scorers rows */}
         <div className="divide-y divide-gray-100">
           {displayScorers.map((scorer, index) => (
-            <ScorerRow key={scorer.id} scorer={scorer} rank={index + 1} />
+            <ScorerRow key={scorer.id} scorer={scorer} rank={index + 1} translatedNationality={tCountries(scorer.nationalityKey)} />
           ))}
         </div>
 
@@ -195,7 +205,7 @@ export async function TopScorersWidget({
   );
 }
 
-function ScorerRow({ scorer, rank }: { scorer: TopScorerData; rank: number }) {
+function ScorerRow({ scorer, rank, translatedNationality }: { scorer: TopScorerData; rank: number; translatedNationality: string }) {
   return (
     <div className="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors">
       {/* Rank */}
@@ -228,7 +238,7 @@ function ScorerRow({ scorer, rank }: { scorer: TopScorerData; rank: number }) {
 
         <div className="flex-1 min-w-0">
           <p className="font-bold text-sm text-gray-900 truncate">{scorer.name}</p>
-          <p className="text-xs text-gray-500 truncate">{scorer.nationality}</p>
+          <p className="text-xs text-gray-500 truncate">{translatedNationality}</p>
         </div>
       </div>
 

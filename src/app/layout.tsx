@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    alternateLocale: ["en_US", "es_ES"],
+    alternateLocale: ["en_US", "es_ES", "ar_SA"],
     url: "https://www.afriquesports.net",
     siteName: "Afrique Sports",
     title: "Afrique Sports - Actualités Football Africain | CAN 2025",

@@ -4,8 +4,8 @@ import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
   getFeaturedImageUrl,
+  getArticleUrl,
   getAuthorName,
-  getCategorySlug,
   getCategoryName,
   stripHtml,
 } from "@/lib/utils";
@@ -13,16 +13,17 @@ import {
 interface ArticleCardHorizontalProps {
   article: WordPressPost;
   priority?: boolean;
+  locale?: string;
 }
 
 export function ArticleCardHorizontal({
   article,
   priority = false,
+  locale = "fr",
 }: ArticleCardHorizontalProps) {
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
-  const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article, locale);
   const title = stripHtml(article.title.rendered);
   const authorName = getAuthorName(article);
 

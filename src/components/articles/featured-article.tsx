@@ -15,7 +15,7 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
   const tCommon = useTranslations("common");
   const imageUrl = getFeaturedImageUrl(article, "full");
   const categoryLabel = getCategoryLabel(article);
-  const articleUrl = getArticleUrl(article);
+  const articleUrl = getArticleUrl(article, locale);
   const formattedDate = formatDate(article.date, locale);
 
   return (

@@ -60,6 +60,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
         "fr-FR": baseUrl,
         "en-US": `${baseUrl}/en`,
         "es-ES": `${baseUrl}/es`,
+        "ar-SA": `${baseUrl}/ar`,
         "x-default": baseUrl,
       },
     },
@@ -176,10 +177,12 @@ async function HeroArticlesSection({ locale }: { locale: string }) {
         featuredArticle={featuredArticle}
         leftArticles={leftArticles} // Afrique Sports TV - 2 numbered cards
         rightArticles={rightArticles} // Fil Actu - 8 flash feed posts with timestamps
+        locale={locale}
         translations={{
           trending: "FIL ACTU",
           latest: "AFRIQUE SPORTS TV",
           by: tArticle("by"),
+          spotlight: t("spotlight"),
         }}
       />
     );
@@ -426,7 +429,7 @@ export default async function Home({ params }: HomePageProps) {
           <section>
             <div className="flex items-center gap-3 mb-5">
               <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
-                CAN 2025
+                {t("can2025Title")}
               </h2>
               <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
             </div>

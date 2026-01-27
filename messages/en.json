@@ -45,7 +45,18 @@
     "nigeria": "Nigeria",
     "egypt": "Egypt",
     "ghana": "Ghana",
-    "mali": "Mali"
+    "mali": "Mali",
+    "drCongo": "DR Congo",
+    "guinea": "Guinea",
+    "tunisia": "Tunisia",
+    "southAfrica": "South Africa",
+    "burkinaFaso": "Burkina Faso",
+    "equatorialGuinea": "Equatorial Guinea",
+    "mozambique": "Mozambique",
+    "tanzania": "Tanzania",
+    "comoros": "Comoros",
+    "zambia": "Zambia",
+    "angola": "Angola"
   },
   "categories": {
     "africa": "Africa",
@@ -78,7 +89,8 @@
     "topScorers": "Top African scorers",
     "can2025Title": "Africa Cup of Nations 2025",
     "can2025Description": "Follow all the news about AFCON 2025 in Morocco. Results, rankings, team line-ups and analysis.",
-    "can2025Button": "See AFCON 2025 articles"
+    "can2025Button": "See AFCON 2025 articles",
+    "spotlight": "SPOTLIGHT"
   },
   "article": {
     "by": "By",
@@ -399,6 +411,7 @@
     "goal": "GOAL",
     "events": "events",
     "aiGeneratedCommentary": "AI-generated commentary",
+    "competition": "CAN 2025",
     "results": {
       "title": "CAN 2025 Results",
       "subtitle": "All matches from the 2025 Africa Cup of Nations",
@@ -513,6 +526,25 @@
         "highlight": "Highlight"
       }
     }
+  },
+  "positions": {
+    "forward": "Forward",
+    "winger": "Winger",
+    "defender": "Defender",
+    "midfielder": "Midfielder",
+    "goalkeeper": "Goalkeeper"
+  },
+  "matchStats": {
+    "shots": "Shots",
+    "shotsOnTarget": "Shots on Target",
+    "corners": "Corners",
+    "fouls": "Fouls",
+    "possession": "Possession",
+    "offside": "Offside",
+    "yellowCards": "Yellow Cards",
+    "redCards": "Red Cards",
+    "passesCompleted": "Passes Completed",
+    "substitutes": "Substitutes"
   },
   "about": {
     "title": "About Us",

@@ -329,7 +329,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="flex items-center gap-4 flex-shrink-0">
               <div className="flex flex-col gap-1">
                 <span className="text-sm font-bold text-white/80 uppercase tracking-wide">
-                  ⚽ CAN 2025
+                  ⚽ {t("can2025.competition")}
                 </span>
                 {/* Date/Time or Live Status */}
                 {matchData.isLive && matchData.statusDetail && (
