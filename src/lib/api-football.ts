@@ -5,7 +5,7 @@
  * Rate limit: ~100 requests/day on free plan, 300/min on paid
  */
 
-const API_FOOTBALL_BASE = 'https://v3.football.api-sports.io';
+const API_FOOTBALL_BASE = 'https://api-football-v1.p.rapidapi.com/v3';
 
 interface APIFootballResponse<T> {
   get: string;
@@ -143,7 +143,7 @@ function getHeaders(): HeadersInit {
 
   return {
     'x-rapidapi-key': apiKey,
-    'x-rapidapi-host': 'v3.football.api-sports.io',
+    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
   };
 }
 
