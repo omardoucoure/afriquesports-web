@@ -186,3 +186,41 @@ function RankingRow({
   );
 }
 
+// Skeleton loader for Suspense fallback - DO NOT REMOVE
+export function BallonDorWidgetSkeleton({ count = 5 }: { count?: number }) {
+  return (
+    <div className="animate-pulse">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="h-6 w-44 bg-gray-200 rounded" />
+        <div
+          className="flex-1 h-0.5"
+          style={{
+            background:
+              "linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #FF6B00 100%)",
+          }}
+        />
+      </div>
+      <div className="bg-white rounded overflow-hidden">
+        <div className="h-9 bg-gray-200" />
+        <div className="divide-y divide-gray-100">
+          {Array.from({ length: count }).map((_, i) => (
+            <div key={i} className="flex items-center px-4 py-3">
+              <div className="w-8 h-4 bg-gray-200 rounded" />
+              <div className="flex items-center flex-1 gap-2 ml-2">
+                <div className="w-8 h-8 bg-gray-200 rounded-full" />
+                <div className="flex-1 space-y-1">
+                  <div className="h-4 w-24 bg-gray-200 rounded" />
+                  <div className="h-3 w-32 bg-gray-200 rounded" />
+                </div>
+              </div>
+              <div className="w-16 space-y-1">
+                <div className="h-4 w-10 bg-gray-200 rounded ml-auto" />
+                <div className="h-1 w-full bg-gray-200 rounded" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
