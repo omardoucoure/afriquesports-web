@@ -214,6 +214,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
     <div
       id="next-match-bar"
       className={`${getBackgroundClass()} text-white shadow-lg ${className}`}
+      suppressHydrationWarning
     >
       <div className="relative">
         <div className="container-main relative z-10">

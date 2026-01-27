@@ -169,6 +169,7 @@ export function LanguageDetector() {
       }`}
       role="alert"
       aria-live="polite"
+      suppressHydrationWarning
     >
       <div
         className="pointer-events-auto w-full md:max-w-lg md:mb-4 md:mx-4 md:rounded-xl rounded-t-xl bg-[#04453f] text-white shadow-2xl"
