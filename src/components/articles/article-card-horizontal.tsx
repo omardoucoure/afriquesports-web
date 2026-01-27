@@ -77,3 +77,21 @@ export function ArticleCardHorizontal({
   );
 }
 
+export function ArticleCardHorizontalSkeleton() {
+  return (
+    <div className="animate-pulse bg-white rounded-lg overflow-hidden border border-transparent">
+      <div className="flex gap-3 sm:gap-4 p-3 sm:p-4">
+        <div className="w-[100px] h-[75px] sm:w-[140px] sm:h-[100px] md:w-[180px] md:h-[120px] flex-shrink-0 bg-gray-200 rounded-lg" />
+        <div className="flex flex-col flex-1 min-w-0">
+          <div className="h-5 w-16 bg-gray-200 rounded mb-1.5" />
+          <div className="h-4 w-full bg-gray-200 rounded mb-1" />
+          <div className="h-4 w-3/4 bg-gray-200 rounded mb-2" />
+          <div className="mt-auto flex items-center gap-2">
+            <div className="h-3 w-20 bg-gray-200 rounded" />
+            <div className="h-3 w-16 bg-gray-200 rounded hidden sm:block" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

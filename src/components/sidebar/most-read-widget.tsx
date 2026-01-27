@@ -59,6 +59,30 @@ function ViewIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   );
 }
 
+export function MostReadWidgetSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="flex items-center gap-3 mb-5">
+        <div className="h-6 w-32 bg-gray-200 rounded" />
+        <div className="flex-1 h-0.5 bg-gray-200" />
+      </div>
+      <div className="rounded-xl overflow-hidden bg-gray-200 aspect-[16/10] mb-3" />
+      <div className="space-y-2">
+        {[1, 2].map((i) => (
+          <div key={i} className="flex items-stretch gap-3 bg-white rounded-xl p-2.5 border border-gray-100">
+            <div className="w-7 h-7 bg-gray-200 rounded-lg" />
+            <div className="w-[72px] h-[54px] bg-gray-200 rounded-lg flex-shrink-0" />
+            <div className="flex-1 space-y-1">
+              <div className="h-4 w-full bg-gray-200 rounded" />
+              <div className="h-3 w-20 bg-gray-200 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MostReadWidget({
   title,
   articles,

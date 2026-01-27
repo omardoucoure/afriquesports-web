@@ -286,3 +286,24 @@ export function HeroSection({
   );
 }
 
+export function HeroSectionSkeleton() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:min-h-[480px]">
+      <div className="hidden lg:flex lg:flex-col lg:col-span-3">
+        <div className="h-6 w-24 bg-gray-200 rounded mb-4" />
+        <div className="flex-1 flex flex-col gap-4">
+          <div className="flex-1 bg-gray-200 rounded-lg animate-pulse" />
+          <div className="flex-1 bg-gray-200 rounded-lg animate-pulse" />
+        </div>
+      </div>
+      <div className="hidden lg:flex lg:col-span-6 lg:flex-col">
+        <div className="h-6 w-24 bg-gray-200 rounded mb-4" />
+        <div className="flex-1 bg-gray-200 rounded-lg animate-pulse" />
+      </div>
+      <div className="hidden lg:flex lg:flex-col lg:col-span-3">
+        <div className="h-6 w-24 bg-gray-200 rounded mb-4" />
+        <div className="flex-1 bg-gray-200 rounded-lg animate-pulse" />
+      </div>
+    </div>
+  );
+}

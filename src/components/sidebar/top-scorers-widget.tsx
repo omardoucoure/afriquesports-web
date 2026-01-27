@@ -108,6 +108,35 @@ const TOP_SCORERS: TopScorerData[] = [
   },
 ];
 
+export function TopScorersWidgetSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="h-6 w-44 bg-gray-200 rounded" />
+        <div className="flex-1 h-0.5 bg-gray-200" />
+      </div>
+      <div className="bg-white rounded overflow-hidden">
+        <div className="h-9 bg-gray-200" />
+        <div className="divide-y divide-gray-100">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center px-4 py-3">
+              <div className="w-8 h-4 bg-gray-200 rounded" />
+              <div className="flex items-center flex-1 gap-2 ml-2">
+                <div className="w-8 h-8 bg-gray-200 rounded-full" />
+                <div className="flex-1 space-y-1">
+                  <div className="h-4 w-24 bg-gray-200 rounded" />
+                  <div className="h-3 w-16 bg-gray-200 rounded" />
+                </div>
+              </div>
+              <div className="w-10 h-4 bg-gray-200 rounded" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface TopScorersWidgetProps {
   title?: string;
   maxScorers?: number;

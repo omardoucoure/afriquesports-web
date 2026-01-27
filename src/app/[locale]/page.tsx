@@ -4,9 +4,11 @@ import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
+  HeroSectionSkeleton,
   LoadMoreArticles,
+  ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
-import { MostReadWidget, PlayersWidget, TopScorersWidget, AFCONScorersWidget, BallonDorWidget, type TrendingArticle } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, BallonDorWidget, BallonDorWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher, getPosts, type WordPressPost } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
