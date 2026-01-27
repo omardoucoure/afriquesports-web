@@ -44,6 +44,13 @@ function getPreviousDateRange(period: string): { startDate: string; endDate: str
 
 export async function GET(request: NextRequest) {
   try {
+    if (!process.env.GA_PROPERTY_ID) {
+      return NextResponse.json(
+        { error: "GA_PROPERTY_ID not configured", message: "Set GA_PROPERTY_ID in .env.local to enable analytics. Find it in Google Analytics → Admin → Property Settings." },
+        { status: 503 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const period = searchParams.get("period") || "7d";
     const platform = (searchParams.get("platform") || "all") as Platform;
