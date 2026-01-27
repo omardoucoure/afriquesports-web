@@ -9,7 +9,7 @@ import {
   ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
 import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
-import { DataFetcher, getPosts } from "@/lib/data-fetcher";
+import { DataFetcher, getPosts, type WordPressPost } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
 
@@ -133,15 +133,26 @@ async function HeroArticlesSection({ locale }: { locale: string }) {
   const tArticle = await getTranslations("article");
 
   try {
-    // Fetch featured post, flash feed posts (recent), and Afrique Sports TV posts
-    const [featuredPosts, flashFeedPosts, afriqueSportsTVPosts] = await Promise.all([
-      DataFetcher.fetchPosts({ per_page: "1", categories: "30615", locale }), // article-du-jour category
+    // Fetch trending posts (most read), flash feed posts (recent), and Afrique Sports TV posts
+    const [trendingPosts, flashFeedPosts, afriqueSportsTVPosts] = await Promise.all([
+      getCachedTrendingPosts(7, 6, locale), // Top 6 most read (shared cache with MostReadSection)
       DataFetcher.fetchPosts({ per_page: "10", locale }), // For flash feed/left section (recent articles)
       DataFetcher.fetchPostsByCategory("afrique-sports-tv", { per_page: "2", locale }), // For right section
     ]);
 
-    // Use article-du-jour post if available, otherwise use the first latest post
-    const featuredArticle = featuredPosts?.[0] || flashFeedPosts?.[0];
+    // Use the #1 most read post as featured article
+    // Fetch full WordPress post by slug to get complete data (excerpt, date, categories, etc.)
+    let featuredArticle: WordPressPost | undefined;
+    if (trendingPosts && trendingPosts.length > 0) {
+      const topTrendingSlug = trendingPosts[0].post_slug;
+      const fullPosts = await DataFetcher.fetchPosts({ slug: topTrendingSlug, locale });
+      featuredArticle = fullPosts?.[0];
+    }
+
+    // Fallback: use the first latest post if trending is unavailable
+    if (!featuredArticle) {
+      featuredArticle = flashFeedPosts?.[0];
+    }
 
     // Filter out the featured article from flash feed to avoid duplication
     const filteredFlashFeed = flashFeedPosts?.filter(
@@ -221,17 +232,20 @@ async function MostReadSection({ locale }: { locale: string }) {
   const t = await getTranslations("home");
 
   try {
-    // Fetch trending posts directly from database (last 7 days, limit 3) filtered by locale
-    // Using cached version to deduplicate calls between desktop and mobile sections
-    const trending = await getCachedTrendingPosts(7, 3, locale);
+    // Fetch trending posts directly from database (last 7 days, limit 6) filtered by locale
+    // Using cached version to deduplicate calls with HeroArticlesSection
+    const trending = await getCachedTrendingPosts(7, 6, locale);
 
-    if (trending && trending.length > 0) {
+    // Skip the #1 post (already used as featured hero) and show the remaining
+    const remainingTrending = trending && trending.length > 1 ? trending.slice(1) : trending;
+
+    if (remainingTrending && remainingTrending.length > 0) {
       // Transform trending data to match article format for MostReadWidget
-      const trendingArticles = trending.map((item) => ({
+      const trendingArticles = remainingTrending.map((item) => ({
         id: parseInt(item.post_id as string),
         slug: item.post_slug,
         title: { rendered: item.post_title },
-        category: item.post_category || 'football', // Category slug for URL generation
+        category: item.post_category || 'football',
         _embedded: item.post_image ? {
           'wp:featuredmedia': [{ source_url: item.post_image }]
         } : undefined,
@@ -241,10 +255,10 @@ async function MostReadSection({ locale }: { locale: string }) {
       }));
 
       if (process.env.NODE_ENV === 'development') {
-        console.log('[MostReadSection] ✓ Using REAL trending data from database:', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
+        console.log('[MostReadSection] ✓ Using REAL trending data from database (excluding #1 featured):', trendingArticles.map(a => ({ title: a.title.rendered, views: a.viewCount, author: a.author })));
       }
 
-      return <MostReadWidget articles={trendingArticles} title={t("mostRead")} />;
+      return <MostReadWidget articles={trendingArticles} title={t("mostRead")} maxArticles={5} />;
     } else if (process.env.NODE_ENV === 'development') {
       console.log('[MostReadSection] ⚠ No trending data in database yet - using fallback');
     }
@@ -253,9 +267,7 @@ async function MostReadSection({ locale }: { locale: string }) {
   }
 
   // Fallback: Show latest articles WITHOUT view counts
-  // Real view counts will appear once visits are recorded in the database
-  // Using cached getPosts to deduplicate calls
-  const articles = await getPosts({ per_page: "3", locale });
+  const articles = await getPosts({ per_page: "5", locale });
 
   if (!articles || articles.length === 0) {
     return <MostReadWidgetSkeleton />;
