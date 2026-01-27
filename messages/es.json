@@ -602,6 +602,13 @@
     "popularCategories": "Categorías populares",
     "africa": "África"
   },
+  "language": {
+    "selectLanguage": "Seleccionar idioma",
+    "fr": "Fran\u00e7ais",
+    "en": "English",
+    "es": "Espa\u00f1ol",
+    "ar": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629"
+  },
   "ballonDor": {
     "title": "Top 5 Balón de Oro africano",
     "player": "Jugador",

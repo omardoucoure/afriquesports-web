@@ -6,7 +6,7 @@ import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { SessionTracker } from "@/components/tracking/SessionTracker";
 import { ScrollTracker } from "@/components/tracking/ScrollTracker";
 import { PostHogPageView } from "@/components/tracking/PostHogPageView";
-import { LocaleModal } from "@/components/ui";
+import { LanguageDetector } from "@/components/layout";
 import { GoogleAnalytics, Clarity } from "@/components/analytics";
 import { generateOrganizationJsonLd } from "@/lib/seo";
 import { locales, type Locale } from "@/i18n/config";
@@ -89,7 +89,7 @@ export default async function LocaleLayout({
           <ActiriseProvider locale={locale}>
             <IntlProvider locale={locale} messages={messages}>
               {children}
-              <LocaleModal />
+              <LanguageDetector />
               <SessionTracker />
               <ScrollTracker />
               <PostHogPageView />

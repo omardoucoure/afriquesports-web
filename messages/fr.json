@@ -603,6 +603,13 @@
     "popularCategories": "Catégories populaires",
     "africa": "Afrique"
   },
+  "language": {
+    "selectLanguage": "Choisir la langue",
+    "fr": "Fran\u00e7ais",
+    "en": "English",
+    "es": "Espa\u00f1ol",
+    "ar": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629"
+  },
   "ballonDor": {
     "title": "Top 5 Ballon d'Or africain",
     "player": "Joueur",

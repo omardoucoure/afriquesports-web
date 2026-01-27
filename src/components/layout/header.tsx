@@ -229,11 +229,9 @@ export function Header() {
               </nav>
 
               {/* Actions */}
-              <div className="flex items-center gap-3">
-                {/* Language switcher - hidden on mobile */}
-                <div className="hidden md:block">
-                  <LanguageSwitcher />
-                </div>
+              <div className="flex items-center gap-2 sm:gap-3">
+                {/* Language switcher dropdown */}
+                <LanguageSwitcher />
 
                 {/* Search button */}
                 <button
