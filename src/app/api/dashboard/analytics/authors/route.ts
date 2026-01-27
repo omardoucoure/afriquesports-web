@@ -65,12 +65,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch author stats from MySQL visits table and GA top pages in parallel
-    const [mysqlResult, gaTopPages] = await Promise.all([
+    // Fetch visits stats, published articles count, and GA top pages in parallel
+    const [mysqlResult, publishedResult, gaTopPages] = await Promise.all([
       pool.query<mysql.RowDataPacket[]>(
         `SELECT
           post_author AS authorName,
-          COUNT(DISTINCT post_id) AS totalPosts,
+          COUNT(DISTINCT post_id) AS activeArticles,
           SUM(count) AS totalViews,
           GROUP_CONCAT(DISTINCT CONCAT(post_slug, '||', post_title) ORDER BY count DESC SEPARATOR ':::') AS topSlugs
         FROM wp_afriquesports_visits
@@ -82,16 +82,35 @@ export async function GET(request: NextRequest) {
         LIMIT 50`,
         [startDate]
       ),
+      pool.query<mysql.RowDataPacket[]>(
+        `SELECT
+          u.display_name AS authorName,
+          COUNT(*) AS publishedCount
+        FROM wp_8_posts p
+        JOIN wp_users u ON p.post_author = u.ID
+        WHERE p.post_status = 'publish'
+          AND p.post_type = 'post'
+          AND p.post_date >= ?
+        GROUP BY u.display_name`,
+        [startDate]
+      ),
       process.env.GA_PROPERTY_ID
         ? gaClient.getTopPages(gaStart, gaEnd, 500, platform).catch(() => [])
         : Promise.resolve([]),
     ]);
 
     const [rows] = mysqlResult;
+    const [publishedRows] = publishedResult;
+
+    // Build author → published count map
+    const publishedMap = new Map<string, number>();
+    for (const row of publishedRows) {
+      publishedMap.set(row.authorName as string, parseInt(row.publishedCount as string) || 0);
+    }
 
     if (rows.length === 0) {
       return NextResponse.json({
-        summary: { totalAuthors: 0, totalArticles: 0, avgArticlesPerAuthor: 0 },
+        summary: { totalAuthors: 0, totalArticles: 0, totalActiveArticles: 0, avgArticlesPerAuthor: 0 },
         authors: [],
         period,
         platform,
@@ -140,11 +159,15 @@ export async function GET(request: NextRequest) {
 
       topArticles.sort((a, b) => b.visitors - a.visitors);
 
+      const authorName = row.authorName as string;
+      const published = publishedMap.get(authorName) || 0;
+
       return {
         id: index + 1,
-        name: row.authorName as string,
-        slug: (row.authorName as string).toLowerCase().replace(/\s+/g, "-"),
-        articleCount: parseInt(row.totalPosts as string) || 0,
+        name: authorName,
+        slug: authorName.toLowerCase().replace(/\s+/g, "-"),
+        articleCount: published,
+        activeArticles: parseInt(row.activeArticles as string) || 0,
         visitors: gaVisitors || parseInt(row.totalViews as string) || 0,
         pageviews: gaPageviews || parseInt(row.totalViews as string) || 0,
         avgDuration: 0,
@@ -154,11 +177,13 @@ export async function GET(request: NextRequest) {
     });
 
     const totalArticles = authors.reduce((sum, a) => sum + a.articleCount, 0);
+    const totalActiveArticles = authors.reduce((sum, a) => sum + a.activeArticles, 0);
 
     return NextResponse.json({
       summary: {
         totalAuthors: authors.length,
         totalArticles,
+        totalActiveArticles,
         avgArticlesPerAuthor: authors.length > 0 ? totalArticles / authors.length : 0,
       },
       authors,

@@ -20,6 +20,7 @@ interface AuthorData {
   summary: {
     totalAuthors: number;
     totalArticles: number;
+    totalActiveArticles: number;
     avgArticlesPerAuthor: number;
   };
   authors: Array<{
@@ -28,6 +29,7 @@ interface AuthorData {
     slug: string;
     avatar?: string;
     articleCount: number;
+    activeArticles: number;
     visitors: number;
     pageviews: number;
     avgDuration: number;
@@ -132,24 +134,19 @@ function AuthorComparisonChart({
   metric,
 }: {
   authors: AuthorData["authors"];
-  metric: "visitors" | "articleCount" | "pageviews";
+  metric: "visitors" | "articleCount" | "activeArticles" | "pageviews";
 }) {
   const top = authors.slice(0, 10);
   const maxValue = Math.max(...top.map((a) => a[metric]), 1);
-
-  const metricLabel =
-    metric === "visitors"
-      ? "Visitors"
-      : metric === "articleCount"
-        ? "Articles"
-        : "Page views";
 
   const barColor =
     metric === "visitors"
       ? "bg-[#9DFF20]"
       : metric === "articleCount"
         ? "bg-blue-500"
-        : "bg-purple-500";
+        : metric === "activeArticles"
+          ? "bg-cyan-500"
+          : "bg-purple-500";
 
   return (
     <div className="space-y-2.5">
@@ -195,7 +192,7 @@ export default function AuthorsPage() {
   >(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [chartMetric, setChartMetric] = useState<
-    "visitors" | "articleCount" | "pageviews"
+    "visitors" | "articleCount" | "activeArticles" | "pageviews"
   >("visitors");
 
   const fetchData = async () => {
@@ -281,7 +278,7 @@ export default function AuthorsPage() {
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6">
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
             <div className="flex items-center gap-2 text-gray-400 mb-1">
               <Users className="h-4 w-4" />
@@ -294,10 +291,19 @@ export default function AuthorsPage() {
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
             <div className="flex items-center gap-2 text-gray-400 mb-1">
               <FileText className="h-4 w-4 text-blue-400" />
-              <span className="text-xs uppercase tracking-wider">Articles</span>
+              <span className="text-xs uppercase tracking-wider">Published</span>
             </div>
             <p className="text-xl sm:text-2xl font-bold text-blue-400">
               {data.summary.totalArticles.toLocaleString()}
+            </p>
+          </div>
+          <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
+            <div className="flex items-center gap-2 text-gray-400 mb-1">
+              <BarChart3 className="h-4 w-4 text-cyan-400" />
+              <span className="text-xs uppercase tracking-wider">Active articles</span>
+            </div>
+            <p className="text-xl sm:text-2xl font-bold text-cyan-400">
+              {(data.summary.totalActiveArticles || 0).toLocaleString()}
             </p>
           </div>
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
@@ -329,11 +335,12 @@ export default function AuthorsPage() {
               <BarChart3 className="h-5 w-5 text-[#9DFF20]" />
               Author comparison
             </h2>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               {(
                 [
                   { key: "visitors", label: "Visitors" },
-                  { key: "articleCount", label: "Articles" },
+                  { key: "articleCount", label: "Published" },
+                  { key: "activeArticles", label: "Active articles" },
                   { key: "pageviews", label: "Page views" },
                 ] as const
               ).map((m) => (
@@ -411,8 +418,9 @@ export default function AuthorsPage() {
                       {author.name}
                     </h3>
                     <p className="text-xs text-gray-500">
-                      {author.articleCount} article
-                      {author.articleCount !== 1 ? "s" : ""}
+                      {author.articleCount} published
+                      {" · "}
+                      {author.activeArticles} active
                     </p>
                   </div>
 
@@ -470,8 +478,9 @@ export default function AuthorsPage() {
                     {selectedAuthor.name}
                   </h2>
                   <p className="text-sm text-gray-400">
-                    {selectedAuthor.articleCount} article
-                    {selectedAuthor.articleCount !== 1 ? "s" : ""} published
+                    {selectedAuthor.articleCount} published
+                    {" · "}
+                    {selectedAuthor.activeArticles} with traffic
                   </p>
                 </div>
               </div>
@@ -484,11 +493,17 @@ export default function AuthorsPage() {
             </div>
 
             <div className="p-4 sm:p-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs text-gray-400 mb-1">Articles</p>
+                  <p className="text-xs text-gray-400 mb-1">Published</p>
                   <p className="text-xl sm:text-2xl font-bold text-blue-400">
                     {selectedAuthor.articleCount}
+                  </p>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs text-gray-400 mb-1">Active articles</p>
+                  <p className="text-xl sm:text-2xl font-bold text-cyan-400">
+                    {selectedAuthor.activeArticles}
                   </p>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
@@ -505,7 +520,7 @@ export default function AuthorsPage() {
                 </div>
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
                   <p className="text-xs text-gray-400 mb-1">
-                    Views / article
+                    Views / published
                   </p>
                   <p className="text-xl sm:text-2xl font-bold text-white">
                     {selectedAuthor.articleCount > 0
