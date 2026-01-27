@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 interface NavItem {
@@ -17,6 +18,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
+  const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const tCommon = useTranslations("common");
   const tContact = useTranslations("contact");
@@ -94,69 +96,101 @@ export function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
         {/* Navigation */}
         <nav className="p-4 overflow-y-auto max-h-[calc(100vh-80px)]">
           <ul className="space-y-1">
-            {navigation.map((item) => (
-              <li key={item.href}>
-                {item.children ? (
-                  <div>
-                    <button
-                      onClick={() => toggleExpanded(item.label)}
-                      className="flex items-center justify-between w-full px-4 py-3 text-left font-medium text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-                    >
-                      <span>{item.label}</span>
-                      <svg
-                        className={`w-5 h-5 text-gray-400 transition-transform ${
-                          expandedItems.includes(item.label) ? "rotate-180" : ""
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </button>
+            {navigation.map((item) => {
+              // Check if current path matches this nav item
+              const isActive = item.href === "/"
+                ? pathname === "/"
+                : pathname?.startsWith(item.href) || false;
 
-                    {/* Children */}
-                    {expandedItems.includes(item.label) && (
-                      <ul className="mt-1 ml-4 space-y-1 border-l-2 border-[#04453f]/30">
-                        <li>
-                          <Link
-                            href={item.href}
-                            onClick={onClose}
-                            className="block px-4 py-2 text-sm text-[#022a27] font-medium hover:bg-[#04453f]/10 rounded-r-lg transition-colors"
-                          >
-                            {tCommon("seeAll")}
-                          </Link>
-                        </li>
-                        {item.children.map((child) => (
-                          <li key={child.href}>
+              return (
+                <li key={item.href}>
+                  {item.children ? (
+                    <div>
+                      <button
+                        onClick={() => toggleExpanded(item.label)}
+                        className={`flex items-center justify-between w-full px-4 py-3 text-left font-medium hover:bg-gray-100 rounded-lg transition-colors relative ${
+                          isActive ? 'text-[#04453f] bg-[#9DFF20]/10' : 'text-gray-900'
+                        }`}
+                      >
+                        {isActive && (
+                          <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#9DFF20] rounded-r"></span>
+                        )}
+                        <span>{item.label}</span>
+                        <svg
+                          className={`w-5 h-5 text-gray-400 transition-transform ${
+                            expandedItems.includes(item.label) ? "rotate-180" : ""
+                          }`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+
+                      {/* Children */}
+                      {expandedItems.includes(item.label) && (
+                        <ul className="mt-1 ml-4 space-y-1 border-l-2 border-[#04453f]/30">
+                          <li>
                             <Link
-                              href={child.href}
+                              href={item.href}
                               onClick={onClose}
-                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-r-lg transition-colors"
+                              className={`block px-4 py-2 text-sm font-medium hover:bg-[#04453f]/10 rounded-r-lg transition-colors relative ${
+                                isActive ? 'text-[#04453f] bg-[#9DFF20]/10' : 'text-[#022a27]'
+                              }`}
                             >
-                              {child.label}
+                              {isActive && (
+                                <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#9DFF20] rounded-r"></span>
+                              )}
+                              {tCommon("seeAll")}
                             </Link>
                           </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className="block px-4 py-3 font-medium text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
+                          {item.children.map((child) => {
+                            const isChildActive = pathname?.startsWith(child.href) || false;
+                            return (
+                              <li key={child.href}>
+                                <Link
+                                  href={child.href}
+                                  onClick={onClose}
+                                  className={`block px-4 py-2 text-sm hover:bg-gray-100 rounded-r-lg transition-colors relative ${
+                                    isChildActive
+                                      ? 'text-[#04453f] font-medium bg-[#9DFF20]/10'
+                                      : 'text-gray-600 hover:text-gray-900'
+                                  }`}
+                                >
+                                  {isChildActive && (
+                                    <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#9DFF20] rounded-r"></span>
+                                  )}
+                                  {child.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className={`block px-4 py-3 font-medium hover:bg-gray-100 rounded-lg transition-colors relative ${
+                        isActive ? 'text-[#04453f] bg-[#9DFF20]/10' : 'text-gray-900'
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#9DFF20] rounded-r"></span>
+                      )}
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           {/* Social links */}

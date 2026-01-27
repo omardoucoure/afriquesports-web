@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl } from "@/lib/utils";
 import type { WordPressPost } from "@/lib/data-fetcher";
@@ -15,7 +15,7 @@ export function FeaturedArticle({ article, locale = "fr" }: FeaturedArticleProps
   const tCommon = useTranslations("common");
   const imageUrl = getFeaturedImageUrl(article, "full");
   const categoryLabel = getCategoryLabel(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
   const formattedDate = formatDate(article.date, locale);
 
   return (

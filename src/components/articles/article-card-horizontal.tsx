@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
@@ -23,7 +23,7 @@ export function ArticleCardHorizontal({
 }: ArticleCardHorizontalProps) {
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryName = getCategoryName(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
   const title = stripHtml(article.title.rendered);
   const authorName = getAuthorName(article);
 

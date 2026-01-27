@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
   getFeaturedImageUrl,
-  getCategorySlug,
+  getArticleUrl,
   getCategoryName,
   stripHtml,
 } from "@/lib/utils";
@@ -17,9 +17,8 @@ interface RankingSectionProps {
 
 function RankingCard({ article }: { article: WordPressPost }) {
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
-  const categorySlug = getCategorySlug(article);
   const categoryName = getCategoryName(article);
-  const articleUrl = `/${categorySlug}/${article.slug}`;
+  const articleUrl = getArticleUrl(article);
 
   return (
     <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group">

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { formatDate, getFeaturedImageUrl, getCategoryLabel, getArticleUrl, getAuthorName } from "@/lib/utils";
 import { useAnalytics } from "@/hooks/use-analytics";
@@ -36,7 +36,7 @@ export function ArticleCard({
   const isDesktop = useIsDesktop();
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryLabel = getCategoryLabel(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
   const formattedDate = formatDate(article.date, locale);
   const authorName = getAuthorName(article);
 

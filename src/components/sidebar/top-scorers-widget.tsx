@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export interface TopScorerData {
   id: number;
@@ -194,12 +195,12 @@ export async function TopScorersWidget({
         </div>
 
         {/* View more link */}
-        <a
+        <Link
           href="/classements/buteurs"
           className="block px-4 py-3 text-center text-sm font-bold text-[#04453f] hover:bg-gray-50 transition-colors border-t border-gray-100"
         >
           {tRankings("viewFull")} →
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -170,62 +170,85 @@ export function Header() {
 
               {/* Desktop Navigation */}
               <nav className="hidden lg:flex items-center">
-                {navigation.map((item, index) => (
-                  <div
-                    key={item.href}
-                    className="relative flex items-center"
-                  >
-                    <div
-                      className="relative"
-                      onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-                      onMouseLeave={() => setActiveDropdown(null)}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={() => handleCategoryClick(item.label, item.href)}
-                        className={`px-3 py-2 text-xs lg:text-sm font-bold text-white hover:text-[#9DFF20] transition-colors tracking-wide inline-flex items-center ${item.children ? 'pb-4' : ''}`}
-                      >
-                        {item.label}
-                        {item.children && (
-                          <svg
-                            className="inline-block w-3 h-3 ml-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={3}
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
-                        )}
-                      </Link>
+                {navigation.map((item, index) => {
+                  // Check if current path matches this nav item
+                  const isActive = item.href === "/"
+                    ? pathname === "/"
+                    : pathname?.startsWith(item.href) || false;
 
-                      {/* Dropdown */}
-                      {item.children && activeDropdown === item.label && (
-                        <div className="absolute top-full left-0 w-52 bg-[#022a27] py-2 z-[100] shadow-lg rounded-b">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              onClick={() => handleCategoryClick(child.label, child.href, true)}
-                              className="block px-4 py-2 text-sm font-medium text-white hover:bg-[#04453f] hover:text-[#9DFF20] transition-colors"
+                  return (
+                    <div
+                      key={item.href}
+                      className="relative flex items-center"
+                    >
+                      <div
+                        className="relative"
+                        onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+                        onMouseLeave={() => setActiveDropdown(null)}
+                      >
+                        <Link
+                          href={item.href}
+                          onClick={() => handleCategoryClick(item.label, item.href)}
+                          className={`px-3 py-2 text-xs lg:text-sm font-bold text-white hover:text-[#9DFF20] transition-all tracking-wide inline-flex items-center relative ${
+                            item.children ? 'pb-4' : ''
+                          } ${
+                            isActive ? 'text-[#9DFF20]' : ''
+                          }`}
+                        >
+                          {item.label}
+                          {item.children && (
+                            <svg
+                              className="inline-block w-3 h-3 ml-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
                             >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={3}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                          )}
+                          {/* Active indicator - bottom border */}
+                          {isActive && (
+                            <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#9DFF20] rounded-t-full"></span>
+                          )}
+                        </Link>
+
+                        {/* Dropdown */}
+                        {item.children && activeDropdown === item.label && (
+                          <div className="absolute top-full left-0 w-52 bg-[#022a27] py-2 z-[100] shadow-lg rounded-b">
+                            {item.children.map((child) => {
+                              const isChildActive = pathname?.startsWith(child.href) || false;
+                              return (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={() => handleCategoryClick(child.label, child.href, true)}
+                                  className={`block px-4 py-2 text-sm font-medium text-white hover:bg-[#04453f] hover:text-[#9DFF20] transition-colors relative ${
+                                    isChildActive ? 'bg-[#04453f]/50 text-[#9DFF20]' : ''
+                                  }`}
+                                >
+                                  {isChildActive && (
+                                    <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#9DFF20]"></span>
+                                  )}
+                                  {child.label}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Separator */}
+                      {index < navigation.length - 1 && (
+                        <span className="hidden lg:inline-block text-white/30 mx-1">|</span>
                       )}
                     </div>
-
-                    {/* Separator */}
-                    {index < navigation.length - 1 && (
-                      <span className="hidden lg:inline-block text-white/30 mx-1">|</span>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </nav>
 
               {/* Actions */}

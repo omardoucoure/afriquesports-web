@@ -54,26 +54,22 @@ export function extractMatchIdFromSlug(slug: string): string {
 /**
  * Generate full match URL path
  * Example: "/can-2025/match/senegal-vs-congo-dr-732152"
+ * Note: Does NOT include locale prefix - next-intl Link handles that automatically
  */
-export function generateMatchPath(homeTeam: string, awayTeam: string, matchId: string | number, locale?: string): string {
+export function generateMatchPath(homeTeam: string, awayTeam: string, matchId: string | number, _locale?: string): string {
   const slug = generateMatchSlug(homeTeam, awayTeam, matchId);
-  const basePath = `/can-2025/match/${slug}`;
-
-  // Add locale prefix if not French (French is at root)
-  if (locale && locale !== 'fr') {
-    return `/${locale}${basePath}`;
-  }
-
-  return basePath;
+  return `/can-2025/match/${slug}`;
 }
 
 /**
  * Generate full match URL (with domain)
+ * For SEO/meta tags - includes locale prefix manually
  */
 export function generateMatchUrl(homeTeam: string, awayTeam: string, matchId: string | number, locale: string = 'fr'): string {
   const SITE_URL = 'https://www.afriquesports.net';
-  const path = generateMatchPath(homeTeam, awayTeam, matchId, locale);
-  return `${SITE_URL}${path}`;
+  const path = generateMatchPath(homeTeam, awayTeam, matchId);
+  const localePath = locale !== 'fr' ? `/${locale}${path}` : path;
+  return `${SITE_URL}${localePath}`;
 }
 
 /**

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { WordPressPost } from "@/lib/data-fetcher";
 import {
   formatDate,
@@ -25,7 +25,7 @@ interface HeroSectionProps {
 // Flash Feed Card - List format with timestamp
 function FlashFeedCard({ article, locale = "fr" }: { article: WordPressPost; locale?: string }) {
   const categoryName = getCategoryName(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
 
   // Format time as HH:MM
   const formatTime = (dateString: string) => {
@@ -69,7 +69,7 @@ function TrendingCard({
 }) {
   const imageUrl = getFeaturedImageUrl(article, "medium_large");
   const categoryName = getCategoryName(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
 
   const title = stripHtml(article.title.rendered);
 
@@ -123,7 +123,7 @@ function FeaturedHeroCard({
 }) {
   const imageUrl = getFeaturedImageUrl(article, "full");
   const categoryName = getCategoryName(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
 
   return (
     <article className="relative h-full min-h-[400px] lg:min-h-[480px] overflow-hidden group bg-black rounded-lg">
@@ -175,7 +175,7 @@ function SideArticleCard({
 }) {
   const imageUrl = getFeaturedImageUrl(article, "thumbnail");
   const categoryName = getCategoryName(article);
-  const articleUrl = getArticleUrl(article, locale);
+  const articleUrl = getArticleUrl(article);
   const title = stripHtml(article.title.rendered);
 
   return (

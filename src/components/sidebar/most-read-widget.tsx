@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { getArticleUrl, buildArticleUrl, getFeaturedImageUrl, getAuthorName, stripHtml } from "@/lib/utils";
 import { useAnalytics } from "@/hooks/use-analytics";
@@ -116,8 +116,8 @@ export function MostReadWidget({
     const isFullPost = 'date' in article;
     return {
       url: isFullPost
-        ? getArticleUrl(article as WordPressPost, locale)
-        : buildArticleUrl((article as TrendingArticle).category || 'football', article.slug, locale),
+        ? getArticleUrl(article as WordPressPost)
+        : buildArticleUrl((article as TrendingArticle).category || 'football', article.slug),
       imageUrl: isFullPost
         ? getFeaturedImageUrl(article as WordPressPost, "medium_large")
         : (article._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/placeholder.svg'),

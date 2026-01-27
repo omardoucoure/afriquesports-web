@@ -168,15 +168,11 @@ export function getCategoryName(post: WordPressPost): string {
 /**
  * Generate article URL based on the original permalink structure
  * Pattern: /{category}/{slug}
- * For non-fr locales, prepends /{locale} prefix
+ * Note: Does NOT include locale prefix - next-intl Link handles that automatically
  */
-export function getArticleUrl(post: WordPressPost, locale: string = "fr"): string {
+export function getArticleUrl(post: WordPressPost): string {
   const categorySlug = getCategorySlug(post);
-  const path = `/${categorySlug}/${post.slug}`;
-  if (locale && locale !== "fr") {
-    return `/${locale}${path}`;
-  }
-  return path;
+  return `/${categorySlug}/${post.slug}`;
 }
 
 /**
@@ -242,9 +238,9 @@ export function extractUrlParts(url: string): { category: string; slug: string }
 /**
  * Build a safe article URL from category and slug
  * Validates and sanitizes inputs to prevent malformed URLs
- * For non-fr locales, prepends /{locale} prefix
+ * Note: Does NOT include locale prefix - next-intl Link handles that automatically
  */
-export function buildArticleUrl(category: string, slug: string, locale: string = "fr"): string {
+export function buildArticleUrl(category: string, slug: string): string {
   const safeCategory = sanitizeSlug(category) || 'football';
   const safeSlug = sanitizeSlug(slug);
 
@@ -253,11 +249,7 @@ export function buildArticleUrl(category: string, slug: string, locale: string =
     return '/football';
   }
 
-  const path = `/${safeCategory}/${safeSlug}`;
-  if (locale && locale !== "fr") {
-    return `/${locale}${path}`;
-  }
-  return path;
+  return `/${safeCategory}/${safeSlug}`;
 }
 
 /**
