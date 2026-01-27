@@ -300,7 +300,7 @@ interface AnalyticsData {
     bounceRate: number;
     bounceRateChange?: number;
   };
-  timeseries: Array<{ date: string; visitors: number }>;
+  timeseries: Array<{ date: string; visitors: number; isHourly?: boolean }>;
   topPages: Array<{ page: string; visitors: number; change?: number }>;
   countries: Array<{ country: string; code: string; visitors: number; change?: number }>;
   devices: Array<{ device: string; visitors: number; percentage: number }>;
@@ -548,7 +548,66 @@ export default function StatsPage() {
       }
 
       const result = await response.json();
-      setData(result);
+
+      // Transform API response to match AnalyticsData interface
+      const transformed: AnalyticsData = {
+        summary: {
+          visitors: result.overview?.visitors || 0,
+          visitorsChange: result.overview?.visitorsChange,
+          pageviews: result.overview?.pageViews || 0,
+          pageviewsChange: result.overview?.pageViewsChange,
+          avgDuration: result.overview?.avgSessionDuration || 0,
+          bounceRate: result.overview?.bounceRate || 0,
+          bounceRateChange: result.overview?.bounceRateChange,
+        },
+        timeseries: (result.trafficByDate || []).map(
+          (item: { date: string; visitors: number; isHourly?: boolean }) => ({
+            date: item.date,
+            visitors: item.visitors,
+            isHourly: item.isHourly,
+          })
+        ),
+        topPages: (result.topPages || []).map(
+          (item: { path: string; visitors: number }) => ({
+            page: item.path,
+            visitors: item.visitors,
+          })
+        ),
+        countries: (result.countries || []).map(
+          (item: { country: string; countryCode: string; visitors: number }) => ({
+            country: item.country,
+            code: item.countryCode,
+            visitors: item.visitors,
+          })
+        ),
+        devices: (result.devices || []).map(
+          (item: { device: string; visitors: number; percentage: number }) => ({
+            device: item.device,
+            visitors: item.visitors,
+            percentage: item.percentage,
+          })
+        ),
+        sources: (result.referrers || []).map(
+          (item: { source: string; visitors: number }) => ({
+            source: item.source,
+            visitors: item.visitors,
+          })
+        ),
+        events: (result.events || []).map(
+          (item: { eventName: string; count: number }) => ({
+            event: item.eventName,
+            count: item.count,
+          })
+        ),
+        referrers: (result.referrers || []).map(
+          (item: { source: string; visitors: number }) => ({
+            referrer: item.source,
+            visitors: item.visitors,
+          })
+        ),
+      };
+
+      setData(transformed);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error occurred");
     } finally {
