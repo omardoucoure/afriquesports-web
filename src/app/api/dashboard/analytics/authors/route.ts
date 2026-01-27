@@ -16,6 +16,9 @@ function getDateRange(period: string): {
     case "24h":
       days = 1;
       break;
+    case "2d":
+      days = 2;
+      break;
     case "7d":
       days = 7;
       break;

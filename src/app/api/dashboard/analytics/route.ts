@@ -11,6 +11,9 @@ function getDateRange(period: string): { startDate: string; endDate: string; isH
       startDate = "yesterday";
       isHourly = true;
       break;
+    case "2d":
+      startDate = "2daysAgo";
+      break;
     case "7d":
       startDate = "7daysAgo";
       break;
@@ -31,6 +34,8 @@ function getPreviousDateRange(period: string): { startDate: string; endDate: str
   switch (period) {
     case "24h":
       return { startDate: "3daysAgo", endDate: "2daysAgo" };
+    case "2d":
+      return { startDate: "4daysAgo", endDate: "3daysAgo" };
     case "7d":
       return { startDate: "14daysAgo", endDate: "8daysAgo" };
     case "30d":

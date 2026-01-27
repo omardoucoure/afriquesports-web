@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 const dateRanges = [
   { label: "Last 24 hours", value: "24h", days: 1 },
+  { label: "Last 2 days", value: "2d", days: 2 },
   { label: "Last 7 days", value: "7d", days: 7 },
   { label: "Last 30 days", value: "30d", days: 30 },
   { label: "Last 90 days", value: "90d", days: 90 },
