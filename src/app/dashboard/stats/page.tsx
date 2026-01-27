@@ -560,37 +560,37 @@ export default function StatsPage() {
     fetchData();
   }, [dateRange, platform]);
 
-  if (loading) return <LoadingSkeleton />;
-  if (error) return <ErrorState message={error} onRetry={fetchData} />;
-  if (!data) return <ErrorState message="No data available" onRetry={fetchData} />;
-
   const filteredPages = useMemo(() => {
-    if (!searchQuery) return data.topPages;
+    if (!data?.topPages || !searchQuery) return data?.topPages || [];
     return data.topPages.filter((page) =>
       page.page.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [data.topPages, searchQuery]);
+  }, [data?.topPages, searchQuery]);
 
   const filteredCountries = useMemo(() => {
-    if (!searchQuery) return data.countries;
+    if (!data?.countries || !searchQuery) return data?.countries || [];
     return data.countries.filter((country) =>
       country.country.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [data.countries, searchQuery]);
+  }, [data?.countries, searchQuery]);
 
   const filteredEvents = useMemo(() => {
-    if (!searchQuery) return data.events;
+    if (!data?.events || !searchQuery) return data?.events || [];
     return data.events.filter((event) =>
       event.event.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [data.events, searchQuery]);
+  }, [data?.events, searchQuery]);
 
   const filteredReferrers = useMemo(() => {
-    if (!searchQuery) return data.referrers;
+    if (!data?.referrers || !searchQuery) return data?.referrers || [];
     return data.referrers.filter((ref) =>
       ref.referrer.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [data.referrers, searchQuery]);
+  }, [data?.referrers, searchQuery]);
+
+  if (loading) return <LoadingSkeleton />;
+  if (error) return <ErrorState message={error} onRetry={fetchData} />;
+  if (!data) return <ErrorState message="No data available" onRetry={fetchData} />;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white -m-4 sm:-m-6 lg:-m-8 p-4 sm:p-6 lg:p-8">
