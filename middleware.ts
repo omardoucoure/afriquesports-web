@@ -18,6 +18,7 @@ const BYPASS_PATHS = [
   '/video-sitemap',
   '/news-sitemap',
   '/admin/',
+  '/dashboard/',
 ];
 
 export function middleware(request: NextRequest) {
