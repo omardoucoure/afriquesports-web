@@ -23,6 +23,11 @@ const BYPASS_PATHS = [
   '/firebase-messaging-sw.js',
   '/sw.js',
   '/serviceworker.js',
+  '/wp-admin',
+  '/wp-login',
+  '/wp-content',
+  '/wp-includes',
+  '/wp-json',
 ];
 
 // Create the next-intl middleware
@@ -36,8 +41,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Skip files with extensions
-  if (pathname.includes('.') && /\.(jpg|jpeg|png|gif|svg|ico|webp|css|js|woff|woff2|ttf|eot|map|xml|txt|json|webmanifest)$/i.test(pathname)) {
+  // Skip files with extensions (including .php for WordPress)
+  if (pathname.includes('.') && /\.(jpg|jpeg|png|gif|svg|ico|webp|css|js|woff|woff2|ttf|eot|map|xml|txt|json|webmanifest|php)$/i.test(pathname)) {
     return NextResponse.next();
   }
 
