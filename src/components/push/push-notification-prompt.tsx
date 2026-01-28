@@ -124,31 +124,49 @@ export function PushNotificationPrompt({
       setLocale(getLocaleFromPath());
 
       // iOS Safari: push not supported outside PWA mode
-      if (isIOSSafari()) return;
+      if (isIOSSafari()) {
+        console.log("[Push] iOS Safari detected, skipping");
+        return;
+      }
 
       const supported = isPushSupported();
       setIsSupported(supported);
+      console.log("[Push] Supported:", supported);
 
       if (supported) {
+        // Proactively register service worker
+        try {
+          await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+          console.log("[Push] Service worker registered");
+        } catch (err) {
+          console.error("[Push] SW registration failed:", err);
+        }
+
         const currentPermission = getNotificationPermission();
         setPermission(currentPermission);
+        console.log("[Push] Permission:", currentPermission);
 
         // Check if already subscribed
-        const existingSubscription = await getExistingSubscription();
-        if (existingSubscription && currentPermission === "granted") {
-          setIsSubscribed(true);
-          // Silently re-sync subscription with server
-          refreshSubscription(getLocaleFromPath(), ["news", "general"]).catch(
-            () => {}
-          );
+        if (currentPermission === "granted") {
+          const existingSubscription = await getExistingSubscription();
+          if (existingSubscription) {
+            setIsSubscribed(true);
+            // Silently re-sync subscription with server
+            refreshSubscription(getLocaleFromPath(), ["news", "general"]).catch(
+              () => {}
+            );
+            return;
+          }
         }
 
         // Show prompt if permission not yet decided
         if (currentPermission === "default") {
           const hasDeclined = localStorage.getItem("push_prompt_declined");
+          console.log("[Push] Declined before:", hasDeclined);
           if (!hasDeclined) {
             setTimeout(() => {
               setShowPrompt(true);
+              console.log("[Push] Showing prompt");
             }, 5000);
           }
         }
