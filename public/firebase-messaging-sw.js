@@ -86,6 +86,7 @@ self.addEventListener("push", function (event) {
 
 // Handle notification click
 self.addEventListener("notificationclick", function (event) {
+  console.log("[SW] Notification clicked, url:", event.notification.data?.url);
   event.notification.close();
 
   var url =
@@ -99,19 +100,22 @@ self.addEventListener("notificationclick", function (event) {
     clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then(function (windowClients) {
+        // Try to find an existing tab and navigate it
         for (var i = 0; i < windowClients.length; i++) {
           var client = windowClients[i];
-          if (
-            client.url.includes("afriquesports") &&
-            "focus" in client
-          ) {
-            client.navigate(url);
-            return client.focus();
+          if (client.url.includes("afriquesports") && "navigate" in client) {
+            return client.navigate(url).then(function (c) {
+              return c.focus();
+            });
           }
         }
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
+        // No existing tab found — open a new window
+        return clients.openWindow(url);
+      })
+      .catch(function (err) {
+        console.error("[SW] Click handler error:", err);
+        // Fallback: always try to open a new window
+        return clients.openWindow(url);
       })
   );
 });
