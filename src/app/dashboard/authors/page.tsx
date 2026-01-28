@@ -183,13 +183,13 @@ export default function AuthorsPage() {
     "views" | "articleCount" | "activeArticles"
   >("views");
 
-  const fetchData = async () => {
+  const fetchData = async (period: string) => {
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(
-        `/api/dashboard/analytics/authors?period=${dateRange}`
+        `/api/dashboard/analytics/authors?period=${period}`
       );
 
       if (!response.ok) {
@@ -206,7 +206,7 @@ export default function AuthorsPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(dateRange);
   }, [dateRange]);
 
   const filteredAuthors = useMemo(() => {
@@ -231,7 +231,7 @@ export default function AuthorsPage() {
           </h2>
           <p className="text-gray-400 mb-6">{error}</p>
           <button
-            onClick={fetchData}
+            onClick={() => fetchData(dateRange)}
             className="px-6 py-3 bg-[#9DFF20] text-black rounded-lg font-medium hover:bg-[#b4ff50] transition-colors"
           >
             Try again
