@@ -171,7 +171,7 @@ function AuthorComparisonChart({
 }
 
 export default function AuthorsPage() {
-  const [dateRange, setDateRange] = useState("2d");
+  const [dateRange, setDateRange] = useState("24h");
   const [data, setData] = useState<AuthorData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
