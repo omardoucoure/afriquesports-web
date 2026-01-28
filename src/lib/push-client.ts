@@ -98,7 +98,9 @@ export async function subscribeToPush(
   }
 
   try {
+    console.log("[Push] subscribeToPush called, language:", language);
     const permission = await Notification.requestPermission();
+    console.log("[Push] Permission result:", permission);
 
     if (permission !== "granted") {
       return { success: false, error: "Permission denied" };
@@ -109,13 +111,16 @@ export async function subscribeToPush(
       "/firebase-messaging-sw.js"
     );
     await navigator.serviceWorker.ready;
+    console.log("[Push] Service worker ready");
 
     // Subscribe to push with VAPID key
     const vapidKeyArray = urlBase64ToUint8Array(VAPID_PUBLIC_KEY);
+    console.log("[Push] Subscribing with VAPID key:", VAPID_PUBLIC_KEY.substring(0, 20) + "...");
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: vapidKeyArray as BufferSource,
     });
+    console.log("[Push] Browser subscription created, endpoint:", subscription.endpoint.substring(0, 60) + "...");
 
     const subscriptionJson = subscription.toJSON();
 
@@ -138,16 +143,18 @@ export async function subscribeToPush(
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      console.error("[Push] Server rejected subscription:", errorData);
       return {
         success: false,
         error: errorData.error || "Failed to save subscription",
       };
     }
 
+    console.log("[Push] Subscription saved to server successfully");
     localStorage.setItem("push_subscribed", "true");
     return { success: true };
   } catch (error) {
-    console.error("Error subscribing to push:", error);
+    console.error("[Push] Error subscribing:", error);
     return { success: false, error: String(error) };
   }
 }
@@ -231,6 +238,7 @@ export async function refreshSubscription(
   topics: string[] = ["news", "general"]
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    console.log("[Push] refreshSubscription called");
     if (!isPushSupported()) {
       return { success: false, error: "Push not supported" };
     }
@@ -241,18 +249,23 @@ export async function refreshSubscription(
     await navigator.serviceWorker.ready;
 
     const subscription = await registration.pushManager.getSubscription();
+    console.log("[Push] Existing browser subscription:", !!subscription);
 
     if (!subscription) {
+      console.log("[Push] No browser subscription, creating new one...");
       return subscribeToPush(language, topics);
     }
 
     // Detect VAPID key mismatch: unsubscribe old and re-subscribe with current key
-    if (!isSubscriptionKeyValid(subscription)) {
+    const keyValid = isSubscriptionKeyValid(subscription);
+    console.log("[Push] VAPID key valid:", keyValid);
+    if (!keyValid) {
       console.log("[Push] VAPID key mismatch detected, re-subscribing...");
       await subscription.unsubscribe();
       return subscribeToPush(language, topics);
     }
 
+    console.log("[Push] Syncing existing subscription to server...");
     const subscriptionJson = subscription.toJSON();
     const response = await fetch("/api/push/subscribe", {
       method: "POST",

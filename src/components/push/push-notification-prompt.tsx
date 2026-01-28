@@ -141,14 +141,24 @@ export function PushNotificationPrompt({
         // Check if already subscribed
         if (currentPermission === "granted") {
           const existingSubscription = await getExistingSubscription();
+          console.log("[Push] Existing subscription:", !!existingSubscription);
           if (existingSubscription) {
             setIsSubscribed(true);
-            // Silently re-sync subscription with server
-            refreshSubscription(getLocaleFromPath(), ["news", "general"]).catch(
-              () => {}
-            );
+            // Silently re-sync subscription with server (handles VAPID key mismatch)
+            console.log("[Push] Re-syncing subscription with server...");
+            refreshSubscription(getLocaleFromPath(), ["news", "general"])
+              .then((result) => console.log("[Push] Refresh result:", result))
+              .catch((err) => console.error("[Push] Refresh error:", err));
             return;
           }
+          // Permission granted but no subscription in browser — re-subscribe silently
+          console.log("[Push] No subscription found, re-subscribing...");
+          const result = await subscribeToPush(getLocaleFromPath(), ["news", "general"]);
+          console.log("[Push] Re-subscribe result:", result);
+          if (result.success) {
+            setIsSubscribed(true);
+          }
+          return;
         }
 
         // Show prompt if permission not yet decided
