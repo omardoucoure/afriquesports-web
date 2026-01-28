@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import { NextRequest, NextResponse } from "next/server";
 import { sendPushNotificationToMany } from "@/lib/web-push-client";
@@ -138,7 +139,10 @@ export async function GET(request: NextRequest) {
     const history = await getNotificationHistory(limit, offset);
     const stats = await getSubscriptionStats();
 
-    return NextResponse.json({ success: true, history, stats });
+    return NextResponse.json(
+      { success: true, history, stats },
+      { headers: { "Cache-Control": "no-store, no-cache, must-revalidate" } }
+    );
   } catch (error) {
     console.error("[push/send] GET error:", error);
     return NextResponse.json(

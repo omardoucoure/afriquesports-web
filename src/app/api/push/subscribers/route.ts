@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import { NextRequest, NextResponse } from "next/server";
 import { getSubscriptionStats, getRecentSubscriptions } from "@/lib/push-db";
@@ -47,6 +48,8 @@ export async function GET(request: NextRequest) {
           ? parseBrowser(sub.user_agent)
           : "Unknown",
       })),
+    }, {
+      headers: { "Cache-Control": "no-store, no-cache, must-revalidate" },
     });
   } catch (error) {
     console.error("[push/subscribers] Error:", error);

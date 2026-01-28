@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import { NextRequest, NextResponse } from "next/server";
 import { saveSubscription, removeSubscription, getSubscriptionStats } from "@/lib/push-db";
@@ -134,7 +135,10 @@ export async function DELETE(request: NextRequest) {
 export async function GET() {
   try {
     const stats = await getSubscriptionStats();
-    return NextResponse.json({ success: true, stats });
+    return NextResponse.json(
+      { success: true, stats },
+      { headers: { "Cache-Control": "no-store, no-cache, must-revalidate" } }
+    );
   } catch (error) {
     console.error("[push/subscribe] GET error:", error);
     return NextResponse.json(
