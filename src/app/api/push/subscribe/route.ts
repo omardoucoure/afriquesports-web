@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 import { saveSubscription, removeSubscription, getSubscriptionStats } from "@/lib/push-db";
 import { isValidSubscription } from "@/lib/web-push-client";

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 import { sendPushNotificationToMany } from "@/lib/web-push-client";
 import {
