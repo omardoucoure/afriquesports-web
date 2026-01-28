@@ -134,14 +134,6 @@ export function PushNotificationPrompt({
       console.log("[Push] Supported:", supported);
 
       if (supported) {
-        // Proactively register service worker
-        try {
-          await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-          console.log("[Push] Service worker registered");
-        } catch (err) {
-          console.error("[Push] SW registration failed:", err);
-        }
-
         const currentPermission = getNotificationPermission();
         setPermission(currentPermission);
         console.log("[Push] Permission:", currentPermission);
@@ -161,8 +153,10 @@ export function PushNotificationPrompt({
 
         // Show prompt if permission not yet decided
         if (currentPermission === "default") {
-          const hasDeclined = localStorage.getItem("push_prompt_declined");
-          console.log("[Push] Declined before:", hasDeclined);
+          const declinedAt = localStorage.getItem("push_prompt_declined");
+          const DECLINE_EXPIRY = 14 * 24 * 60 * 60 * 1000; // 14 days
+          const hasDeclined = declinedAt && (Date.now() - parseInt(declinedAt, 10)) < DECLINE_EXPIRY;
+          console.log("[Push] Declined before:", !!hasDeclined);
           if (!hasDeclined) {
             setTimeout(() => {
               setShowPrompt(true);
@@ -177,11 +171,16 @@ export function PushNotificationPrompt({
     hasInitialized.current = true;
   }, []);
 
-  // Refresh subscription on route change
+  // Refresh subscription on route change (throttled to once per hour)
   useEffect(() => {
     if (!hasInitialized.current) return;
     if (!isSubscribed || permission !== "granted") return;
 
+    const REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour
+    const lastRefresh = parseInt(localStorage.getItem("push_last_refresh") || "0", 10);
+    if (Date.now() - lastRefresh < REFRESH_INTERVAL) return;
+
+    localStorage.setItem("push_last_refresh", String(Date.now()));
     refreshSubscription(getLocaleFromPath(), ["news", "general"]).catch(
       () => {}
     );
@@ -215,7 +214,7 @@ export function PushNotificationPrompt({
   }, [locale, t]);
 
   const handleDecline = useCallback(() => {
-    localStorage.setItem("push_prompt_declined", "true");
+    localStorage.setItem("push_prompt_declined", String(Date.now()));
     setShowPrompt(false);
   }, []);
 

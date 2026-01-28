@@ -1,5 +1,5 @@
 // Minimal Service Worker to prevent 404 errors
-// This file exists to satisfy browser auto-detection for common service worker paths
+// Push notifications are handled by firebase-messaging-sw.js
 
 self.addEventListener('install', () => {
   self.skipWaiting();
@@ -7,9 +7,4 @@ self.addEventListener('install', () => {
 
 self.addEventListener('activate', () => {
   self.clients.claim();
-});
-
-// Pass-through fetch handler (no caching)
-self.addEventListener('fetch', (event) => {
-  event.respondWith(fetch(event.request));
 });

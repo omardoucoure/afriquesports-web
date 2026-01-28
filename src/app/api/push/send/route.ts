@@ -9,11 +9,28 @@ import {
   getSubscriptionStats,
 } from "@/lib/push-db";
 
+const PUSH_API_SECRET = process.env.PUSH_API_SECRET;
+const PUSH_API_KEY = process.env.NEXT_PUBLIC_PUSH_API_KEY;
+
+function isAuthorized(request: NextRequest): boolean {
+  if (!PUSH_API_SECRET && !PUSH_API_KEY) return true; // No keys configured = open (dev mode)
+  const authHeader = request.headers.get("authorization");
+  const apiKey = request.headers.get("x-api-key");
+  const { searchParams } = new URL(request.url);
+  const queryKey = searchParams.get("key");
+  const token = authHeader?.replace("Bearer ", "") || apiKey || queryKey;
+  return token === PUSH_API_SECRET || token === PUSH_API_KEY;
+}
+
 /**
  * POST /api/push/send
  * Send push notification to subscribers
  */
 export async function POST(request: NextRequest) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const {
@@ -107,6 +124,10 @@ export async function POST(request: NextRequest) {
  * Get notification history and stats
  */
 export async function GET(request: NextRequest) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "50", 10);

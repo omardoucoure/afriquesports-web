@@ -10,7 +10,8 @@
 function trackEvent(notificationId, eventType) {
   if (!notificationId) return;
 
-  fetch("/api/push/track", {
+  var baseUrl = self.location.origin;
+  fetch(baseUrl + "/api/push/track", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ notificationId: notificationId, event: eventType }),
@@ -65,9 +66,9 @@ self.addEventListener("push", function (event) {
     icon: icon,
     badge: "https://www.afriquesports.net/favicon-32x32.png",
     image: image,
-    tag: "afriquesports-" + Date.now(),
+    tag: "afriquesports-latest",
+    renotify: true,
     data: { url: url, notificationId: notificationId },
-    requireInteraction: true,
     vibrate: [200, 100, 200],
   };
 

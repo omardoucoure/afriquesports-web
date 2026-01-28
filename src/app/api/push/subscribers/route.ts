@@ -1,11 +1,28 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getSubscriptionStats, getRecentSubscriptions } from "@/lib/push-db";
+
+const PUSH_API_SECRET = process.env.PUSH_API_SECRET;
+const PUSH_API_KEY = process.env.NEXT_PUBLIC_PUSH_API_KEY;
+
+function isAuthorized(request: NextRequest): boolean {
+  if (!PUSH_API_SECRET && !PUSH_API_KEY) return true;
+  const authHeader = request.headers.get("authorization");
+  const apiKey = request.headers.get("x-api-key");
+  const { searchParams } = new URL(request.url);
+  const queryKey = searchParams.get("key");
+  const token = authHeader?.replace("Bearer ", "") || apiKey || queryKey;
+  return token === PUSH_API_SECRET || token === PUSH_API_KEY;
+}
 
 /**
  * GET /api/push/subscribers
  * Get subscriber count, stats, and recent subscriptions
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const [stats, recentSubscriptions] = await Promise.all([
       getSubscriptionStats(),

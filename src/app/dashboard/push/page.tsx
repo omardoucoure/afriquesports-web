@@ -1,5 +1,7 @@
 "use client";
 
+const PUSH_API_KEY = process.env.NEXT_PUBLIC_PUSH_API_KEY || "";
+
 import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Bell,
@@ -142,7 +144,9 @@ export default function PushPage() {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch("/api/push/send");
+      const response = await fetch("/api/push/send", {
+        headers: PUSH_API_KEY ? { "x-api-key": PUSH_API_KEY } : {},
+      });
       if (response.ok) {
         const data = await response.json();
         setStats(data.stats);
@@ -187,7 +191,10 @@ export default function PushPage() {
     try {
       const response = await fetch("/api/push/send", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(PUSH_API_KEY ? { "x-api-key": PUSH_API_KEY } : {}),
+        },
         body: JSON.stringify({
           title: title.trim(),
           body: body.trim(),
