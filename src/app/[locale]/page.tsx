@@ -8,7 +8,7 @@ import {
   LoadMoreArticles,
   ArticleCardHorizontalSkeleton,
 } from "@/components/articles";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget, TopScorersWidget, TopScorersWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, BallonDorWidget, BallonDorWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton, AFCONScorersWidget, AFCONScorersWidgetSkeleton, BallonDorWidget, BallonDorWidgetSkeleton, type TrendingArticle } from "@/components/sidebar";
 import { DataFetcher, getPosts, type WordPressPost } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { generateWebsiteJsonLd, generateFaqJsonLd, getPageKeywords } from "@/lib/seo";
@@ -395,18 +395,10 @@ export default async function Home({ params }: HomePageProps) {
                   <AFCONScorersWidget />
                 </Suspense>
 
-                {/* Top African Scorers in Europe */}
-                <Suspense fallback={<TopScorersWidgetSkeleton />}>
-                  <TopScorersWidget title={t("topScorers")} />
-                </Suspense>
-
                 {/* African Ballon d'Or ranking */}
                 <Suspense fallback={<BallonDorWidgetSkeleton />}>
                   <BallonDorWidget />
                 </Suspense>
-
-                {/* Key players */}
-                <PlayersWidget />
               </div>
             </aside>
           </div>
@@ -437,19 +429,6 @@ export default async function Home({ params }: HomePageProps) {
             </div>
             <Suspense fallback={<AFCONScorersWidgetSkeleton />}>
               <AFCONScorersWidget />
-            </Suspense>
-          </section>
-
-          {/* Top Scorers - mobile */}
-          <section>
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 whitespace-nowrap">
-                {t("topScorers")}
-              </h2>
-              <div className="flex-1 h-0.5" style={{ background: 'linear-gradient(90deg, rgba(9,121,28,1) 0%, rgba(219,217,97,1) 37%, rgba(255,0,0,1) 88%)' }} />
-            </div>
-            <Suspense fallback={<TopScorersWidgetSkeleton />}>
-              <TopScorersWidget title={t("topScorers")} />
             </Suspense>
           </section>
 
