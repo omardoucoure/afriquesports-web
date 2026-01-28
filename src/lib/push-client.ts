@@ -159,7 +159,9 @@ export async function getExistingSubscription(): Promise<PushSubscription | null
   if (!isPushSupported()) return null;
 
   try {
-    const registration = await navigator.serviceWorker.ready;
+    // Use getRegistration() instead of .ready to avoid hanging when no SW is registered
+    const registration = await navigator.serviceWorker.getRegistration("/firebase-messaging-sw.js");
+    if (!registration) return null;
     return await registration.pushManager.getSubscription();
   } catch (error) {
     console.error("Error getting existing subscription:", error);
