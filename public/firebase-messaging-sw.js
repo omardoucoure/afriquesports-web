@@ -97,26 +97,11 @@ self.addEventListener("notificationclick", function (event) {
   trackEvent(notificationId, "click");
 
   event.waitUntil(
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then(function (windowClients) {
-        // Try to find an existing tab and navigate it
-        for (var i = 0; i < windowClients.length; i++) {
-          var client = windowClients[i];
-          if (client.url.includes("afriquesports") && "navigate" in client) {
-            return client.navigate(url).then(function (c) {
-              return c.focus();
-            });
-          }
-        }
-        // No existing tab found — open a new window
-        return clients.openWindow(url);
-      })
-      .catch(function (err) {
-        console.error("[SW] Click handler error:", err);
-        // Fallback: always try to open a new window
-        return clients.openWindow(url);
-      })
+    clients.openWindow(url).then(function () {
+      console.log("[SW] Opened URL:", url);
+    }).catch(function (err) {
+      console.error("[SW] Failed to open URL:", err);
+    })
   );
 });
 
