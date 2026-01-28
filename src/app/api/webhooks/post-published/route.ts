@@ -4,8 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { fetchFrenchPostBySlug, translateToAllLocales } from '@/lib/translate-post';
 import { getGoogleIndexingAPI } from '@/lib/google-indexing';
 import { getIndexNowAPI } from '@/lib/bing-indexnow';
-import { sendPushNotificationToMany } from '@/lib/web-push-client';
-import { getAllActiveSubscriptions, saveNotificationHistory, deleteInvalidSubscriptions } from '@/lib/push-db';
+// Push imports removed - notifications are now manual via /dashboard/push
 
 /**
  * Webhook endpoint called by WordPress when a French article is published.
@@ -118,59 +117,8 @@ export async function POST(request: Request) {
         // Also revalidate the root (French homepage)
         revalidatePath('/');
 
-        // 7. Send push notification to all subscribers
-        try {
-          const subscriptions = await getAllActiveSubscriptions();
-          if (subscriptions.length > 0) {
-            // Extract article info for notification
-            const postTitle = frenchPost.title?.rendered
-              ? frenchPost.title.rendered.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, (m: string) => {
-                  const map: Record<string, string> = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#039;': "'" };
-                  return map[m] || m;
-                })
-              : slug;
-            const postExcerpt = frenchPost.excerpt?.rendered
-              ? frenchPost.excerpt.rendered.replace(/<[^>]+>/g, '').trim().slice(0, 150)
-              : '';
-            const featuredImage = frenchPost._embedded?.['wp:featuredmedia']?.[0]?.source_url;
-            const articleUrl = `https://www.afriquesports.net/${categorySlug}/${slug}`;
-
-            const notificationId = `push_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-
-            const result = await sendPushNotificationToMany(subscriptions, {
-              title: postTitle,
-              body: postExcerpt || postTitle,
-              image: featuredImage,
-              url: articleUrl,
-              notificationId,
-            });
-
-            // Clean up expired subscriptions
-            if (result.invalidSubscriptions.length > 0) {
-              const endpoints = result.invalidSubscriptions.map(s => s.endpoint);
-              await deleteInvalidSubscriptions(endpoints);
-            }
-
-            // Save to notification history
-            await saveNotificationHistory(
-              postTitle,
-              postExcerpt || postTitle,
-              subscriptions.length,
-              result.successCount,
-              result.failureCount,
-              featuredImage,
-              articleUrl,
-              'auto-publish',
-              notificationId
-            );
-
-            console.log(`[post-published] Push notification sent: ${result.successCount}/${subscriptions.length} success`);
-          } else {
-            console.log('[post-published] No push subscribers, skipping notification');
-          }
-        } catch (pushErr: any) {
-          console.error(`[post-published] Push notification error: ${pushErr.message}`);
-        }
+        // 7. Push notifications disabled - use dashboard to send manually
+        // Push notifications can be sent from /dashboard/push
 
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
         console.log(`[post-published] Background processing completed for "${slug}" in ${elapsed}s`);
