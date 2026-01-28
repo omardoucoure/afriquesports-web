@@ -126,7 +126,7 @@ function AuthorComparisonChart({
   authors: AuthorData["authors"];
   metric: "views" | "articleCount" | "activeArticles";
 }) {
-  const top = authors.slice(0, 10);
+  const top = authors.slice(0, 3);
   const maxValue = Math.max(...top.map((a) => a[metric]), 1);
 
   const barColor =
@@ -154,7 +154,7 @@ function AuthorComparisonChart({
                 className={cn("h-full rounded-full transition-all", barColor)}
                 style={{ width: `${Math.max(widthPercent, 2)}%` }}
               />
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-300">
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-semibold text-white">
                 {formatNumber(value)}
               </span>
             </div>
