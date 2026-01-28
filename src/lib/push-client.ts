@@ -206,7 +206,25 @@ export function subscriptionToJson(subscription: PushSubscription): {
 }
 
 /**
- * Refresh/re-sync existing subscription with server
+ * Check if an existing subscription's applicationServerKey matches the current VAPID key
+ */
+function isSubscriptionKeyValid(subscription: PushSubscription): boolean {
+  const existingKey = subscription.options?.applicationServerKey;
+  if (!existingKey) return false;
+
+  const currentKey = urlBase64ToUint8Array(VAPID_PUBLIC_KEY);
+  const existingKeyArray = new Uint8Array(existingKey);
+
+  if (currentKey.length !== existingKeyArray.length) return false;
+  for (let i = 0; i < currentKey.length; i++) {
+    if (currentKey[i] !== existingKeyArray[i]) return false;
+  }
+  return true;
+}
+
+/**
+ * Refresh/re-sync existing subscription with server.
+ * If the VAPID key changed, automatically unsubscribe and re-subscribe.
  */
 export async function refreshSubscription(
   language: string = "fr",
@@ -225,6 +243,13 @@ export async function refreshSubscription(
     const subscription = await registration.pushManager.getSubscription();
 
     if (!subscription) {
+      return subscribeToPush(language, topics);
+    }
+
+    // Detect VAPID key mismatch: unsubscribe old and re-subscribe with current key
+    if (!isSubscriptionKeyValid(subscription)) {
+      console.log("[Push] VAPID key mismatch detected, re-subscribing...");
+      await subscription.unsubscribe();
       return subscribeToPush(language, topics);
     }
 
