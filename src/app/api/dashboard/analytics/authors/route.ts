@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import { getPool } from "@/lib/mysql-db";
-import { gaClient, type Platform } from "@/lib/ga-client";
 
-function getDateRange(period: string): {
-  startDate: string;
-  endDate: string;
-  gaStart: string;
-  gaEnd: string;
-} {
+function getDateRange(period: string): string {
   const now = new Date();
   let days: number;
 
@@ -35,27 +29,15 @@ function getDateRange(period: string): {
   const fromDate = new Date(now);
   fromDate.setDate(fromDate.getDate() - days);
 
-  return {
-    startDate: fromDate.toISOString().split("T")[0],
-    endDate: now.toISOString().split("T")[0],
-    gaStart: `${days}daysAgo`,
-    gaEnd: "today",
-  };
-}
-
-// Extract slug from page path: /afrique/some-slug → some-slug
-function extractSlugFromPath(path: string): string | null {
-  const match = path.match(/^(?:\/[a-z]{2})?\/[^/]+\/([^/]+)\/?$/);
-  return match ? match[1] : null;
+  return fromDate.toISOString().split("T")[0];
 }
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const period = searchParams.get("period") || "7d";
-    const platform = (searchParams.get("platform") || "all") as Platform;
 
-    const { startDate, gaStart, gaEnd } = getDateRange(period);
+    const startDate = getDateRange(period);
 
     const pool = getPool();
     if (!pool) {
@@ -65,14 +47,14 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch visits stats, published articles count, and GA top pages in parallel
-    const [mysqlResult, publishedResult, gaTopPages] = await Promise.all([
+    // Fetch visits stats and published article counts from MySQL only
+    const [visitsResult, publishedResult] = await Promise.all([
       pool.query<mysql.RowDataPacket[]>(
         `SELECT
           post_author AS authorName,
           COUNT(DISTINCT post_id) AS activeArticles,
           SUM(count) AS totalViews,
-          GROUP_CONCAT(DISTINCT CONCAT(post_slug, '||', post_title) ORDER BY count DESC SEPARATOR ':::') AS topSlugs
+          GROUP_CONCAT(DISTINCT CONCAT(post_slug, '||', post_title, '||', count) ORDER BY count DESC SEPARATOR ':::') AS topSlugs
         FROM wp_afriquesports_visits
         WHERE post_author IS NOT NULL
           AND post_author != ''
@@ -94,12 +76,9 @@ export async function GET(request: NextRequest) {
         GROUP BY u.display_name`,
         [startDate]
       ),
-      process.env.GA_PROPERTY_ID
-        ? gaClient.getTopPages(gaStart, gaEnd, 500, platform).catch(() => [])
-        : Promise.resolve([]),
     ]);
 
-    const [rows] = mysqlResult;
+    const [rows] = visitsResult;
     const [publishedRows] = publishedResult;
 
     // Build author → published count map
@@ -110,85 +89,59 @@ export async function GET(request: NextRequest) {
 
     if (rows.length === 0) {
       return NextResponse.json({
-        summary: { totalAuthors: 0, totalArticles: 0, totalActiveArticles: 0, avgArticlesPerAuthor: 0 },
+        summary: { totalAuthors: 0, totalArticles: 0, totalActiveArticles: 0, totalViews: 0 },
         authors: [],
         period,
-        platform,
       });
     }
 
-    // Build slug → GA visitors map
-    const slugToGA = new Map<string, { visitors: number; pageViews: number }>();
-    for (const page of gaTopPages) {
-      const slug = extractSlugFromPath(page.path);
-      if (slug) {
-        const existing = slugToGA.get(slug);
-        if (existing) {
-          existing.visitors += page.visitors;
-          existing.pageViews += page.pageViews;
-        } else {
-          slugToGA.set(slug, { visitors: page.visitors, pageViews: page.pageViews });
-        }
-      }
-    }
-
-    // Build author data combining MySQL + GA
+    // Build author data from MySQL only
     const authors = rows.map((row, index) => {
-      const slugParts = (row.topSlugs as string || "").split(":::").filter(Boolean);
-      let gaVisitors = 0;
-      let gaPageviews = 0;
-      const topArticles: Array<{ title: string; url: string; visitors: number }> = [];
-
-      for (const part of slugParts) {
-        const [slug, title] = part.split("||");
-        if (!slug) continue;
-        const gaData = slugToGA.get(slug);
-        if (gaData) {
-          gaVisitors += gaData.visitors;
-          gaPageviews += gaData.pageViews;
-          topArticles.push({
-            title: (title || slug)
-              .replace(/&#8217;/g, "'")
-              .replace(/&#8211;/g, "–")
-              .replace(/&amp;/g, "&"),
-            url: `https://www.afriquesports.net/${slug}`,
-            visitors: gaData.visitors,
-          });
-        }
-      }
-
-      topArticles.sort((a, b) => b.visitors - a.visitors);
-
       const authorName = row.authorName as string;
       const published = publishedMap.get(authorName) || 0;
+      const totalViews = parseInt(row.totalViews as string) || 0;
+      const activeArticles = parseInt(row.activeArticles as string) || 0;
+
+      const slugParts = (row.topSlugs as string || "").split(":::").filter(Boolean);
+      const topArticles: Array<{ title: string; url: string; views: number }> = [];
+
+      for (const part of slugParts) {
+        const [slug, title, viewsStr] = part.split("||");
+        if (!slug) continue;
+        topArticles.push({
+          title: (title || slug)
+            .replace(/&#8217;/g, "'")
+            .replace(/&#8211;/g, "–")
+            .replace(/&amp;/g, "&"),
+          url: `https://www.afriquesports.net/${slug}`,
+          views: parseInt(viewsStr) || 0,
+        });
+      }
 
       return {
         id: index + 1,
         name: authorName,
         slug: authorName.toLowerCase().replace(/\s+/g, "-"),
         articleCount: published,
-        activeArticles: parseInt(row.activeArticles as string) || 0,
-        visitors: gaVisitors || parseInt(row.totalViews as string) || 0,
-        pageviews: gaPageviews || parseInt(row.totalViews as string) || 0,
-        avgDuration: 0,
-        bounceRate: 0,
+        activeArticles,
+        views: totalViews,
         topArticles: topArticles.slice(0, 10),
       };
     });
 
     const totalArticles = authors.reduce((sum, a) => sum + a.articleCount, 0);
     const totalActiveArticles = authors.reduce((sum, a) => sum + a.activeArticles, 0);
+    const totalViews = authors.reduce((sum, a) => sum + a.views, 0);
 
     return NextResponse.json({
       summary: {
         totalAuthors: authors.length,
         totalArticles,
         totalActiveArticles,
-        avgArticlesPerAuthor: authors.length > 0 ? totalArticles / authors.length : 0,
+        totalViews,
       },
       authors,
       period,
-      platform,
     });
   } catch (error) {
     console.error("Authors analytics API error:", error);

@@ -21,31 +21,21 @@ interface AuthorData {
     totalAuthors: number;
     totalArticles: number;
     totalActiveArticles: number;
-    avgArticlesPerAuthor: number;
+    totalViews: number;
   };
   authors: Array<{
     id: number;
     name: string;
     slug: string;
-    avatar?: string;
     articleCount: number;
     activeArticles: number;
-    visitors: number;
-    pageviews: number;
-    avgDuration: number;
-    bounceRate: number;
+    views: number;
     topArticles: Array<{
       title: string;
       url: string;
-      visitors: number;
+      views: number;
     }>;
   }>;
-}
-
-function formatDuration(seconds: number): string {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
 function formatNumber(num: number): string {
@@ -91,14 +81,14 @@ function LoadingSkeleton() {
         <div className="h-10 w-40 bg-gray-800 rounded animate-pulse"></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        {[...Array(3)].map((_, i) => (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm animate-pulse"
+            className="bg-gray-900 rounded-xl border border-gray-800 p-4 animate-pulse"
           >
-            <div className="h-4 w-24 bg-gray-200 rounded mb-2"></div>
-            <div className="h-8 w-32 bg-gray-200 rounded"></div>
+            <div className="h-4 w-24 bg-gray-800 rounded mb-2"></div>
+            <div className="h-8 w-32 bg-gray-800 rounded"></div>
           </div>
         ))}
       </div>
@@ -134,19 +124,17 @@ function AuthorComparisonChart({
   metric,
 }: {
   authors: AuthorData["authors"];
-  metric: "visitors" | "articleCount" | "activeArticles" | "pageviews";
+  metric: "views" | "articleCount" | "activeArticles";
 }) {
   const top = authors.slice(0, 10);
   const maxValue = Math.max(...top.map((a) => a[metric]), 1);
 
   const barColor =
-    metric === "visitors"
+    metric === "views"
       ? "bg-[#9DFF20]"
       : metric === "articleCount"
         ? "bg-blue-500"
-        : metric === "activeArticles"
-          ? "bg-cyan-500"
-          : "bg-purple-500";
+        : "bg-cyan-500";
 
   return (
     <div className="space-y-2.5">
@@ -192,8 +180,8 @@ export default function AuthorsPage() {
   >(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [chartMetric, setChartMetric] = useState<
-    "visitors" | "articleCount" | "activeArticles" | "pageviews"
-  >("visitors");
+    "views" | "articleCount" | "activeArticles"
+  >("views");
 
   const fetchData = async () => {
     setLoading(true);
@@ -228,17 +216,6 @@ export default function AuthorsPage() {
       author.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [data, searchQuery]);
-
-  // Compute totals for the period
-  const totalVisitors = useMemo(() => {
-    if (!data) return 0;
-    return data.authors.reduce((sum, a) => sum + a.visitors, 0);
-  }, [data]);
-
-  const totalPageviews = useMemo(() => {
-    if (!data) return 0;
-    return data.authors.reduce((sum, a) => sum + a.pageviews, 0);
-  }, [data]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -278,7 +255,7 @@ export default function AuthorsPage() {
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
             <div className="flex items-center gap-2 text-gray-400 mb-1">
               <Users className="h-4 w-4" />
@@ -303,27 +280,16 @@ export default function AuthorsPage() {
               <span className="text-xs uppercase tracking-wider">Active articles</span>
             </div>
             <p className="text-xl sm:text-2xl font-bold text-cyan-400">
-              {(data.summary.totalActiveArticles || 0).toLocaleString()}
+              {data.summary.totalActiveArticles.toLocaleString()}
             </p>
           </div>
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
             <div className="flex items-center gap-2 text-gray-400 mb-1">
               <Eye className="h-4 w-4 text-[#9DFF20]" />
-              <span className="text-xs uppercase tracking-wider">Visitors</span>
+              <span className="text-xs uppercase tracking-wider">Views</span>
             </div>
             <p className="text-xl sm:text-2xl font-bold text-[#9DFF20]">
-              {formatNumber(totalVisitors)}
-            </p>
-          </div>
-          <div className="bg-gray-900 rounded-xl border border-gray-800 p-4">
-            <div className="flex items-center gap-2 text-gray-400 mb-1">
-              <TrendingUp className="h-4 w-4 text-purple-400" />
-              <span className="text-xs uppercase tracking-wider">
-                Page views
-              </span>
-            </div>
-            <p className="text-xl sm:text-2xl font-bold text-purple-400">
-              {formatNumber(totalPageviews)}
+              {formatNumber(data.summary.totalViews)}
             </p>
           </div>
         </div>
@@ -338,10 +304,9 @@ export default function AuthorsPage() {
             <div className="flex gap-2 flex-wrap">
               {(
                 [
-                  { key: "visitors", label: "Visitors" },
+                  { key: "views", label: "Views" },
                   { key: "articleCount", label: "Published" },
                   { key: "activeArticles", label: "Active articles" },
-                  { key: "pageviews", label: "Page views" },
                 ] as const
               ).map((m) => (
                 <button
@@ -381,7 +346,7 @@ export default function AuthorsPage() {
 
         {/* Author ranking list */}
         <div className="space-y-3">
-          {filteredAuthors.map((author, index) => {
+          {filteredAuthors.map((author) => {
             const rank = data.authors.indexOf(author) + 1;
             return (
               <div
@@ -412,7 +377,7 @@ export default function AuthorsPage() {
                       .slice(0, 2)}
                   </div>
 
-                  {/* Name + posts */}
+                  {/* Name + stats */}
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm sm:text-base font-semibold text-white truncate">
                       {author.name}
@@ -424,20 +389,12 @@ export default function AuthorsPage() {
                     </p>
                   </div>
 
-                  {/* Stats */}
-                  <div className="flex items-center gap-3 sm:gap-6 shrink-0">
-                    <div className="text-right hidden sm:block">
-                      <p className="text-xs text-gray-500">Page views</p>
-                      <p className="text-sm font-semibold text-purple-400">
-                        {formatNumber(author.pageviews)}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-gray-500">Visitors</p>
-                      <p className="text-sm sm:text-base font-bold text-[#9DFF20]">
-                        {formatNumber(author.visitors)}
-                      </p>
-                    </div>
+                  {/* Views */}
+                  <div className="text-right shrink-0">
+                    <p className="text-xs text-gray-500">Views</p>
+                    <p className="text-sm sm:text-base font-bold text-[#9DFF20]">
+                      {formatNumber(author.views)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -493,7 +450,7 @@ export default function AuthorsPage() {
             </div>
 
             <div className="p-4 sm:p-6">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
                   <p className="text-xs text-gray-400 mb-1">Published</p>
                   <p className="text-xl sm:text-2xl font-bold text-blue-400">
@@ -507,15 +464,9 @@ export default function AuthorsPage() {
                   </p>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs text-gray-400 mb-1">Visitors</p>
+                  <p className="text-xs text-gray-400 mb-1">Views</p>
                   <p className="text-xl sm:text-2xl font-bold text-[#9DFF20]">
-                    {formatNumber(selectedAuthor.visitors)}
-                  </p>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs text-gray-400 mb-1">Page views</p>
-                  <p className="text-xl sm:text-2xl font-bold text-purple-400">
-                    {formatNumber(selectedAuthor.pageviews)}
+                    {formatNumber(selectedAuthor.views)}
                   </p>
                 </div>
                 <div className="bg-gray-800 rounded-lg p-3 sm:p-4">
@@ -526,11 +477,11 @@ export default function AuthorsPage() {
                     {selectedAuthor.articleCount > 0
                       ? formatNumber(
                           Math.round(
-                            selectedAuthor.visitors /
+                            selectedAuthor.views /
                               selectedAuthor.articleCount
                           )
                         )
-                      : "0"}
+                      : "—"}
                   </p>
                 </div>
               </div>
@@ -562,9 +513,9 @@ export default function AuthorsPage() {
                       </div>
                       <div className="text-right shrink-0">
                         <p className="text-lg sm:text-xl font-bold text-[#9DFF20]">
-                          {formatNumber(article.visitors)}
+                          {formatNumber(article.views)}
                         </p>
-                        <p className="text-xs text-gray-500">visitors</p>
+                        <p className="text-xs text-gray-500">views</p>
                       </div>
                     </div>
                   </div>
