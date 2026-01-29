@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/navigation";
-import { locales, type Locale } from "@/i18n/config";
+import { usePathname } from "@/i18n/navigation";
+import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 const localeFlags: Record<Locale, string> = {
   fr: "\uD83C\uDDEB\uD83C\uDDF7",
@@ -21,7 +21,6 @@ const localeCodes: Record<Locale, string> = {
 
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
-  const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("language");
   const [isOpen, setIsOpen] = useState(false);
@@ -72,8 +71,20 @@ export function LanguageSwitcher() {
     const maxAge = 365 * 24 * 60 * 60;
     document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
 
-    // Use next-intl's router.replace with locale option
-    router.replace(pathname, { locale: newLocale });
+    // Build the new URL with the locale prefix
+    // For default locale (French), use root path without prefix
+    // For other locales, add the locale prefix
+    let newPath: string;
+    if (newLocale === defaultLocale) {
+      // French - no prefix needed (as-needed mode)
+      newPath = pathname || "/";
+    } else {
+      // Other locales - add prefix
+      newPath = `/${newLocale}${pathname || ""}`;
+    }
+
+    // Use hard navigation for reliable locale switching
+    window.location.href = newPath;
     handleClose();
   };
 
