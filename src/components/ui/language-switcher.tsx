@@ -68,8 +68,10 @@ export function LanguageSwitcher() {
     return `/${targetLocale}${currentPath}`;
   };
 
-  // Handle click to save preferences before navigation
-  const handleLinkClick = (newLocale: Locale) => {
+  // Handle click to switch locale with full page reload
+  const handleLinkClick = (e: React.MouseEvent, newLocale: Locale) => {
+    e.preventDefault(); // Prevent Next.js client-side navigation
+
     // Save language preference to localStorage
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
@@ -79,6 +81,21 @@ export function LanguageSwitcher() {
     const maxAge = 365 * 24 * 60 * 60;
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
     document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
+
+    // Build full URL and do hard navigation
+    const currentPath = pathname || "/";
+    let newUrl: string;
+
+    if (newLocale === defaultLocale) {
+      // French - no prefix needed
+      newUrl = currentPath;
+    } else {
+      // Other locales - add prefix
+      newUrl = `/${newLocale}${currentPath}`;
+    }
+
+    // Force full page reload to bypass Next.js client-side routing
+    window.location.href = newUrl;
   };
 
   return (
@@ -132,7 +149,7 @@ export function LanguageSwitcher() {
               <a
                 key={loc}
                 href={href}
-                onClick={() => handleLinkClick(loc)}
+                onClick={(e) => handleLinkClick(e, loc)}
                 role="option"
                 aria-selected={isActive}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors ${
