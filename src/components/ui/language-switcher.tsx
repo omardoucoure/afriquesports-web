@@ -57,40 +57,28 @@ export function LanguageSwitcher() {
     };
   }, [isOpen, handleClose]);
 
-  const handleChange = (newLocale: Locale) => {
-    if (newLocale === locale) {
-      handleClose();
-      return;
+  // Build URL for a locale
+  const getLocaleUrl = (targetLocale: Locale): string => {
+    const currentPath = pathname || "/";
+    if (targetLocale === defaultLocale) {
+      // French - no prefix needed (as-needed mode in production)
+      return currentPath;
     }
+    // Other locales - add prefix
+    return `/${targetLocale}${currentPath}`;
+  };
 
-    // Save language preference to localStorage to prevent modal from showing
+  // Handle click to save preferences before navigation
+  const handleLinkClick = (newLocale: Locale) => {
+    // Save language preference to localStorage
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
+    localStorage.setItem("afriquesports-locale-pref", newLocale);
 
     // Save to cookies for middleware to read (1 year expiry)
-    // NEXT_LOCALE is the official cookie name used by next-intl
     const maxAge = 365 * 24 * 60 * 60;
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
     document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
-
-    // Build the full absolute URL with the locale prefix
-    // For default locale (French), use root path without prefix
-    // For other locales, add the locale prefix
-    const currentPath = pathname || "/";
-    const origin = window.location.origin;
-    let newUrl: string;
-
-    if (newLocale === defaultLocale) {
-      // French - no prefix needed (as-needed mode in production)
-      newUrl = `${origin}${currentPath}`;
-    } else {
-      // Other locales - add prefix
-      newUrl = `${origin}/${newLocale}${currentPath}`;
-    }
-
-    // Use hard navigation with replace for reliable locale switching
-    console.log(`[LanguageSwitcher] Switching from ${locale} to ${newLocale}, navigating to: ${newUrl}`);
-    window.location.replace(newUrl);
   };
 
   return (
@@ -137,10 +125,14 @@ export function LanguageSwitcher() {
         <div className="py-1">
           {locales.map((loc) => {
             const isActive = locale === loc;
+            const href = getLocaleUrl(loc);
+
+            // Use anchor tags for reliable navigation
             return (
-              <button
+              <a
                 key={loc}
-                onClick={() => handleChange(loc)}
+                href={href}
+                onClick={() => handleLinkClick(loc)}
                 role="option"
                 aria-selected={isActive}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors ${
@@ -170,7 +162,7 @@ export function LanguageSwitcher() {
                     />
                   </svg>
                 )}
-              </button>
+              </a>
             );
           })}
         </div>
