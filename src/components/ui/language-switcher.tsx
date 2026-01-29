@@ -82,20 +82,23 @@ export function LanguageSwitcher() {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
     document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
 
-    // Build full URL and do hard navigation
+    // Build ABSOLUTE URL and do hard navigation
     const currentPath = pathname || "/";
+    const origin = window.location.origin;
     let newUrl: string;
 
     if (newLocale === defaultLocale) {
-      // French - no prefix needed
-      newUrl = currentPath;
+      // French - no prefix needed, use absolute URL
+      newUrl = `${origin}${currentPath}`;
     } else {
       // Other locales - add prefix
-      newUrl = `/${newLocale}${currentPath}`;
+      newUrl = `${origin}/${newLocale}${currentPath}`;
     }
 
+    console.log("[LanguageSwitcher] Navigating to:", newUrl);
+
     // Force full page reload to bypass Next.js client-side routing
-    window.location.href = newUrl;
+    window.location.replace(newUrl);
   };
 
   return (
