@@ -67,25 +67,30 @@ export function LanguageSwitcher() {
     localStorage.setItem("locale-preference", newLocale);
     localStorage.setItem("locale-preference-dismissed", "true");
 
-    // Save to cookie for middleware to read (1 year expiry)
+    // Save to cookies for middleware to read (1 year expiry)
+    // NEXT_LOCALE is the official cookie name used by next-intl
     const maxAge = 365 * 24 * 60 * 60;
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
     document.cookie = `locale-preference=${newLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
 
-    // Build the new URL with the locale prefix
+    // Build the full absolute URL with the locale prefix
     // For default locale (French), use root path without prefix
     // For other locales, add the locale prefix
-    let newPath: string;
+    const currentPath = pathname || "/";
+    const origin = window.location.origin;
+    let newUrl: string;
+
     if (newLocale === defaultLocale) {
-      // French - no prefix needed (as-needed mode)
-      newPath = pathname || "/";
+      // French - no prefix needed (as-needed mode in production)
+      newUrl = `${origin}${currentPath}`;
     } else {
       // Other locales - add prefix
-      newPath = `/${newLocale}${pathname || ""}`;
+      newUrl = `${origin}/${newLocale}${currentPath}`;
     }
 
-    // Use hard navigation for reliable locale switching
-    window.location.href = newPath;
-    handleClose();
+    // Use hard navigation with replace for reliable locale switching
+    console.log(`[LanguageSwitcher] Switching from ${locale} to ${newLocale}, navigating to: ${newUrl}`);
+    window.location.replace(newUrl);
   };
 
   return (

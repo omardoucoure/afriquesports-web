@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/navigation";
-import { locales, type Locale } from "@/i18n/config";
+import { usePathname } from "@/i18n/navigation";
+import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 const STORAGE_KEY = "afriquesports-locale-pref";
 const AUTO_DISMISS_MS = 10_000;
@@ -75,7 +75,6 @@ export function LanguageDetector() {
   const [dismissing, setDismissing] = useState(false);
 
   const currentLocale = useLocale() as Locale;
-  const router = useRouter();
   const pathname = usePathname();
 
   // Dismiss with slide-down animation
@@ -139,15 +138,30 @@ export function LanguageDetector() {
 
     try {
       localStorage.setItem(STORAGE_KEY, detectedLocale);
+      // Also set the NEXT_LOCALE cookie for middleware
+      const maxAge = 365 * 24 * 60 * 60;
+      document.cookie = `NEXT_LOCALE=${detectedLocale}; path=/; max-age=${maxAge}; SameSite=Lax`;
     } catch {
       // Ignore
     }
 
     setVisible(false);
 
-    // Navigate to the same path in the detected locale
-    router.replace(pathname, { locale: detectedLocale });
-  }, [detectedLocale, pathname, router]);
+    // Build the full absolute URL and navigate
+    const currentPath = pathname || "/";
+    const origin = window.location.origin;
+    let newUrl: string;
+
+    if (detectedLocale === defaultLocale) {
+      // French - no prefix needed
+      newUrl = `${origin}${currentPath}`;
+    } else {
+      // Other locales - add prefix
+      newUrl = `${origin}/${detectedLocale}${currentPath}`;
+    }
+
+    window.location.replace(newUrl);
+  }, [detectedLocale, pathname]);
 
   // Handle the close button
   const handleClose = useCallback(() => {
