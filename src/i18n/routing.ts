@@ -14,4 +14,9 @@ export const routing = defineRouting({
   // Dev: use "always" for Next.js 16 compatibility
   // Prod: use "as-needed" to keep French at root (no /fr prefix) for SEO
   localePrefix: isDev ? "always" : "as-needed",
+
+  // Disable automatic locale detection from cookies/headers
+  // This ensures the URL is the source of truth for the locale
+  // Users switch languages explicitly via the language switcher
+  localeDetection: false,
 });
