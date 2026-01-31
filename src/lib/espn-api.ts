@@ -3,7 +3,7 @@
  * Uses ESPN's undocumented but publicly accessible API endpoints
  */
 
-import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 
 export interface ESPNPlayer {
   id: string;
@@ -46,16 +46,19 @@ export interface AFCONScorer {
 }
 
 /**
- * Fetch AFCON statistics from ESPN API
- * Wrapped with React cache() to deduplicate requests within same render
+ * Internal function to fetch AFCON statistics from ESPN API
+ * This is wrapped by unstable_cache for proper server-side caching
  */
-export const fetchAFCONStatistics = cache(async (): Promise<{
+async function _fetchAFCONStatisticsInternal(): Promise<{
   scorers: AFCONScorer[];
   assistLeaders: AFCONScorer[];
   lastUpdated: string;
-}> => {
+}> {
   try {
-    console.log('[ESPN API] Fetching AFCON statistics...');
+    // Only log in development to avoid log spam in production
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[ESPN API] Fetching AFCON statistics...');
+    }
 
     // Add timeout to prevent hanging
     const controller = new AbortController();
@@ -64,16 +67,14 @@ export const fetchAFCONStatistics = cache(async (): Promise<{
     const response = await fetch(
       'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/statistics',
       {
-        next: { revalidate: 300 }, // Cache for 5 minutes
         signal: controller.signal,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; AfriqueS ports/1.0)',
+          'User-Agent': 'Mozilla/5.0 (compatible; AfriqueSports/1.0)',
         },
       }
     );
 
     clearTimeout(timeoutId);
-    console.log('[ESPN API] Response status:', response.status);
 
     if (!response.ok) {
       throw new Error(`ESPN API error: ${response.status}`);
@@ -138,8 +139,7 @@ export const fetchAFCONStatistics = cache(async (): Promise<{
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('[ESPN API] ❌ Error fetching AFCON statistics:', errorMessage);
-    console.error('[ESPN API] Full error:', error);
+    console.error('[ESPN API] Error fetching AFCON statistics:', errorMessage);
 
     // Return empty data on error
     return {
@@ -148,19 +148,29 @@ export const fetchAFCONStatistics = cache(async (): Promise<{
       lastUpdated: new Date().toISOString(),
     };
   }
-});
+}
 
 /**
- * Fetch AFCON scoreboard for current matches
- * Wrapped with React cache() to deduplicate requests within same render
+ * Fetch AFCON statistics from ESPN API
+ * Cached for 5 minutes using Next.js unstable_cache for proper server-side caching
+ * This ensures the ESPN API is called at most once every 5 minutes, not on every request
  */
-export const fetchAFCONScoreboard = cache(async () => {
+export const fetchAFCONStatistics = unstable_cache(
+  _fetchAFCONStatisticsInternal,
+  ['espn-afcon-statistics'],
+  {
+    revalidate: 300, // Cache for 5 minutes
+    tags: ['espn', 'afcon-statistics'],
+  }
+);
+
+/**
+ * Internal function to fetch AFCON scoreboard
+ */
+async function _fetchAFCONScoreboardInternal() {
   try {
     const response = await fetch(
-      'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard',
-      {
-        next: { revalidate: 120 }, // Cache for 2 minutes during live matches (cost optimized)
-      }
+      'https://site.api.espn.com/apis/site/v2/sports/soccer/caf.nations/scoreboard'
     );
 
     if (!response.ok) {
@@ -173,7 +183,20 @@ export const fetchAFCONScoreboard = cache(async () => {
     console.error('[ESPN API] Error fetching AFCON scoreboard:', error);
     return null;
   }
-});
+}
+
+/**
+ * Fetch AFCON scoreboard for current matches
+ * Cached for 2 minutes using Next.js unstable_cache
+ */
+export const fetchAFCONScoreboard = unstable_cache(
+  _fetchAFCONScoreboardInternal,
+  ['espn-afcon-scoreboard'],
+  {
+    revalidate: 120, // Cache for 2 minutes during live matches
+    tags: ['espn', 'afcon-scoreboard'],
+  }
+);
 
 /**
  * Map country name to flag emoji
