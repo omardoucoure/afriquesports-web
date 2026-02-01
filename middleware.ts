@@ -15,6 +15,9 @@ const BYPASS_PATHS = [
   '/icon',
   '/video-sitemap',
   '/news-sitemap',
+  '/post-sitemap', // Added: catches post-sitemap1.xml, post-sitemap2.xml, etc.
+  '/page-sitemap',
+  '/category-sitemap',
   '/admin/',
   '/dashboard/',
   '/images/',
@@ -28,6 +31,8 @@ const BYPASS_PATHS = [
   '/wp-content',
   '/wp-includes',
   '/wp-json',
+  '/app-ads.txt',
+  '/ads.txt',
 ];
 
 // Create the next-intl middleware
@@ -42,7 +47,14 @@ export function middleware(request: NextRequest) {
   }
 
   // Skip files with extensions (including .php for WordPress)
-  if (pathname.includes('.') && /\.(jpg|jpeg|png|gif|svg|ico|webp|css|js|woff|woff2|ttf|eot|map|xml|txt|json|webmanifest|php)$/i.test(pathname)) {
+  // This catches all static files: images, fonts, sitemaps, configs, etc.
+  if (pathname.includes('.') && /\.(jpg|jpeg|png|gif|svg|ico|webp|css|js|woff|woff2|ttf|eot|map|xml|txt|json|webmanifest|php|pdf|zip)$/i.test(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Skip root-level sitemap files (post-sitemap1.xml, video-sitemap2.xml, etc.)
+  // These don't start with /sitemap but are sitemap files
+  if (/^\/(post|page|category|video|news|author|tag)-sitemap\d*\.xml$/i.test(pathname)) {
     return NextResponse.next();
   }
 

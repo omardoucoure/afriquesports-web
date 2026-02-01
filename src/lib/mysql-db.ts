@@ -178,12 +178,24 @@ export interface TrendingPost {
   total_count: number;
 }
 
+// Valid locales for the site
+const VALID_LOCALES = ['fr', 'en', 'es', 'ar'];
+
 // Internal function to fetch trending posts (not cached)
 async function _getTrendingPostsByRange(
   days: number = 7,
   limit: number = 10,
   locale: string = 'fr'
 ): Promise<TrendingPost[]> {
+  // Validate locale to prevent unnecessary database queries from invalid requests
+  // (e.g., sitemap files being processed as locales: post-sitemap2.xml, app-ads.txt)
+  if (!VALID_LOCALES.includes(locale)) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[MySQL] ⚠ Invalid locale "${locale}" - skipping trending posts fetch`);
+    }
+    return [];
+  }
+
   const db = getPool();
   if (!db) {
     console.log('[MySQL] ❌ No MySQL connection - check environment variables');
