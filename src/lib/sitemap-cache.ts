@@ -34,6 +34,45 @@ const POSTS_PER_PAGE = 100; // WordPress API limit
 // In-memory cache with TTL
 const memoryCache = new Map<string, { data: unknown; expires: number }>();
 
+// Maximum cache size to prevent unbounded memory growth
+const MAX_CACHE_ENTRIES = 100;
+
+/**
+ * Proactive cache cleanup - removes expired entries
+ * Runs every 10 minutes to prevent memory leaks
+ */
+function cleanupExpiredEntries(): void {
+  const now = Date.now();
+  let cleanedCount = 0;
+
+  for (const [key, value] of memoryCache.entries()) {
+    if (value.expires <= now) {
+      memoryCache.delete(key);
+      cleanedCount++;
+    }
+  }
+
+  // Also enforce max size limit (LRU-style: remove oldest entries)
+  if (memoryCache.size > MAX_CACHE_ENTRIES) {
+    const entriesToRemove = memoryCache.size - MAX_CACHE_ENTRIES;
+    const keys = Array.from(memoryCache.keys());
+    for (let i = 0; i < entriesToRemove; i++) {
+      memoryCache.delete(keys[i]);
+      cleanedCount++;
+    }
+  }
+
+  if (cleanedCount > 0) {
+    console.log(`[SitemapCache] Cleaned ${cleanedCount} entries, ${memoryCache.size} remaining`);
+  }
+}
+
+// Start cleanup interval (every 10 minutes)
+// This prevents memory leaks from entries that are never read again
+if (typeof setInterval !== 'undefined') {
+  setInterval(cleanupExpiredEntries, 10 * 60 * 1000);
+}
+
 function getFromCache<T>(key: string): T | null {
   const cached = memoryCache.get(key);
   if (cached && cached.expires > Date.now()) {
@@ -71,8 +110,8 @@ export async function getCachedPostCount(): Promise<number> {
     );
     const total = parseInt(response.headers.get("x-wp-total") || "45299", 10);
 
-    // Cache for 7 days (post count rarely changes significantly)
-    setInCache(cacheKey, total, 604800);
+    // Cache for 1 hour (reduced from 7 days to prevent memory bloat)
+    setInCache(cacheKey, total, 3600);
     return total;
   } catch (error) {
     console.error("Error fetching post count:", error);
@@ -98,8 +137,9 @@ export async function getCachedSitemapPosts(
   // Fetch from WordPress API
   const posts = await fetchSitemapPosts(page, perPage, locale);
 
-  // Cache for 7 days (posts don't change URLs often, aggressive caching to protect WordPress server)
-  setInCache(cacheKey, posts, 604800);
+  // Cache for 1 hour (reduced from 7 days to prevent memory bloat)
+  // CDN handles long-term caching, in-memory is just for request deduplication
+  setInCache(cacheKey, posts, 3600);
 
   return posts;
 }
@@ -241,8 +281,8 @@ export async function getCachedCategories(): Promise<Array<{ slug: string; modif
       modified: new Date().toISOString(),
     }));
 
-    // Cache for 24 hours (categories rarely change)
-    setInCache(cacheKey, result, 86400);
+    // Cache for 1 hour (reduced from 24 hours to prevent memory bloat)
+    setInCache(cacheKey, result, 3600);
 
     return result;
   } catch (error) {
