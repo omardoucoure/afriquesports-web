@@ -87,17 +87,21 @@ export function LanguageSwitcher() {
     const origin = window.location.origin;
     let newUrl: string;
 
+    // Add cache-busting parameter to force CDN to fetch fresh content
+    // This prevents Cloudflare from serving cached content from wrong locale
+    const cacheBuster = `_cb=${Date.now()}`;
+
     if (newLocale === defaultLocale) {
       // French - no prefix needed, use absolute URL
-      newUrl = `${origin}${currentPath}`;
+      newUrl = `${origin}${currentPath}?${cacheBuster}`;
     } else {
       // Other locales - add prefix
-      newUrl = `${origin}/${newLocale}${currentPath}`;
+      newUrl = `${origin}/${newLocale}${currentPath}?${cacheBuster}`;
     }
 
     console.log("[LanguageSwitcher] Navigating to:", newUrl);
 
-    // Force full page reload to bypass Next.js client-side routing
+    // Force full page reload to bypass Next.js client-side routing and CDN cache
     window.location.replace(newUrl);
   };
 
