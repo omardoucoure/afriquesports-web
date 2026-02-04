@@ -126,8 +126,8 @@ export default async function LocaleLayout({
           }}
         />
 
-        {/* Grow Journey Integration */}
-        <Script
+        {/* Grow Journey Integration - Commented out */}
+        {/* <Script
           id="grow-journey"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -144,7 +144,7 @@ export default async function LocaleLayout({
               })();
             `
           }}
-        />
+        /> */}
 
       </body>
     </html>
