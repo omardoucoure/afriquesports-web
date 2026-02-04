@@ -20,7 +20,7 @@
 
 'use client'
 
-import { useEffect, ReactNode } from 'react'
+import { useEffect, useLayoutEffect, ReactNode, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 interface ActiriseProviderProps {
@@ -99,50 +99,63 @@ export function ActiriseProvider({
   specialSection,
 }: ActiriseProviderProps) {
   const pathname = usePathname()
+  const lastPathRef = useRef<string>('')
+  const isInitialMount = useRef(true)
 
-  useEffect(() => {
+  // Use useLayoutEffect to run synchronously before paint
+  // This ensures variables are set before Actirise SDK processes the page
+  useLayoutEffect(() => {
+    // Skip if this is not a browser environment
+    if (typeof window === 'undefined') return
+
     // Initialize _hbdbrk if not already done
-    if (typeof window !== 'undefined') {
-      window._hbdbrk = window._hbdbrk || []
+    window._hbdbrk = window._hbdbrk || []
 
-      // Auto-detect page type if not provided
-      const detectedPageType = pageType || detectPageType(pathname)
-      const detectedCategory = category || extractCategory(pathname)
+    // Auto-detect page type if not provided
+    const detectedPageType = pageType || detectPageType(pathname)
+    const detectedCategory = category || extractCategory(pathname)
 
-      // Build custom variables object
-      const customVars: Record<string, any> = {
-        page_type: detectedPageType,
-      }
+    // Build custom variables object
+    const customVars: Record<string, any> = {
+      page_type: detectedPageType,
+    }
 
-      // Add custom1: Category slug
-      if (detectedCategory) {
-        customVars.custom1 = detectedCategory
-      }
+    // Add custom1: Category slug
+    if (detectedCategory) {
+      customVars.custom1 = detectedCategory
+    }
 
-      // Add custom2: Locale
-      customVars.custom2 = locale
+    // Add custom2: Locale
+    customVars.custom2 = locale
 
-      // Add custom3: Tags (comma-separated, max 3 tags)
-      if (tags && tags.length > 0) {
-        customVars.custom3 = tags.slice(0, 3).join(',')
-      }
+    // Add custom3: Tags (comma-separated, max 3 tags)
+    if (tags && tags.length > 0) {
+      customVars.custom3 = tags.slice(0, 3).join(',')
+    }
 
-      // Add custom4: Author name
-      if (author) {
-        customVars.custom4 = author
-      }
+    // Add custom4: Author name
+    if (author) {
+      customVars.custom4 = author
+    }
 
-      // Add custom5: Special section
-      if (specialSection) {
-        customVars.custom5 = specialSection
-      }
+    // Add custom5: Special section
+    if (specialSection) {
+      customVars.custom5 = specialSection
+    }
 
+    // Only push variables if pathname changed or initial mount
+    // This prevents duplicate pushes that cause ad flickering
+    if (lastPathRef.current !== pathname || isInitialMount.current) {
       // Push variables to Actirise SDK
       window._hbdbrk.push(['_vars', customVars])
 
+      // Update refs
+      lastPathRef.current = pathname
+      isInitialMount.current = false
+
       // Log in development
       if (process.env.NODE_ENV === 'development') {
-        console.log('[ActiriseProvider] Initialized', {
+        console.log('[ActiriseProvider] Variables pushed', {
           pathname,
           detectedPageType,
           detectedCategory,

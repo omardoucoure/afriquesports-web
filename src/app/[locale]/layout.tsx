@@ -97,10 +97,11 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <Clarity />
 
-        {/* Actirise SDK - afterInteractive per ActiRise recommendation (no lazy loading) */}
+        {/* Actirise SDK - beforeInteractive for fastest ad loading */}
+        {/* Init array first to ensure it exists before SDK loads */}
         <Script
           id="actirise-init"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: 'window._hbdbrk = window._hbdbrk || [];'
           }}
