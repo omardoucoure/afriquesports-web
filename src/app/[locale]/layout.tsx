@@ -68,10 +68,12 @@ export default async function LocaleLayout({
         {/* Note: Images are served from same domain (www.afriquesports.net) for SEO */}
         <link rel="preconnect" href="https://i0.wp.com" />
 
+        {/* Preconnect for Actirise ads - critical for revenue */}
+        <link rel="preconnect" href="https://www.flashb.id" />
+
         {/* DNS prefetch for non-critical third parties (less blocking than preconnect) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
-        <link rel="dns-prefetch" href="https://www.flashb.id" />
 
         {/* Organization Schema - appears on all pages */}
         <script
@@ -109,7 +111,7 @@ export default async function LocaleLayout({
         <Script
           id="actirise-sdk"
           src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
 
         {/* PostHog Analytics - afterInteractive for reliable event tracking */}
