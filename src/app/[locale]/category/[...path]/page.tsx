@@ -6,7 +6,7 @@ import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { CATEGORY_KEYWORDS, SEO_KEYWORDS } from "@/lib/seo";
@@ -354,9 +354,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
                   <SidebarMostRead locale={locale} />
                 </Suspense>
-
-                {/* Key players */}
-                <PlayersWidget />
               </div>
             </aside>
           </div>

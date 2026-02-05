@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton } from "@/components/sidebar";
 import { DataFetcher, getPostsByCategory, getPosts } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 import { getTranslations } from "next-intl/server";
@@ -213,7 +213,6 @@ export default async function MercatoPage({ params, searchParams }: MercatoPageP
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
                   <SidebarMostRead locale={locale} />
                 </Suspense>
-                <PlayersWidget />
               </div>
             </aside>
           </div>

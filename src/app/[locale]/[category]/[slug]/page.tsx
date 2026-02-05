@@ -9,7 +9,7 @@ import { ArticleFeaturedImage } from "@/components/articles/article-featured-ima
 import { ShareButtons } from "@/components/articles/share-buttons-dynamic";
 import { Breadcrumb } from "@/components/ui";
 import { generateBreadcrumbItems } from "@/components/ui/breadcrumb-utils";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton } from "@/components/sidebar";
 import { CommentSection } from "@/components/comments/comment-section-dynamic";
 import { VisitTracker, ArticleAnalyticsTracker } from "@/components/tracking";
 import { InArticleAd, SidebarAd } from "@/components/ads";
@@ -498,10 +498,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
                   <SidebarMostRead locale={locale} />
                 </Suspense>
-
-                <div className="mt-6">
-                  <PlayersWidget />
-                </div>
               </div>
             </aside>
           </div>

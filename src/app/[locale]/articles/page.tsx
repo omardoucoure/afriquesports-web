@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Header, Footer } from "@/components/layout";
 import { ArticleGrid, ArticleGridSkeleton } from "@/components/articles";
 import { Breadcrumb, Pagination } from "@/components/ui";
-import { MostReadWidget, MostReadWidgetSkeleton, PlayersWidget } from "@/components/sidebar";
+import { MostReadWidget, MostReadWidgetSkeleton } from "@/components/sidebar";
 import { DataFetcher } from "@/lib/data-fetcher";
 import { getTrendingPostsByRange } from "@/lib/mysql-db";
 
@@ -191,11 +191,6 @@ export default async function ArticlesPage({ params, searchParams }: ArticlesPag
                 <Suspense fallback={<MostReadWidgetSkeleton />}>
                   <SidebarMostRead locale={locale} />
                 </Suspense>
-
-                {/* Key players */}
-                <div className="mt-6">
-                  <PlayersWidget />
-                </div>
               </div>
             </aside>
           </div>
