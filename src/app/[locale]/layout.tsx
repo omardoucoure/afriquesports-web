@@ -81,6 +81,10 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
 
+        {/* Actirise SDK - Direct in head for fastest possible loading */}
+        <script dangerouslySetInnerHTML={{ __html: 'window._hbdbrk = window._hbdbrk || [];' }} />
+        <script src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js" async />
+
       </head>
       <body className={`${rubikClassName} antialiased min-h-screen`} style={{ fontFamily: "'Product Sans', var(--font-rubik), system-ui, sans-serif" }}>
         <AnalyticsProvider locale={locale}>
@@ -98,21 +102,6 @@ export default async function LocaleLayout({
         </AnalyticsProvider>
         <GoogleAnalytics />
         <Clarity />
-
-        {/* Actirise SDK - beforeInteractive for fastest ad loading */}
-        {/* Init array first to ensure it exists before SDK loads */}
-        <Script
-          id="actirise-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: 'window._hbdbrk = window._hbdbrk || [];'
-          }}
-        />
-        <Script
-          id="actirise-sdk"
-          src="https://www.flashb.id/universal/dd48961b-e435-5e07-9a1d-840e902ac82e.js"
-          strategy="beforeInteractive"
-        />
 
         {/* PostHog Analytics - afterInteractive for reliable event tracking */}
         <Script
