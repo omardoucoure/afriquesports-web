@@ -6,6 +6,28 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { generateMatchPath } from "@/lib/match-url";
 
+// Team logo with fallback to abbreviation when ESPN has no logo
+function TeamLogo({ src, alt, code, size = "md" }: { src?: string; alt?: string; code?: string; size?: "sm" | "md" }) {
+  const sizeClasses = size === "sm"
+    ? "w-10 h-8 text-xs"
+    : "w-12 h-10 text-sm";
+
+  if (src) {
+    return (
+      <div className={`relative ${sizeClasses} overflow-hidden rounded${size === "md" ? "-md" : ""} border-2 border-white/40 shadow-lg flex-shrink-0`}>
+        <Image src={src} alt={alt || ''} fill className="object-cover" sizes={size === "sm" ? "40px" : "48px"} />
+      </div>
+    );
+  }
+
+  // Fallback: show team code/abbreviation
+  return (
+    <div className={`${sizeClasses} overflow-hidden rounded${size === "md" ? "-md" : ""} border-2 border-white/40 shadow-lg flex-shrink-0 bg-white/20 backdrop-blur-sm flex items-center justify-center`}>
+      <span className="font-bold text-white">{code || alt?.charAt(0) || '?'}</span>
+    </div>
+  );
+}
+
 // Inline SVG icons
 const CalendarIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -245,15 +267,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               <div className="flex items-center justify-center gap-2 flex-1 min-w-0">
                 {/* Home Team */}
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="relative w-10 h-8 overflow-hidden rounded border-2 border-white/40 shadow-lg flex-shrink-0">
-                    <Image
-                      src={matchData.homeTeam?.flag || ''}
-                      alt={matchData.homeTeam?.name || ''}
-                      fill
-                      className="object-cover"
-                      sizes="40px"
-                    />
-                  </div>
+                  <TeamLogo src={matchData.homeTeam?.flag} alt={matchData.homeTeam?.name} code={matchData.homeTeam?.code} size="sm" />
                   <span className="text-sm font-bold text-white drop-shadow-lg truncate">
                     {getTeamDisplayName(matchData.homeTeam?.name || '', t)}
                   </span>
@@ -280,15 +294,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   <span className="text-sm font-bold text-white drop-shadow-lg truncate">
                     {getTeamDisplayName(matchData.awayTeam?.name || '', t)}
                   </span>
-                  <div className="relative w-10 h-8 overflow-hidden rounded border-2 border-white/40 shadow-lg flex-shrink-0">
-                    <Image
-                      src={matchData.awayTeam?.flag || ''}
-                      alt={matchData.awayTeam?.name || ''}
-                      fill
-                      className="object-cover"
-                      sizes="40px"
-                    />
-                  </div>
+                  <TeamLogo src={matchData.awayTeam?.flag} alt={matchData.awayTeam?.name} code={matchData.awayTeam?.code} size="sm" />
                 </div>
               </div>
             </div>
@@ -392,15 +398,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="flex items-center gap-6">
               {/* Home Team */}
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-10 overflow-hidden rounded-md border-2 border-white/40 shadow-lg">
-                  <Image
-                    src={matchData.homeTeam?.flag || ''}
-                    alt={matchData.homeTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
-                </div>
+                <TeamLogo src={matchData.homeTeam?.flag} alt={matchData.homeTeam?.name} code={matchData.homeTeam?.code} size="md" />
                 <span className="text-lg font-bold text-white drop-shadow-lg min-w-[120px]">
                   {getTeamDisplayName(matchData.homeTeam?.name || '', t)}
                 </span>
@@ -427,15 +425,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 <span className="text-lg font-bold text-white drop-shadow-lg min-w-[120px] text-right">
                   {getTeamDisplayName(matchData.awayTeam?.name || '', t)}
                 </span>
-                <div className="relative w-12 h-10 overflow-hidden rounded-md border-2 border-white/40 shadow-lg">
-                  <Image
-                    src={matchData.awayTeam?.flag || ''}
-                    alt={matchData.awayTeam?.name || ''}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
-                </div>
+                <TeamLogo src={matchData.awayTeam?.flag} alt={matchData.awayTeam?.name} code={matchData.awayTeam?.code} size="md" />
               </div>
             </div>
 
