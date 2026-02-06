@@ -54,8 +54,18 @@ interface NextMatchBarProps {
   className?: string;
 }
 
-// Map ESPN team names to translation keys
-const getTeamTranslationKey = (teamName: string): string => {
+// Map ESPN competition names to translation keys
+const getCompetitionTranslationKey = (competition: string): string => {
+  const mapping: Record<string, string> = {
+    'CAF Champions League': 'cafChampionsLeague',
+    'Africa Cup of Nations': 'cafNations',
+    'CAN 2025': 'cafNations',
+  };
+  return mapping[competition] || 'default';
+};
+
+// Map ESPN team names to translation keys (for national teams)
+const getTeamTranslationKey = (teamName: string): string | null => {
   const mapping: Record<string, string> = {
     'Morocco': 'morocco',
     'Mali': 'mali',
@@ -87,8 +97,18 @@ const getTeamTranslationKey = (teamName: string): string => {
     'Sudan': 'sudan',
     'Uganda': 'uganda',
   };
-  return mapping[teamName] || teamName.toLowerCase();
+  return mapping[teamName] || null;
 };
+
+// Get display name for a team - use translation for national teams, ESPN name for clubs
+function getTeamDisplayName(teamName: string, t: ReturnType<typeof useTranslations>): string {
+  const key = getTeamTranslationKey(teamName);
+  if (key) {
+    return t(`nextMatch.teams.${key}`);
+  }
+  // Club team - use ESPN display name directly
+  return teamName;
+}
 
 export function NextMatchBar({ className = "" }: NextMatchBarProps) {
   const t = useTranslations();
@@ -235,7 +255,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                     />
                   </div>
                   <span className="text-sm font-bold text-white drop-shadow-lg truncate">
-                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
+                    {getTeamDisplayName(matchData.homeTeam?.name || '', t)}
                   </span>
                 </div>
 
@@ -258,7 +278,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                 {/* Away Team */}
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="text-sm font-bold text-white drop-shadow-lg truncate">
-                    {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
+                    {getTeamDisplayName(matchData.awayTeam?.name || '', t)}
                   </span>
                   <div className="relative w-10 h-8 overflow-hidden rounded border-2 border-white/40 shadow-lg flex-shrink-0">
                     <Image
@@ -331,7 +351,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
             <div className="flex items-center gap-4 flex-shrink-0">
               <div className="flex flex-col gap-1">
                 <span className="text-sm font-bold text-white/80 uppercase tracking-wide">
-                  ⚽ {t("can2025.competition")}
+                  ⚽ {t(`nextMatch.competitionName.${getCompetitionTranslationKey(matchData.competition || '')}`)}
                 </span>
                 {/* Date/Time or Live Status */}
                 {matchData.isLive && matchData.statusDetail && (
@@ -382,7 +402,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
                   />
                 </div>
                 <span className="text-lg font-bold text-white drop-shadow-lg min-w-[120px]">
-                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.homeTeam?.name || '')}`)}
+                  {getTeamDisplayName(matchData.homeTeam?.name || '', t)}
                 </span>
               </div>
 
@@ -405,7 +425,7 @@ export function NextMatchBar({ className = "" }: NextMatchBarProps) {
               {/* Away Team */}
               <div className="flex items-center gap-3">
                 <span className="text-lg font-bold text-white drop-shadow-lg min-w-[120px] text-right">
-                  {t(`nextMatch.teams.${getTeamTranslationKey(matchData.awayTeam?.name || '')}`)}
+                  {getTeamDisplayName(matchData.awayTeam?.name || '', t)}
                 </span>
                 <div className="relative w-12 h-10 overflow-hidden rounded-md border-2 border-white/40 shadow-lg">
                   <Image

@@ -56,9 +56,9 @@ export function extractMatchIdFromSlug(slug: string): string {
  * Example: "/can-2025/match/senegal-vs-congo-dr-732152"
  * Note: Does NOT include locale prefix - next-intl Link handles that automatically
  */
-export function generateMatchPath(homeTeam: string, awayTeam: string, matchId: string | number, _locale?: string): string {
+export function generateMatchPath(homeTeam: string, awayTeam: string, matchId: string | number, _locale?: string, basePath: string = '/can-2025'): string {
   const slug = generateMatchSlug(homeTeam, awayTeam, matchId);
-  return `/can-2025/match/${slug}`;
+  return `${basePath}/match/${slug}`;
 }
 
 /**

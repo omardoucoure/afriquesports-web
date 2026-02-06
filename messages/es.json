@@ -312,6 +312,11 @@
   },
   "nextMatch": {
     "label": "Próximo partido",
+    "competitionName": {
+      "cafChampionsLeague": "Liga de Campeones de la CAF",
+      "cafNations": "Copa Africana de Naciones",
+      "default": "Fútbol africano"
+    },
     "liveNow": "EN VIVO",
     "watchLive": "Ver",
     "watchNow": "Ver ahora",

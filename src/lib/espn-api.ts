@@ -82,55 +82,60 @@ async function _fetchAFCONStatisticsInternal(): Promise<{
 
     const data = await response.json();
 
+    // ESPN API returns stats array (not categories)
+    // Each stat has: name ('goalsLeaders'/'assistsLeaders'), leaders[]
+    // Each leader has: value, athlete { displayName, team { displayName, abbreviation, logos }, statistics[] }
+    const statsArray = data.stats || data.categories || [];
+
     // Extract goals category
-    const goalsCategory = data.categories?.find(
-      (cat: ESPNCategory) => cat.name === 'goals'
+    const goalsCategory = statsArray.find(
+      (cat: any) => cat.name === 'goalsLeaders' || cat.name === 'goals'
     );
 
     // Extract assists category
-    const assistsCategory = data.categories?.find(
-      (cat: ESPNCategory) => cat.name === 'assists'
+    const assistsCategory = statsArray.find(
+      (cat: any) => cat.name === 'assistsLeaders' || cat.name === 'assists'
     );
 
-    // Parse scorers
-    const scorers: AFCONScorer[] = goalsCategory?.leaders?.map((player: ESPNPlayer, index: number) => {
-      const goals = player.statistics.find(s => s.name === 'goals')?.value || 0;
-      const assists = player.statistics.find(s => s.name === 'assists')?.value || 0;
-      const matches = player.statistics.find(s => s.name === 'appearances')?.value || 0;
-      const minutesPlayed = player.statistics.find(s => s.name === 'minutesPlayed')?.value;
+    // Parse a leader entry from ESPN format
+    const parseLeader = (leader: any, index: number): AFCONScorer => {
+      // ESPN nests player data inside athlete object
+      const athlete = leader.athlete || leader;
+      const team = athlete.team || leader.team || {};
+      const statistics = athlete.statistics || leader.statistics || [];
+
+      const goals = statistics.find((s: any) => s.name === 'totalGoals' || s.name === 'goals')?.value || leader.value || 0;
+      const assists = statistics.find((s: any) => s.name === 'goalAssists' || s.name === 'assists')?.value || 0;
+      const matches = statistics.find((s: any) => s.name === 'appearances')?.value || 0;
+      const minutesPlayed = statistics.find((s: any) => s.name === 'minutesPlayed')?.value;
+
+      // Country info: for national team tournaments, team IS the country
+      const country = team.displayName || athlete.flag?.alt || 'Unknown';
+      const teamLogo = team.logos?.[0]?.href || team.logo || '';
 
       return {
         rank: index + 1,
-        name: player.displayName,
-        country: player.flag?.alt || player.team?.displayName || 'Unknown',
-        countryCode: player.flag?.alt,
-        team: player.team?.displayName,
-        teamLogo: player.team?.logo,
+        name: athlete.displayName || leader.displayName || 'Unknown',
+        country,
+        countryCode: team.abbreviation || athlete.flag?.alt,
+        team: team.displayName,
+        teamLogo,
         goals,
         assists,
         matches,
         minutesPlayed,
       };
-    }) || [];
+    };
+
+    // Parse scorers
+    const scorers: AFCONScorer[] = (goalsCategory?.leaders || []).map(
+      (leader: any, index: number) => parseLeader(leader, index)
+    );
 
     // Parse assist leaders
-    const assistLeaders: AFCONScorer[] = assistsCategory?.leaders?.map((player: ESPNPlayer, index: number) => {
-      const goals = player.statistics.find(s => s.name === 'goals')?.value || 0;
-      const assists = player.statistics.find(s => s.name === 'assists')?.value || 0;
-      const matches = player.statistics.find(s => s.name === 'appearances')?.value || 0;
-
-      return {
-        rank: index + 1,
-        name: player.displayName,
-        country: player.flag?.alt || player.team?.displayName || 'Unknown',
-        countryCode: player.flag?.alt,
-        team: player.team?.displayName,
-        teamLogo: player.team?.logo,
-        goals,
-        assists,
-        matches,
-      };
-    }) || [];
+    const assistLeaders: AFCONScorer[] = (assistsCategory?.leaders || []).map(
+      (leader: any, index: number) => parseLeader(leader, index)
+    );
 
     return {
       scorers,

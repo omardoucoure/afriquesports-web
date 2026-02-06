@@ -313,6 +313,11 @@
   },
   "nextMatch": {
     "label": "المباراة القادمة",
+    "competitionName": {
+      "cafChampionsLeague": "دوري أبطال أفريقيا",
+      "cafNations": "كأس الأمم الأفريقية",
+      "default": "كرة القدم الأفريقية"
+    },
     "liveNow": "مباشر الآن",
     "watchLive": "شاهد المباراة",
     "watchNow": "شاهد الآن",
