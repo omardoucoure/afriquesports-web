@@ -70,6 +70,8 @@ export default async function LocaleLayout({
 
         {/* Preconnect for Actirise ads - critical for revenue */}
         <link rel="preconnect" href="https://www.flashb.id" />
+        {/* Preconnect for FAST_CMP */}
+        <link rel="preconnect" href="https://static.fastcmp.com" />
 
         {/* DNS prefetch for non-critical third parties (less blocking than preconnect) */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -80,6 +82,14 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+
+        {/* FAST_CMP - Consent Management Platform (must load BEFORE ad scripts) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.FAST_CMP_OPTIONS={domainUid:'56c99eb1-db10-5b6e-9f60-6965559e579b',countryCode:'SN',jurisdiction:'tcfeuv2',policyUrl:'https://www.afriquesports.net/en/confidentialite',displaySynchronous:false,publisherName:'afriquesports.net',publisherLogo:function(c){return c.createElement('img',{src:'https://www.afriquesports.net/_next/image?url=%2Flogo.jpg&w=256&q=75',height:'40'});},bootstrap:{excludedIABVendors:[],excludedGoogleVendors:[]},custom:{vendors:[]}};(function(){var e={484:function(e){window.FAST_CMP_T0=Date.now();window.FAST_CMP_QUEUE={};window.FAST_CMP_QUEUE_ID=0;function t(){var e=Array.prototype.slice.call(arguments);if(!e.length)return Object.values(window.FAST_CMP_QUEUE);else if(e[0]==="ping"){if(typeof e[2]==="function")e[2]({cmpLoaded:false,cmpStatus:"stub",apiVersion:"2.0",cmpId:parseInt("388",10)})}else window.FAST_CMP_QUEUE[window.FAST_CMP_QUEUE_ID++]=e}e.exports={name:"light",handler:t}}};var t={};function a(r){var n=t[r];if(n!==void 0)return n.exports;var o=t[r]={exports:{}};e[r](o,o.exports,a);return o.exports}function r(e){"@babel/helpers - typeof";return r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},r(e)}var n=a(484);var o="__tcfapiLocator";var i=window;var s=i;var f;function c(){var e=i.document;var t=!!i.frames[o];if(!t)if(e.body){var a=e.createElement("iframe");a.style.cssText="display:none";a.name=o;e.body.appendChild(a)}else setTimeout(c,5);return!t}function l(e){var t=typeof e.data==="string";var a={};if(t)try{a=JSON.parse(e.data)}catch(e){}else a=e.data;var n=r(a)==="object"?a.__tcfapiCall:null;if(n)window.__tcfapi(n.command,n.version,function(a,r){var o={__tcfapiReturn:{returnValue:a,success:r,callId:n.callId}};if(e&&e.source&&e.source.postMessage)e.source.postMessage(t?JSON.stringify(o):o,"*")},n.parameter)}while(s){try{if(s.frames[o]){f=s;break}}catch(e){}if(s===i.top)break;s=s.parent}if(i.FAST_CMP_HANDLER!=="custom"){if(!f){c();i.__tcfapi=n.handler;i.FAST_CMP_HANDLER=n.name;i.addEventListener("message",l,false)}else{i.__tcfapi=n.handler;i.FAST_CMP_HANDLER=n.name}for(var p in window.FAST_CMP_QUEUE||{})i.__tcfapi.apply(null,window.FAST_CMP_QUEUE[p])}})();`
+          }}
+        />
+        <script src="https://static.fastcmp.com/fast-cmp-stub.js" async />
 
         {/* Actirise SDK - Direct in head for fastest possible loading */}
         <script dangerouslySetInnerHTML={{ __html: 'window._hbdbrk = window._hbdbrk || [];' }} />
