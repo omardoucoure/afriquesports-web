@@ -310,7 +310,7 @@
   }
 
   .article-content h3 {
-    @apply text-lg sm:text-xl font-bold text-gray-900 mt-6 mb-3;
+    @apply text-base sm:text-lg font-semibold text-gray-900 mt-6 mb-3;
   }
 
   .article-content h4 {
